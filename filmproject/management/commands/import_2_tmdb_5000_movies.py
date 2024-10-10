@@ -37,8 +37,6 @@ class Command(BaseCommand):
                         'title': film_title,
                         'vote_average': float(row.get('vote_average', 0.0)),
                         'vote_count': int(row.get('vote_count', 0)),
-
-                        # The following attributes are not in the CSV
                         'backdrop_path': row.get('backdrop_path', ''),
                         'belongs_to_collection': row.get('belongs_to_collection', '').strip().lower() == 'true',
                         'imdb_id': row.get('imdb_id', ''),
@@ -46,9 +44,9 @@ class Command(BaseCommand):
                     }
 
                     film, created = Film.objects.get_or_create(
-                        tmdb_id = film_tmdb_id,
-                        defaults = film_defaults
-                        )
+                        tmdb_id=film_tmdb_id,
+                        defaults=film_defaults
+                    )
 
                     # Extract and process genres
                     genres_json = row['genres']
@@ -56,13 +54,11 @@ class Command(BaseCommand):
                     for genre_data in genres_list:
                         genre_tmdb_id = genre_data['id']
                         genre_name = genre_data['name']
-                        # Create or get the genre
-                        genre, created = Genre.objects.get_or_create(
-                            tmdb_id = genre_tmdb_id,
+                        genre, _ = Genre.objects.get_or_create(
+                            tmdb_id=genre_tmdb_id,
                             defaults={'genre': genre_name}
-                            )
-                        # Link the film and genre in LT_Films_Genres
-                        LT_Films_Genres.objects.get_or_create(film_id=film, genre_id=genre)
+                        )
+                        LT_Films_Genres.objects.get_or_create(film=film, genre=genre)
 
                     # Extract and process keywords
                     keywords_json = row['keywords']
@@ -70,16 +66,11 @@ class Command(BaseCommand):
                     for keyword_data in keywords_list:
                         keyword_tmdb_id = keyword_data['id']
                         keyword_name = keyword_data['name']
-                        # Create or get the keyword
-                        keyword, created = Keyword.objects.get_or_create(
+                        keyword, _ = Keyword.objects.get_or_create(
                             tmdb_id=keyword_tmdb_id,
                             defaults={'keyword': keyword_name}
-                            )
-                        # Link the film and keyword in LT_Films_keywords
-                        LT_Films_Keywords.objects.get_or_create(
-                            film_id = film,
-                            keyword_id = keyword
-                            )
+                        )
+                        LT_Films_Keywords.objects.get_or_create(film=film, keyword=keyword)
 
                     # Extract and process companies
                     companies_json = row['production_companies']
@@ -87,15 +78,11 @@ class Command(BaseCommand):
                     for company_data in companies_list:
                         company_name = company_data.get('name')
                         company_tmdb_id = company_data.get('id')
-                        # Create or get the company
-                        company, created = Company.objects.get_or_create(
-                            tmdb_id=company_tmdb_id, 
+                        company, _ = Company.objects.get_or_create(
+                            tmdb_id=company_tmdb_id,
                             defaults={'company': company_name}
                         )
-                        LT_Films_Companies.objects.get_or_create(
-                            film = film,
-                            company = company
-                            )
+                        LT_Films_Companies.objects.get_or_create(film=film, company=company)
 
                     # Extract and process countries
                     countries_json = row['production_countries']
@@ -103,14 +90,11 @@ class Command(BaseCommand):
                     for country_data in countries_list:
                         country_tmdb_id = country_data.get('iso_3166_1')
                         country_name = country_data.get('name')
-                        country, created = Country.objects.get_or_create(
-                            code=country_tmdb_id, 
+                        country, _ = Country.objects.get_or_create(
+                            code=country_tmdb_id,
                             defaults={'country': country_name}
                         )
-                        LT_Films_Countries.objects.get_or_create(
-                            film = film,
-                            country = country
-                            )
+                        LT_Films_Countries.objects.get_or_create(film=film, country=country)
 
                     # Extract and process languages
                     languages_json = row['spoken_languages']
@@ -118,14 +102,11 @@ class Command(BaseCommand):
                     for language_data in languages_list:
                         language_tmdb_id = language_data.get('iso_639_1')
                         language_name = language_data.get('name')
-                        language, created = Language.objects.get_or_create(
-                            code=language_tmdb_id, 
+                        language, _ = Language.objects.get_or_create(
+                            code=language_tmdb_id,
                             defaults={'language': language_name}
                         )
-                        LT_Films_Languages.objects.get_or_create(
-                            film = film,
-                            language = language
-                            )
+                        LT_Films_Languages.objects.get_or_create(film=film, language=language)
 
                     self.stdout.write(self.style.SUCCESS(f'Processed film: {film_title}'))
                 except Exception as e:
