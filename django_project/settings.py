@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
+from decouple import config
 
+TMDB_API_KEY=config('TMDB_API_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,7 +10,7 @@ SECRET_KEY = 'django-insecure-na_i!_poqmi%#b$a(2a75!4xx$v4hjjpss5nmty$0rtlrp3h^p
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['app-tditmans-5.devedu.io']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,6 +25,10 @@ INSTALLED_APPS = [
 AUTHENTICATION_BACKENDS = [
 'django.contrib.auth.backends.ModelBackend',
 ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://app-tditmans-5.devedu.io',
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
