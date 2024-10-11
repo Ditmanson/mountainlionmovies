@@ -13,8 +13,10 @@
       <nav class="navbar navbar-expand-sm bg-body-tertiary">
         <div class="container-fluid">
           <img height="100" src="{% static 'images/mlm2_logo.png' %}" />
+          {% comment %}TODO: FIX this isn't working right, it is unusable on a phone
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarNav">
+            {% endcomment %}
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
