@@ -6,6 +6,8 @@ class Collection(models.Model):
     name = models.CharField(max_length=200)
     poster_path = models.CharField(max_length=200)
     backdrop_path = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
 
 class Company(models.Model):
     tmdb_id = models.IntegerField(unique=True, null=True)
