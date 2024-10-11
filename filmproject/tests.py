@@ -35,6 +35,10 @@ class URLTests(TestCase):
     def test_popular_movies(self):
         response = self.client.get(reverse('popular_movies'))
         self.assertEqual(response.status_code, 200)
+
+    def test_search_movies(self):
+        response = self.client.get(reverse('search_movies'))
+        self.assertEqual(response.status_code, 200)
 # Model tests next
 class FilmModelTest(TestCase):
     def test_film_creation(self):
