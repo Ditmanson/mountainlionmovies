@@ -6,3 +6,6 @@ def index(request):
 
 def popular_movies(request):
     return render( request, 'filmproject/popular_movies.html')
+
+def popular_movies(request):
+    return render( request, 'filmproject/search_movies.html')
