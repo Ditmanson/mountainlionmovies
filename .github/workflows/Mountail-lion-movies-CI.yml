@@ -27,5 +27,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
+      env:
+        TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
       run: |
         python manage.py test
