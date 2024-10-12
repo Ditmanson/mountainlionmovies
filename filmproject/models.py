@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Collection(models.Model):
@@ -78,6 +79,7 @@ class Person(models.Model):
         return reverse('person-detail', args=[str(self.id)])
 
 class Viewer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200)
     email = models.CharField("Email", unique=True, max_length=200)
     def __str__(self):
