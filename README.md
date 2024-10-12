@@ -1,6 +1,6 @@
 # Mountian Lion Movie Application
 
-##Group 3
+## Group 3
 - Travis Dittmanson
 - Nathan Engler
 - Ashley Judson
