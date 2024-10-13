@@ -137,3 +137,8 @@ class LT_Viewer_Ratings(models.Model):
     number_times_selected = models.IntegerField()
     number_times_reviewed = models.IntegerField()
     user_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True)
+
+class LT_Viewer_Watchlist(models.Model):
+    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
+    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
+    watchlist = models.BooleanField()
