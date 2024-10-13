@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from decouple import config
 
-TMDB_API_KEY = config('TMDB_API_KEY')
+# TMDB_API_KEY = config('TMDB_API_KEY')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
