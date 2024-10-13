@@ -1,0 +1,49 @@
+{% extends 'filmproject/base_template.html' %}
+{% block content %}
+<h1>
+    Film List
+</h1>
+{% if page_obj %}
+<ul>
+    {% for film in page_obj %}
+    <li>
+        <a href="{{ film.get_absolute_url }}">
+            {{ film.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- Pagination controls -->
+<div class="pagination">
+    <span class="step-links">
+        <!-- Link to the first page and previous page -->
+        {% if page_obj.has_previous %}
+        <a href="?page=1">
+            &laquo; first
+        </a>
+        <a href="?page={{ page_obj.previous_page_number }}">
+            previous
+        </a>
+        {% endif %}
+        <!-- Current page indicator -->
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        <!-- Link to the next page and last page -->
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">
+            next
+        </a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">
+            last &raquo;
+        </a>
+        {% endif %}
+    </span>
+</div>
+{% else %}
+<p>
+    There are no films in the database.
+</p>
+{% endif %}
+{% endblock %}

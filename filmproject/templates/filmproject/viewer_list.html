@@ -1,0 +1,21 @@
+{% extends 'filmproject/base_template.html' %}
+{% block content %}
+<h1>
+    Viewer List
+</h1>
+{% if viewer_list %}
+<ul>
+    {% for viewer in viewer_list %}
+    <li>
+        <a href="{{ viewer.get_absolute_url }}">
+            {{ viewer.name }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>
+    There are no viewers registered.
+</p>
+{% endif %}
+{% endblock %}
