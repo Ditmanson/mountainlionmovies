@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 
@@ -78,8 +79,13 @@ class Person(models.Model):
         return reverse('person-detail', args=[str(self.id)])
 
 class Viewer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=200)
     email = models.CharField("Email", unique=True, max_length=200)
+    def has_seen_film(self, film):
+        return LT_Viewer_Seen.objects.filter(viewer=self, film=film, seen_film=True).exists()
+    def is_in_watchlist(self, film):
+        return LT_Viewer_Watchlist.objects.filter(viewer=self, film=film, watchlist=True).exists()    
     def __str__(self):
         return self.name
     def get_absolute_url(self):
@@ -126,11 +132,6 @@ class LT_Films_Languages(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
     language = models.ForeignKey(Language, on_delete=models.DO_NOTHING)
 
-class LT_Seen_Films(models.Model):
-    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
-    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
-    seen_film = models.BooleanField(default=False)
-
 class LT_Viewer_Ratings(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
@@ -138,7 +139,16 @@ class LT_Viewer_Ratings(models.Model):
     number_times_reviewed = models.IntegerField()
     user_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True)
 
+class LT_Viewer_Seen(models.Model):
+    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
+    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
+    seen_film = models.BooleanField(default=False)
+    class Meta:
+        indexes = [models.Index(fields=['viewer', 'film']),]
+
 class LT_Viewer_Watchlist(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
-    watchlist = models.BooleanField()
+    watchlist = models.BooleanField(default=False)
+    class Meta:
+        indexes = [models.Index(fields=['viewer', 'film']),]

@@ -1,49 +1,81 @@
 {% extends 'filmproject/base_template.html' %}
 {% block content %}
-<h1>
-    Film List
-</h1>
+<h1>Film List</h1>
+
 {% if page_obj %}
-<ul>
+<div class="list-group">
     {% for film in page_obj %}
-    <li>
-        <a href="{{ film.get_absolute_url }}">
-            {{ film.title }}
-        </a>
-    </li>
+    <div class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- Film title link -->
+            <a href="{{ film.get_absolute_url }}" class="flex-grow-1">
+                {{ film.title }}
+            </a>
+
+            <!-- Buttons for Seen and Watchlist actions -->
+            <div class="d-inline-flex">
+                <!-- Seen List Buttons -->
+                {% if film in seen_films %}
+                    <form method="POST" action="" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="film_id" value="{{ film.id }}">
+                        <input type="hidden" name="action" value="remove_from_seen">
+                        <input type="hidden" name="page" value="{{ page_obj.number }}">
+                        <button type="submit" class="btn btn-danger btn-sm me-2">Remove from Seen</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="film_id" value="{{ film.id }}">
+                        <input type="hidden" name="action" value="mark_as_seen">
+                        <input type="hidden" name="page" value="{{ page_obj.number }}">
+                        <button type="submit" class="btn btn-success btn-sm me-2">Mark as Seen</button>
+                    </form>
+                {% endif %}
+
+                <!-- Watchlist Buttons -->
+                {% if film in watchlist_films %}
+                    <form method="POST" action="" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="film_id" value="{{ film.id }}">
+                        <input type="hidden" name="action" value="remove_from_watchlist">
+                        <input type="hidden" name="page" value="{{ page_obj.number }}">
+                        <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="film_id" value="{{ film.id }}">
+                        <input type="hidden" name="action" value="add_to_watchlist">
+                        <input type="hidden" name="page" value="{{ page_obj.number }}">
+                        <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 <!-- Pagination controls -->
-<div class="pagination">
+<div class="pagination" style="margin-top: 20px;">
     <span class="step-links">
-        <!-- Link to the first page and previous page -->
         {% if page_obj.has_previous %}
-        <a href="?page=1">
-            &laquo; first
-        </a>
-        <a href="?page={{ page_obj.previous_page_number }}">
-            previous
-        </a>
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
-        <!-- Current page indicator -->
+
         <span class="current">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
-        <!-- Link to the next page and last page -->
+
         {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">
-            next
-        </a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">
-            last &raquo;
-        </a>
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
 </div>
 {% else %}
-<p>
-    There are no films in the database.
-</p>
+<p>There are no films in the database.</p>
 {% endif %}
 {% endblock %}

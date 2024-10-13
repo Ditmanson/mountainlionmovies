@@ -3,16 +3,40 @@
 <h1>
     Viewer: {{ viewer.name }}
 </h1>
-<p>
-    <strong>
-        Email:
-    </strong>
-    {{ viewer.email }}
-</p>
 
+<!-- Watchlist -->
 <p>
-    <strong>
-        Recommended Films:
-    </strong>
+    <strong>Watchlist:</strong>
 </p>
+{% if watchlist %}
+<ul>
+    {% for film in watchlist %}
+    <li>
+        <a href="{{ film.get_absolute_url }}">
+            {{ film.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>This viewer has no films in their watchlist.</p>
+{% endif %}
+
+<!-- Seen List -->
+<p>
+    <strong>Seen Films:</strong>
+</p>
+{% if seen_films %}
+<ul>
+    {% for film in seen_films %}
+    <li>
+        <a href="{{ film.get_absolute_url }}">
+            {{ film.title }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>This viewer has not marked any films as seen yet.</p>
+{% endif %}
 {% endblock %}
