@@ -86,3 +86,20 @@ body.dark-mode .nav-link.active {
     background-color: #000000; 
 }
 
+/* Styling for the dark mode toggle switch text */
+.form-check {
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    align-items: center; /* Center the switch and text */
+}
+
+.small-text {
+    font-size: 12px; /* Make the text smaller */
+    display: block; /* Ensure the text is displayed above the switch */
+    margin-bottom: 5px; /* Add a small margin to separate the text from the switch */
+    color: #000000; /* Default to black text for light mode */
+}
+
+body.dark-mode .small-text {
+    color: #ffffff; /* White text for dark mode */
+}
