@@ -22,6 +22,8 @@
 
             <!-- Dropdown Menu on the left under the icon -->
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            
+            <li><a class="dropdown-item" href="{% url 'index' %}">Home</a></li>
               <li><a class="dropdown-item" href="#">Movies</a></li>
               <li class="dropdown-item"><a class="nav-link" href="{% url 'film-list' %}">Films</a></li>
               <li class="dropdown-item"><a class="nav-link" href="{% url 'viewers' %}">Viewers</a></li>
@@ -46,7 +48,7 @@
           <!-- Website Title in the Center -->
           <div class="mx-auto">
             <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
-            <a class="navbar-brand text-center" href="{% url 'index' %}">Mountain Lion Movies</a>
+            <a class="navbar-brand text-center" style="color: #cfb87c; line-height: 100px;" href="{% url 'index' %}">Mountain Lion Movies</a>
           </div>
 
           <!-- Login Button on the Right -->

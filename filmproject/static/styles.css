@@ -36,15 +36,6 @@ h2 {
     color: white; /* Ensure the text is readable on the transparent background */
 }
 
-.nav-link {
-    color: #cfb87c;
-}
-
-.nav-link:hover {
-    color: #d1a330;
-}
-
-/* styles.css */
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
@@ -53,6 +44,24 @@ h2 {
 .btn-outline-primary {
     border-radius: 20px;
     padding: 0.5rem 1rem;
+}
+
+/* Styling the dropdown button */
+.navbar-toggler {
+    border: none;  /* Remove border around the button */
+}
+.dropdown-menu {
+    background-color: #333240;  /* Dark background for the dropdown */
+  }
+
+.dropdown-item {
+    color: #ffffff;  /* White text */
+    font-size: 25px; /* Larger font size */
+    width: 250px;
+}
+.dropdown-item:hover {
+    background-color: #333240;  /* Keep background dark */
+    color: #cfb87c;  /* Gold text on hover */
 }
 
 /* ------------------------------------ BUTTONS ------------------------------------ */
@@ -65,6 +74,14 @@ h2 {
     background-color: #cfb87c; /* #cfb87c background on hover */
     border-color: #cfb87c;
     color: BLACK; /* White text when hovered */
+}
+
+.btn-outline-primary:active, 
+.btn-outline-primary:focus {
+    background-color: #cfb87c !important;  /* Keep gold background */
+    border-color: #cfb87c !important;      /* Keep gold border */
+    color: black !important;               /* Keep black text */
+    box-shadow: none !important;           /* Remove the default blue shadow */
 }
 
 /* footer image -- ensure it always fits the size of the webpage */
