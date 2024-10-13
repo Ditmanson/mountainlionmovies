@@ -33,6 +33,18 @@ h2 {
 .nav-link:hover {
     color: white;
 }
+
+/* styles.css */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.btn-outline-primary {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+}
+
 /* footer image -- ensure it always fits the size of the webpage */
 img.img-responsive {
     width: 100%;  /* Makes the image fill the full width of its container */

@@ -10,9 +10,40 @@
   </head>
   <body>
     <div class="container-fluid">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+              <!-- Menu Icon -->
+            <div class="dropdown">
+                <button class="navbar-toggler" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Dropdown Menu on the left under the icon -->
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Movies</a></li>
+                    <li><a class="dropdown-item" href="#">About Us</a></li>
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="register.html">Register</a></li>
+                </ul>
+            </div>           
+              <!-- Website Title in the Center -->
+              <div class="mx-auto">
+                  <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
+                  <a class="navbar-brand text-center" href="{% url 'index' %}">Mountain Lion Movies</a>
+              </div>
+
+              <!-- Login Button on the Right -->
+              <div class="d-flex ms-auto">
+                  <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+              </div>
+          </div>
+      </nav>
+
+
+
       <nav class="navbar navbar-expand-sm bg-body-tertiary">
         <div class="container-fluid">
-          <img height="100" src="{% static 'images/mlm2_logo.png' %}" />
           {% comment %}TODO: FIX this isn't working right, it is unusable on a phone
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarNav">
@@ -45,5 +76,7 @@
 
       <img src="{% static 'images/footer.png' %}" class="img-responsive" alt="Footer Image">
     </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
