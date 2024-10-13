@@ -26,6 +26,35 @@
             </strong>
             {{ film.runtime|runtime_format }}
         </p>
+
+        <!-- Buttons to mark as seen or add to watchlist -->
+        <div style="margin-top: 20px;">
+            <!-- Seen List Buttons -->
+            {% if is_seen %}
+                <form method="POST" action="{% url 'remove_from_seen' film.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove from Seen</button>
+                </form>
+            {% else %}
+                <form method="POST" action="{% url 'mark_as_seen' film.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Mark as Seen</button>
+                </form>
+            {% endif %}
+
+            <!-- Watchlist Buttons -->
+            {% if is_in_watchlist %}
+                <form method="POST" action="{% url 'remove_from_watchlist' film.id %}" style="margin-top: 10px;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
+                </form>
+            {% else %}
+                <form method="POST" action="{% url 'add_to_watchlist' film.id %}" style="margin-top: 10px;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary">Add to Watchlist</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
     <div style="float: right; width: 65%;">
         {% if film.backdrop_path %}
@@ -83,7 +112,7 @@
             {% endif %}
         </p>
         <p>
-            <a href="{% url 'films' %}" class="btn btn-primary">Back to Film List</a>
+            <a href="{% url 'film-list' %}" class="btn btn-primary">Back to Film List</a>
         </p>
     </div>
 </div>
