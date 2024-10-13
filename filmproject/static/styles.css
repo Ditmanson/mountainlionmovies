@@ -68,6 +68,12 @@ body.dark-mode .nav-link.active {
     color: #000000; /* Current page color in dark mode */
 }
 
+/*remove arrow from dropdown*/
+.dropdown-toggle::after {
+    display: none; 
+}
+
+
 /* Dark mode toggle switch styling */
 .form-check-input {
     width: 40px;
@@ -103,3 +109,4 @@ body.dark-mode .nav-link.active {
 body.dark-mode .small-text {
     color: #ffffff; /* White text for dark mode */
 }
+
