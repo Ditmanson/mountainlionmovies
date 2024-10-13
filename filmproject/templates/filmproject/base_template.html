@@ -11,72 +11,69 @@
   <body>
     <div class="container-fluid">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-              <!-- Menu Icon -->
-            <div class="dropdown">
-                <button class="navbar-toggler" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Dropdown Menu on the left under the icon -->
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Movies</a></li>
-                    <li><a class="dropdown-item" href="#">About Us</a></li>
-                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                    <li><a class="dropdown-item" href="register.html">Register</a></li>
-                </ul>
-            </div>           
-              <!-- Website Title in the Center -->
-              <div class="mx-auto">
-                  <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
-                  <a class="navbar-brand text-center" href="{% url 'index' %}">Mountain Lion Movies</a>
-              </div>
-
-              <!-- Login Button on the Right -->
-              <div class="d-flex ms-auto">
-                  <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
-              </div>
-          </div>
-      </nav>
-
-
-
-      <nav class="navbar navbar-expand-sm bg-body-tertiary">
+      <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-          {% comment %}TODO: FIX this isn't working right, it is unusable on a phone
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            {% endcomment %}
-            <ul class="navbar-nav">
-              <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'film-list' %}">Films</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'viewers' %}">Viewers</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'search_movies' %}">Search API</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'popular_movies' %}">Popular API</a></li>
+          <!-- Menu Icon -->
+          <div class="dropdown">
+            <button class="navbar-toggler" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              {% comment %} <span class="navbar-toggler-icon"></span> {% endcomment %}
+              <img height="50" src="{% static 'images/menu-icon.jpeg' %}" />
+            </button>
+
+            <!-- Dropdown Menu on the left under the icon -->
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Movies</a></li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'film-list' %}">Films</a></li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'viewers' %}">Viewers</a></li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'search_movies' %}">Search</a></li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'popular_movies' %}">Popular</a></li>
+              <li><a class="dropdown-item" href="#">About Us</a></li>
               {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                <li class="nav-item"><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                 <li class="nav-item">
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
                     <button class="nav-link" type="submit">Logout</button>
-                    <!--<a class="nav-link" href="{% url 'logout' %}">Logout</a>-->
                   </form>
                 </li>
               {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
               {% endif %}
             </ul>
+          </div>           
+
+          <!-- Website Title in the Center -->
+          <div class="mx-auto">
+            <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
+            <a class="navbar-brand text-center" href="{% url 'index' %}">Mountain Lion Movies</a>
+          </div>
+
+          <!-- Login Button on the Right -->
+          <div class="d-flex ms-auto">
+              {% if user.is_authenticated %}
+                <li class="nav-item"><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                <li class="nav-item">
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="nav-link" type="submit">Logout</button>
+                  </form>
+                </li>
+              {% else %}
+                <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+              {% endif %}
           </div>
         </div>
       </nav>
+
       {% block content %}
+      <!-- ****************************** INDIVIDUAL PAGE CONTENT GOES HERE ****************************** -->
       {% endblock %}
 
       <img src="{% static 'images/footer.png' %}" class="img-responsive" alt="Footer Image">
     </div>
+
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

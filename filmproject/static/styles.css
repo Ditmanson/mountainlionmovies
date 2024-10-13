@@ -20,18 +20,28 @@ h1 {
 }
 
 h2 {
-    color: #F93D3B; /* Red color for headings */
+    color: #cfb87c; /* Red color for headings */
     font-family: 'Roboto', sans-serif;
     margin-bottom: 20px;
 }
 
 /* ------------------------------------ NAVIGATION BAR ------------------------------------ */
+/* Custom CSS to make the navbar transparent */
+.navbar {
+    background-color: transparent; /* Light transparent white */
+    backdrop-filter: blur(10px); /* Optional: Adds a blur effect to the background */
+}
+
+.navbar a.navbar-brand {
+    color: white; /* Ensure the text is readable on the transparent background */
+}
+
 .nav-link {
-    color: #F93D3B;
+    color: #cfb87c;
 }
 
 .nav-link:hover {
-    color: white;
+    color: #d1a330;
 }
 
 /* styles.css */
@@ -43,6 +53,18 @@ h2 {
 .btn-outline-primary {
     border-radius: 20px;
     padding: 0.5rem 1rem;
+}
+
+/* ------------------------------------ BUTTONS ------------------------------------ */
+.btn-outline-primary {
+    border-color: #cfb87c; /* #cfb87c border */
+    color: #cfb87c; /* #cfb87c text */
+}
+
+.btn-outline-primary:hover {
+    background-color: #cfb87c; /* #cfb87c background on hover */
+    border-color: #cfb87c;
+    color: BLACK; /* White text when hovered */
 }
 
 /* footer image -- ensure it always fits the size of the webpage */
