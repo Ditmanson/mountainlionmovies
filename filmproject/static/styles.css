@@ -1,0 +1,41 @@
+body {
+    background: linear-gradient(to bottom, #333240, black);
+    color: white; /* White text for readability */
+}
+
+.page-margin {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right:100px;
+}
+
+/* ------------------------------------ HEADERS ------------------------------------ */
+h1 {
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 80px;
+}
+
+h2 {
+    color: #F93D3B; /* Red color for headings */
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* ------------------------------------ NAVIGATION BAR ------------------------------------ */
+.nav-link {
+    color: #F93D3B;
+}
+
+.nav-link:hover {
+    color: white;
+}
+/* footer image -- ensure it always fits the size of the webpage */
+img.img-responsive {
+    width: 100%;  /* Makes the image fill the full width of its container */
+    height: 100%;
+    display: block; /* Removes the small gap below the image */
+}
