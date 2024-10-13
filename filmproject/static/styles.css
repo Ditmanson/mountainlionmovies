@@ -46,6 +46,8 @@ h2 {
 /* ------------------------------------ NAVIGATION BAR ------------------------------------ */
 .navbar {
     background-color: #cfb87cff; /* Same background color for both modes */
+    margin: 0; /* Removes any margin */
+    padding: 0; /* Adjust padding if needed */
 }
 
 .nav-link {

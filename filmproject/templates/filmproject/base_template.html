@@ -8,69 +8,75 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script src="{% static 'static.js' %}"></script>
+    <style>
+        .navbar {
+            margin: 0; /* Removes any margin */
+            padding: 0; /* Adjust padding if needed */
+        }
+    </style>
 </head>
 <body>
-    <div class="container-fluid">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <!-- Dropdown Menu Button with Image -->
-                <div class="dropdown me-2">
-                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none; padding: 0;">
-                        <img src="{% static 'images/menu-icon.jpeg' %}" alt="Menu" height="50">
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="{% url 'film-list' %}">Films</a></li>
-                        <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
-                        <li><a class="dropdown-item" href="{% url 'search_movies' %}">Search</a></li>
-                        <li><a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a></li>
-                        <li><a class="dropdown-item" href="#">About Us</a></li>
-                        {% if user.is_authenticated %}
-                            <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
-                            <li class="dropdown-item">
-                                <form method="post" action="{% url 'logout' %}">
-                                    {% csrf_token %}
-                                    <button class="nav-link" type="submit">Logout</button>
-                                </form>
-                            </li>
-                        {% else %}
-                            <li class="dropdown-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                            <li class="dropdown-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-
-                <!-- Website Title in the Center -->
-                <div class="mx-auto text-center">
-                    <a class="navbar-brand" href="{% url 'index' %}">
-                        <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
-                        Mountain Lion Movies
-                    </a>
-                </div>
-
-                <!-- Login Button and Dark Mode Toggle Switch on the Right -->
-                <div class="d-flex align-items-center">
-                    <div class="d-flex me-2">
-                        {% if user.is_authenticated %}
-                            <a href="{% url 'profile' %}" class="btn btn-outline-primary me-2">Profile</a>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+        <div class="container-fluid">
+            <!-- Dropdown Menu Button with Image -->
+            <div class="dropdown me-2">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none; padding: 0;">
+                    <img src="{% static 'images/menu-icon.jpeg' %}" alt="Menu" height="50">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{% url 'film-list' %}">Films</a></li>
+                    <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
+                    <li><a class="dropdown-item" href="{% url 'search_movies' %}">Search</a></li>
+                    <li><a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a></li>
+                    <li><a class="dropdown-item" href="#">About Us</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                        <li class="dropdown-item">
                             <form method="post" action="{% url 'logout' %}">
                                 {% csrf_token %}
-                                <button class="btn btn-outline-primary" type="submit">Logout</button>
+                                <button class="nav-link" type="submit">Logout</button>
                             </form>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
-                        {% endif %}
-                    </div>
+                        </li>
+                    {% else %}
+                        <li class="dropdown-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="dropdown-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
 
-                    <!-- Dark Mode Toggle Switch -->
-                    <div class="form-check form-switch">
-                        <label class="form-check-label small-text" for="darkModeSwitch">Dark Mode</label>
-                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
-                    </div>
+            <!-- Website Title in the Center -->
+            <div class="mx-auto text-center">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
+                    Mountain Lion Movies
+                </a>
+            </div>
+
+            <!-- Login Button and Dark Mode Toggle Switch on the Right -->
+            <div class="d-flex align-items-center">
+                <div class="d-flex me-2">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="btn btn-outline-primary me-2">Profile</a>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-primary" type="submit">Logout</button>
+                        </form>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+                    {% endif %}
+                </div>
+
+                <!-- Dark Mode Toggle Switch -->
+                <div class="form-check form-switch">
+                    <label class="form-check-label small-text" for="darkModeSwitch">Dark Mode</label>
+                    <input class="form-check-input" type="checkbox" id="darkModeSwitch">
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
+    <div class="container-fluid">
         {% block content %}
         <!-- ****************************** INDIVIDUAL PAGE CONTENT GOES HERE ****************************** -->
         {% endblock %}
