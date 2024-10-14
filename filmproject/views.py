@@ -9,7 +9,14 @@ from django.views import generic
 from django.views.generic import ListView
 from .forms import ViewerRegistrationForm
 from .models import Collection, Company, Country, Film, Genre, Keyword, Language, Person, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Ratings, LT_Viewer_Seen, LT_Viewer_Watchlist
-
+from django.db import IntegrityError
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
 
 class FilmDetailView(generic.DetailView):
     model = Film
@@ -77,17 +84,32 @@ class FilmListView(ListView):
 class ViewerDetailView(generic.DetailView):
     model = Viewer
     template_name = 'filmproject/viewer_detail.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        viewer = self.get_object()
+    
+        user = self.request.user
+        try:
+            # Try to access the viewer associated with the logged-in user
+            viewer = user.viewer
+        except Viewer.DoesNotExist:
+            # If no Viewer exists, create one for the user
+            viewer = Viewer.objects.create(user=user, name=user.username, email=user.email)
+    
         # Get the films in the viewer's watchlist
         watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
+    
         # Get the films the viewer has marked as seen
         seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
-        # Add the lists to the context
+    
+        # Add the lists and the viewer to the context
         context['watchlist'] = watchlist
         context['seen_films'] = seen_films
+        context['viewer'] = viewer
+    
         return context
+
+
 
 class ViewerListView(generic.ListView):
     model = Viewer
@@ -126,19 +148,67 @@ def popular_movies(request):
 
 @login_required
 def profile(request):
-    viewer = request.user.viewer  # Get the viewer associated with the logged-in user
+    user = request.user
+    try:
+        viewer = user.viewer  # Try to get the related Viewer object
+    except Viewer.DoesNotExist:
+        # Check if a Viewer with this email already exists
+        if Viewer.objects.filter(email=user.email).exists():
+            viewer = Viewer.objects.get(email=user.email)
+        else:
+            try:
+                # Create a new Viewer object if it doesn't exist and email is unique
+                viewer = Viewer.objects.create(user=user, name=user.username, email=user.email)
+            except IntegrityError:
+                # Handle IntegrityError in case there's still a conflict
+                return render(request, 'filmproject/profile_error.html', {'error': 'Email conflict, unable to create viewer.'})
+    
     return render(request, 'filmproject/profile.html', {'viewer': viewer})
+
 
 def register(request):
     if request.method == 'POST':
         form = ViewerRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Automatically log in the user after registration
-            return redirect('index')  # Redirect to the home page after registration
+            user = form.save(commit=False)
+            user.is_active = False  # Deactivate account until email verification
+            user.save()
+
+            # Create the Viewer object linked to the user
+            Viewer.objects.create(user=user, name=user.username, email=user.email)
+
+            # Send activation email
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your account.'
+            message = render_to_string('filmproject/account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            send_mail(mail_subject, message, 'your-email@example.com', [to_email])
+
+            return render(request, 'filmproject/registration_confirm.html')
     else:
         form = ViewerRegistrationForm()
+
     return render(request, 'filmproject/register.html', {'form': form})
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        return redirect('index')
+    else:
+        return render(request, 'filmproject/account_activation_invalid.html')
 
 @login_required
 def remove_from_seen(request, pk):
