@@ -1,4 +1,4 @@
-name: Mountail-lion-movies-CI
+name: Mountain-lion-movies-CI
 
 on:
   push:
@@ -24,6 +24,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-distutils
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
