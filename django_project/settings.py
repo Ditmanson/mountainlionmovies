@@ -118,3 +118,14 @@ os.path.join(BASE_DIR, 'filmproject/static')
 MEDIA_URL = '/images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST = 'smtp.example.com'  # Replace with your email provider's SMTP server
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
+#EMAIL_HOST_USER = 'your-email@example.com'
+#EMAIL_HOST_PASSWORD = 'your-email-password'
+
+# For development, use the console backend (prints email to the console)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

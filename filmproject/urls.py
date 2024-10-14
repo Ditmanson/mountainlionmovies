@@ -19,4 +19,5 @@ urlpatterns = [
     path('search_movies', search_movies, name='search_movies'),
     path('viewers/', ViewerListView.as_view(), name='viewers'),
     path('viewers/<int:pk>', ViewerDetailView.as_view(), name='viewer-detail'),
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'),
 ]

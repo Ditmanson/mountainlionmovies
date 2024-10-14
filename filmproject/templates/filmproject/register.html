@@ -1,11 +1,20 @@
 <!-- register.html -->
 {% extends "filmproject/base_template.html" %}
 {% block content %}
-<div class="page-margin">
+<div class = "page-margin">
   <h2>Register</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+    {% if form.errors %}
+      <ul>
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% endif %}
     <button type="submit">Register</button>
   </form>
 </div>
