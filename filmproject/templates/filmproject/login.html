@@ -1,12 +1,29 @@
 <!-- login.html -->
-{% extends "filmproject/base_template.html" %}[']=
+{% extends "filmproject/base_template.html" %}
+
 {% block content %}
-<div class="page-margin">
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
-</div>
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div>
+            <h1 class="mb-4 text-center">Welcome back</h1>
+            
+            <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border: 2px solid black; border-radius: 10px;">
+                {% csrf_token %}
+
+                <!-- Username field -->
+                <div class="form-group mb-3">
+                    <input type="text" name="username" class="form-control form-control-lg" id="username" placeholder="Enter your username">
+                </div>
+
+                <!-- Password field -->
+                <div class="form-group mb-3">
+                    <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Continue</button>
+            </form>
+
+            <p class="mt-4 text-center">Don't have an account? <a href="#">Sign Up</a></p>
+        </div>
+    </div>
 {% endblock %}
