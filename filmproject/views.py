@@ -24,14 +24,50 @@ class FilmDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         film = self.get_object()
+        # Check if the user is authenticated
         if self.request.user.is_authenticated:
             viewer = self.request.user.viewer
             context['is_seen'] = viewer.has_seen_film(film)
             context['is_in_watchlist'] = viewer.is_in_watchlist(film)
         else:
+            # If the user is not authenticated, set defaults for 'is_seen' and 'is_in_watchlist'
             context['is_seen'] = False
             context['is_in_watchlist'] = False
+        # Pass the film data for non-authenticated users to view the film details
+        context['film'] = film
         return context
+
+    def post(self, request, *args, **kwargs):
+        # If the user is not authenticated, redirect to login page with 'next' parameter
+        if not request.user.is_authenticated:
+            return redirect(f"{reverse_lazy('login')}?next={request.path}")
+        film = self.get_object()
+        viewer = request.user.viewer
+        action = request.POST.get('action')
+        # Handle the Mark as Seen / Remove from Seen actions
+        if action == 'mark_as_seen':
+            seen_entry, created = LT_Viewer_Seen.objects.get_or_create(viewer=viewer, film=film)
+            seen_entry.seen_film = True
+            seen_entry.save()
+        elif action == 'remove_from_seen':
+            seen_entry = LT_Viewer_Seen.objects.filter(viewer=viewer, film=film).first()
+            if seen_entry:
+                seen_entry.seen_film = False
+                seen_entry.save()
+        # Handle the Add to Watchlist / Remove from Watchlist actions
+        elif action == 'add_to_watchlist':
+            watchlist_entry, created = LT_Viewer_Watchlist.objects.get_or_create(viewer=viewer, film=film)
+            watchlist_entry.watchlist = True
+            watchlist_entry.save()
+        elif action == 'remove_from_watchlist':
+            watchlist_entry = LT_Viewer_Watchlist.objects.filter(viewer=viewer, film=film).first()
+            if watchlist_entry:
+                watchlist_entry.watchlist = False
+                watchlist_entry.save()
+
+        # Redirect back to the film detail page
+        return redirect('film-detail', pk=film.id)
+
 class FilmListView(ListView):
     model = Film
     template_name = 'film_list.html'
