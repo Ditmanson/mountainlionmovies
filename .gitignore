@@ -9,6 +9,7 @@ __pycache__/
 # virtual envirnments
 myenv/
 myvenv/
+venv/
 
 # Distribution / packaging
 .Python
@@ -54,6 +55,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+*.pyc
 
 # Translations
 *.mo
