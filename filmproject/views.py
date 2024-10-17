@@ -190,13 +190,14 @@ def register(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, 'your-email@example.com', [to_email])
+            send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
 
             return render(request, 'filmproject/registration_confirm.html')
     else:
         form = ViewerRegistrationForm()
 
     return render(request, 'filmproject/register.html', {'form': form})
+
 
 def activate(request, uidb64, token):
     try:
