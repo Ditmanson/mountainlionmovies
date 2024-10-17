@@ -32,8 +32,6 @@ class FilmDetailView(generic.DetailView):
             context['is_seen'] = False
             context['is_in_watchlist'] = False
         return context
-
-@method_decorator(login_required, name='dispatch')
 class FilmListView(ListView):
     model = Film
     template_name = 'film_list.html'
@@ -41,6 +39,9 @@ class FilmListView(ListView):
     paginate_by = 20
 
     def post(self, request, *args, **kwargs):
+        # If the user is not authenticated, they cannot perform post actions like marking as seen or adding to watchlist
+        if not request.user.is_authenticated:
+            return redirect(f"{reverse_lazy('login')}?next={request.path}")
         film_id = request.POST.get('film_id')
         action = request.POST.get('action')
         page_number = request.POST.get('page', 1)  # Default to page 1 if not provided
@@ -66,8 +67,10 @@ class FilmListView(ListView):
             if watchlist_entry:
                 watchlist_entry.watchlist = False
                 watchlist_entry.save()
+
         # Redirect back to the same page
         return redirect(f"{reverse_lazy('film-list')}?page={page_number}")
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
@@ -80,7 +83,7 @@ class FilmListView(ListView):
             context['seen_films'] = []
             context['watchlist_films'] = []
         return context
-
+    
 class ViewerDetailView(generic.DetailView):
     model = Viewer
     template_name = 'filmproject/viewer_detail.html'
