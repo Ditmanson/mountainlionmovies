@@ -29,5 +29,7 @@ jobs:
     - name: Run Tests
       env:
         TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        GOOGLE_MAIL_ADDRESS: ${{secrets.GOOGLE_MAIL_ADDRESS}}
+        GOOGLE_MAIL_PASSWORD: ${{secrets.GOOGLE_MAIL_PASSWORD}}
       run: |
         python manage.py test
