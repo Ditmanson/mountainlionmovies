@@ -5,8 +5,8 @@ from django.urls import reverse
 class Collection(models.Model):
     tmdb_id = models.IntegerField()
     name = models.CharField(max_length=200)
-    poster_path = models.CharField(max_length=200)
-    backdrop_path = models.CharField(max_length=200)
+    poster_path = models.CharField(max_length=200, blank=True, null=True)
+    backdrop_path = models.CharField(max_length=200, blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -24,20 +24,20 @@ class Country(models.Model):
 
 class Film(models.Model):
     adult = models.BooleanField(null=True, blank=True)
-    backdrop_path = models.CharField(max_length=200)
-    belongs_to_collection = models.BooleanField()
+    backdrop_path = models.CharField(max_length=200, blank=True, null=True)
+    belongs_to_collection = models.BooleanField(default=False)
     budget = models.IntegerField()
-    homepage = models.CharField(max_length=200)
-    imdb_id = models.CharField(max_length=20)
+    homepage = models.CharField(max_length=200, blank=True, null=True)
+    imdb_id = models.CharField(max_length=20, blank=True, null=True)
     original_title = models.CharField(max_length=200)
-    overview = models.CharField(max_length=2000)
+    overview = models.CharField(max_length=2000, blank=True, null=True)
     popularity = models.DecimalField(decimal_places=6, max_digits=20)
-    poster_path = models.CharField(max_length=200)
+    poster_path = models.CharField(max_length=200, blank=True, null=True)
     release_date = models.DateField(null=True, blank=True)
     revenue = models.BigIntegerField()
     runtime = models.IntegerField()
-    status = models.CharField(max_length=200)
-    tagline = models.CharField(max_length=500)
+    status = models.CharField(max_length=200, blank=True, null=True)
+    tagline = models.CharField(max_length=500, blank=True, null=True)
     title = models.CharField(max_length=200)
     tmdb_id = models.IntegerField(unique=True, null=True)
     vote_average = models.DecimalField(decimal_places=1, max_digits=5)

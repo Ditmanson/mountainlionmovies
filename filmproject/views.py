@@ -126,29 +126,22 @@ class ViewerDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-    
-        user = self.request.user
-        try:
-            # Try to access the viewer associated with the logged-in user
-            viewer = user.viewer
-        except Viewer.DoesNotExist:
-            # If no Viewer exists, create one for the user
-            viewer = Viewer.objects.create(user=user, name=user.username, email=user.email)
-    
-        # Get the films in the viewer's watchlist
+
+        # Fetch the viewer using the 'pk' from the URL instead of the logged-in user
+        viewer = self.get_object()
+
+        # Get the films in this viewer's watchlist
         watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
-    
-        # Get the films the viewer has marked as seen
+
+        # Get the films this viewer has marked as seen
         seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
-    
-        # Add the lists and the viewer to the context
+
+        # Add the fetched viewer and the lists to the context
+        context['viewer'] = viewer
         context['watchlist'] = watchlist
         context['seen_films'] = seen_films
-        context['viewer'] = viewer
-    
+
         return context
-
-
 
 class ViewerListView(generic.ListView):
     model = Viewer
