@@ -197,17 +197,38 @@ class Migration(migrations.Migration):
             name='LT_Viewer_Seen',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('seen_film', models.BooleanField(default=False)),
-                ('viewer_rating', models.DecimalField(decimal_places=8, max_digits=9, null=True)),
+                ('number_times_selected', models.IntegerField()),
+                ('number_times_reviewed', models.IntegerField()),
+                ('user_rating', models.DecimalField(decimal_places=8, max_digits=9, null=True)),
                 ('film', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.film')),
                 ('viewer', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.viewer')),
             ],
-            options={
-                'indexes': [models.Index(fields=['viewer', 'film'], name='filmproject_viewer__2f3ddb_idx')],
-            },
         ),
         migrations.CreateModel(
             name='LT_Viewer_Ratings',
+            name='LT_Films_Genres',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('film', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.film')),
+                ('genre', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.genre')),
+            ],
+            options={
+                'unique_together': {('film', 'genre')},
+            },
+        ),
+        migrations.CreateModel(
+            name='LT_Films_Keywords',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('film', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.film')),
+                ('keyword', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.keyword')),
+            ],
+            options={
+                'unique_together': {('film', 'keyword')},
+            },
+        ),
+        migrations.CreateModel(
+            name='LT_Viewer_Watchlist',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateField(default=datetime.date.today)),
