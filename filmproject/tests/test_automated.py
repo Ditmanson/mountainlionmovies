@@ -2,6 +2,8 @@ import re
 from playwright.sync_api import Page, expect
 import pytest
 from filmproject.models import User
+from django.core.management import call_command
+from django.contrib.auth.hashers import make_password
 
 # If you wan tto see the tests make sure you run pytest --headed
 def test_not_logged_in(page: Page):
@@ -51,23 +53,41 @@ def test_not_logged_in(page: Page):
     page.get_by_role("link", name="About Us").click()
     ## TODO: Add more tests here when the about us page is updated
 
+# # Fixture to set up test data
+# @pytest.fixture(scope="module")
+# def create_test_user():
+#     # Create a user with a hashed password
+#     user = User(
+#         username="bobby",
+#         password=make_password("password1234!@#$"),
+#         email="bobby@hotmail.com",
+#         is_staff=True,
+#         is_active=True,
+#         is_superuser=True
+#     )
+#     user.save()
+#     yield  # This allows the test to run while the user is set up
+#     user.delete()  # Clean up after the tests
 
-# class TestLoggedInFeatures:
-
-#     @pytest.fixture
-#     def setup_method(self):
-#         # Setup code: create a test user
-#         user = User.objects.create_user(username='yodaddy', password='123')
-#         yield user  # Yield the user object for the tests
-#         # Teardown code: delete the user after tests
-#         user.delete()
-
-#     def test_user_login(self, page):
-#         # Use the setup_method fixture
-#         page.goto("http://localhost:8000/login/")
-#         page.fill('input[name="username"]', 'yodaddy')
-#         page.fill('input[name="password"]', '123')
-#         page.wait_for_timeout(1000)
-#         page.get_by_role("button", name="Continue").click()
-#         page.wait_for_timeout(5000)
-
+def test_user_login(page: Page):
+    page.goto("http://localhost:8000")
+    page.get_by_role("button", name="Menu").click()
+    page.get_by_label("", exact=True).get_by_role("link", name="Login").click()
+    page.fill('input[name="username"]', 'bob')
+    page.fill('input[name="password"]', 'password1234!@#$')
+    # page.wait_for_timeout(2000)
+    page.get_by_role("button", name="Continue").click()
+    # page.wait_for_timeout(2000)
+    expect(page).to_have_url(re.compile(r"http://localhost:8000/accounts/profile"))
+    page.get_by_role("button", name="Menu").click()
+    page.get_by_role("link", name="Films").click()
+    # page.wait_for_timeout(2000)
+    page.locator(".d-inline > .btn").first.click()
+    page.locator("div:nth-child(2) > .d-flex > .d-inline-flex > form:nth-child(2) > .btn").click()
+    # page.wait_for_timeout(2000)
+    page.get_by_role("button", name="Menu").click()
+    page.get_by_role("link", name="Viewers").click()
+    page.get_by_role("link", name="bobby").click()
+    expect(page).to_have_url(re.compile(r"http://localhost:8000/viewers/.*"))
+    # TODO we need to add class names or something so i can get a generic locator
+    # expect(page).to_have_text("Scream")

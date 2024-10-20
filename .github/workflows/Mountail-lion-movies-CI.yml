@@ -52,9 +52,9 @@ jobs:
         run: |
           nohup python manage.py runserver 0.0.0.0:8000 &
           sleep 3
-
+     
       - name: Run Tests
-        run: pytest --tracing=retain-on-failure
+        run: pytest --tracing on
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
