@@ -138,8 +138,6 @@ class ViewerDetailView(generic.DetailView):
         viewer = self.get_object()
         return redirect('profile_viewer', viewer_id=viewer.id)
 
-
-
 class ViewerListView(generic.ListView):
     model = Viewer
 
