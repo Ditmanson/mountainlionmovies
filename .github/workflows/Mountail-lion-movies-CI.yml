@@ -17,19 +17,44 @@ jobs:
         python-version: 
           - 3.12
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Run Tests
-      env:
-        TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
-        GOOGLE_MAIL_ADDRESS: ${{secrets.GOOGLE_MAIL_ADDRESS}}
-        GOOGLE_MAIL_PASSWORD: ${{secrets.GOOGLE_MAIL_PASSWORD}}
-      run: |
-        python manage.py test
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set global environment variables
+        run: |
+          echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" >> $GITHUB_ENV
+          echo "GOOGLE_MAIL_ADDRESS=${{ secrets.GOOGLE_MAIL_ADDRESS }}" >> $GITHUB_ENV
+          echo "GOOGLE_MAIL_PASSWORD=${{ secrets.GOOGLE_MAIL_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps
+
+      - name: Check TMDB API Key
+        run: echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}"
+
+      - name: Run database migrations
+        run: |
+          python manage.py makemigrations
+          python manage.py migrate
+
+      - name: Start server
+        run: |
+          nohup python manage.py runserver 0.0.0.0:8000 &
+          sleep 3
+
+      - name: Run Tests
+        run: pytest --tracing=retain-on-failure
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-traces
+          path: test-results/
+      
