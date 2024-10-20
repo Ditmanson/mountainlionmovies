@@ -4,6 +4,7 @@ charset-normalizer==3.4.0
 coverage==7.6.2
 Django==5.1.2
 idna==3.10
+pillow==11.0.0
 python-decouple==3.8
 requests==2.32.3
 six==1.16.0

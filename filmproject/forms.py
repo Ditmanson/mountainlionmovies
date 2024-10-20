@@ -18,3 +18,9 @@ class ViewerRegistrationForm(UserCreationForm):
             # Create the Viewer instance associated with the User
             Viewer.objects.create(user=user, name=user.username, email=user.email)
         return user
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Viewer
+        fields = ['name', 'email', 'profile_picture']

@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views import generic
 from django.views.generic import ListView
 from .forms import ViewerRegistrationForm
-from .models import Collection, Company, Country, Film, Genre, Keyword, Language, Person, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Ratings, LT_Viewer_Seen, LT_Viewer_Watchlist
+from .models import Collection, Company, Country, Film, Genre, Keyword, Language, Person, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Ratings, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest
 from django.db import IntegrityError
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -17,6 +17,8 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
+from django.contrib import messages
+from django.http import JsonResponse
 
 class FilmDetailView(generic.DetailView):
     model = Film
@@ -122,36 +124,20 @@ class FilmListView(ListView):
     
 class ViewerDetailView(generic.DetailView):
     model = Viewer
-    template_name = 'filmproject/viewer_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-    
-        user = self.request.user
-        try:
-            # Try to access the viewer associated with the logged-in user
-            viewer = user.viewer
-        except Viewer.DoesNotExist:
-            # If no Viewer exists, create one for the user
-            viewer = Viewer.objects.create(user=user, name=user.username, email=user.email)
-    
-        # Get the films in the viewer's watchlist
-        watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
-    
-        # Get the films the viewer has marked as seen
-        seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
-    
-        # Add the lists and the viewer to the context
-        context['watchlist'] = watchlist
-        context['seen_films'] = seen_films
-        context['viewer'] = viewer
-    
-        return context
+    def get(self, request, *args, **kwargs):
+        viewer = self.get_object()
+        return redirect('profile_viewer', viewer_id=viewer.id)
 
 
 
 class ViewerListView(generic.ListView):
     model = Viewer
+
+   
+
+
+
 
 @login_required
 def add_to_watchlist(request, pk):  # Assuming pk is passed in the URL
@@ -185,24 +171,53 @@ def mark_as_seen(request, pk):  # Changed film_id to pk
 def popular_movies(request):
     return render( request, 'filmproject/popular_movies.html')
 
+
 @login_required
-def profile(request):
+def profile(request, viewer_id=None):
     user = request.user
     try:
-        viewer = user.viewer  # Try to get the related Viewer object
+        # Get the viewer based on the ID passed or the current user
+        if viewer_id:
+            viewer = get_object_or_404(Viewer, id=viewer_id)
+        else:
+            viewer = user.viewer
     except Viewer.DoesNotExist:
-        # Check if a Viewer with this email already exists
+        # Handle the case where the viewer doesn't exist yet
         if Viewer.objects.filter(email=user.email).exists():
             viewer = Viewer.objects.get(email=user.email)
         else:
             try:
-                # Create a new Viewer object if it doesn't exist and email is unique
                 viewer = Viewer.objects.create(user=user, name=user.username, email=user.email)
             except IntegrityError:
-                # Handle IntegrityError in case there's still a conflict
                 return render(request, 'filmproject/profile_error.html', {'error': 'Email conflict, unable to create viewer.'})
-    
-    return render(request, 'filmproject/profile.html', {'viewer': viewer})
+
+    # Friend request logic
+    friend_request = None
+    received_friend_request = None
+    if request.user.viewer != viewer:
+        # Outgoing friend request
+        friend_request = FriendRequest.objects.filter(sender=request.user.viewer, receiver=viewer).first()
+        # Incoming friend request
+        received_friend_request = FriendRequest.objects.filter(sender=viewer, receiver=request.user.viewer, status='pending').first()
+
+    # Get the user's watchlist and seen films
+    watchlist = LT_Viewer_Watchlist.objects.filter(viewer=viewer, watchlist=True)
+    seen_films = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True)
+
+    # Notification bell logic: Count the number of pending friend requests for this user
+    num_pending_requests = FriendRequest.objects.filter(receiver=user.viewer, status='pending').count()
+
+    # Context for the template
+    context = {
+        'viewer': viewer,
+        'friend_request': friend_request,  # Outgoing friend request
+        'received_friend_request': received_friend_request,  # Incoming friend request
+        'watchlist': watchlist,
+        'seen_films': seen_films,
+        'num_pending_requests': num_pending_requests,  # For the notification bell
+    }
+
+    return render(request, 'filmproject/profile.html', context)
 
 
 def register(request):
@@ -278,3 +293,92 @@ def search_movies(request):
 def viewer_list(request):
     viewers = Viewer.objects.all()
     return render(request, 'filmproject/viewer_list.html', {'viewer_list': viewers})
+
+
+@login_required
+def send_friend_request(request, viewer_id):
+    """Send a friend request to another viewer."""
+    receiver = get_object_or_404(Viewer, id=viewer_id)
+    
+    # Check if a pending friend request already exists
+    if FriendRequest.objects.filter(sender=request.user.viewer, receiver=receiver, status='pending').exists():
+        messages.info(request, 'Friend request already sent.')
+    else:
+        # Create a new friend request
+        FriendRequest.objects.create(sender=request.user.viewer, receiver=receiver)
+        messages.success(request, f'Friend request sent to {receiver.name}.')
+    
+    return redirect('profile', viewer_id=receiver.id)
+
+
+
+@login_required
+def accept_friend_request(request, request_id):
+    """Accept a friend request."""
+    friend_request = get_object_or_404(FriendRequest, id=request_id, receiver=request.user.viewer)
+    
+    if friend_request.status == 'pending':
+        friend_request.accept()  # Custom method to handle acceptance
+        messages.success(request, f'You are now friends with {friend_request.sender.name}.')
+        
+        # Redirect to the sender's profile after accepting the friend request
+        return redirect('profile_viewer', viewer_id=friend_request.sender.id)
+    
+    messages.error(request, 'Invalid request.')
+    return redirect('profile', viewer_id=request.user.viewer.id)  # Redirect to the current user's profile
+
+
+
+@login_required
+def reject_friend_request(request, request_id):
+    """Reject a friend request."""
+    friend_request = get_object_or_404(FriendRequest, id=request_id, receiver=request.user.viewer)
+    
+    # Ensure the request is pending before rejecting
+    if friend_request.status == 'pending':
+        friend_request.reject()  # Custom method to handle rejection
+        messages.success(request, f'Friend request from {friend_request.sender.name} rejected.')
+        return redirect('profile', viewer_id=friend_request.sender.id)
+    
+    messages.error(request, 'Invalid request.')
+    return redirect('profile', viewer_id=request.user.viewer.id)
+
+
+@login_required
+def remove_friend(request, viewer_id):
+    """Remove a friend from the user's friend list."""
+    viewer_to_remove = get_object_or_404(Viewer, id=viewer_id)
+    viewer = request.user.viewer  # Get the current user's viewer object
+    
+    # Remove the friend connection bidirectionally
+    viewer.friends.remove(viewer_to_remove)
+    viewer_to_remove.friends.remove(viewer)
+    
+    messages.success(request, f'{viewer_to_remove.name} has been removed from your friend list.')
+    
+    return redirect('profile', viewer_id=request.user.viewer.id)  # Redirect back to the user's profile
+
+
+@login_required
+def manage_friend_requests(request):
+    """Display the user's friend requests (both sent and received)."""
+    user_viewer = request.user.viewer
+    
+    # Retrieve received and sent friend requests
+    received_friend_requests = FriendRequest.objects.filter(receiver=user_viewer, status='pending')
+    sent_friend_requests = FriendRequest.objects.filter(sender=user_viewer)
+
+    context = {
+        'received_friend_requests': received_friend_requests,
+        'sent_friend_requests': sent_friend_requests,
+    }
+    
+    return render(request, 'filmproject/friend_requests.html', context)
+
+
+def base_context_processor(request):
+    if request.user.is_authenticated:
+        num_pending_requests = FriendRequest.objects.filter(receiver=request.user.viewer, status='pending').count()
+    else:
+        num_pending_requests = 0
+    return {'num_pending_requests': num_pending_requests}

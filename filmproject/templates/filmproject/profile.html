@@ -1,19 +1,86 @@
-<!-- profile.html -->
 {% extends "filmproject/base_template.html" %}
+{% load static %}
 
 {% block content %}
-<h2>
-    Welcome, {{ user.username }}!
-</h2>
-<p>
-    This is your profile page.
-</p>
-<p>
-    <strong>Name:</strong>
-    {{ viewer.name }}
-</p>
-<p>
-    <strong>Email:</strong>
-    {{ viewer.email }}
-</p>
+
+<h1>{{ viewer.name }}'s Profile</h1>
+
+<!-- Profile Picture Section -->
+{% if viewer.profile_picture %}
+    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+{% else %}
+    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture">
+{% endif %}
+
+<!-- Show Friend Requests Only on the User's Own Profile -->
+{% if user.viewer == viewer %}
+    <!-- Friend Request Section (Only visible on the user's own profile) -->
+    {% if received_friend_request %}
+    <div class="friend-request-container">
+        <h3>Friend Request</h3>
+        <p>You have a friend request from {{ received_friend_request.sender.name }}:</p>
+        <a href="{% url 'accept_friend_request' received_friend_request.id %}" class="btn btn-success">Accept</a>
+        <a href="{% url 'reject_friend_request' received_friend_request.id %}" class="btn btn-danger">Reject</a>
+    </div>
+    {% endif %}
+{% endif %}
+
+<!-- Show Add Friend/Remove Friend When Viewing Other Profiles -->
+{% if user.viewer != viewer %}
+    <!-- Friend Request Section -->
+    {% if friend_request %}
+        {% if friend_request.status == 'pending' %}
+            <p>Friend request pending.</p>
+        {% elif friend_request.status == 'accepted' %}
+            <p>You are friends!</p>
+            <a href="{% url 'remove_friend' viewer.id %}" class="btn btn-danger">Remove Friend</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary">Add Friend</a>
+    {% endif %}
+{% endif %}
+
+<!-- Friends List Section -->
+<h2>Friends:</h2>
+<ul>
+  {% for friend in viewer.friends.all %}
+    <li>
+      <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a> 
+      - <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger">Remove Friend</a>
+    </li>
+  {% empty %}
+    <li>No friends yet.</li>
+  {% endfor %}
+</ul>
+
+<!-- Watchlist Section -->
+<h2>Watchlist:</h2>
+<p><strong>Films in Watchlist:</strong></p>
+{% if watchlist %}
+<ul>
+    {% for item in watchlist %}
+    <li>
+        <a href="{{ item.film.get_absolute_url }}">{{ item.film.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>This viewer has no films in their watchlist.</p>
+{% endif %}
+
+<!-- Seen Films Section -->
+<h2>Seen Films:</h2>
+<p><strong>Films Seen:</strong></p>
+{% if seen_films %}
+<ul>
+    {% for item in seen_films %}
+    <li>
+        <a href="{{ item.film.get_absolute_url }}">{{ item.film.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>This viewer has not marked any films as seen yet.</p>
+{% endif %}
+
 {% endblock %}
