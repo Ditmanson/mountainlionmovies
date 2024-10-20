@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from .models import *
-from django.utils import timezone
-from django.urls import reverse, resolve
+from django.urls import reverse
+from ..models import Film, Genre, Keyword, Country, Company, Language, Person, Collection, Viewer
+
+
 
 # 1st test to make sure our testing environment is working
 class SimpleTest(TestCase):

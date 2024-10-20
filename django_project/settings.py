@@ -11,7 +11,9 @@ SECRET_KEY = 'django-insecure-na_i!_poqmi%#b$a(2a75!4xx$v4hjjpss5nmty$0rtlrp3h^p
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'app-tditmans-5.devedu.io', '127.0.0.1',
+    'app-tditmans-5.devedu.io',
+    '127.0.0.1',
+    'localhost',
     ]
 
 INSTALLED_APPS = [
