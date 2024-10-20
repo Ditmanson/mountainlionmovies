@@ -16,10 +16,10 @@ def test_not_logged_in(page: Page):
     # page.wait_for_timeout(500)
     
     #TODO we need to make test data. I think it will be easier to do this after seiralizers are done
-    # page.locator('.flex-grow-1').first.click() 
-    # page.get_by_role("link", name="Back to Film List").click()
-    # page.locator(".d-inline > .btn").first.click()
-    # expect(page).to_have_url(re.compile(r"http://localhost:8000/login/.*"))
+    page.locator('.flex-grow-1').first.click() 
+    page.get_by_role("link", name="Back to Film List").click()
+    page.locator(".d-inline > .btn").first.click()
+    expect(page).to_have_url(re.compile(r"http://localhost:8000/login/.*"))
     
     # check viewers not logged in actions
     page.get_by_role("link", name="Mountain Lion Movies").click()
