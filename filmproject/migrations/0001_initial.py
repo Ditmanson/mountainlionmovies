@@ -160,7 +160,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='LT_Films_Genres',
+            name='LT_Films_Cast',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('film', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.film')),
@@ -171,7 +171,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='LT_Films_Keywords',
+            name='Viewer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('film', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.film')),
