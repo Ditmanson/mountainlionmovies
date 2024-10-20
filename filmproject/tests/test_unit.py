@@ -195,3 +195,29 @@ class ViewerModelTest(TestCase):
         self.assertEqual(self.viewer.name, 'travis ditmanson')
         self.assertEqual(self.viewer.email, 'tditmans@uccs.edu')
         self.assertEqual(str(self.viewer), 'travis ditmanson')
+
+
+
+class FriendRequestTestCase(TestCase):
+    def setUp(self):
+        self.user1 = User.objects.create_user(username='user1', password='password')
+        self.viewer1 = Viewer.objects.create(user=self.user1, name='User 1')
+
+        self.user2 = User.objects.create_user(username='user2', password='password')
+        self.viewer2 = Viewer.objects.create(user=self.user2, name='User 2')
+
+    def test_send_friend_request(self):
+        friend_request = FriendRequest.objects.create(sender=self.viewer1, receiver=self.viewer2)
+        self.assertEqual(friend_request.status, 'pending')
+
+    def test_accept_friend_request(self):
+        friend_request = FriendRequest.objects.create(sender=self.viewer1, receiver=self.viewer2)
+        friend_request.accept()
+        self.assertTrue(self.viewer1.is_friends_with(self.viewer2))
+        self.assertEqual(friend_request.status, 'accepted')
+
+    def test_reject_friend_request(self):
+        friend_request = FriendRequest.objects.create(sender=self.viewer1, receiver=self.viewer2)
+        friend_request.reject()
+        self.assertFalse(self.viewer1.is_friends_with(self.viewer2))
+        self.assertEqual(friend_request.status, 'rejected')

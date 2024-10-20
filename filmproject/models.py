@@ -80,9 +80,14 @@ class Person(models.Model):
         return reverse('person-detail', args=[str(self.id)])
 
 class Viewer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
-    email = models.CharField("Email", unique=True, max_length=200)
+    email = models.EmailField()
+    profile_picture = models.ImageField(upload_to='profile_pictures/', 
+                                        blank=True, 
+                                        null=True, 
+                                        default='profile_pictures/default_pfp.jpg')  # Set default image
+    friends = models.ManyToManyField('self', blank=True)
     def has_seen_film(self, film):
         return LT_Viewer_Seen.objects.filter(viewer=self, film=film, seen_film=True).exists()
     def is_in_watchlist(self, film):
@@ -90,7 +95,23 @@ class Viewer(models.Model):
     def __str__(self):
         return self.name
     def get_absolute_url(self):
-        return reverse('viewer-detail', args=[str(self.id)])
+        return reverse('profile_viewer', args=[str(self.id)])
+    
+    def add_friend(self, viewer):
+        """Add a viewer to the friends list."""
+        if not self.is_friends_with(viewer):
+            self.friends.add(viewer)
+            self.save()
+
+    def remove_friend(self, viewer):
+        """Remove a viewer from the friends list."""
+        if self.is_friends_with(viewer):
+            self.friends.remove(viewer)
+            self.save()
+
+    def is_friends_with(self, viewer):
+        """Check if the viewer is friends with another viewer."""
+        return self.friends.filter(id=viewer.id).exists()
 
 class LT_Films_Cast(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
@@ -156,3 +177,29 @@ class LT_Viewer_Watchlist(models.Model):
     watchlist = models.BooleanField(default=False)
     class Meta:
         indexes = [models.Index(fields=['viewer', 'film']),]
+
+class FriendRequest(models.Model):
+    sender = models.ForeignKey(Viewer, related_name='sent_requests', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Viewer, related_name='received_requests', on_delete=models.CASCADE)
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected')
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def accept(self):
+        """Accept the friend request and add to both users' friend lists."""
+        self.status = 'accepted'
+        self.sender.add_friend(self.receiver)
+        self.receiver.add_friend(self.sender)
+        self.save()
+
+    def reject(self):
+        """Reject the friend request."""
+        self.status = 'rejected'
+        self.save()
+
+    def __str__(self):
+        return f"{self.sender.name} -> {self.receiver.name} ({self.status})"
