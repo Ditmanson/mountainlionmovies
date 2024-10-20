@@ -31,6 +31,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+from django.contrib import messages
+from django.http import JsonResponse
 import random
 
 class FilmDetailView(generic.DetailView):
@@ -256,6 +258,32 @@ def profile(request, viewer_id=None):
     # Get the user's watchlist and seen films
     watchlist = LT_Viewer_Watchlist.objects.filter(viewer=viewer, watchlist=True)
     seen_films = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True)
+
+      # Calculate the dynamic rating for each film
+    film_ratings = []
+    for film in seen_films:
+        # Get total points for the film as film_a
+        a_points_sum = LT_Viewer_Ratings.objects.filter(film_a=film, viewer=viewer).aggregate(
+             total_a_points=Sum('a_points')
+         )['total_a_points'] or 0
+         # Get total points for the film as film_b
+        b_points_sum = LT_Viewer_Ratings.objects.filter(film_b=film, viewer=viewer).aggregate(
+                total_b_points=Sum(F('a_points') * -1 + 1)
+        )['total_b_points'] or 0
+            # Count total comparisons involving this film
+        total_count = LT_Viewer_Ratings.objects.filter(
+                models.Q(film_a=film) | models.Q(film_b=film), viewer=viewer
+            ).count()
+            # Calculate the user rating dynamically
+        user_rating = (a_points_sum + b_points_sum) / total_count if total_count > 0 else 0
+            # Add to film ratings list
+        film_ratings.append({
+                'film': film,
+                'user_rating': user_rating
+            })
+        # Sort the films by rating in descending order
+        film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
+        # Add to context
 
     # Notification bell logic: Count the number of pending friend requests for this user
     num_pending_requests = FriendRequest.objects.filter(receiver=user.viewer, status='pending').count()
