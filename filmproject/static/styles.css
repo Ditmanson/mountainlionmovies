@@ -289,15 +289,3 @@ body.dark-mode .small-text {
     margin-bottom: 5px;
 }
 
-/* Ensure the carousels have a maximum width */
-.container {
-    max-width: 800px; /* Adjust the width as per your design */
-    margin: 0 auto;   /* Center the container */
-}
-
-.carousel-item img {
-    max-height: 500px;  /* Limit image height */
-    width: auto;        /* Keep width proportional */
-    max-width: 100%;    /* Prevent image from overflowing container */
-    margin: 0 auto;     /* Center the image */
-}
