@@ -54,6 +54,7 @@ urlpatterns = [
     # Movie search and popular movies
     path('search_movies/', views.search_movies, name='search_movies'),
     path('popular_movies/', views.popular_movies, name='popular_movies'),
+    path('compare_movies/', views.compare_movies, name='compare_movies'),
 
     # Viewer list
     path('viewers/', ViewerListView.as_view(), name='viewers'),
