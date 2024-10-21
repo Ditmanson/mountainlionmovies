@@ -1,3 +1,4 @@
+from datetime import date
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
@@ -134,15 +135,18 @@ class LT_Films_Languages(models.Model):
 
 class LT_Viewer_Ratings(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
-    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
-    number_times_selected = models.IntegerField()
-    number_times_reviewed = models.IntegerField()
-    user_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True)
+    film_a = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_a")
+    film_b = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_b")
+    date = models.DateField(default=date.today)
+    a_points = models.DecimalField(decimal_places=1, max_digits=3, default=0)
+    class Meta:
+        unique_together = ('viewer', 'film_a', 'film_b')
 
 class LT_Viewer_Seen(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
     seen_film = models.BooleanField(default=False)
+    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True)
     class Meta:
         indexes = [models.Index(fields=['viewer', 'film']),]
 
