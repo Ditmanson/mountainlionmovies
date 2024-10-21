@@ -200,6 +200,7 @@ class Migration(migrations.Migration):
                 ('number_times_selected', models.IntegerField()),
                 ('number_times_reviewed', models.IntegerField()),
                 ('user_rating', models.DecimalField(decimal_places=8, max_digits=9, null=True)),
+                ('viewer_rating', models.DecimalField(decimal_places=8, max_digits=9, null=True)),
                 ('film', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.film')),
                 ('viewer', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.viewer')),
             ],
@@ -229,6 +230,34 @@ class Migration(migrations.Migration):
         ),
         migrations.CreateModel(
             name='LT_Viewer_Watchlist',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('date', models.DateField(default=datetime.date.today)),
+                ('a_points', models.DecimalField(decimal_places=1, default=0, max_digits=3)),
+                ('film_a', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='film_a', to='filmproject.film')),
+                ('film_b', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='film_b', to='filmproject.film')),
+                ('viewer', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.viewer')),
+            ],
+            options={
+                'unique_together': {('viewer', 'film_a', 'film_b')},
+            },
+        ),
+        migrations.CreateModel(
+            name='LT_Viewer_Ratings',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('date', models.DateField(default=datetime.date.today)),
+                ('a_points', models.DecimalField(decimal_places=1, default=0, max_digits=3)),
+                ('film_a', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='film_a', to='filmproject.film')),
+                ('film_b', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='film_b', to='filmproject.film')),
+                ('viewer', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='filmproject.viewer')),
+            ],
+            options={
+                'unique_together': {('viewer', 'film_a', 'film_b')},
+            },
+        ),
+        migrations.CreateModel(
+            name='LT_Viewer_Ratings',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateField(default=datetime.date.today)),
