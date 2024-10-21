@@ -19,13 +19,6 @@ from django.views import generic
 from django.views.generic import ListView
 from .forms import ViewerRegistrationForm
 from .models import Collection, Company, Country, Film, Genre, Keyword, Language, Person, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Ratings, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest
-from django.db import IntegrityError
-from django.contrib.sites.shortcuts import get_current_site
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.utils.encoding import force_bytes, force_str
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib import messages
 from django.http import JsonResponse
@@ -158,6 +151,11 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'filmproject/account_activation_invalid.html')
     
+   
+
+
+
+
 @login_required
 def add_to_watchlist(request, pk):  # Assuming pk is passed in the URL
     film = get_object_or_404(Film, id=pk)

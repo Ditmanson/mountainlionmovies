@@ -24,6 +24,7 @@
                 <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
                 <li><a class="dropdown-item" href="{% url 'search_movies' %}">Search</a></li>
                 <li><a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a></li>
+                    <li><a class="dropdown-item" href="{% url 'compare_movies' %}">Rate Movies</a></li> <!-- Added Rate Movies Link -->
                 <li><a class="dropdown-item" href="#">About Us</a></li>
                 {% if user.is_authenticated %}
                     <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
