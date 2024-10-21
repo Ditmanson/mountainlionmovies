@@ -371,7 +371,9 @@ def send_friend_request(request, viewer_id):
         FriendRequest.objects.create(sender=request.user.viewer, receiver=receiver)
         messages.success(request, f'Friend request sent to {receiver.name}.')
     
-    return redirect('profile', viewer_id=receiver.id)
+    # Redirect to the receiver's profile after sending the friend request
+    return redirect('profile_viewer', viewer_id=receiver.id)
+
 
 
 
