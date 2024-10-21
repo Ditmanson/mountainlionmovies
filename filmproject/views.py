@@ -40,6 +40,15 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib import messages
 from django.http import JsonResponse
+from .serializers import (
+    FilmSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer,
+    FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer,
+    LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer
+)
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 import random
 
 class FilmDetailView(generic.DetailView):
