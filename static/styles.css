@@ -1,0 +1,197 @@
+/* ------------------------------------ MAIN PAGE STYLES ------------------------------------ */
+
+/* Light mode styles */
+body {
+    background: linear-gradient(to bottom, #ffffff, #a2a4a3ff);
+    color: #000000; /* Black text color */
+}
+
+.page-margin {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 1px solid #000000; /* Black border for containers */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background: linear-gradient(to bottom, #565a5cff, #000000);
+    color: #ffffff; /* White text color */
+}
+
+body.dark-mode .page-margin {
+    border: 1px solid #ffffff; /* White border for containers */
+}
+
+/* ------------------------------------ HEADERS ------------------------------------ */
+h1 {
+    margin-top: 20px;
+    color: #000000; /* Black text for light mode */
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 80px;
+}
+
+body.dark-mode h1 {
+    color: #ffffff; /* White text for dark mode */
+}
+
+h2 {
+    color: #cfb87c; /* Red color for headings */
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* ------------------------------------ NAVIGATION BAR ------------------------------------ */
+.navbar {
+    background-color: #cfb87cff; /* Same background color for both modes */
+    margin: 0; /* Removes any margin */
+    padding: 0; /* Adjust padding if needed */
+}
+
+.nav-link {
+    color: #565a5c; /* Color for other pages */
+}
+
+.nav-link:hover {
+    color: #000000; /* Hover state in both modes */
+}
+
+.nav-link.active {
+    color: #000000; /* Current page color */
+}
+
+body.dark-mode .nav-link {
+    color: #565a5c; /* Other pages in dark mode */
+}
+
+body.dark-mode .nav-link.active {
+    color: #000000; /* Current page color in dark mode */
+}
+
+/*remove arrow from dropdown*/
+.dropdown-toggle::after {
+    display: none; 
+}
+
+
+/* Dark mode toggle switch styling */
+.form-check-input {
+    width: 40px;
+    height: 20px;
+    background-color: #ffffff; 
+    border: none;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 15px;
+    position: relative;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.form-check-input:checked {
+    background-color: #000000; 
+}
+
+/* Styling for the dark mode toggle switch text */
+.form-check {
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    align-items: center; /* Center the switch and text */
+}
+
+.small-text {
+    font-size: 12px; /* Make the text smaller */
+    display: block; /* Ensure the text is displayed above the switch */
+    margin-bottom: 5px; /* Add a small margin to separate the text from the switch */
+    color: #000000; /* Default to black text for light mode */
+}
+
+body.dark-mode .small-text {
+    color: #ffffff; /* White text for dark mode */
+}
+
+.profile-picture {
+    width: 120px;
+    height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+
+/* Reduce size for mobile screens */
+@media only screen and (max-width: 600px) {
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+        max-width: 80px;
+        max-height: 80px;
+    }
+}
+
+/* Notification button matches dropdown */
+.notification-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    position: relative;
+}
+
+.notification-btn img {
+    height: 50px; /* Match the size of the dropdown button */
+    object-fit: cover;
+}
+
+/* Notification bubble for pending friend requests */
+.notification-bubble {
+    position: absolute;
+    top: -5px;  /* Adjust as needed */
+    right: -5px;  /* Adjust as needed */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px; /* Ensure it's circular when there's a single digit */
+    min-height: 20px; /* Same as width to maintain the circular shape */
+}
+
+
+/* Floating container for friend requests in the upper-right corner */
+.friend-request-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    z-index: 1000;
+}
+
+.friend-request-container h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.friend-request-container p {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.friend-request-container .btn {
+    width: 100px;
+    margin-bottom: 5px;
+}
+
