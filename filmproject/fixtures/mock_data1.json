@@ -3,12 +3,12 @@
         "model": "auth.user",
         "pk": 1,
         "fields": {
-            "username": "bobby",
-            "password": "pbkdf2_sha256$260000$random_salt$hashed_password",
+            "username": "bobbya",
+            "password": "password1234!@#$",
             "email": "bobby@hotmail.com",
-            "is_staff": false,
+            "is_staff": true,
             "is_active": true,
-            "is_superuser": false
+            "is_superuser": true
         }
     },
     {
@@ -28,8 +28,8 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "name": "Mike Myers",
-            "email": "hollywood@yahoo.com"
+            "name": "bobbya",
+            "email": "bobby@hotmail.com"
         }
     },
     {
@@ -37,8 +37,8 @@
         "pk": 2,
         "fields": {
             "user": 2,
-            "name": "Janie Smith",
-            "email": "janeiesgotagun@aerosmith.com"
+            "name": "Mike Myers",
+            "email": "hollywood@yahoo.com"
         }
     },
     {
