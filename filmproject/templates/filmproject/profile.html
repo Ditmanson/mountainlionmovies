@@ -16,14 +16,23 @@
                 {% endif %}
             </div>
 
+            
+            <!-- Add Friend Button -->
+            {% if user.is_authenticated and user.viewer != viewer and not is_friend %}
+                <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-block mb-3">Add Friend</a>
+            {% endif %}
+
             <!-- Friends List Section -->
             <div class="friends-section">
                 <h2>Friends</h2>
                 <ul class="list-group">
                     {% for friend in viewer.friends.all %}
                         <li class="list-group-item">
-                            <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a> 
-                            - <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger btn-sm">Remove Friend</a>
+                            <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a>
+                            <!-- Only show Remove Friend button if the user is viewing their own profile -->
+                            {% if user.viewer == viewer %}
+                                <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger btn-sm">Remove Friend</a>
+                            {% endif %}
                         </li>
                     {% empty %}
                         <li class="list-group-item">No friends yet.</li>

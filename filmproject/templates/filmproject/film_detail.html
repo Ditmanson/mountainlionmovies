@@ -55,7 +55,7 @@
         <p><strong>Popularity:</strong> {{ film.popularity|floatformat:1 }}</p>
         <p><strong>Adult:</strong> {% if film.adult %}Yes{% else %}No{% endif %}</p>
         <p>{% if film.homepage %}<strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>{% endif %}</p>
-        <p><a href="{% url 'film-list' %}" class="btn btn-primary">Back to Film List</a></p>
+        <p><a href="{% url 'film_list' %}" class="btn btn-primary">Back to Film List</a></p>
     </div>
 </div>
 
