@@ -6,6 +6,8 @@ from .views import FilmListView, FilmDetailView, ViewerListView, ViewerDetailVie
 urlpatterns = [
     path('', index, name='index'),
     path('accounts/profile/', views.profile, name='profile'),
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'),
+    path('compare/', views.compare_movies, name='compare_movies'),
     path('films/', FilmListView.as_view(), name='film-list'),
     path('films/<int:pk>', FilmDetailView.as_view(), name='film-detail'),
     path('films/<int:pk>/add_to_watchlist/', views.add_to_watchlist, name='add_to_watchlist'),
@@ -14,16 +16,13 @@ urlpatterns = [
     path('films/<int:pk>/remove_from_watchlist/', views.remove_from_watchlist, name='remove_from_watchlist'),
     path('login/', auth_views.LoginView.as_view(template_name='filmproject/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='filmproject/logout.html'), name='logout'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='filmproject/password_reset.html'), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='filmproject/password_reset_done.html'), name='password_reset_done'),
     path('popular_movies', popular_movies, name='popular_movies'),
     path('register/', views.register, name='register'),
-
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='filmproject/password_reset.html'), name='password_reset'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='filmproject/password_reset_confirm.html'), name='password_reset_confirm'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='filmproject/password_reset_done.html'), name='password_reset_done'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='filmproject/password_reset_complete.html'), name='password_reset_complete'),
-
     path('search_movies', search_movies, name='search_movies'),
     path('viewers/', ViewerListView.as_view(), name='viewers'),
     path('viewers/<int:pk>', ViewerDetailView.as_view(), name='viewer-detail'),
-    path('activate/<uidb64>/<token>/', views.activate, name='activate'),
 ]

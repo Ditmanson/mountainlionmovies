@@ -24,19 +24,20 @@
 
 <!-- Seen List -->
 <p>
-    <strong>Seen Films:</strong>
+    <strong>Seen Films (Sorted by Your Rating):</strong>
 </p>
 {% if seen_films %}
 <ul>
-    {% for film in seen_films %}
+    {% for item in seen_films %}
     <li>
-        <a href="{{ film.get_absolute_url }}">
-            {{ film.title }}
-        </a>
+        <a href="{{ item.film.get_absolute_url }}">
+            {{ item.film.title }}
+        </a> - Your Rating: {{ item.user_rating|floatformat:2 }}
+        
     </li>
     {% endfor %}
 </ul>
 {% else %}
-<p>This viewer has not marked any films as seen yet.</p>
+<p>This viewer has not rated any seen films yet.</p>
 {% endif %}
 {% endblock %}
