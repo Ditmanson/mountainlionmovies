@@ -2,85 +2,86 @@
 {% load static %}
 
 {% block content %}
+<div class="container my-4">
+    <div class="row">
+        <!-- Left Column: Profile Picture and Friends (tighter to the left) -->
+        <div class="col-md-3"> <!-- Narrower left column -->
+            <!-- Profile Picture Section -->
+            <div class="profile-section mb-4">
+                <h2>{{ viewer.name }}'s Profile</h2>
+                {% if viewer.profile_picture %}
+                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded">
+                {% else %}
+                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded">
+                {% endif %}
+            </div>
 
-<h1>{{ viewer.name }}'s Profile</h1>
+            <!-- Friends List Section -->
+            <div class="friends-section">
+                <h2>Friends</h2>
+                <ul class="list-group">
+                    {% for friend in viewer.friends.all %}
+                        <li class="list-group-item">
+                            <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a> 
+                            - <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger btn-sm">Remove Friend</a>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item">No friends yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
 
-<!-- Profile Picture Section -->
-{% if viewer.profile_picture %}
-    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
-{% else %}
-    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture">
-{% endif %}
+        <!-- Right Column: Watchlist and Seen Films Carousels (wider space for movies) -->
+        <div class="col-md-9"> <!-- Wider right column for movies -->
+            <!-- Watchlist Section -->
+            <div class="watchlist-section mb-4">
+                <h2>Watchlist</h2>
+                {% if watchlist %}
+                    <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="watchlist">
+                            <!-- Movies will be dynamically added here -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <p>This viewer has no films in their watchlist.</p>
+                {% endif %}
+            </div>
 
-<!-- Show Friend Requests Only on the User's Own Profile -->
-{% if user.viewer == viewer %}
-    <!-- Friend Request Section (Only visible on the user's own profile) -->
-    {% if received_friend_request %}
-    <div class="friend-request-container">
-        <h3>Friend Request</h3>
-        <p>You have a friend request from {{ received_friend_request.sender.name }}:</p>
-        <a href="{% url 'accept_friend_request' received_friend_request.id %}" class="btn btn-success">Accept</a>
-        <a href="{% url 'reject_friend_request' received_friend_request.id %}" class="btn btn-danger">Reject</a>
+            <!-- Seen Films Section -->
+            <div class="seen-films-section">
+                <h2>Seen Films</h2>
+                {% if seen_films %}
+                    <div id="seenFilmsCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="seenFilms">
+                            <!-- Movies will be dynamically added here -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#seenFilmsCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#seenFilmsCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <p>This viewer has not marked any films as seen yet.</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% endif %}
-{% endif %}
+</div>
 
-<!-- Show Add Friend/Remove Friend When Viewing Other Profiles -->
-{% if user.viewer != viewer %}
-    <!-- Friend Request Section -->
-    {% if friend_request %}
-        {% if friend_request.status == 'pending' %}
-            <p>Friend request pending.</p>
-        {% elif friend_request.status == 'accepted' %}
-            <p>You are friends!</p>
-            <a href="{% url 'remove_friend' viewer.id %}" class="btn btn-danger">Remove Friend</a>
-        {% endif %}
-    {% else %}
-        <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary">Add Friend</a>
-    {% endif %}
-{% endif %}
-
-<!-- Friends List Section -->
-<h2>Friends:</h2>
-<ul>
-  {% for friend in viewer.friends.all %}
-    <li>
-      <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a> 
-      - <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger">Remove Friend</a>
-    </li>
-  {% empty %}
-    <li>No friends yet.</li>
-  {% endfor %}
-</ul>
-
-<!-- Watchlist Section -->
-<h2>Watchlist:</h2>
-<p><strong>Films in Watchlist:</strong></p>
-{% if watchlist %}
-<ul>
-    {% for item in watchlist %}
-    <li>
-        <a href="{{ item.film.get_absolute_url }}">{{ item.film.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>This viewer has no films in their watchlist.</p>
-{% endif %}
-
-<!-- Seen Films Section -->
-<h2>Seen Films:</h2>
-<p><strong>Films Seen:</strong></p>
-{% if seen_films %}
-<ul>
-    {% for item in seen_films %}
-    <li>
-        <a href="{{ item.film.get_absolute_url }}">{{ item.film.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>This viewer has not marked any films as seen yet.</p>
-{% endif %}
+<!-- External JavaScript file -->
+<script src="{% static 'scripts/carosel.js' %}"></script>
 
 {% endblock %}
