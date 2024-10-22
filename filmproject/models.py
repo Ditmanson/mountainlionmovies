@@ -167,7 +167,7 @@ class LT_Viewer_Seen(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
     seen_film = models.BooleanField(default=False)
-    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True, blank = True)
+    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True, blank=True)
     class Meta:
         indexes = [models.Index(fields=['viewer', 'film']),]
 
