@@ -5,99 +5,102 @@
     <title>Mountain Lion Movies</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom Styles -->
     <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
+    <!-- Additional Scripts -->
     <script src="{% static 'static.js' %}"></script>
 </head>
 <body>
-   <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light w-100">
-    <div class="container-fluid">
-        <!-- Left: Dropdown Menu Button with Image -->
-        <div class="dropdown me-2">
-            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
-                <img src="{% static 'images/menu-icon.jpeg' %}" alt="Menu" height="50">
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="{% url 'film_list' %}">Films</a></li>
-                <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
-                <li><a class="dropdown-item" href="{% url 'search_movies' %}">Search</a></li>
-                <li><a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a></li>
-                    <li><a class="dropdown-item" href="{% url 'compare_movies' %}">Rate Movies</a></li> <!-- Added Rate Movies Link -->
-                <li><a class="dropdown-item" href="#">About Us</a></li>
-                {% if user.is_authenticated %}
-                    <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
-                    <li class="dropdown-item">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light w-100">
+        <div class="container-fluid">
+            <!-- Left: Dropdown Menu Button with Image -->
+            <div class="dropdown me-2">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+                    <img src="{% static 'images/menu-icon.jpeg' %}" alt="Menu" height="50">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="{% url 'film_list' %}">Films</a></li>
+                    <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
+                    <li><a class="dropdown-item" href="{% url 'search_movies' %}">Search</a></li>
+                    <li><a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a></li>
+                    <li><a class="dropdown-item" href="{% url 'compare_movies' %}">Rate Movies</a></li>
+                    <li><a class="dropdown-item" href="#">About Us</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                        <li class="dropdown-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button class="nav-link" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li class="dropdown-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="dropdown-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- Center: Website Title -->
+            <div class="mx-auto text-center">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
+                    Mountain Lion Movies
+                </a>
+            </div>
+
+            <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
+            <div class="d-flex align-items-center">
+                <!-- Login/Profile and Logout Buttons -->
+                <div class="d-flex me-2">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="btn btn-outline-primary me-2">Profile</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button class="nav-link" type="submit">Logout</button>
+                            <button class="btn btn-outline-primary" type="submit">Logout</button>
                         </form>
-                    </li>
-                {% else %}
-                    <li class="dropdown-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                    <li class="dropdown-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                {% endif %}
-            </ul>
-        </div>
-
-        <!-- Center: Website Title -->
-        <div class="mx-auto text-center">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
-                Mountain Lion Movies
-            </a>
-        </div>
-
-        <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
-        <div class="d-flex align-items-center">
-            <!-- Login/Profile and Logout Buttons -->
-            <div class="d-flex me-2">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="btn btn-outline-primary me-2">Profile</a>
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button class="btn btn-outline-primary" type="submit">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
-                {% endif %}
-            </div>
-
-            <!-- Notification Bell and Dark Mode Toggle Switch on the Right -->
-            <div class="d-flex align-items-center">
-                <!-- Notification Bell with Dropdown -->
-                <div class="dropdown me-3 position-relative">
-                    <button class="btn dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
-                        <img src="{% static 'images/icons8-bell-50.png' %}" alt="Notifications" height="50">
-                        {% if num_pending_requests > 0 %}
-                            <span class="notification-bubble">{{ num_pending_requests }}</span>
-                        {% endif %}
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        <li>
-                            <a class="dropdown-item" href="{% url 'friend_requests' %}">
-                                Friend Requests
-                                {% if num_pending_requests > 0 %}
-                                    <span class="badge bg-danger">{{ num_pending_requests }}</span>
-                                {% endif %}
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Notifications</a>
-                        </li>
-                    </ul>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+                    {% endif %}
                 </div>
 
-                <!-- Dark Mode Toggle Switch -->
-                <div class="form-check form-switch">
-                    <label class="form-check-label small-text" for="darkModeSwitch">Dark Mode</label>
-                    <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                <!-- Notification Bell and Dark Mode Toggle Switch on the Right -->
+                <div class="d-flex align-items-center">
+                    <!-- Notification Bell with Dropdown -->
+                    <div class="dropdown me-3 position-relative">
+                        <button class="btn dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+                            <img src="{% static 'images/icons8-bell-50.png' %}" alt="Notifications" height="50">
+                            {% if num_pending_requests > 0 %}
+                                <span class="notification-bubble">{{ num_pending_requests }}</span>
+                            {% endif %}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'friend_requests' %}">
+                                    Friend Requests
+                                    {% if num_pending_requests > 0 %}
+                                        <span class="badge bg-danger">{{ num_pending_requests }}</span>
+                                    {% endif %}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Notifications</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Dark Mode Toggle Switch -->
+                    <div class="form-check form-switch">
+                        <label class="form-check-label small-text" for="darkModeSwitch">Dark Mode</label>
+                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <div class="container-fluid">
         {% block content %}
@@ -106,10 +109,11 @@
 
     <!-- Footer Image -->
     <img src="{% static 'images/footer.png' %}" class="img-responsive" alt="Footer Image">
+
+    <!-- Bootstrap JS Bundle (includes Popper.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
