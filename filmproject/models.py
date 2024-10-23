@@ -155,19 +155,19 @@ class LT_Films_Languages(models.Model):
     language = models.ForeignKey(Language, on_delete=models.DO_NOTHING)
 
 class LT_Viewer_Ratings(models.Model):
-    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
-    film_a = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_a")
-    film_b = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_b")
-    date = models.DateField(default=date.today)
-    a_points = models.DecimalField(decimal_places=1, max_digits=3, default=0)
+    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, null=True)
+    film_a = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_a", null=True)
+    film_b = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_b", null=True)
+    date = models.DateField(default=date.today, null=True)
+    a_points = models.DecimalField(decimal_places=1, max_digits=3, default=0, null=True)
     class Meta:
         unique_together = ('viewer', 'film_a', 'film_b')
 
 class LT_Viewer_Seen(models.Model):
-    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)
-    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
-    seen_film = models.BooleanField(default=False)
-    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True, blank=True)
+    viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, null=True)
+    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
+    seen_film = models.BooleanField(default=False, null=True)
+    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True)
     class Meta:
         indexes = [models.Index(fields=['viewer', 'film']),]
 

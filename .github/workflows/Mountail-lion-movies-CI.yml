@@ -29,32 +29,40 @@ jobs:
           echo "GOOGLE_MAIL_ADDRESS=${{ secrets.GOOGLE_MAIL_ADDRESS }}" >> $GITHUB_ENV
           echo "GOOGLE_MAIL_PASSWORD=${{ secrets.GOOGLE_MAIL_PASSWORD }}" >> $GITHUB_ENV
 
+      - name: Check Secrets
+        run: echo "Secrets=${{ secrets }}"
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Install Playwright browsers
-        run: python -m playwright install --with-deps
-
-      - name: Check TMDB API Key
-        run: echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}"
 
       - name: Run database migrations
         run: |
           python manage.py makemigrations
           python manage.py migrate
 
+      - name: Create Django superuser
+        env:
+          DJANGO_SUPERUSER_USERNAME: bob
+          DJANGO_SUPERUSER_PASSWORD: password1234!@#$
+          DJANGO_SUPERUSER_EMAIL: bobby@hotmail.com
+        run: |
+          echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${{ env.DJANGO_SUPERUSER_USERNAME }}', '${{ env.DJANGO_SUPERUSER_EMAIL }}', '${{ env.DJANGO_SUPERUSER_PASSWORD }}')" | python manage.py shell
+
       - name: Load mock data
         run: python manage.py loaddata filmproject/fixtures/mock_data1.json
+     
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps
 
       - name: Start server
         run: |
           nohup python manage.py runserver 0.0.0.0:8000 &
           sleep 3
-
+     
       - name: Run Tests
-        run: pytest --tracing=retain-on-failure
+        run: pytest --tracing on
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:

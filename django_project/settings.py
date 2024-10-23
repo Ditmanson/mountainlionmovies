@@ -77,7 +77,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -123,7 +122,7 @@ os.path.join(BASE_DIR, 'filmproject/static')
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'filmproject/media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
