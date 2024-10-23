@@ -1,0 +1,40 @@
+[
+  {
+  "adult": false,
+  "backdrop_path": "/l8OyAXEp5FKZWmDhqJMbiwAEvz.jpg",
+  "genre_ids": [
+    27,
+    18
+  ],
+  "id": 814889,
+  "original_language": "en",
+  "original_title": "Never Let Go",
+  "overview": "As an evil takes over the world beyond their front doorstep, the only protection for a mother and her twin sons is their house and their family’s protective bond.",
+  "popularity": 595.504,
+  "poster_path": "/3EpZ2ksjijmdr8BhISP03PYzNFW.jpg",
+  "release_date": "2024-09-18",
+  "title": "Never Let Go",
+  "video": false,
+  "vote_average": 6.1,
+  "vote_count": 142
+},
+{
+  "adult": false,
+  "backdrop_path": "/cVg97LOJgrDZJ7bVmjU2KsGRYnU.jpg",
+  "genre_ids": [
+    27,
+    9648
+  ],
+  "id": 1100782,
+  "original_language": "en",
+  "original_title": "Smile 3",
+  "overview": "About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control.",
+  "popularity": 741.034,
+  "poster_path": "/aE85MnPIsSoSs3978Noo16BRsKN.jpg",
+  "release_date": "2024-10-16",
+  "title": "Smile 3",
+  "video": false,
+  "vote_average": 7.1,
+  "vote_count": 124
+}
+]

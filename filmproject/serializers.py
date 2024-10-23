@@ -1,14 +1,15 @@
 from rest_framework import serializers
 from .models import (
-    Film, Viewer, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, LT_Films_Cast,
-    LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages
+    Film, Viewer, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, 
+    LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, 
+    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages
 )
 
 # Film Serializer
 class FilmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Film
-        fields = ['id', 'tmdb_id', 'title', 'poster_path', 'release_date', 'vote_average']
+        fields = '__all__' 
 
 # Viewer Serializer
 class ViewerSerializer(serializers.ModelSerializer):
@@ -19,20 +20,16 @@ class ViewerSerializer(serializers.ModelSerializer):
 class LT_Viewer_SeenSerializer(serializers.ModelSerializer):
     film = FilmSerializer(read_only=True)  # Nested Film serializer to show film details
     
-
     class Meta:
         model = LT_Viewer_Seen
         fields = ['id', 'film', 'seen_film']  # Exclude 'viewer' from the fields
 
-
 class LT_Viewer_WatchlistSerializer(serializers.ModelSerializer):
     film = FilmSerializer(read_only=True)  # Nested Film serializer to show film details
     
-
     class Meta:
         model = LT_Viewer_Watchlist
         fields = ['id', 'film', 'watchlist']  # Exclude 'viewer' from the fields
-
 
 # FriendRequest Serializer
 class FriendRequestSerializer(serializers.ModelSerializer):
@@ -98,3 +95,18 @@ class LT_Films_LanguagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = LT_Films_Languages
         fields = ['id', 'film', 'language']
+
+# Bulk create films function
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+@api_view(['POST'])
+def bulk_create_films(request):
+    if isinstance(request.data, list):  # Check if the data is a list
+        serializer = FilmSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            films = serializer.save()
+            return Response(FilmSerializer(films, many=True).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response({"error": "Expected a list of films."}, status=status.HTTP_400_BAD_REQUEST)
