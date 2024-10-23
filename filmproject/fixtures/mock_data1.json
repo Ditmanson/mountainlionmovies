@@ -1,16 +1,5 @@
 [
-    {
-        "model": "auth.user",
-        "pk": 1,
-        "fields": {
-            "username": "bobby",
-            "password": "password1234!@#$",
-            "email": "bobby@hotmail.com",
-            "is_staff": true,
-            "is_active": true,
-            "is_superuser": true
-        }
-    },
+
     {
         "model": "auth.user",
         "pk": 2,
@@ -28,7 +17,7 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "name": "bobby",
+            "name": "bob",
             "email": "bobby@hotmail.com"
         }
     },
