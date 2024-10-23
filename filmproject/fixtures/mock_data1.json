@@ -3,7 +3,7 @@
         "model": "auth.user",
         "pk": 1,
         "fields": {
-            "username": "bobbya",
+            "username": "bobby",
             "password": "password1234!@#$",
             "email": "bobby@hotmail.com",
             "is_staff": true,
@@ -28,7 +28,7 @@
         "pk": 1,
         "fields": {
             "user": 1,
-            "name": "bobbya",
+            "name": "bobby",
             "email": "bobby@hotmail.com"
         }
     },
