@@ -3,7 +3,7 @@
 {% block content %}
 <div class = "page-margin">
   <h2>Register</h2>
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     {% if form.errors %}

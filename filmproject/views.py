@@ -331,14 +331,17 @@ def profile(request, viewer_id=None):
 
 def register(request):
     if request.method == 'POST':
-        form = ViewerRegistrationForm(request.POST)
+        form = ViewerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
+            print("\nREQUEST POST:", request.POST,"\n")
+            print("\nREQUEST FILES", request.FILES,"\n")
+            print("\nUSER FORM", user,"\n")
             user.is_active = False  # Deactivate account until email verification
             user.save()
 
             # Create the Viewer object linked to the user
-            Viewer.objects.create(user=user, name=user.username, email=user.email)
+            Viewer.objects.create(user=user, name=user.username, email=user.email, profile_picture=user.profile_picture)
 
             # Send activation email
             current_site = get_current_site(request)
