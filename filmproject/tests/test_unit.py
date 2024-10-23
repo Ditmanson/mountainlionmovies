@@ -186,15 +186,25 @@ class CollectionModelTest(TestCase):
         self.assertEqual(str(self.collection), 'Alien Collection')
 
 
+
 class ViewerModelTest(TestCase):
     def setUp(self):
+        self.user = User.objects.create_user(
+            username='travis',
+            email='tditmans@uccs.edu',
+            password='password123'
+        )
         self.viewer = Viewer.objects.create(
+            user=self.user,  # Associate the user here
             name='travis ditmanson',
-            email='tditmans@uccs.edu')
+            email='tditmans@uccs.edu'
+        )
+    
     def test_viewer_creation(self):
         self.assertEqual(self.viewer.name, 'travis ditmanson')
         self.assertEqual(self.viewer.email, 'tditmans@uccs.edu')
         self.assertEqual(str(self.viewer), 'travis ditmanson')
+
 
 
 
