@@ -1,0 +1,399 @@
+[
+        {
+            "adult": false,
+            "backdrop_path": "/417tYZ4XUyJrtyZXj7HpvWf1E8f.jpg",
+            "genre_ids": [
+                16,
+                878,
+                10751
+            ],
+            "id": 1184918,
+            "original_language": "en",
+            "original_title": "The Wild Robot",
+            "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
+            "popularity": 5200.959,
+            "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
+            "release_date": "2024-09-12",
+            "title": "The Wild Robot",
+            "video": false,
+            "vote_average": 8.661,
+            "vote_count": 1288
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg",
+            "genre_ids": [
+                878,
+                27
+            ],
+            "id": 945961,
+            "original_language": "en",
+            "original_title": "Alien: Romulus",
+            "overview": "While scavenging the deep ends of a derelict space station, a group of young space colonizers come face to face with the most terrifying life form in the universe.",
+            "popularity": 3904.571,
+            "poster_path": "/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg",
+            "release_date": "2024-08-13",
+            "title": "Alien: Romulus",
+            "video": false,
+            "vote_average": 7.3,
+            "vote_count": 1807
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg",
+            "genre_ids": [
+                27,
+                18,
+                878
+            ],
+            "id": 933260,
+            "original_language": "en",
+            "original_title": "The Substance",
+            "overview": "A fading celebrity decides to usea black market drug, a cell-replicating substance that temporarily creates a younger, better version of herself.",
+            "popularity": 3159.484,
+            "poster_path": "/lqoMzCcZYEFK729d6qzt349fB4o.jpg",
+            "release_date": "2024-09-07",
+            "title": "The Substance",
+            "video": false,
+            "vote_average": 7.321,
+            "vote_count": 803
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
+            "genre_ids": [
+                28,
+                35,
+                878
+            ],
+            "id": 533535,
+            "original_language": "en",
+            "original_title": "Deadpool \u0026 Wolverine",
+            "overview": "A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.",
+            "popularity": 2203.301,
+            "poster_path": "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+            "release_date": "2024-07-24",
+            "title": "Deadpool \u0026 Wolverine",
+            "video": false,
+            "vote_average": 7.712,
+            "vote_count": 4723
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/4KHEK6AQFHhv4TDtL3KLReePB05.jpg",
+            "genre_ids": [
+                28,
+                27,
+                53
+            ],
+            "id": 1029235,
+            "original_language": "en",
+            "original_title": "Azrael",
+            "overview": "In a world where no one speaks, a devout female hunts down a young woman who has escaped her imprisonment. Recaptured by its ruthless leaders, Azrael is due to be sacrificed to pacify an ancient evil deep within the surrounding wilderness.",
+            "popularity": 1635.458,
+            "poster_path": "/qpdFKDvJS7oLKTcBLXOaMwUESbs.jpg",
+            "release_date": "2024-09-27",
+            "title": "Azrael",
+            "video": false,
+            "vote_average": 6.095,
+            "vote_count": 84
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/p5ozvmdgsmbWe0H8Xk7Rc8SCwAB.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                12,
+                35,
+                18
+            ],
+            "id": 1022789,
+            "original_language": "en",
+            "original_title": "Inside Out 2",
+            "overview": "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+            "popularity": 1847.374,
+            "poster_path": "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+            "release_date": "2024-06-11",
+            "title": "Inside Out 2",
+            "video": false,
+            "vote_average": 7.616,
+            "vote_count": 4430
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/eQEgKIRF7KeVGBQ8IYcklpU8RPf.jpg",
+            "genre_ids": [
+                27,
+                53
+            ],
+            "id": 1034541,
+            "original_language": "en",
+            "original_title": "Terrifier 3",
+            "overview": "Five years after surviving Art the Clown's Halloween massacre, Sienna and Jonathan are still struggling to rebuild their shattered lives. As the holiday season approaches, they try to embrace the Christmas spirit and leave the horrors of the past behind. But just when they think they're safe, Art returns, determined to turn their holiday cheer into a new nightmare. The festive season quickly unravels as Art unleashes his twisted brand of terror, proving that no holiday is safe.",
+            "popularity": 1681.93,
+            "poster_path": "/63xYQj1BwRFielxsBDXvHIJyXVm.jpg",
+            "release_date": "2024-10-09",
+            "title": "Terrifier 3",
+            "video": false,
+            "vote_average": 7.0,
+            "vote_count": 103
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg",
+            "genre_ids": [
+                28,
+                878,
+                12
+            ],
+            "id": 912649,
+            "original_language": "en",
+            "original_title": "Venom: The Last Dance",
+            "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
+            "popularity": 1678.855,
+            "poster_path": "/k42Owka8v91trK1qMYwCQCNwJKr.jpg",
+            "release_date": "2024-10-22",
+            "title": "Venom: The Last Dance",
+            "video": false,
+            "vote_average": 7.175,
+            "vote_count": 20
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
+            "genre_ids": [
+                16,
+                10751,
+                35,
+                28
+            ],
+            "id": 519182,
+            "original_language": "en",
+            "original_title": "Despicable Me 4",
+            "overview": "Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
+            "popularity": 1195.583,
+            "poster_path": "/3w84hCFJATpiCO5g8hpdWVPBbmq.jpg",
+            "release_date": "2024-06-20",
+            "title": "Despicable Me 4",
+            "video": false,
+            "vote_average": 7.1,
+            "vote_count": 2036
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/xi1VSt3DtkevUmzCx2mNlCoDe74.jpg",
+            "genre_ids": [
+                35,
+                14,
+                27
+            ],
+            "id": 917496,
+            "original_language": "en",
+            "original_title": "Beetlejuice Beetlejuice",
+            "overview": "After a family tragedy, three generations of the Deetz family return home to Winter River. Still haunted by Betelgeuse, Lydia's life is turned upside down when her teenage daughter, Astrid, accidentally opens the portal to the Afterlife.",
+            "popularity": 1352.254,
+            "poster_path": "/kKgQzkUCnQmeTPkyIwHly2t6ZFI.jpg",
+            "release_date": "2024-09-04",
+            "title": "Beetlejuice Beetlejuice",
+            "video": false,
+            "vote_average": 7.208,
+            "vote_count": 1488
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/g1z1ZvYKcmk9EnVOTYXR6vkNjkZ.jpg",
+            "genre_ids": [
+                14,
+                27,
+                28
+            ],
+            "id": 1087822,
+            "original_language": "en",
+            "original_title": "Hellboy: The Crooked Man",
+            "overview": "Hellboy and a rookie BPRD agent get stranded in 1950s rural Appalachia. There, they discover a small community haunted by witches, led by a local devil with a troubling connection to Hellboy's past: the Crooked Man.",
+            "popularity": 1221.335,
+            "poster_path": "/iz2GabtToVB05gLTVSH7ZvFtsMM.jpg",
+            "release_date": "2024-08-29",
+            "title": "Hellboy: The Crooked Man",
+            "video": false,
+            "vote_average": 5.0,
+            "vote_count": 145
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/p4INKu77iuTG1o1a5N3Y9vqeEGq.jpg",
+            "genre_ids": [
+                27,
+                53
+            ],
+            "id": 1079485,
+            "original_language": "en",
+            "original_title": "Winnie-the-Pooh: Blood and Honey 2",
+            "overview": "Five months following the murders, Christopher Robin tries returning to his regular life while dealing with his PTSD. Deep within the 100-Acre-Wood, a destructive rage grows as Winnie-the-Pooh, Piglet, Owl, and Tigger find their home and their lives endangered after their existence is revealed.",
+            "popularity": 1211.407,
+            "poster_path": "/2sADrLwMQof6yYmrJRSa04tFZuS.jpg",
+            "release_date": "2024-03-26",
+            "title": "Winnie-the-Pooh: Blood and Honey 2",
+            "video": false,
+            "vote_average": 6.2,
+            "vote_count": 241
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/3m0j3hCS8kMAaP9El6Vy5Lqnyft.jpg",
+            "genre_ids": [
+                878,
+                53,
+                27,
+                18
+            ],
+            "id": 1125510,
+            "original_language": "es",
+            "original_title": "El hoyo 2",
+            "overview": "After a mysterious leader imposes his law in a brutal system of vertical cells, a new arrival battles against a dubious food distribution method.",
+            "popularity": 1091.003,
+            "poster_path": "/izuzUb0sDokqp9o8utVfsrSJuy5.jpg",
+            "release_date": "2024-09-27",
+            "title": "The Platform 2",
+            "video": false,
+            "vote_average": 5.68,
+            "vote_count": 670
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/bkENfmxUY3UYsRLizJAhF5IQPvS.jpg",
+            "genre_ids": [
+                28,
+                80,
+                53
+            ],
+            "id": 1025596,
+            "original_language": "en",
+            "original_title": "Blood for Dust",
+            "overview": "Reckless Ricky makes serious money dealing illegal weapons throughout the tri-state area and loves to flaunt it. Traveling salesman Cliff, covers the same territory Ricky runs guns through. Desperate to find some financial relief for his struggling family, Cliff agrees to partner with Ricky, to commit cross-state drug and gun deliveries for a mid-level American cartel boss John. When a simple exchange turns into a bloodbath after Ricky kills everyone in a territory grab, the pair find themselves in a pressure cooker situation where unlikely drug dealer Cliff must fight as hard as he can to stay alive.",
+            "popularity": 976.443,
+            "poster_path": "/nvaCnkl8RilLhVAQXPFei0tqkqW.jpg",
+            "release_date": "2024-04-19",
+            "title": "Blood for Dust",
+            "video": false,
+            "vote_average": 5.6,
+            "vote_count": 38
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/64tinBsds1nVp4wOCgYhMbSgsRW.jpg",
+            "genre_ids": [
+                28,
+                18,
+                36
+            ],
+            "id": 1075676,
+            "original_language": "ko",
+            "original_title": "전,란",
+            "overview": "In the Joseon Dynasty, two friends who grew up together — one the master and one the servant — reunite post-war as enemies on opposing sides.",
+            "popularity": 954.411,
+            "poster_path": "/hg9OeaCRSpazrfqYyEFr6BDaZW8.jpg",
+            "release_date": "2024-10-02",
+            "title": "Uprising",
+            "video": false,
+            "vote_average": 7.4,
+            "vote_count": 66
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/of1tQasFGCeHgWPmSgdA1WS6hNW.jpg",
+            "genre_ids": [
+                80,
+                53,
+                28
+            ],
+            "id": 1047373,
+            "original_language": "en",
+            "original_title": "The Silent Hour",
+            "overview": "While working a case as an interpreter, a hearing-impaired police detective must confront a group of criminals trying to eliminate a deaf murder witness in her apartment building.",
+            "popularity": 808.001,
+            "poster_path": "/j736cRzBtEPCm0nHnpRN1prqiqj.jpg",
+            "release_date": "2024-10-03",
+            "title": "The Silent Hour",
+            "video": false,
+            "vote_average": 6.6,
+            "vote_count": 29
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/tCKWksaQI8XkAQLVou0AlGab5S6.jpg",
+            "genre_ids": [
+                28,
+                878
+            ],
+            "id": 1144962,
+            "original_language": "en",
+            "original_title": "Transmorphers: Mech Beasts",
+            "overview": "20 years after the events of Transmorphers, a newer, more advanced species of alien robot descends on a rebuilt Earth, threatening once again to destroy the planet.",
+            "popularity": 650.397,
+            "poster_path": "/oqhaffnQqSzdLrYAQA5W4IdAoCX.jpg",
+            "release_date": "2023-06-09",
+            "title": "Transmorphers: Mech Beasts",
+            "video": false,
+            "vote_average": 5.222,
+            "vote_count": 27
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/zAqBIeO71BFL7bAtP5TFzVjVamy.jpg",
+            "genre_ids": [
+                10749,
+                18
+            ],
+            "id": 1079091,
+            "original_language": "en",
+            "original_title": "It Ends with Us",
+            "overview": "When a woman's first love suddenly reenters her life, her relationship with a charming, but abusive neurosurgeon is upended, and she realizes she must learn to rely on her own strength to make an impossible choice for her future.",
+            "popularity": 799.043,
+            "poster_path": "/AjV6jFJ2YFIluYo4GQf13AA1tqu.jpg",
+            "release_date": "2024-08-07",
+            "title": "It Ends with Us",
+            "video": false,
+            "vote_average": 7.177,
+            "vote_count": 864
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/l8OyAXEp5FKZWmDhqJMbiwAEvz.jpg",
+            "genre_ids": [
+                27,
+                18
+            ],
+            "id": 814889,
+            "original_language": "en",
+            "original_title": "Never Let Go",
+            "overview": "As an evil takes over the world beyond their front doorstep, the only protection for a mother and her twin sons is their house and their family’s protective bond.",
+            "popularity": 595.504,
+            "poster_path": "/3EpZ2ksjijmdr8BhISP03PYzNFW.jpg",
+            "release_date": "2024-09-18",
+            "title": "Never Let Go",
+            "video": false,
+            "vote_average": 6.1,
+            "vote_count": 142
+        },
+        {
+            "adult": false,
+            "backdrop_path": "/cVg97LOJgrDZJ7bVmjU2KsGRYnU.jpg",
+            "genre_ids": [
+                27,
+                9648
+            ],
+            "id": 1100782,
+            "original_language": "en",
+            "original_title": "Smile 2",
+            "overview": "About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control.",
+            "popularity": 741.034,
+            "poster_path": "/aE85MnPIsSoSs3978Noo16BRsKN.jpg",
+            "release_date": "2024-10-16",
+            "title": "Smile 2",
+            "video": false,
+            "vote_average": 7.1,
+            "vote_count": 124
+        }
+    ]

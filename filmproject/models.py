@@ -27,7 +27,7 @@ class Film(models.Model):
     adult = models.BooleanField(null=True, blank=True)
     backdrop_path = models.CharField(max_length=200, blank=True, null=True)
     belongs_to_collection = models.BooleanField(default=False)
-    budget = models.IntegerField()
+    budget = models.IntegerField(null=True)
     homepage = models.CharField(max_length=200, blank=True, null=True)
     imdb_id = models.CharField(max_length=20, blank=True, null=True)
     original_title = models.CharField(max_length=200)
@@ -35,14 +35,14 @@ class Film(models.Model):
     popularity = models.DecimalField(decimal_places=6, max_digits=20)
     poster_path = models.CharField(max_length=200, blank=True, null=True)
     release_date = models.DateField(null=True, blank=True)
-    revenue = models.BigIntegerField()
-    runtime = models.IntegerField()
+    revenue = models.BigIntegerField(null=True)
+    runtime = models.IntegerField(null=True)
     status = models.CharField(max_length=200, blank=True, null=True)
     tagline = models.CharField(max_length=500, blank=True, null=True)
     title = models.CharField(max_length=200)
     tmdb_id = models.IntegerField(unique=True, null=True)
-    vote_average = models.DecimalField(decimal_places=1, max_digits=5)
-    vote_count = models.IntegerField()
+    vote_average = models.DecimalField(decimal_places=3, max_digits=6, null=True, blank=True)
+    vote_count = models.IntegerField(null=True)
     def __str__(self):
         return self.title
     def get_absolute_url(self):
