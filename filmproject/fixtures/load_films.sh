@@ -27,3 +27,10 @@ function post_multiple() {
         echo "Error: mock_data3.json file not found."
     fi
 }
+
+function get_pop () {
+    curl --request GET \
+     --url 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1' \
+     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWEzNmRhMWI5ZmU4ZTEzMmQxZWNhM2MwZDcwYTI4YyIsIm5iZiI6MTcyOTcxMDQwMC41OTgzNTYsInN1YiI6IjY3MDU5ODE3ZjRiOTE5ZjgzOTc3OGI3ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.cYXyAAzZUvI3Sy9FvkFZNFgeUmFTlBOty5LFG_jYLek' \
+     --header 'accept: application/json'
+}
