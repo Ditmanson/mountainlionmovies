@@ -1,3 +1,4 @@
+'''
 from datetime import date
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -31,19 +32,6 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from django.contrib import messages
-from django.http import JsonResponse
-from .serializers import (
-    FilmSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer,
-    FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer,
-    LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer
-)
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from django.contrib import messages
-from django.http import JsonResponse
 import random
 
 class FilmDetailView(generic.DetailView):
@@ -317,17 +305,6 @@ def profile(request, viewer_id=None):
 
     return render(request, 'filmproject/profile.html', context)
 
-    # Context for the template
-    context = {
-        'viewer': viewer,
-        'friend_request': friend_request,  # Outgoing friend request
-        'received_friend_request': received_friend_request,  # Incoming friend request
-        'watchlist': watchlist,
-        'seen_films': seen_films,
-        'num_pending_requests': num_pending_requests,  # For the notification bell
-    }
-
-    return render(request, 'filmproject/profile.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -595,3 +572,4 @@ def user_seen_films(request):
     seen_films = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True)
     serializer = LT_Viewer_SeenSerializer(seen_films, many=True)
     return Response(serializer.data)
+'''
