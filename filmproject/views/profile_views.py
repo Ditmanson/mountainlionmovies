@@ -14,7 +14,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import generic
 from ..forms import ViewerRegistrationForm
 from ..models import (Viewer, LT_Viewer_Ratings, LT_Viewer_Seen,
-                       LT_Viewer_Watchlist, FriendRequest)
+                       LT_Viewer_Watchlist, FriendRequest, Film)
 from ..tokens import account_activation_token
 from django.contrib import messages
 
@@ -59,55 +59,59 @@ def profile(request, viewer_id=None):
         # Incoming friend request
         received_friend_request = FriendRequest.objects.filter(sender=viewer, receiver=request.user.viewer, status='pending').first()
 
-    # Get the user's watchlist and seen films
-    watchlist = LT_Viewer_Watchlist.objects.filter(viewer=viewer, watchlist=True)
-    seen_films = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True)
-
+    
+    # Get films in the viewer's watchlist
+    watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
+    # Fetch all films the viewer has seen
+    seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
     # Calculate the dynamic rating for each film
     film_ratings = []
-    for seen_film in seen_films:
-        # Extract the related Film instance from LT_Viewer_Seen
-        film = seen_film.film  # Assuming LT_Viewer_Seen has a ForeignKey to Film
-
+    for film in seen_films:
         # Get total points for the film as film_a
         a_points_sum = LT_Viewer_Ratings.objects.filter(film_a=film, viewer=viewer).aggregate(
-             total_a_points=Sum('a_points')
+            total_a_points=Sum('a_points')
         )['total_a_points'] or 0
-
         # Get total points for the film as film_b
         b_points_sum = LT_Viewer_Ratings.objects.filter(film_b=film, viewer=viewer).aggregate(
-                total_b_points=Sum(F('a_points') * -1 + 1)
+            total_b_points=Sum(F('a_points') * -1 + 1)
         )['total_b_points'] or 0
-
         # Count total comparisons involving this film
         total_count = LT_Viewer_Ratings.objects.filter(
-                models.Q(film_a=film) | models.Q(film_b=film), viewer=viewer
+            models.Q(film_a=film) | models.Q(film_b=film), viewer=viewer
         ).count()
-
         # Calculate the user rating dynamically
         user_rating = (a_points_sum + b_points_sum) / total_count if total_count > 0 else 0
-
         # Add to film ratings list
         film_ratings.append({
             'film': film,
             'user_rating': user_rating
         })
-
     # Sort the films by rating in descending order
     film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
+   
+    # Sort the films by rating in descending order
+    film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
+
+    # In your profile view
+    top_ten_films = film_ratings[:10]  # Top 10 user-rated films
+    remaining_seen_films = film_ratings[10:]  # All others
 
     # Add the necessary context for the template
     context = {
         'viewer': viewer,
-        'watchlist': watchlist,
-        'seen_films': seen_films,
-        'film_ratings': film_ratings,
+        'watchlist': watchlist,  # Include the watchlist
+        'seen_films': film_ratings,  # Include the seen films
+        'top_ten_films': top_ten_films,  # Add top ten films to context
+        'remaining_seen_films': remaining_seen_films,  # Add remaining films to context
         'friend_request': friend_request,
         'received_friend_request': received_friend_request,
+        
         'num_pending_requests': FriendRequest.objects.filter(receiver=user.viewer, status='pending').count(),
     }
 
     return render(request, 'filmproject/profile.html', context)
+
+
 
 
 def activate(request, uidb64, token):

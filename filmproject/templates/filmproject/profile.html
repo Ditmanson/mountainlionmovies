@@ -4,9 +4,8 @@
 {% block content %}
 <div class="container my-4">
     <div class="row">
-        <!-- Left Column: Profile Picture and Friends (tighter to the left) -->
-        <div class="col-md-3"> <!-- Narrower left column -->
-            <!-- Profile Picture Section -->
+        <!-- Left Column: Profile Picture and Friends -->
+        <div class="col-md-3">
             <div class="profile-section mb-4">
                 <h2>{{ viewer.name }}'s Profile</h2>
                 {% if viewer.profile_picture %}
@@ -16,7 +15,6 @@
                 {% endif %}
             </div>
 
-            
             <!-- Add Friend Button -->
             {% if user.is_authenticated and user.viewer != viewer and not is_friend %}
                 <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-block mb-3">Add Friend</a>
@@ -29,7 +27,6 @@
                     {% for friend in viewer.friends.all %}
                         <li class="list-group-item">
                             <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a>
-                            <!-- Only show Remove Friend button if the user is viewing their own profile -->
                             {% if user.viewer == viewer %}
                                 <a href="{% url 'remove_friend' friend.id %}" class="btn btn-danger btn-sm">Remove Friend</a>
                             {% endif %}
@@ -41,37 +38,41 @@
             </div>
         </div>
 
-        <!-- Right Column: Watchlist and Seen Films Carousels (wider space for movies) -->
-        <div class="col-md-9"> <!-- Wider right column for movies -->
-            <!-- Watchlist Section -->
-            <div class="watchlist-section mb-4">
-                <h2>Watchlist</h2>
-                {% if watchlist %}
-                    <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner" id="watchlist">
-                            <!-- Movies will be dynamically added here -->
+        <!-- Right Column: Top Rated Movies, Watchlist, and Seen Films Carousel -->
+        <div class="col-md-9">
+            <!-- Top 10 Rated Movies Section -->
+            <div class="top-rated-section mb-4">
+                <h2>Top 10 Rated Movies</h2>
+                <div class="row">
+                    {% for rating in top_ten_films %}
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                {% if rating.film.poster_path %}
+                                    <img src="https://image.tmdb.org/t/p/w500{{ rating.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
+                                {% else %}
+                                    <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ rating.film.title }}</h5>
+                                    <p class="card-text">Rating: {{ rating.user_rating|floatformat:1 }}</p>
+                                </div>
+                            </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>                        
-                    </div>
-                {% else %}
-                    <p>This viewer has no films in their watchlist.</p>
-                {% endif %}
+                    {% empty %}
+                        <p>No movies rated yet.</p>
+                    {% endfor %}
+                </div>
             </div>
 
-            <!-- Seen Films Section -->
+            
+
+            <!-- Carousel for Remaining Seen Films -->
             <div class="seen-films-section">
                 <h2>Seen Films</h2>
-                {% if seen_films %}
+                {% if remaining_seen_films %}
                     <div id="seenFilmsCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner" id="seenFilms">
-                            <!-- Movies will be dynamically added here -->
+                            <!-- Remaining seen films will be dynamically added here via carousel.js -->
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#seenFilmsCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -83,7 +84,29 @@
                         </button>
                     </div>
                 {% else %}
-                    <p>This viewer has not marked any films as seen yet.</p>
+                    <p>No additional seen films to display.</p>
+                {% endif %}
+            </div>
+
+            <!-- Watchlist Section (Carousel) -->
+            <div class="watchlist-section mb-4">
+                <h2>Watchlist</h2>
+                {% if watchlist %}
+                    <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="watchlist">
+                            <!-- Watchlist movies will be dynamically added here -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <p>This viewer has no films in their watchlist.</p>
                 {% endif %}
             </div>
         </div>
@@ -92,5 +115,4 @@
 
 <!-- External JavaScript file -->
 <script src="{% static 'scripts/carosel.js' %}"></script>
-
 {% endblock %}
