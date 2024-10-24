@@ -35,6 +35,7 @@ const fetchMovies = (page) => {
  * so you'll see you can pull  up some other information with that
 */
 const displayResults = (data) => {
+  console.log('is super' + isSuperuser)
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = ''; // Clear previous results
   const baseUrl = 'https://image.tmdb.org/t/p/w500'; // Base URL for images
@@ -143,11 +144,13 @@ document.getElementById('fetchButton').addEventListener('click', () => {
     alert('Please enter a page number.');
   }
 });
-let isSuperuser = document.getElementById('postCheckbox').value;
+let isSuperuser = false
+isSuperuser = document.getElementById('postCheckbox').value;
 /**
  * So here because we are using vanilla javascript we create the event listener and attach it to an id
  */
 document.getElementById('postCheckbox').addEventListener('click', () => {
+  console.log('click');
   isSuperuser = document.getElementById('postCheckbox').value;
 });
 
