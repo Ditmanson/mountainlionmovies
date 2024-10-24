@@ -2,8 +2,8 @@
 
 /* Light mode styles */
 body {
-    background: linear-gradient(to bottom, #ffffff, #a2a4a3ff);
-    color: #000000; /* Black text color */
+    background: white !important;
+    color: black; /* Black text color */
 }
 
 .page-margin {
@@ -11,12 +11,12 @@ body {
     margin-bottom: 20px;
     margin-left: 100px;
     margin-right: 100px;
-    border: 1px solid #000000; /* Black border for containers */
+    /* border: 1px solid #000000; Black border for containers */
 }
 
 /* Dark mode styles */
 body.dark-mode {
-    background: linear-gradient(to bottom, #565a5cff, #000000);
+    background: black;
     color: #ffffff; /* White text color */
 }
 
@@ -45,7 +45,7 @@ h2 {
 
 /* ------------------------------------ NAVIGATION BAR ------------------------------------ */
 .navbar {
-    background-color: #cfb87cff; /* Same background color for both modes */
+    background-color: transparent; /* Same background color for both modes */
     margin: 0; /* Removes any margin */
     padding: 0; /* Adjust padding if needed */
 }
@@ -113,6 +113,100 @@ body.dark-mode .small-text {
 }
 
 .profile-picture {
+    width: 120px;
+    height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+
+/* Reduce size for mobile screens */
+@media only screen and (max-width: 600px) {
+    .profile-picture {
+        width: 80px;
+        height: 80px;
+        max-width: 80px;
+        max-height: 80px;
+    }
+}
+
+/* Notification button matches dropdown */
+.notification-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    position: relative;
+}
+
+.notification-btn img {
+    height: 50px; /* Match the size of the dropdown button */
+    object-fit: cover;
+}
+
+/* Notification bubble for pending friend requests */
+.notification-bubble {
+    position: absolute;
+    top: -5px;  /* Adjust as needed */
+    right: -5px;  /* Adjust as needed */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px; /* Ensure it's circular when there's a single digit */
+    min-height: 20px; /* Same as width to maintain the circular shape */
+}
+
+
+/* Floating container for friend requests in the upper-right corner */
+.friend-request-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    z-index: 1000;
+}
+
+.friend-request-container h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.friend-request-container p {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.friend-request-container .btn {
+    width: 100px;
+    margin-bottom: 5px;
+}
+
+/* Ensure the carousels have a maximum width */
+.container {
+    max-width: 800px; /* Adjust the width as per your design */
+    margin: 0 auto;   /* Center the container */
+}
+
+.carousel-item img {
+    max-height: 500px;  /* Limit image height */
+    width: auto;        /* Keep width proportional */
+    max-width: 100%;    /* Prevent image from overflowing container */
+    margin: 0 auto;     /* Center the image */
+}.profile-picture {
     width: 120px;
     height: 120px;
     max-width: 120px;

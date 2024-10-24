@@ -2,8 +2,8 @@
 
 /* Light mode styles */
 body {
-    background: linear-gradient(to bottom, #ffffff, #a2a4a3ff);
-    color: #000000; /* Black text color */
+    background-color: white !important; /* Ensure white background */
+    color: black; /* Black text color */
 }
 
 .page-margin {
@@ -11,17 +11,13 @@ body {
     margin-bottom: 20px;
     margin-left: 100px;
     margin-right: 100px;
-    border: 1px solid #000000; /* Black border for containers */
+    /* border: 1px solid #000000; Black border for containers */
 }
 
 /* Dark mode styles */
 body.dark-mode {
-    background: linear-gradient(to bottom, #565a5cff, #000000);
-    color: #ffffff; /* White text color */
-}
-
-body.dark-mode .page-margin {
-    border: 1px solid #ffffff; /* White border for containers */
+    background-color: black !important; /* Ensure black background */
+    color: white; /* White text color */
 }
 
 /* ------------------------------------ HEADERS ------------------------------------ */
@@ -45,7 +41,7 @@ h2 {
 
 /* ------------------------------------ NAVIGATION BAR ------------------------------------ */
 .navbar {
-    background-color: #cfb87cff; /* Same background color for both modes */
+    background-color: transparent; /* Same background color for both modes */
     margin: 0; /* Removes any margin */
     padding: 0; /* Adjust padding if needed */
 }
