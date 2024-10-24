@@ -22,7 +22,7 @@ class LT_Viewer_SeenSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = LT_Viewer_Seen
-        fields = ['id', 'film', 'seen_film']  # Exclude 'viewer' from the fields
+        fields = ['id', 'film', 'seen_film', 'viewer_rating']  # Exclude 'viewer' from the fields
 
 class LT_Viewer_WatchlistSerializer(serializers.ModelSerializer):
     film = FilmSerializer(read_only=True)  # Nested Film serializer to show film details
