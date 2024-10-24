@@ -39,7 +39,6 @@ const displayResults = (data) => {
   resultsDiv.innerHTML = ''; // Clear previous results
   const baseUrl = 'https://image.tmdb.org/t/p/w500'; // Base URL for images
 
-  const currentUrl = window.location.href;
   if (data.results) {
     data.results.forEach(movie => {
       const movieElement = document.createElement('div');
@@ -54,40 +53,40 @@ const displayResults = (data) => {
       resultsDiv.appendChild(movieElement);
     });
     // TODO get some logic to decide if your a super user
-    isSuperUser = true;
-    if (isSuperUser) {
-      const apiButton = document.createElement('button');
-      apiButton.classList.add('btn', 'btn-primary', 'mb-2');
-      apiButton.innerHTML = 'Post All Movie Data';
-      apiButton.addEventListener('click', () => {
-        data.results.forEach(movie => {
-          postMovieData({
-            adult: movie.adult,
-            backdrop_path: movie.backdrop_path,
-            belongs_to_collection: movie.belongs_to_collection,
-            budget: movie.budget || 0,
-            homepage: movie.homepage || '',
-            imdb_id: movie.imdb_id || '',
-            original_title: movie.original_title,
-            overview: movie.overview,
-            popularity: movie.popularity,
-            poster_path: movie.poster_path,
-            release_date: movie.release_date,
-            revenue: movie.revenue || 0,
-            runtime: movie.runtime || 0,
-            status: movie.status || '',
-            tagline: movie.tagline || '',
-            title: movie.title,
-            tmdb_id: movie.id,
-            vote_average: movie.vote_average,
-            vote_count: movie.vote_count
-          });
+    // const apiButton = document.createElement('button');
+    // apiButton.classList.add('btn', 'btn-primary', 'mb-2');
+    // apiButton.innerHTML = 'Post All Movie Data';
+    // apiButton.addEventListener('click', () => {
+    if (isSuperuser) {
+      data.results.forEach(movie => {
+        postMovieData({
+          adult: movie.adult,
+          backdrop_path: movie.backdrop_path,
+          belongs_to_collection: movie.belongs_to_collection,
+          budget: movie.budget || 0,
+          homepage: movie.homepage || '',
+          imdb_id: movie.imdb_id || '',
+          original_title: movie.original_title,
+          overview: movie.overview,
+          popularity: movie.popularity,
+          poster_path: movie.poster_path,
+          release_date: movie.release_date,
+          revenue: movie.revenue || 0,
+          runtime: movie.runtime || 0,
+          status: movie.status || '',
+          tagline: movie.tagline || '',
+          title: movie.title,
+          tmdb_id: movie.id,
+          vote_average: movie.vote_average,
+          vote_count: movie.vote_count
         });
       });
-    };
+    }
+
+    // });
 
     // Append the button to the results div
-    resultsDiv.appendChild(apiButton);
+    // resultsDiv.appendChild(apiButton);
   } else {
     resultsDiv.innerHTML = '<p>No movies found.</p>';
   }
@@ -107,7 +106,7 @@ const getCsrfToken = () => {
 };
 
 const postMovieData = async (movie) => {
-  const apiEndpoint = 'http://localhost:8000/api/films/';
+  const apiEndpoint = `${window.location.origin}/api/films/`;
 
   try {
     const response = await fetch(apiEndpoint, {
@@ -143,6 +142,13 @@ document.getElementById('fetchButton').addEventListener('click', () => {
   } else {
     alert('Please enter a page number.');
   }
+});
+let isSuperuser = document.getElementById('postCheckbox').value;
+/**
+ * So here because we are using vanilla javascript we create the event listener and attach it to an id
+ */
+document.getElementById('postCheckbox').addEventListener('click', () => {
+  isSuperuser = document.getElementById('postCheckbox').value;
 });
 
 /**

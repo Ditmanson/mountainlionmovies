@@ -11,8 +11,11 @@
     <div id="results" class="mt-3"></div>
   </div>
   {% if user.is_authenticated %}
-    <button>Post All Movie Data</button>
+    <div class="form-check mb-2">
+      <input type="checkbox" id="postCheckbox" class="form-check-input" />
+      <label for="postCheckbox" class="form-check-label">Post All Movie Data</label>
+    </div>
   {% endif %}
 
-  <script src="{% static 'scripts/movies.js' %}"></script> <!-- Use the static tag -->
+  <script src="{% static 'scripts/movies.js' %}"></script>
 {% endblock %}
