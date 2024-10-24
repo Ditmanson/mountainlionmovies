@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.db import models
 from django.db.models import F, Sum
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
@@ -109,9 +110,13 @@ def profile(request, viewer_id=None):
 
     return render(request, 'filmproject/profile.html', context)
 
-
+@login_required
 def update_profile(request, pk):
     viewer = get_object_or_404(Viewer, id=pk)
+
+    if request.user != viewer.user:
+        return render(request, 'filmproject/permission_denied.html', 
+                      {'message': "You are not allowed to update this profile."})
 
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=viewer)
@@ -121,7 +126,7 @@ def update_profile(request, pk):
             print("\nREQUEST FILES", request.FILES,"\n")
             print("\nUSER FORM", user,"\n")
             user.save()
-            
+
             return redirect('profile')
     else:
         form = ProfileUpdateForm(instance=viewer)
