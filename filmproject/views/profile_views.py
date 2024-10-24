@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import generic
-from ..forms import ViewerRegistrationForm
+from ..forms import ViewerRegistrationForm, ProfileUpdateForm
 from ..models import (Viewer, LT_Viewer_Ratings, LT_Viewer_Seen,
                        LT_Viewer_Watchlist, FriendRequest)
 from ..tokens import account_activation_token
@@ -108,6 +108,27 @@ def profile(request, viewer_id=None):
     }
 
     return render(request, 'filmproject/profile.html', context)
+
+
+def update_profile(request, pk):
+    viewer = get_object_or_404(Viewer, id=pk)
+
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=viewer)
+        if form.is_valid():
+            user = form.save(commit=False)
+            print("\nREQUEST POST:", request.POST,"\n")
+            print("\nREQUEST FILES", request.FILES,"\n")
+            print("\nUSER FORM", user,"\n")
+            user.save()
+            
+            return redirect('profile')
+    else:
+        form = ProfileUpdateForm(instance=viewer)
+
+    return render(request, 'filmproject/profile_update.html',
+                  {'form': form, 'pk':pk})
+    
 
 
 def activate(request, uidb64, token):
