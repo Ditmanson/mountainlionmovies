@@ -10,5 +10,9 @@
     <button id="fetchButton" class="btn btn-primary">Fetch Movies</button>
     <div id="results" class="mt-3"></div>
   </div>
+  {% if user.is_authenticated %}
+    <button>Post All Movie Data</button>
+  {% endif %}
+
   <script src="{% static 'scripts/movies.js' %}"></script> <!-- Use the static tag -->
 {% endblock %}

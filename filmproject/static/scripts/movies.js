@@ -23,11 +23,9 @@ const fetchMovies = (page) => {
     .then((response) => response.json())
     .then((data) => {
       displayResults(data);
-      console.log(data);
     })
     .catch((err) => console.error(err));
 };
-
 /**
  * So if you pull up the console log here you'll see what's going on
  * data is everything returned from the API
@@ -35,30 +33,106 @@ const fetchMovies = (page) => {
  * so data.results.forEach is going to loop through that array
  * Then we assign each of those attributes to a new object called movie
  * so you'll see you can pull  up some other information with that
- */
+*/
 const displayResults = (data) => {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = ''; // Clear previous results
   const baseUrl = 'https://image.tmdb.org/t/p/w500'; // Base URL for images
 
+  const currentUrl = window.location.href;
   if (data.results) {
     data.results.forEach(movie => {
       const movieElement = document.createElement('div');
       movieElement.classList.add('card', 'mb-2');
       movieElement.innerHTML = `
-        <div class="card-body">
-          <h5 class="card-title">${movie.title}</h5>
-          <p class="card-text">Rating: ${movie.vote_average}</p>
-          <p class="card-text">${movie.overview}</p>
-          <img src="${baseUrl}${movie.poster_path}" class="img-fluid" alt="${movie.title}">
-        </div>
-      `;
+      <div class="card-body">
+      <h5 class="card-title">${movie.title}</h5>
+      <p class="card-text">Rating: ${movie.vote_average}</p>
+      <p class="card-text">${movie.overview}</p>
+      <img src="${baseUrl}${movie.poster_path}" class="img-fluid" alt="${movie.title}">
+      </div>`;
       resultsDiv.appendChild(movieElement);
     });
+    // TODO get some logic to decide if your a super user
+    isSuperUser = true;
+    if (isSuperUser) {
+      const apiButton = document.createElement('button');
+      apiButton.classList.add('btn', 'btn-primary', 'mb-2');
+      apiButton.innerHTML = 'Post All Movie Data';
+      apiButton.addEventListener('click', () => {
+        data.results.forEach(movie => {
+          postMovieData({
+            adult: movie.adult,
+            backdrop_path: movie.backdrop_path,
+            belongs_to_collection: movie.belongs_to_collection,
+            budget: movie.budget || 0,
+            homepage: movie.homepage || '',
+            imdb_id: movie.imdb_id || '',
+            original_title: movie.original_title,
+            overview: movie.overview,
+            popularity: movie.popularity,
+            poster_path: movie.poster_path,
+            release_date: movie.release_date,
+            revenue: movie.revenue || 0,
+            runtime: movie.runtime || 0,
+            status: movie.status || '',
+            tagline: movie.tagline || '',
+            title: movie.title,
+            tmdb_id: movie.id,
+            vote_average: movie.vote_average,
+            vote_count: movie.vote_count
+          });
+        });
+      });
+    };
+
+    // Append the button to the results div
+    resultsDiv.appendChild(apiButton);
   } else {
     resultsDiv.innerHTML = '<p>No movies found.</p>';
   }
 };
+
+
+// reference so for travis please don't delete
+// function post1() {
+//   curl -X POST https://app-tditmans-5.devedu.io/api/films/ \
+//   -H "Content-Type: application/json" \
+//   -d @mock_data3.json
+//   }
+// post movie data to  sqlite database
+const getCsrfToken = () => {
+  const cookieValue = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
+  return cookieValue ? cookieValue.split('=')[1] : '';
+};
+
+const postMovieData = async (movie) => {
+  const apiEndpoint = 'http://localhost:8000/api/films/';
+
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCsrfToken(), // Add CSRF token here
+      },
+      body: JSON.stringify(movie),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json(); // Capture error details
+      throw new Error(`Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
+    }
+
+    const result = await response.json();
+    console.log('Movie data posted successfully:', result);
+  } catch (error) {
+    console.error('Error posting movie data:', error);
+  }
+};
+
+
+
 /**
  * So here because we are using vanilla javascript we create the event listener and attach it to an id
  */
