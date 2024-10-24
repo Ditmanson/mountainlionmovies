@@ -1,0 +1,2838 @@
+[
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2024-10-23T20:58:43.281Z",
+            "user": 1,
+            "content_type": 20,
+            "object_id": "1",
+            "object_repr": "travis",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 1,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 1,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 1,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 1,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 2,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 2,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 2,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 2,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 3,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 3,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 3,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 3,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 4,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 4,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 4,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 4,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 5,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 5,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 5,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 5,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 6,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 6,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 6,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 6,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add collection",
+            "content_type": 7,
+            "codename": "add_collection"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change collection",
+            "content_type": 7,
+            "codename": "change_collection"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete collection",
+            "content_type": 7,
+            "codename": "delete_collection"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view collection",
+            "content_type": 7,
+            "codename": "view_collection"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add company",
+            "content_type": 8,
+            "codename": "add_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change company",
+            "content_type": 8,
+            "codename": "change_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete company",
+            "content_type": 8,
+            "codename": "delete_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view company",
+            "content_type": 8,
+            "codename": "view_company"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add country",
+            "content_type": 9,
+            "codename": "add_country"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change country",
+            "content_type": 9,
+            "codename": "change_country"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete country",
+            "content_type": 9,
+            "codename": "delete_country"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view country",
+            "content_type": 9,
+            "codename": "view_country"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add film",
+            "content_type": 10,
+            "codename": "add_film"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change film",
+            "content_type": 10,
+            "codename": "change_film"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete film",
+            "content_type": 10,
+            "codename": "delete_film"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view film",
+            "content_type": 10,
+            "codename": "view_film"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add genre",
+            "content_type": 11,
+            "codename": "add_genre"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change genre",
+            "content_type": 11,
+            "codename": "change_genre"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete genre",
+            "content_type": 11,
+            "codename": "delete_genre"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view genre",
+            "content_type": 11,
+            "codename": "view_genre"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add keyword",
+            "content_type": 12,
+            "codename": "add_keyword"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change keyword",
+            "content_type": 12,
+            "codename": "change_keyword"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete keyword",
+            "content_type": 12,
+            "codename": "delete_keyword"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view keyword",
+            "content_type": 12,
+            "codename": "view_keyword"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add language",
+            "content_type": 13,
+            "codename": "add_language"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change language",
+            "content_type": 13,
+            "codename": "change_language"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete language",
+            "content_type": 13,
+            "codename": "delete_language"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view language",
+            "content_type": 13,
+            "codename": "view_language"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add person",
+            "content_type": 14,
+            "codename": "add_person"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change person",
+            "content_type": 14,
+            "codename": "change_person"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete person",
+            "content_type": 14,
+            "codename": "delete_person"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view person",
+            "content_type": 14,
+            "codename": "view_person"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+            "name": "Can add l t_ films_ companies",
+            "content_type": 15,
+            "codename": "add_lt_films_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+            "name": "Can change l t_ films_ companies",
+            "content_type": 15,
+            "codename": "change_lt_films_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+            "name": "Can delete l t_ films_ companies",
+            "content_type": 15,
+            "codename": "delete_lt_films_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+            "name": "Can view l t_ films_ companies",
+            "content_type": 15,
+            "codename": "view_lt_films_companies"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 61,
+        "fields": {
+            "name": "Can add l t_ films_ countries",
+            "content_type": 16,
+            "codename": "add_lt_films_countries"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 62,
+        "fields": {
+            "name": "Can change l t_ films_ countries",
+            "content_type": 16,
+            "codename": "change_lt_films_countries"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 63,
+        "fields": {
+            "name": "Can delete l t_ films_ countries",
+            "content_type": 16,
+            "codename": "delete_lt_films_countries"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 64,
+        "fields": {
+            "name": "Can view l t_ films_ countries",
+            "content_type": 16,
+            "codename": "view_lt_films_countries"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 65,
+        "fields": {
+            "name": "Can add l t_ films_ languages",
+            "content_type": 17,
+            "codename": "add_lt_films_languages"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 66,
+        "fields": {
+            "name": "Can change l t_ films_ languages",
+            "content_type": 17,
+            "codename": "change_lt_films_languages"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 67,
+        "fields": {
+            "name": "Can delete l t_ films_ languages",
+            "content_type": 17,
+            "codename": "delete_lt_films_languages"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 68,
+        "fields": {
+            "name": "Can view l t_ films_ languages",
+            "content_type": 17,
+            "codename": "view_lt_films_languages"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 69,
+        "fields": {
+            "name": "Can add l t_ films_ crew",
+            "content_type": 18,
+            "codename": "add_lt_films_crew"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 70,
+        "fields": {
+            "name": "Can change l t_ films_ crew",
+            "content_type": 18,
+            "codename": "change_lt_films_crew"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 71,
+        "fields": {
+            "name": "Can delete l t_ films_ crew",
+            "content_type": 18,
+            "codename": "delete_lt_films_crew"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+            "name": "Can view l t_ films_ crew",
+            "content_type": 18,
+            "codename": "view_lt_films_crew"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+            "name": "Can add l t_ films_ cast",
+            "content_type": 19,
+            "codename": "add_lt_films_cast"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+            "name": "Can change l t_ films_ cast",
+            "content_type": 19,
+            "codename": "change_lt_films_cast"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+            "name": "Can delete l t_ films_ cast",
+            "content_type": 19,
+            "codename": "delete_lt_films_cast"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+            "name": "Can view l t_ films_ cast",
+            "content_type": 19,
+            "codename": "view_lt_films_cast"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 77,
+        "fields": {
+            "name": "Can add viewer",
+            "content_type": 20,
+            "codename": "add_viewer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 78,
+        "fields": {
+            "name": "Can change viewer",
+            "content_type": 20,
+            "codename": "change_viewer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 79,
+        "fields": {
+            "name": "Can delete viewer",
+            "content_type": 20,
+            "codename": "delete_viewer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 80,
+        "fields": {
+            "name": "Can view viewer",
+            "content_type": 20,
+            "codename": "view_viewer"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 81,
+        "fields": {
+            "name": "Can add friend request",
+            "content_type": 21,
+            "codename": "add_friendrequest"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 82,
+        "fields": {
+            "name": "Can change friend request",
+            "content_type": 21,
+            "codename": "change_friendrequest"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 83,
+        "fields": {
+            "name": "Can delete friend request",
+            "content_type": 21,
+            "codename": "delete_friendrequest"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 84,
+        "fields": {
+            "name": "Can view friend request",
+            "content_type": 21,
+            "codename": "view_friendrequest"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 85,
+        "fields": {
+            "name": "Can add l t_ films_ genres",
+            "content_type": 22,
+            "codename": "add_lt_films_genres"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 86,
+        "fields": {
+            "name": "Can change l t_ films_ genres",
+            "content_type": 22,
+            "codename": "change_lt_films_genres"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 87,
+        "fields": {
+            "name": "Can delete l t_ films_ genres",
+            "content_type": 22,
+            "codename": "delete_lt_films_genres"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 88,
+        "fields": {
+            "name": "Can view l t_ films_ genres",
+            "content_type": 22,
+            "codename": "view_lt_films_genres"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 89,
+        "fields": {
+            "name": "Can add l t_ films_ keywords",
+            "content_type": 23,
+            "codename": "add_lt_films_keywords"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 90,
+        "fields": {
+            "name": "Can change l t_ films_ keywords",
+            "content_type": 23,
+            "codename": "change_lt_films_keywords"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 91,
+        "fields": {
+            "name": "Can delete l t_ films_ keywords",
+            "content_type": 23,
+            "codename": "delete_lt_films_keywords"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 92,
+        "fields": {
+            "name": "Can view l t_ films_ keywords",
+            "content_type": 23,
+            "codename": "view_lt_films_keywords"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 93,
+        "fields": {
+            "name": "Can add l t_ viewer_ watchlist",
+            "content_type": 24,
+            "codename": "add_lt_viewer_watchlist"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 94,
+        "fields": {
+            "name": "Can change l t_ viewer_ watchlist",
+            "content_type": 24,
+            "codename": "change_lt_viewer_watchlist"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 95,
+        "fields": {
+            "name": "Can delete l t_ viewer_ watchlist",
+            "content_type": 24,
+            "codename": "delete_lt_viewer_watchlist"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 96,
+        "fields": {
+            "name": "Can view l t_ viewer_ watchlist",
+            "content_type": 24,
+            "codename": "view_lt_viewer_watchlist"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 97,
+        "fields": {
+            "name": "Can add l t_ viewer_ seen",
+            "content_type": 25,
+            "codename": "add_lt_viewer_seen"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 98,
+        "fields": {
+            "name": "Can change l t_ viewer_ seen",
+            "content_type": 25,
+            "codename": "change_lt_viewer_seen"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 99,
+        "fields": {
+            "name": "Can delete l t_ viewer_ seen",
+            "content_type": 25,
+            "codename": "delete_lt_viewer_seen"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 100,
+        "fields": {
+            "name": "Can view l t_ viewer_ seen",
+            "content_type": 25,
+            "codename": "view_lt_viewer_seen"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 101,
+        "fields": {
+            "name": "Can add l t_ viewer_ ratings",
+            "content_type": 26,
+            "codename": "add_lt_viewer_ratings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 102,
+        "fields": {
+            "name": "Can change l t_ viewer_ ratings",
+            "content_type": 26,
+            "codename": "change_lt_viewer_ratings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 103,
+        "fields": {
+            "name": "Can delete l t_ viewer_ ratings",
+            "content_type": 26,
+            "codename": "delete_lt_viewer_ratings"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 104,
+        "fields": {
+            "name": "Can view l t_ viewer_ ratings",
+            "content_type": 26,
+            "codename": "view_lt_viewer_ratings"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$k9MZbPfHWfNwX9xA7W3zUN$U8kOtpQ/4LwSVp6cH0k1oqCwpVTQQwlEIukyxPblTTU=",
+            "last_login": "2024-10-23T20:58:05.637Z",
+            "is_superuser": true,
+            "username": "travis",
+            "first_name": "",
+            "last_name": "",
+            "email": "tditmans@uccs.edu",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-10-23T20:55:41.421Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$V0letkNhW6VPUXHsRoTqwD$3zzS8EvL2bsaufhmPv5yLnmlyElCLFNTaJ2VeQ0mnqs=",
+            "last_login": "2024-10-23T21:16:47.497Z",
+            "is_superuser": false,
+            "username": "Kory_M",
+            "first_name": "",
+            "last_name": "",
+            "email": "mayberrykory27@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-10-23T21:16:32.464Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$GObPLKwwHsvY170gRX4eRb$2jL90VeM/bh/g/snhD+QNqbbyjnDqFHJEGvDNn7LQeY=",
+            "last_login": "2024-10-24T14:42:53.927Z",
+            "is_superuser": false,
+            "username": "bob",
+            "first_name": "",
+            "last_name": "",
+            "email": "rkroleski@comcast.net",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-10-24T14:42:04.622Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$AlhzBPusVdMOZwZEdIlH2q$r/MWcVR+bEaiy6mjfYnOooMHLcDRiUzc/a8euxbtTPM=",
+            "last_login": "2024-10-24T17:52:53.196Z",
+            "is_superuser": false,
+            "username": "ajudson660",
+            "first_name": "",
+            "last_name": "",
+            "email": "ajudson2002@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-10-24T17:14:42.046Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$870000$aIEJXPZUKcAZG5BlxwBr2v$8i4C8aEb9IyNnkcmV3D6L++WAByCvx8QNakk48mmH18=",
+            "last_login": "2024-10-24T18:38:44.363Z",
+            "is_superuser": false,
+            "username": "gsmith17",
+            "first_name": "",
+            "last_name": "",
+            "email": "garr3tts12@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-10-24T18:38:12.745Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "auth",
+            "model": "user"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "collection"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "company"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "country"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "film"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "genre"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "keyword"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "language"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "person"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 15,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_companies"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 16,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_countries"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 17,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_languages"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 18,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_crew"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 19,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_cast"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 20,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "viewer"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 21,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "friendrequest"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 22,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_genres"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 23,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_films_keywords"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 24,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_viewer_watchlist"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 25,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_viewer_seen"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 26,
+        "fields": {
+            "app_label": "filmproject",
+            "model": "lt_viewer_ratings"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "5t081o1wfdejahqfg3pl86r2dnr82ug1",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2hAoMBlcuvcMZIBBqoYmpV013t026UK3_733NxFoXWpYO89hzOIqrLj8bpHSi9sB8pPaY5Jpass8Rnko8qRd3qfM79vp_h1U6nWvkci77ImB2DEMRnGxGgvqCK7sDJzhrBg1kkIwupgCntPgbWRgFJ8v9KE4JA:1t420z:jcqhwUkiULWoY4sQPL2DgmDDcy_w74cgyqgkjm25se8",
+            "expire_date": "2024-11-07T17:52:53.215Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "7vlrkk0eimeqjm41fjs1phkdwkulxwm4",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2hAoMBlcuvcMZIBBqoYmpV013t026UK3_733NxFoXWpYO89hzOIqrLj8bpHSi9sB8pPaY5Jpass8Rnko8qRd3qfM79vp_h1U6nWvkci77ImB2DEMRnGxGgvqCK7sDJzhrBg1kkIwupgCntPgbWRgFJ8v9KE4JA:1t41QL:Ec9bMDQ2onosv8Ub7q6I0jJxsTblS3vxeEJpe8BEffE",
+            "expire_date": "2024-11-07T17:15:01.531Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ms3xtgbxosdsqv0kyvqxlj1dux5s5zcv",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2hAIQgeX7j0DGWYGqRqalHZlvLtt0oVu_3vvv1XCdalp7TKnkdVFOXX63TLSU9oO-IHtPmma2jKPWe-KPmjXt4nldT3cv4OKvW41Gs8BMTiboXAmn0O0aAQQQbgMUQjIFE8hno1zG7eDFIxeBDgyqM8XE6E5Mw:1t3z37:Zy3lpyPuDEtxkoryZSEQvgrPGG97ZoY4OoPo027BIvY",
+            "expire_date": "2024-11-07T14:42:53.951Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "n6bvqxsht6ia7ylu8ukunvtqejn1lx9v",
+        "fields": {
+            "session_data": ".eJxVjL0OwiAURt-F2RAuCJc6uvcZyOVPqgaS0k7Gd1eSDjp8y3dOzos52rfi9p5Wt0R2YZKdfj9P4ZHqAPFO9dZ4aHVbF8-Hwg_a-dxiel4P9y9QqJeR9YYoekJlDdiMYFTSeoqYLFJQFpQAJH1WBjCDRiM1pRyEDFP-TrD3B9S9N0c:1t3iil:bqBjF5ToqlrfE_WwIj1akbw1V1Zii_WrrN2MSs1QG8c",
+            "expire_date": "2024-11-06T21:16:47.516Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vniusu7qwxka61utbpa2tut5djtgto2i",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2pCWAgMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWRpx-N8L4SHUHfMd6azK2ui4zyV2RB-3y2jg9L4f7d1Cwl2-dHXlGAG2izgYQDGiw5NHkMSF7T8r6kSxDniYAOyD5wSmI2iWEqMT7A-mNN80:1t42jM:2xv2Yaq7bWjAkEnPEF1GSEu8EfEtaF0b_hLveetm2gM",
+            "expire_date": "2024-11-07T18:38:44.395Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "zaha7zdl43l9uwxmfsbpnkcbsfs64sx4",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2hAGRxlcuvcMZIBBqoYmpV0Z726bdKHb997_bxV4mWtYukxhyOqiQB1-WeT0lLaJ_OB2H3Ua2zwNUW-J3m3XtzHL67q3fweVe13XCASeiA2lFDEXf7binYeTs1YEEVxCLoYFk3HkgRwjFSg-H8vKivp8Acr9N8I:1t3iQf:ymQRVV3J7UGCRCJrezy8iHoaCEil66Ka_JExrTzfh0U",
+            "expire_date": "2024-11-06T20:58:05.654Z"
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 1,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/417tYZ4XUyJrtyZXj7HpvWf1E8f.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "The Wild Robot",
+            "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
+            "popularity": "5200.959000",
+            "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
+            "release_date": "2024-09-12",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Wild Robot",
+            "tmdb_id": null,
+            "vote_average": "8.661",
+            "vote_count": 1288
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 2,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Alien: Romulus",
+            "overview": "While scavenging the deep ends of a derelict space station, a group of young space colonizers come face to face with the most terrifying life form in the universe.",
+            "popularity": "3904.571000",
+            "poster_path": "/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg",
+            "release_date": "2024-08-13",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Alien: Romulus",
+            "tmdb_id": null,
+            "vote_average": "7.300",
+            "vote_count": 1807
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 3,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "The Substance",
+            "overview": "A fading celebrity decides to usea black market drug, a cell-replicating substance that temporarily creates a younger, better version of herself.",
+            "popularity": "3159.484000",
+            "poster_path": "/lqoMzCcZYEFK729d6qzt349fB4o.jpg",
+            "release_date": "2024-09-07",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Substance",
+            "tmdb_id": null,
+            "vote_average": "7.321",
+            "vote_count": 803
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 4,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Deadpool & Wolverine",
+            "overview": "A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.",
+            "popularity": "2203.301000",
+            "poster_path": "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+            "release_date": "2024-07-24",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Deadpool & Wolverine",
+            "tmdb_id": null,
+            "vote_average": "7.712",
+            "vote_count": 4723
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 5,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/4KHEK6AQFHhv4TDtL3KLReePB05.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Azrael",
+            "overview": "In a world where no one speaks, a devout female hunts down a young woman who has escaped her imprisonment. Recaptured by its ruthless leaders, Azrael is due to be sacrificed to pacify an ancient evil deep within the surrounding wilderness.",
+            "popularity": "1635.458000",
+            "poster_path": "/qpdFKDvJS7oLKTcBLXOaMwUESbs.jpg",
+            "release_date": "2024-09-27",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Azrael",
+            "tmdb_id": null,
+            "vote_average": "6.095",
+            "vote_count": 84
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 6,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/p5ozvmdgsmbWe0H8Xk7Rc8SCwAB.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Inside Out 2",
+            "overview": "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+            "popularity": "1847.374000",
+            "poster_path": "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+            "release_date": "2024-06-11",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Inside Out 2",
+            "tmdb_id": null,
+            "vote_average": "7.616",
+            "vote_count": 4430
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 7,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/eQEgKIRF7KeVGBQ8IYcklpU8RPf.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Terrifier 3",
+            "overview": "Five years after surviving Art the Clown's Halloween massacre, Sienna and Jonathan are still struggling to rebuild their shattered lives. As the holiday season approaches, they try to embrace the Christmas spirit and leave the horrors of the past behind. But just when they think they're safe, Art returns, determined to turn their holiday cheer into a new nightmare. The festive season quickly unravels as Art unleashes his twisted brand of terror, proving that no holiday is safe.",
+            "popularity": "1681.930000",
+            "poster_path": "/63xYQj1BwRFielxsBDXvHIJyXVm.jpg",
+            "release_date": "2024-10-09",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Terrifier 3",
+            "tmdb_id": null,
+            "vote_average": "7.000",
+            "vote_count": 103
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 8,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Venom: The Last Dance",
+            "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
+            "popularity": "1678.855000",
+            "poster_path": "/k42Owka8v91trK1qMYwCQCNwJKr.jpg",
+            "release_date": "2024-10-22",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Venom: The Last Dance",
+            "tmdb_id": null,
+            "vote_average": "7.175",
+            "vote_count": 20
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 9,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Despicable Me 4",
+            "overview": "Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
+            "popularity": "1195.583000",
+            "poster_path": "/3w84hCFJATpiCO5g8hpdWVPBbmq.jpg",
+            "release_date": "2024-06-20",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Despicable Me 4",
+            "tmdb_id": null,
+            "vote_average": "7.100",
+            "vote_count": 2036
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 10,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/xi1VSt3DtkevUmzCx2mNlCoDe74.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Beetlejuice Beetlejuice",
+            "overview": "After a family tragedy, three generations of the Deetz family return home to Winter River. Still haunted by Betelgeuse, Lydia's life is turned upside down when her teenage daughter, Astrid, accidentally opens the portal to the Afterlife.",
+            "popularity": "1352.254000",
+            "poster_path": "/kKgQzkUCnQmeTPkyIwHly2t6ZFI.jpg",
+            "release_date": "2024-09-04",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Beetlejuice Beetlejuice",
+            "tmdb_id": null,
+            "vote_average": "7.208",
+            "vote_count": 1488
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 11,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/g1z1ZvYKcmk9EnVOTYXR6vkNjkZ.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Hellboy: The Crooked Man",
+            "overview": "Hellboy and a rookie BPRD agent get stranded in 1950s rural Appalachia. There, they discover a small community haunted by witches, led by a local devil with a troubling connection to Hellboy's past: the Crooked Man.",
+            "popularity": "1221.335000",
+            "poster_path": "/iz2GabtToVB05gLTVSH7ZvFtsMM.jpg",
+            "release_date": "2024-08-29",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Hellboy: The Crooked Man",
+            "tmdb_id": null,
+            "vote_average": "5.000",
+            "vote_count": 145
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 12,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/p4INKu77iuTG1o1a5N3Y9vqeEGq.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Winnie-the-Pooh: Blood and Honey 2",
+            "overview": "Five months following the murders, Christopher Robin tries returning to his regular life while dealing with his PTSD. Deep within the 100-Acre-Wood, a destructive rage grows as Winnie-the-Pooh, Piglet, Owl, and Tigger find their home and their lives endangered after their existence is revealed.",
+            "popularity": "1211.407000",
+            "poster_path": "/2sADrLwMQof6yYmrJRSa04tFZuS.jpg",
+            "release_date": "2024-03-26",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Winnie-the-Pooh: Blood and Honey 2",
+            "tmdb_id": null,
+            "vote_average": "6.200",
+            "vote_count": 241
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 13,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/3m0j3hCS8kMAaP9El6Vy5Lqnyft.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "El hoyo 2",
+            "overview": "After a mysterious leader imposes his law in a brutal system of vertical cells, a new arrival battles against a dubious food distribution method.",
+            "popularity": "1091.003000",
+            "poster_path": "/izuzUb0sDokqp9o8utVfsrSJuy5.jpg",
+            "release_date": "2024-09-27",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Platform 2",
+            "tmdb_id": null,
+            "vote_average": "5.680",
+            "vote_count": 670
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 14,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/bkENfmxUY3UYsRLizJAhF5IQPvS.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Blood for Dust",
+            "overview": "Reckless Ricky makes serious money dealing illegal weapons throughout the tri-state area and loves to flaunt it. Traveling salesman Cliff, covers the same territory Ricky runs guns through. Desperate to find some financial relief for his struggling family, Cliff agrees to partner with Ricky, to commit cross-state drug and gun deliveries for a mid-level American cartel boss John. When a simple exchange turns into a bloodbath after Ricky kills everyone in a territory grab, the pair find themselves in a pressure cooker situation where unlikely drug dealer Cliff must fight as hard as he can to stay alive.",
+            "popularity": "976.443000",
+            "poster_path": "/nvaCnkl8RilLhVAQXPFei0tqkqW.jpg",
+            "release_date": "2024-04-19",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Blood for Dust",
+            "tmdb_id": null,
+            "vote_average": "5.600",
+            "vote_count": 38
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 15,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/64tinBsds1nVp4wOCgYhMbSgsRW.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "전,란",
+            "overview": "In the Joseon Dynasty, two friends who grew up together — one the master and one the servant — reunite post-war as enemies on opposing sides.",
+            "popularity": "954.411000",
+            "poster_path": "/hg9OeaCRSpazrfqYyEFr6BDaZW8.jpg",
+            "release_date": "2024-10-02",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Uprising",
+            "tmdb_id": null,
+            "vote_average": "7.400",
+            "vote_count": 66
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 16,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/of1tQasFGCeHgWPmSgdA1WS6hNW.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "The Silent Hour",
+            "overview": "While working a case as an interpreter, a hearing-impaired police detective must confront a group of criminals trying to eliminate a deaf murder witness in her apartment building.",
+            "popularity": "808.001000",
+            "poster_path": "/j736cRzBtEPCm0nHnpRN1prqiqj.jpg",
+            "release_date": "2024-10-03",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Silent Hour",
+            "tmdb_id": null,
+            "vote_average": "6.600",
+            "vote_count": 29
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 17,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/tCKWksaQI8XkAQLVou0AlGab5S6.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Transmorphers: Mech Beasts",
+            "overview": "20 years after the events of Transmorphers, a newer, more advanced species of alien robot descends on a rebuilt Earth, threatening once again to destroy the planet.",
+            "popularity": "650.397000",
+            "poster_path": "/oqhaffnQqSzdLrYAQA5W4IdAoCX.jpg",
+            "release_date": "2023-06-09",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Transmorphers: Mech Beasts",
+            "tmdb_id": null,
+            "vote_average": "5.222",
+            "vote_count": 27
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 18,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/zAqBIeO71BFL7bAtP5TFzVjVamy.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "It Ends with Us",
+            "overview": "When a woman's first love suddenly reenters her life, her relationship with a charming, but abusive neurosurgeon is upended, and she realizes she must learn to rely on her own strength to make an impossible choice for her future.",
+            "popularity": "799.043000",
+            "poster_path": "/AjV6jFJ2YFIluYo4GQf13AA1tqu.jpg",
+            "release_date": "2024-08-07",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "It Ends with Us",
+            "tmdb_id": null,
+            "vote_average": "7.177",
+            "vote_count": 864
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 19,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/l8OyAXEp5FKZWmDhqJMbiwAEvz.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Never Let Go",
+            "overview": "As an evil takes over the world beyond their front doorstep, the only protection for a mother and her twin sons is their house and their family’s protective bond.",
+            "popularity": "595.504000",
+            "poster_path": "/3EpZ2ksjijmdr8BhISP03PYzNFW.jpg",
+            "release_date": "2024-09-18",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Never Let Go",
+            "tmdb_id": null,
+            "vote_average": "6.100",
+            "vote_count": 142
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 20,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/cVg97LOJgrDZJ7bVmjU2KsGRYnU.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Smile 2",
+            "overview": "About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control.",
+            "popularity": "741.034000",
+            "poster_path": "/aE85MnPIsSoSs3978Noo16BRsKN.jpg",
+            "release_date": "2024-10-16",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Smile 2",
+            "tmdb_id": null,
+            "vote_average": "7.100",
+            "vote_count": 124
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 21,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/417tYZ4XUyJrtyZXj7HpvWf1E8f.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "The Wild Robot",
+            "overview": "After a shipwreck, an intelligent robot called Roz is stranded on an uninhabited island. To survive the harsh environment, Roz bonds with the island's animals and cares for an orphaned baby goose.",
+            "popularity": "5200.959000",
+            "poster_path": "/wTnV3PCVW5O92JMrFvvrRcV39RU.jpg",
+            "release_date": "2024-09-12",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Wild Robot",
+            "tmdb_id": null,
+            "vote_average": "8.661",
+            "vote_count": 1288
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 22,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/9SSEUrSqhljBMzRe4aBTh17rUaC.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Alien: Romulus",
+            "overview": "While scavenging the deep ends of a derelict space station, a group of young space colonizers come face to face with the most terrifying life form in the universe.",
+            "popularity": "3904.571000",
+            "poster_path": "/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg",
+            "release_date": "2024-08-13",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Alien: Romulus",
+            "tmdb_id": null,
+            "vote_average": "7.300",
+            "vote_count": 1807
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 23,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/7h6TqPB3ESmjuVbxCxAeB1c9OB1.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "The Substance",
+            "overview": "A fading celebrity decides to usea black market drug, a cell-replicating substance that temporarily creates a younger, better version of herself.",
+            "popularity": "3159.484000",
+            "poster_path": "/lqoMzCcZYEFK729d6qzt349fB4o.jpg",
+            "release_date": "2024-09-07",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Substance",
+            "tmdb_id": null,
+            "vote_average": "7.321",
+            "vote_count": 803
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 24,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/yDHYTfA3R0jFYba16jBB1ef8oIt.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Deadpool & Wolverine",
+            "overview": "A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.",
+            "popularity": "2203.301000",
+            "poster_path": "/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
+            "release_date": "2024-07-24",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Deadpool & Wolverine",
+            "tmdb_id": null,
+            "vote_average": "7.712",
+            "vote_count": 4723
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 25,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/4KHEK6AQFHhv4TDtL3KLReePB05.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Azrael",
+            "overview": "In a world where no one speaks, a devout female hunts down a young woman who has escaped her imprisonment. Recaptured by its ruthless leaders, Azrael is due to be sacrificed to pacify an ancient evil deep within the surrounding wilderness.",
+            "popularity": "1635.458000",
+            "poster_path": "/qpdFKDvJS7oLKTcBLXOaMwUESbs.jpg",
+            "release_date": "2024-09-27",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Azrael",
+            "tmdb_id": null,
+            "vote_average": "6.095",
+            "vote_count": 84
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 26,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/p5ozvmdgsmbWe0H8Xk7Rc8SCwAB.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Inside Out 2",
+            "overview": "Teenager Riley's mind headquarters is undergoing a sudden demolition to make room for something entirely unexpected: new Emotions! Joy, Sadness, Anger, Fear and Disgust, who’ve long been running a successful operation by all accounts, aren’t sure how to feel when Anxiety shows up. And it looks like she’s not alone.",
+            "popularity": "1847.374000",
+            "poster_path": "/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg",
+            "release_date": "2024-06-11",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Inside Out 2",
+            "tmdb_id": null,
+            "vote_average": "7.616",
+            "vote_count": 4430
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 27,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/eQEgKIRF7KeVGBQ8IYcklpU8RPf.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Terrifier 3",
+            "overview": "Five years after surviving Art the Clown's Halloween massacre, Sienna and Jonathan are still struggling to rebuild their shattered lives. As the holiday season approaches, they try to embrace the Christmas spirit and leave the horrors of the past behind. But just when they think they're safe, Art returns, determined to turn their holiday cheer into a new nightmare. The festive season quickly unravels as Art unleashes his twisted brand of terror, proving that no holiday is safe.",
+            "popularity": "1681.930000",
+            "poster_path": "/63xYQj1BwRFielxsBDXvHIJyXVm.jpg",
+            "release_date": "2024-10-09",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Terrifier 3",
+            "tmdb_id": null,
+            "vote_average": "7.000",
+            "vote_count": 103
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 28,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/3V4kLQg0kSqPLctI5ziYWabAZYF.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Venom: The Last Dance",
+            "overview": "Eddie and Venom are on the run. Hunted by both of their worlds and with the net closing in, the duo are forced into a devastating decision that will bring the curtains down on Venom and Eddie's last dance.",
+            "popularity": "1678.855000",
+            "poster_path": "/k42Owka8v91trK1qMYwCQCNwJKr.jpg",
+            "release_date": "2024-10-22",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Venom: The Last Dance",
+            "tmdb_id": null,
+            "vote_average": "7.175",
+            "vote_count": 20
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 29,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/lgkPzcOSnTvjeMnuFzozRO5HHw1.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Despicable Me 4",
+            "overview": "Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
+            "popularity": "1195.583000",
+            "poster_path": "/3w84hCFJATpiCO5g8hpdWVPBbmq.jpg",
+            "release_date": "2024-06-20",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Despicable Me 4",
+            "tmdb_id": null,
+            "vote_average": "7.100",
+            "vote_count": 2036
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 30,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/xi1VSt3DtkevUmzCx2mNlCoDe74.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Beetlejuice Beetlejuice",
+            "overview": "After a family tragedy, three generations of the Deetz family return home to Winter River. Still haunted by Betelgeuse, Lydia's life is turned upside down when her teenage daughter, Astrid, accidentally opens the portal to the Afterlife.",
+            "popularity": "1352.254000",
+            "poster_path": "/kKgQzkUCnQmeTPkyIwHly2t6ZFI.jpg",
+            "release_date": "2024-09-04",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Beetlejuice Beetlejuice",
+            "tmdb_id": null,
+            "vote_average": "7.208",
+            "vote_count": 1488
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 31,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/g1z1ZvYKcmk9EnVOTYXR6vkNjkZ.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Hellboy: The Crooked Man",
+            "overview": "Hellboy and a rookie BPRD agent get stranded in 1950s rural Appalachia. There, they discover a small community haunted by witches, led by a local devil with a troubling connection to Hellboy's past: the Crooked Man.",
+            "popularity": "1221.335000",
+            "poster_path": "/iz2GabtToVB05gLTVSH7ZvFtsMM.jpg",
+            "release_date": "2024-08-29",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Hellboy: The Crooked Man",
+            "tmdb_id": null,
+            "vote_average": "5.000",
+            "vote_count": 145
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 32,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/p4INKu77iuTG1o1a5N3Y9vqeEGq.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Winnie-the-Pooh: Blood and Honey 2",
+            "overview": "Five months following the murders, Christopher Robin tries returning to his regular life while dealing with his PTSD. Deep within the 100-Acre-Wood, a destructive rage grows as Winnie-the-Pooh, Piglet, Owl, and Tigger find their home and their lives endangered after their existence is revealed.",
+            "popularity": "1211.407000",
+            "poster_path": "/2sADrLwMQof6yYmrJRSa04tFZuS.jpg",
+            "release_date": "2024-03-26",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Winnie-the-Pooh: Blood and Honey 2",
+            "tmdb_id": null,
+            "vote_average": "6.200",
+            "vote_count": 241
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 33,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/3m0j3hCS8kMAaP9El6Vy5Lqnyft.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "El hoyo 2",
+            "overview": "After a mysterious leader imposes his law in a brutal system of vertical cells, a new arrival battles against a dubious food distribution method.",
+            "popularity": "1091.003000",
+            "poster_path": "/izuzUb0sDokqp9o8utVfsrSJuy5.jpg",
+            "release_date": "2024-09-27",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Platform 2",
+            "tmdb_id": null,
+            "vote_average": "5.680",
+            "vote_count": 670
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 34,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/bkENfmxUY3UYsRLizJAhF5IQPvS.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Blood for Dust",
+            "overview": "Reckless Ricky makes serious money dealing illegal weapons throughout the tri-state area and loves to flaunt it. Traveling salesman Cliff, covers the same territory Ricky runs guns through. Desperate to find some financial relief for his struggling family, Cliff agrees to partner with Ricky, to commit cross-state drug and gun deliveries for a mid-level American cartel boss John. When a simple exchange turns into a bloodbath after Ricky kills everyone in a territory grab, the pair find themselves in a pressure cooker situation where unlikely drug dealer Cliff must fight as hard as he can to stay alive.",
+            "popularity": "976.443000",
+            "poster_path": "/nvaCnkl8RilLhVAQXPFei0tqkqW.jpg",
+            "release_date": "2024-04-19",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Blood for Dust",
+            "tmdb_id": null,
+            "vote_average": "5.600",
+            "vote_count": 38
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 35,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/64tinBsds1nVp4wOCgYhMbSgsRW.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "전,란",
+            "overview": "In the Joseon Dynasty, two friends who grew up together — one the master and one the servant — reunite post-war as enemies on opposing sides.",
+            "popularity": "954.411000",
+            "poster_path": "/hg9OeaCRSpazrfqYyEFr6BDaZW8.jpg",
+            "release_date": "2024-10-02",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Uprising",
+            "tmdb_id": null,
+            "vote_average": "7.400",
+            "vote_count": 66
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 36,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/of1tQasFGCeHgWPmSgdA1WS6hNW.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "The Silent Hour",
+            "overview": "While working a case as an interpreter, a hearing-impaired police detective must confront a group of criminals trying to eliminate a deaf murder witness in her apartment building.",
+            "popularity": "808.001000",
+            "poster_path": "/j736cRzBtEPCm0nHnpRN1prqiqj.jpg",
+            "release_date": "2024-10-03",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "The Silent Hour",
+            "tmdb_id": null,
+            "vote_average": "6.600",
+            "vote_count": 29
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 37,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/tCKWksaQI8XkAQLVou0AlGab5S6.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Transmorphers: Mech Beasts",
+            "overview": "20 years after the events of Transmorphers, a newer, more advanced species of alien robot descends on a rebuilt Earth, threatening once again to destroy the planet.",
+            "popularity": "650.397000",
+            "poster_path": "/oqhaffnQqSzdLrYAQA5W4IdAoCX.jpg",
+            "release_date": "2023-06-09",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Transmorphers: Mech Beasts",
+            "tmdb_id": null,
+            "vote_average": "5.222",
+            "vote_count": 27
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 38,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/zAqBIeO71BFL7bAtP5TFzVjVamy.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "It Ends with Us",
+            "overview": "When a woman's first love suddenly reenters her life, her relationship with a charming, but abusive neurosurgeon is upended, and she realizes she must learn to rely on her own strength to make an impossible choice for her future.",
+            "popularity": "799.043000",
+            "poster_path": "/AjV6jFJ2YFIluYo4GQf13AA1tqu.jpg",
+            "release_date": "2024-08-07",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "It Ends with Us",
+            "tmdb_id": null,
+            "vote_average": "7.177",
+            "vote_count": 864
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 39,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/l8OyAXEp5FKZWmDhqJMbiwAEvz.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Never Let Go",
+            "overview": "As an evil takes over the world beyond their front doorstep, the only protection for a mother and her twin sons is their house and their family’s protective bond.",
+            "popularity": "595.504000",
+            "poster_path": "/3EpZ2ksjijmdr8BhISP03PYzNFW.jpg",
+            "release_date": "2024-09-18",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Never Let Go",
+            "tmdb_id": null,
+            "vote_average": "6.100",
+            "vote_count": 142
+        }
+    },
+    {
+        "model": "filmproject.film",
+        "pk": 40,
+        "fields": {
+            "adult": false,
+            "backdrop_path": "/cVg97LOJgrDZJ7bVmjU2KsGRYnU.jpg",
+            "belongs_to_collection": false,
+            "budget": null,
+            "homepage": null,
+            "imdb_id": null,
+            "original_title": "Smile 2",
+            "overview": "About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control.",
+            "popularity": "741.034000",
+            "poster_path": "/aE85MnPIsSoSs3978Noo16BRsKN.jpg",
+            "release_date": "2024-10-16",
+            "revenue": null,
+            "runtime": null,
+            "status": null,
+            "tagline": null,
+            "title": "Smile 2",
+            "tmdb_id": null,
+            "vote_average": "7.100",
+            "vote_count": 124
+        }
+    },
+    {
+        "model": "filmproject.viewer",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "name": "travis",
+            "email": "tditmans@uccs.edu",
+            "profile_picture": "profile_pictures/default_pfp.jpg",
+            "friends": []
+        }
+    },
+    {
+        "model": "filmproject.viewer",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "name": "Kory_M",
+            "email": "mayberrykory27@gmail.com",
+            "profile_picture": "",
+            "friends": [
+                4,
+                5
+            ]
+        }
+    },
+    {
+        "model": "filmproject.viewer",
+        "pk": 3,
+        "fields": {
+            "user": 3,
+            "name": "bob",
+            "email": "rkroleski@comcast.net",
+            "profile_picture": "",
+            "friends": []
+        }
+    },
+    {
+        "model": "filmproject.viewer",
+        "pk": 4,
+        "fields": {
+            "user": 4,
+            "name": "ajudson660",
+            "email": "ajudson2002@gmail.com",
+            "profile_picture": "",
+            "friends": [
+                2,
+                5
+            ]
+        }
+    },
+    {
+        "model": "filmproject.viewer",
+        "pk": 5,
+        "fields": {
+            "user": 5,
+            "name": "gsmith17",
+            "email": "garr3tts12@gmail.com",
+            "profile_picture": "",
+            "friends": [
+                2,
+                4
+            ]
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 1,
+        "fields": {
+            "viewer": 2,
+            "film_a": 6,
+            "film_b": 10,
+            "date": "2024-10-23",
+            "a_points": "1.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 2,
+        "fields": {
+            "viewer": 2,
+            "film_a": 2,
+            "film_b": 6,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 3,
+        "fields": {
+            "viewer": 2,
+            "film_a": 2,
+            "film_b": 10,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 4,
+        "fields": {
+            "viewer": 2,
+            "film_a": 4,
+            "film_b": 6,
+            "date": "2024-10-23",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 5,
+        "fields": {
+            "viewer": 2,
+            "film_a": 4,
+            "film_b": 10,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 6,
+        "fields": {
+            "viewer": 3,
+            "film_a": 4,
+            "film_b": 14,
+            "date": "2024-10-24",
+            "a_points": "1.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 7,
+        "fields": {
+            "viewer": 3,
+            "film_a": 2,
+            "film_b": 7,
+            "date": "2024-10-24",
+            "a_points": "1.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 8,
+        "fields": {
+            "viewer": 3,
+            "film_a": 2,
+            "film_b": 14,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 9,
+        "fields": {
+            "viewer": 3,
+            "film_a": 2,
+            "film_b": 4,
+            "date": "2024-10-24",
+            "a_points": "1.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 10,
+        "fields": {
+            "viewer": 3,
+            "film_a": 7,
+            "film_b": 14,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 11,
+        "fields": {
+            "viewer": 4,
+            "film_a": 2,
+            "film_b": 6,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 12,
+        "fields": {
+            "viewer": 4,
+            "film_a": 2,
+            "film_b": 5,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 13,
+        "fields": {
+            "viewer": 4,
+            "film_a": 6,
+            "film_b": 18,
+            "date": "2024-10-24",
+            "a_points": "1.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 14,
+        "fields": {
+            "viewer": 4,
+            "film_a": 2,
+            "film_b": 18,
+            "date": "2024-10-24",
+            "a_points": "0.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_ratings",
+        "pk": 15,
+        "fields": {
+            "viewer": 4,
+            "film_a": 3,
+            "film_b": 4,
+            "date": "2024-10-24",
+            "a_points": "1.0"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 1,
+        "fields": {
+            "viewer": 1,
+            "film": 1,
+            "seen_film": false,
+            "viewer_rating": null
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 2,
+        "fields": {
+            "viewer": 2,
+            "film": 2,
+            "seen_film": true,
+            "viewer_rating": "0E-8"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 3,
+        "fields": {
+            "viewer": 2,
+            "film": 4,
+            "seen_film": true,
+            "viewer_rating": "0E-8"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 4,
+        "fields": {
+            "viewer": 2,
+            "film": 6,
+            "seen_film": true,
+            "viewer_rating": "1.00000000"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 5,
+        "fields": {
+            "viewer": 2,
+            "film": 10,
+            "seen_film": true,
+            "viewer_rating": "0.66666667"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 6,
+        "fields": {
+            "viewer": 3,
+            "film": 2,
+            "seen_film": true,
+            "viewer_rating": "0.66666667"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 7,
+        "fields": {
+            "viewer": 3,
+            "film": 14,
+            "seen_film": true,
+            "viewer_rating": "0.66666667"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 8,
+        "fields": {
+            "viewer": 3,
+            "film": 4,
+            "seen_film": true,
+            "viewer_rating": "0.50000000"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 9,
+        "fields": {
+            "viewer": 3,
+            "film": 7,
+            "seen_film": true,
+            "viewer_rating": "0E-8"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 10,
+        "fields": {
+            "viewer": 4,
+            "film": 2,
+            "seen_film": true,
+            "viewer_rating": "0E-8"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 11,
+        "fields": {
+            "viewer": 4,
+            "film": 6,
+            "seen_film": true,
+            "viewer_rating": "1.00000000"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 12,
+        "fields": {
+            "viewer": 4,
+            "film": 5,
+            "seen_film": true,
+            "viewer_rating": "1.00000000"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 13,
+        "fields": {
+            "viewer": 4,
+            "film": 4,
+            "seen_film": true,
+            "viewer_rating": "0E-8"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 14,
+        "fields": {
+            "viewer": 4,
+            "film": 1,
+            "seen_film": true,
+            "viewer_rating": null
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 15,
+        "fields": {
+            "viewer": 4,
+            "film": 3,
+            "seen_film": true,
+            "viewer_rating": "1.00000000"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 16,
+        "fields": {
+            "viewer": 4,
+            "film": 8,
+            "seen_film": true,
+            "viewer_rating": null
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 17,
+        "fields": {
+            "viewer": 4,
+            "film": 18,
+            "seen_film": true,
+            "viewer_rating": "0.50000000"
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_seen",
+        "pk": 18,
+        "fields": {
+            "viewer": 4,
+            "film": 16,
+            "seen_film": true,
+            "viewer_rating": null
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 1,
+        "fields": {
+            "viewer": 1,
+            "film": 1,
+            "watchlist": false
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 2,
+        "fields": {
+            "viewer": 2,
+            "film": 1,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 3,
+        "fields": {
+            "viewer": 2,
+            "film": 3,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 4,
+        "fields": {
+            "viewer": 2,
+            "film": 8,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 5,
+        "fields": {
+            "viewer": 3,
+            "film": 1,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 6,
+        "fields": {
+            "viewer": 3,
+            "film": 3,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 7,
+        "fields": {
+            "viewer": 4,
+            "film": 9,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.lt_viewer_watchlist",
+        "pk": 8,
+        "fields": {
+            "viewer": 4,
+            "film": 20,
+            "watchlist": true
+        }
+    },
+    {
+        "model": "filmproject.friendrequest",
+        "pk": 1,
+        "fields": {
+            "sender": 2,
+            "receiver": 1,
+            "status": "pending",
+            "created_at": "2024-10-23T21:41:05.991Z"
+        }
+    },
+    {
+        "model": "filmproject.friendrequest",
+        "pk": 2,
+        "fields": {
+            "sender": 4,
+            "receiver": 1,
+            "status": "pending",
+            "created_at": "2024-10-24T17:16:08.837Z"
+        }
+    },
+    {
+        "model": "filmproject.friendrequest",
+        "pk": 3,
+        "fields": {
+            "sender": 4,
+            "receiver": 2,
+            "status": "accepted",
+            "created_at": "2024-10-24T17:16:21.935Z"
+        }
+    },
+    {
+        "model": "filmproject.friendrequest",
+        "pk": 4,
+        "fields": {
+            "sender": 5,
+            "receiver": 4,
+            "status": "accepted",
+            "created_at": "2024-10-24T18:38:55.929Z"
+        }
+    },
+    {
+        "model": "filmproject.friendrequest",
+        "pk": 5,
+        "fields": {
+            "sender": 2,
+            "receiver": 3,
+            "status": "pending",
+            "created_at": "2024-10-24T18:42:28.568Z"
+        }
+    },
+    {
+        "model": "filmproject.friendrequest",
+        "pk": 6,
+        "fields": {
+            "sender": 2,
+            "receiver": 5,
+            "status": "accepted",
+            "created_at": "2024-10-24T18:42:35.823Z"
+        }
+    }
+]
