@@ -43,7 +43,7 @@ def test_not_logged_in(page: Page):
     page.get_by_role("button", name="Menu").click()
     page.get_by_role("link", name="Popular").click()
     page.get_by_placeholder("Page number").fill("1")
-    page.get_by_placeholder("Page number").press("Enter")
+    page.get_by_role("button", name="Fetch Movies").click()
     card=page.locator("div.card-body").first
     expect(card).to_be_visible()
     
