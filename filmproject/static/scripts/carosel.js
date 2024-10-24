@@ -10,98 +10,75 @@ const options = {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM fully loaded and parsed. Starting to fetch data...");
+    console.log("DOM fully loaded and parsed. Fetching remaining seen films...");
 
     const baseUrl = 'https://image.tmdb.org/t/p/w500'; // Base URL for TMDB images
 
-    // Fetch watchlist films and dynamically load them
-    const fetchWatchlist = () => {
-        console.log("Fetching watchlist data...");
-        fetch('/api/user/watchlist/')
+    // Fetch remaining seen films (films beyond the top 10)
+    const fetchRemainingSeenFilms = () => {
+        console.log("Fetching remaining seen films...");
+        fetch('/api/user/remaining_seen_films/')  // Assuming you have this endpoint for remaining seen films
             .then(response => {
                 if (!response.ok) {
-                    console.error("Failed to fetch watchlist data. Status:", response.status);
+                    console.error("Failed to fetch remaining seen films. Status:", response.status);
                     return;
                 }
                 return response.json();
             })
             .then(data => {
                 if (data && data.length > 0) {
-                    console.log("Watchlist data fetched successfully:", data);
-                    fetchMovieDetailsFromTMDB(data, 'watchlist', 'watchlistCarousel');
-                } else {
-                    console.log("No watchlist data available.");
-                }
-            })
-            .catch(error => console.error('Error fetching watchlist:', error));
-    };
-
-    // Fetch seen films and dynamically load them
-    const fetchSeenFilms = () => {
-        console.log("Fetching seen films data...");
-        fetch('/api/user/seen_films/')
-            .then(response => {
-                if (!response.ok) {
-                    console.error("Failed to fetch seen films data. Status:", response.status);
-                    return;
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data && data.length > 0) {
-                    console.log("Seen films data fetched successfully:", data);
+                    console.log("Remaining seen films data fetched successfully:", data);
                     fetchMovieDetailsFromTMDB(data, 'seenFilms', 'seenFilmsCarousel');
                 } else {
-                    console.log("No seen films data available.");
+                    console.log("No remaining seen films to display.");
                 }
             })
-            .catch(error => console.error('Error fetching seen films:', error));
+            .catch(error => console.error('Error fetching remaining seen films:', error));
     };
 
-    // Fetch movie details from TMDB based on tmdb_id
-const fetchMovieDetailsFromTMDB = (movies, elementId, carouselId) => {
-    const promises = movies.map((movie) => {
-        // Access the correct tmdb_id inside the nested film object
-        const tmdbId = movie.film.tmdb_id;  // Correctly reference movie.film.tmdb_id
-        const tmdbUrl = `https://api.themoviedb.org/3/movie/${tmdbId}`;
-        
-        return fetch(tmdbUrl, options)
-            .then(response => {
-                if (!response.ok) {
-                    console.error(`Failed to fetch TMDB data for movie ID ${tmdbId}`);
+    // Function to fetch movie details from TMDB based on `tmdb_id`
+    const fetchMovieDetailsFromTMDB = (movies, elementId, carouselId) => {
+        const promises = movies.map((movie) => {
+            const tmdbId = movie.film.tmdb_id;  // Assuming each movie has a `film` object with `tmdb_id`
+            const tmdbUrl = `https://api.themoviedb.org/3/movie/${tmdbId}`;
+            
+            return fetch(tmdbUrl, options)  // Using the TMDB options defined elsewhere
+                .then(response => {
+                    if (!response.ok) {
+                        console.error(`Failed to fetch TMDB data for movie ID ${tmdbId}`);
+                        return null;
+                    }
+                    return response.json();
+                })
+                .then(film => {
+                    if (film) {
+                        // Merge the TMDb data with the existing movie data
+                        return {
+                            ...movie.film,  // Keep the film properties from the backend
+                            title: film.title,
+                            poster_path: film.poster_path,
+                            overview: film.overview,
+                            vote_average: film.vote_average
+                        };
+                    }
                     return null;
-                }
-                return response.json();
-            })
-            .then(film => {
-                if (film) {
-                    // Merge the TMDb data with the existing movie data
-                    return {
-                        ...movie.film,  // Keep the film properties from the backend
-                        title: film.title,
-                        poster_path: film.poster_path,
-                        overview: film.overview,
-                        vote_average: film.vote_average
-                    };
-                }
-                return null;
-            })
-            .catch(error => {
-                console.error(`Error fetching TMDB data for movie ID ${tmdbId}:`, error);
-                return null;
-            });
-    });
+                })
+                .catch(error => {
+                    console.error(`Error fetching TMDB data for movie ID ${tmdbId}:`, error);
+                    return null;
+                });
+        });
 
-    // After all movie details are fetched, populate the carousel
-    Promise.all(promises).then((moviesWithDetails) => {
-        const validMovies = moviesWithDetails.filter(movie => movie !== null);
-        if (validMovies.length > 0) {
-            populateCarousel(validMovies, elementId, carouselId);
-        } else {
-            console.error("No valid movies to display in the carousel.");
-        }
-    });
-};
+        // Populate the carousel once all movie details are fetched
+        Promise.all(promises).then((moviesWithDetails) => {
+            const validMovies = moviesWithDetails.filter(movie => movie !== null);
+            if (validMovies.length > 0) {
+                populateCarousel(validMovies, elementId, carouselId);
+            } else {
+                console.error("No valid movies to display in the carousel.");
+            }
+        });
+    };
 
     // Function to populate the carousel dynamically
     const populateCarousel = (films, elementId, carouselId) => {
@@ -119,7 +96,7 @@ const fetchMovieDetailsFromTMDB = (movies, elementId, carouselId) => {
 
         // Dynamically create carousel items
         films.forEach((film, index) => {
-            console.log(`Full film data for "${film.title}":`, film);  // Log full film data for debugging
+            console.log(`Full film data for "${film.title}":`, film);
 
             const movieElement = document.createElement('div');
             movieElement.classList.add('carousel-item');
@@ -168,8 +145,7 @@ const fetchMovieDetailsFromTMDB = (movies, elementId, carouselId) => {
         }
     };
 
-    // Fetch and populate the carousels on page load
-    console.log("Fetching carousels...");
-    fetchWatchlist();
-    fetchSeenFilms();
+    // Fetch and populate the remaining seen films carousel on page load
+    fetchRemainingSeenFilms();
 });
+
