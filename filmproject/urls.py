@@ -30,8 +30,8 @@ urlpatterns = [
     path('', index, name='index'),
 
     # Profile pages
-    path('accounts/profile/', profile, name='profile'),  # For current user profile
-    path('profile/<int:viewer_id>/', profile, name='profile_viewer'),  # For other users' profiles
+    path('accounts/profile/', ProfileView.as_view(), name='profile'),  # For current user profile
+    path('profile/<int:viewer_id>/', ProfileView.as_view(), name='profile_viewer'),  # For other users' profiles
 
     # Film-related URLs
     path('films/', FilmListView.as_view(), name='film_list'),

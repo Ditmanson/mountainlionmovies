@@ -1,22 +1,24 @@
 
 from django.contrib.auth import login
+from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.db import IntegrityError
-from django.db import models
-from django.db.models import F, Sum
+from django.db.models import F, Sum, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from ..forms import ViewerRegistrationForm
-from ..models import (Viewer, LT_Viewer_Ratings, LT_Viewer_Seen,
-                       LT_Viewer_Watchlist, FriendRequest, Film)
+from ..models import (Viewer, LT_Viewer_Ratings,
+                        FriendRequest, Film)
 from ..tokens import account_activation_token
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 class ViewerDetailView(generic.DetailView):
@@ -31,85 +33,104 @@ class ViewerListView(generic.ListView):
     model = Viewer
 
 
-@login_required
-def profile(request, viewer_id=None):
-    user = request.user
-    try:
-        # Get the viewer based on the ID passed or the current user
+from django.core.paginator import Paginator
+
+from django.core.paginator import Paginator
+
+class ProfileView(LoginRequiredMixin, DetailView):
+    model = Viewer
+    template_name = 'filmproject/profile.html'
+    context_object_name = 'viewer'
+    paginate_by = 12  # 12 movies per page for seen films
+
+    def get_object(self, queryset=None):
+        """Get the viewer either from the provided viewer_id or the current user."""
+        user = self.request.user
+        viewer_id = self.kwargs.get('viewer_id')
+
         if viewer_id:
-            viewer = get_object_or_404(Viewer, id=viewer_id)
-        else:
-            viewer = user.viewer
-    except Viewer.DoesNotExist:
-        # Handle the case where the viewer doesn't exist yet
+            return get_object_or_404(Viewer, id=viewer_id)
+        try:
+            return user.viewer
+        except Viewer.DoesNotExist:
+            return self.create_viewer(user)
+
+    def create_viewer(self, user):
+        """Creates a new viewer if one does not exist for the user."""
         if Viewer.objects.filter(email=user.email).exists():
-            viewer = Viewer.objects.get(email=user.email)
-        else:
-            try:
-                viewer = Viewer.objects.create(user=user, name=user.username, email=user.email)
-            except IntegrityError:
-                return render(request, 'filmproject/profile_error.html', {'error': 'Email conflict, unable to create viewer.'})
+            return Viewer.objects.get(email=user.email)
+        try:
+            return Viewer.objects.create(user=user, name=user.username, email=user.email)
+        except IntegrityError:
+            # Handle email conflict error
+            self.template_name = 'filmproject/profile_error.html'
+            return {'error': 'Email conflict, unable to create viewer.'}
 
-    # Friend request logic
-    friend_request = None
-    received_friend_request = None
-    if request.user.viewer != viewer:
-        # Outgoing friend request
-        friend_request = FriendRequest.objects.filter(sender=request.user.viewer, receiver=viewer).first()
-        # Incoming friend request
-        received_friend_request = FriendRequest.objects.filter(sender=viewer, receiver=request.user.viewer, status='pending').first()
+    def get_friend_requests(self, viewer):
+        """Handles friend request logic."""
+        user_viewer = self.request.user.viewer
+        friend_request = None
+        received_friend_request = None
 
-    
-    # Get films in the viewer's watchlist
-    watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
-    # Fetch all films the viewer has seen
-    seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
-    # Calculate the dynamic rating for each film
-    film_ratings = []
-    for film in seen_films:
-        # Get total points for the film as film_a
-        a_points_sum = LT_Viewer_Ratings.objects.filter(film_a=film, viewer=viewer).aggregate(
-            total_a_points=Sum('a_points')
-        )['total_a_points'] or 0
-        # Get total points for the film as film_b
-        b_points_sum = LT_Viewer_Ratings.objects.filter(film_b=film, viewer=viewer).aggregate(
-            total_b_points=Sum(F('a_points') * -1 + 1)
-        )['total_b_points'] or 0
-        # Count total comparisons involving this film
-        total_count = LT_Viewer_Ratings.objects.filter(
-            models.Q(film_a=film) | models.Q(film_b=film), viewer=viewer
-        ).count()
-        # Calculate the user rating dynamically
-        user_rating = (a_points_sum + b_points_sum) / total_count if total_count > 0 else 0
-        # Add to film ratings list
-        film_ratings.append({
-            'film': film,
-            'user_rating': user_rating
-        })
-    # Sort the films by rating in descending order
-    film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
-   
-    # Sort the films by rating in descending order
-    film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
+        if user_viewer != viewer:
+            friend_request = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer).first()
+            received_friend_request = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').first()
 
-    # In your profile view
-    top_ten_films = film_ratings[:10]  # Top 10 user-rated films
-    remaining_seen_films = film_ratings[10:]  # All others
+        return {
+            'friend_request': friend_request,
+            'received_friend_request': received_friend_request,
+            'num_pending_requests': FriendRequest.objects.filter(receiver=user_viewer, status='pending').count()
+        }
 
-    # Add the necessary context for the template
-    context = {
-        'viewer': viewer,
-        'watchlist': watchlist,  # Include the watchlist
-        'seen_films': film_ratings,  # Include the seen films
-        'top_ten_films': top_ten_films,  # Add top ten films to context
-        'remaining_seen_films': remaining_seen_films,  # Add remaining films to context
-        'friend_request': friend_request,
-        'received_friend_request': received_friend_request,
+    def get_film_ratings(self, viewer):
+        """Calculate dynamic ratings for films seen by the viewer."""
+        seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
+        film_ratings = []
+
         
-        'num_pending_requests': FriendRequest.objects.filter(receiver=user.viewer, status='pending').count(),
-    }
 
-    return render(request, 'filmproject/profile.html', context)
+
+        for film in seen_films:
+            a_points_sum = LT_Viewer_Ratings.objects.filter(film_a=film, viewer=viewer).aggregate(
+                total_a_points=Sum('a_points')
+            )['total_a_points'] or 0
+            b_points_sum = LT_Viewer_Ratings.objects.filter(film_b=film, viewer=viewer).aggregate(
+                total_b_points=Sum(F('a_points') * -1 + 1)
+            )['total_b_points'] or 0
+            total_count = LT_Viewer_Ratings.objects.filter(Q(film_a=film) | Q(film_b=film), viewer=viewer).count()
+            user_rating = (a_points_sum + b_points_sum) / total_count if total_count > 0 else 0
+
+            film_ratings.append({
+                'film': film,
+                'user_rating': user_rating
+            })
+
+        # Sort films by rating in descending order
+        film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
+        return film_ratings
+
+    def get_context_data(self, **kwargs):
+        """Provide additional context to the template."""
+        context = super().get_context_data(**kwargs)
+        viewer = self.object
+
+        # Watchlist remains unchanged as a carousel
+        watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
+        context['watchlist'] = watchlist
+
+        # Paginate seen films
+        film_ratings = self.get_film_ratings(viewer)
+        paginator = Paginator(film_ratings, self.paginate_by)  # Paginate seen films
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['seen_films_page_obj'] = page_obj
+
+        # Include friend requests data
+        context.update(self.get_friend_requests(viewer))
+
+        return context
+
+
 
 
 
