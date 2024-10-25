@@ -17,5 +17,6 @@
     </div>
   {% endif %}
 
-  <script src="{% static 'scripts/movies_popular.js' %}"></script>
+  {% comment %} <script src="{% static 'scripts/popular.js' %}"></script> {% endcomment %}
+  <script type="module" src="{% static 'scripts/popular.js' %}"></script>
 {% endblock %}
