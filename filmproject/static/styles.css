@@ -305,14 +305,17 @@ body.dark-mode .small-text {
 }
 
 /* Initial state: hidden */
-li {
+/* Initial state: hidden, only for fade-in list */
+.fade-in-list li {
     opacity: 0;
     transform: translateY(20px); /* Move slightly down */
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Fade-in animation */
-li.fade-in {
+/* Fade-in animation, only for fade-in list */
+.fade-in-list li.fade-in {
     opacity: 1;
     transform: translateY(0);
 }
+
+
