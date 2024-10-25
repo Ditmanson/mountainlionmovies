@@ -14,14 +14,16 @@
     <script src="{% static 'static.js' %}"></script>
 </head>
 <body>
+    
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light w-100">
         <div class="container-fluid">
             <!-- Left: Dropdown Menu Button with Image -->
             <div class="dropdown me-2">
                 <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
-                    <img src="{% static 'images/menu-icon.jpeg' %}" alt="Menu" height="50">
-                </button>
+                    <img src="{% static 'images/menu.png' %}" alt="Menu" height="50">
+                </button> 
+
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="{% url 'film_list' %}">Films</a></li>
                     <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
@@ -46,10 +48,9 @@
 
             <!-- Center: Website Title -->
             <div class="mx-auto text-center">
-                <a class="navbar-brand" href="{% url 'index' %}">
+                <a style="color: #cfb87c; font-size: 40px" class="navbar-brand" href="{% url 'index' %}">
                     <img height="70" src="{% static 'images/mlm2_logo.png' %}" />
                     Mountain Lion Movies
-                </a>
             </div>
 
             <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
@@ -110,10 +111,8 @@
     <!-- Footer Image -->
     <img src="{% static 'images/footer.png' %}" class="img-responsive" alt="Footer Image">
 
-    <!-- Bootstrap JS Bundle (includes Popper.js) -->
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    
 
 </body>
 </html>

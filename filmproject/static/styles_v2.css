@@ -11,7 +11,6 @@ body {
     margin-bottom: 20px;
     margin-left: 100px;
     margin-right: 100px;
-    /* border: 1px solid #000000; Black border for containers */
 }
 
 /* Dark mode styles */
@@ -45,6 +44,16 @@ h2 {
     margin: 0; /* Removes any margin */
     padding: 0; /* Adjust padding if needed */
 }
+
+.navbar-toggler {
+    border: none; /* Remove border around the button */
+}
+
+.navbar-toggler-icon {
+    background-color: #333240; /* Change color */
+    border-radius: 4px; /* Rounded corners */
+}
+
 
 .nav-link {
     color: #565a5c; /* Color for other pages */
