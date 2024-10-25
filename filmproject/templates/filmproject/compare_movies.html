@@ -1,19 +1,72 @@
-{% extends 'filmproject/base_template.html' %}
+{% extends "filmproject/base_template.html" %}
+{% load static %}
 
 {% block content %}
-    <div class="container text-center">
-        <h1>Rate Movies</h1>
+<div class="container text-center">
+    <h1>Rate Movies</h1>
 
-        <!-- Display the two movies being compared -->
+    <div class="row justify-content-center mb-4">
+        <!-- Row for titles -->
+        <div class="col-md-5">
+            <h4>{{ movie1.title }}</h4>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <h4>{{ movie2.title }}</h4>
+        </div>
+    </div>
+
+    <div class="row justify-content-center align-items-center g-3">
+        <!-- Movie 1 Poster -->
+        <div class="col-md-5 d-flex justify-content-center align-items-center movie-poster">
+            <form method="POST" action="{% url 'compare_movies' %}">
+                {% csrf_token %}
+                <input type="hidden" name="selected_movie" value="{{ movie1.id }}">
+                <!-- Make the image a clickable button -->
+                <button type="submit" class="image-button" style="border: none; background: none; padding: 0;">
+                    <img src="https://image.tmdb.org/t/p/w300/{{ movie1.poster_path }}" alt="Poster for {{ movie1.title }}" class="img-fluid">
+                </button>
+            </form>
+        </div>
+
+        <!-- Can't Decide Button -->
+        <div class="col-md-2 d-flex align-items-center justify-content-center">
+            <form method="POST" action="{% url 'compare_movies' %}">
+                {% csrf_token %}
+                <input type="hidden" name="selected_movie" value="can't_decide">
+                <button type="submit" class="transparent-button">
+                    <img src="{% static 'images/cantDecidebutton.png' %}" style="height: 215px;" alt="Can't Decide">
+                </button>
+            </form>
+        </div>
+
+        <!-- Movie 2 Poster -->
+        <div class="col-md-5 d-flex justify-content-center align-items-center movie-poster">
+            <form method="POST" action="{% url 'compare_movies' %}">
+                {% csrf_token %}
+                <input type="hidden" name="selected_movie" value="{{ movie2.id }}">
+                <!-- Make the image a clickable button -->
+                <button type="submit" class="image-button" style="border: none; background: none; padding: 0;">
+                    <img src="https://image.tmdb.org/t/p/w300/{{ movie2.poster_path }}" alt="Poster for {{ movie2.title }}" class="img-fluid">
+                </button>
+            </form>
+        </div>
+        <div style="margin-bottom: 100px">
+    </div>
+</div>
+
+{% endblock %}
+
+<!--         
         <div class="row justify-content-center">
             <div class="col-md-5">
-                <h3>{{ movie1.title }}</h3>
-                <p><strong>Release Year:</strong> {{ movie1.release_date|date:"Y" }}</p>
-                <p><strong>Overview:</strong> {{ movie1.overview }}</p>
-                <p><strong>Vote Average:</strong> {{ movie1.vote_average }}</p>
+                <h4>{{ movie1.title }}</h4>
+                {% comment %} <p><strong>Release Year:</strong> {{ movie1.release_date|date:"Y" }}</p>
+                <p><strong>Overview:</strong> {{ movie1.overview }}</p> {% endcomment %}
+                
                 <img src="https://image.tmdb.org/t/p/w300/{{ movie1.poster_path }}" alt="Poster for {{ movie1.title }}">
 
-                <!-- Button to choose movie1 as the better movie (film_a) -->
+               
                 <form method="POST" action="{% url 'compare_movies' %}">
                     {% csrf_token %}
                     <input type="hidden" name="selected_movie" value="{{ movie1.id }}">
@@ -22,13 +75,12 @@
             </div>
 
             <div class="col-md-5">
-                <h3>{{ movie2.title }}</h3>
-                <p><strong>Release Year:</strong> {{ movie2.release_date|date:"Y" }}</p>
-                <p><strong>Overview:</strong> {{ movie2.overview }}</p>
-                <p><strong>Vote Average:</strong> {{ movie2.vote_average }}</p>
+                <h4>{{ movie2.title }}</h4>
+                {% comment %} <p><strong>Release Year:</strong> {{ movie2.release_date|date:"Y" }}</p>
+                <p><strong>Overview:</strong> {{ movie2.overview }}</p> {% endcomment %}
                 <img src="https://image.tmdb.org/t/p/w300/{{ movie2.poster_path }}" alt="Poster for {{ movie2.title }}">
 
-                <!-- Button to choose movie2 as the better movie (film_b) -->
+                
                 <form method="POST" action="{% url 'compare_movies' %}">
                     {% csrf_token %}
                     <input type="hidden" name="selected_movie" value="{{ movie2.id }}">
@@ -37,13 +89,12 @@
             </div>
         </div>
 
-        <!-- Can't Decide button -->
+       
         <div class="mt-4">
             <form method="POST" action="{% url 'compare_movies' %}">
                 {% csrf_token %}
                 <input type="hidden" name="selected_movie" value="can't_decide">
                 <button type="submit" class="btn btn-warning">Can't Decide</button>
             </form>
-        </div>
-    </div>
-{% endblock %}
+        </div> 
+-->
