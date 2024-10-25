@@ -58,13 +58,13 @@
                 <!-- Login/Profile and Logout Buttons -->
                 <div class="d-flex me-2">
                     {% if user.is_authenticated %}
-                        <a href="{% url 'profile' %}" class="btn btn-outline-primary me-2">Profile</a>
+                        <a href="{% url 'profile' %}" class="btn btn-outline-warning me-2">Profile</a>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button class="btn btn-outline-primary" type="submit">Logout</button>
+                            <button class="btn btn-outline-warning" type="submit">Logout</button>
                         </form>
                     {% else %}
-                        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+                        <a href="{% url 'login' %}" class="btn btn-outline-warning">Login</a>
                     {% endif %}
                 </div>
 

@@ -138,6 +138,10 @@ body.dark-mode .small-text {
     }
 }
 
+.btn-outline-primary {
+    border-color: red !important;
+}
+
 /* Notification button matches dropdown */
 .notification-btn {
     border: none;
