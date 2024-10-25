@@ -6,7 +6,7 @@ import { postData, getCsrfToken } from './post_mountainmovie_db.js';
 document.addEventListener('DOMContentLoaded', () => {
     const display_results = async (data) => {
         const results_div = document.getElementById('results');
-        results_div.innerHTML = ''; // Clear previous results
+        results_div.innerHTML = '';
 
         if (data.results) {
             for (const movie of data.results) {
@@ -27,9 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const creditResponse = await fetchData(credits_url(movie.id));
                     console.log('creditResponse:', creditResponse);
                     if (creditResponse) {
-                        // console.log('creditResponse.ok:', creditResponse.ok);
-                        // const credits = await creditResponse.json();
-                        // console.log('credits:', credits);
                         for (const director of creditResponse.crew.filter(crewMember => crewMember.job === 'Director')) {
                             console.log('Posting director data:', director);
                             await postData({
@@ -42,6 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 popularity: director.popularity || 0,
                                 profile_path: director.profile_path || '',
                             }, 'people');
+
+                            await postData({
+                                film: movie.id,
+                                person: director.id,
+                                credit_id: director.credit_id,
+                                department: director.department,
+                                job: director.job,
+                            }, 'film_crew');
                         }
 
                         for (const cast of creditResponse.cast) {
@@ -56,6 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 popularity: cast.popularity || 0,
                                 profile_path: cast.profile_path || '',
                             }, 'people');
+
+                            await postData({
+                                film: movie.id,
+                                person: cast.id,
+                                cast_id: cast.cast_id,
+                                character: cast.character,
+                                credit_id: cast.credit_id,
+                                order: cast.order,
+                            }, 'film_cast');
                         }
 
                         await postData({
@@ -102,14 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // document.getElementById('postCheckbox')?.addEventListener('change', () => {
-    // });
-
     document.addEventListener('DOMContentLoaded', () => {
         let shouldPost = document.getElementById('postCheckbox')?.checked ?? false;
         shouldPost = document?.getElementById('postCheckbox')?.checked;
         console.log('Changed shouldPost:', shouldPost);
-        // console.log('Initial shouldPost:', shouldPost);
     });
 
 

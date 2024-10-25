@@ -81,6 +81,7 @@ class LT_Films_CountriesSerializer(serializers.ModelSerializer):
 # LT_Films_Crew Serializer
 class LT_Films_CrewSerializer(serializers.ModelSerializer):
     film = FilmSerializer(read_only=True)
+    person = PersonSerializer(read_only=True)
 
     class Meta:
         model = LT_Films_Crew
