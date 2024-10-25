@@ -295,3 +295,12 @@ body.dark-mode .small-text {
     margin-bottom: 5px;
 }
 
+/* Custom container for each list item */
+.custom-container {
+    color: white; /* White text for contrast */
+    padding: 10px 15px; /* Add padding inside the container */
+    border-radius: 10px; /* Rounded corners */
+    margin-bottom: 10px; /* Spacing between containers */
+    display: inline-block; /* Makes the container adjust to content width */
+}
+
