@@ -310,7 +310,8 @@ body.dark-mode .custom-container {
     width: 405px;          /* Set width to maintain 27 in aspect ratio */
     height: 600px;         /* Set height to maintain 40 in aspect ratio */
     object-fit: cover;     /* Ensure image maintains aspect ratio within the set dimensions */
-    border: 5px solid yellow; /* Yellow border around the image */
+    border: 8px solid #cfb87c;
     border-radius: 5px;    /* Optional: Add slight rounding for better appearance */
 }
+
 
