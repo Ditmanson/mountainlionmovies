@@ -1,6 +1,40 @@
 <!-- register.html -->
 {% extends "filmproject/base_template.html" %}
 {% block content %}
+
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+        <div>
+            <h1 class="mb-4 text-center">Create an Account</h1>
+            
+            <form method="post" enctype="multipart/form-data" class="w-100 p-4" style="border-radius: 10px;">
+                {% csrf_token %}
+
+                <!-- Username field -->
+                <div class="form-group mb-3">
+                    <input type="text" name="username" class="form-control form-control-lg" id="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="email" name="email" class="form-control form-control-lg" id="email" placeholder="Enter your email">
+                </div>
+
+                <!-- Password field -->
+                <div class="form-group mb-3">
+                    <input type="password" name="password1" class="form-control form-control-lg" id="password1" placeholder="Enter a password">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="password" name="password2" class="form-control form-control-lg" id="password2" placeholder="Comfirm password">
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Continue</button>
+            </form>
+
+            <p class="mt-4 text-center">Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+        </div>
+    </div>
+
+
+{% comment %}  
 <div class = "page-margin">
   <h2>Register</h2>
   <form method="post" enctype="multipart/form-data">
@@ -18,4 +52,5 @@
     <button type="submit">Register</button>
   </form>
 </div>
+{% endcomment %}
 {% endblock %}
