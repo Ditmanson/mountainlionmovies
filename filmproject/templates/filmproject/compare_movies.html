@@ -18,8 +18,14 @@
         <div class="row justify-content-center">
             <!-- Row for images with uniform dimensions and yellow border -->
             <div class="col-md-5 movie-poster">
-                <img src="https://image.tmdb.org/t/p/w300/{{ movie1.poster_path }}" alt="Poster for {{ movie1.title }}">
-                <!-- Button for more info -->
+                <form method="POST" action="{% url 'compare_movies' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="selected_movie" value="{{ movie1.id }}">
+                    <!-- Make the image a clickable button -->
+                    <button type="submit" class="image-button" style="border: none; background: none; padding: 0;">
+                        <img src="https://image.tmdb.org/t/p/w300/{{ movie1.poster_path }}" alt="Poster for {{ movie1.title }}" class="img-fluid">
+                    </button>
+                </form>
             </div>
             <!-- Can't Decide button -->
             <div class="col-md-2">
@@ -30,7 +36,14 @@
                 </form>
             </div>
             <div class="col-md-5 movie-poster">
-                <img src="https://image.tmdb.org/t/p/w300/{{ movie2.poster_path }}" alt="Poster for {{ movie2.title }}">
+                <form method="POST" action="{% url 'compare_movies' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="selected_movie" value="{{ movie2.id }}">
+                    <!-- Make the image a clickable button -->
+                    <button type="submit" class="image-button" style="border: none; background: none; padding: 0;">
+                        <img src="https://image.tmdb.org/t/p/w300/{{ movie2.poster_path }}" alt="Poster for {{ movie2.title }}" class="img-fluid">
+                    </button>
+                </form>
                 <!-- Button for more info -->
             </div>
         </div>
