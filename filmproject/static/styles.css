@@ -80,7 +80,6 @@ body.dark-mode .nav-link.active {
     display: none; 
 }
 
-
 /* Dark mode toggle switch styling */
 .form-check-input {
     width: 60px;
@@ -136,7 +135,6 @@ body.dark-mode .small-text {
         max-height: 80px;
     }
 }
-
 
 /* Notification button matches dropdown */
 .notification-btn {
@@ -229,10 +227,17 @@ body.dark-mode .small-text {
     margin: 0 auto; /* Center the image */
 }
 
-/* Card styles */
+/* Card styles for light mode */
 .card {
     margin: 10px; /* Add margin to separate each card visually */
-    border: none; /* Optional: remove card borders for a cleaner look */
+    border: none; /* Remove card borders for a cleaner look */
+    background-color: #333240; /* Dark background for light mode */
+    color: white; /* White text for light mode */
+}
+
+body.dark-mode .card {
+    background-color: #f0f0f0; /* Light background for dark mode */
+    color: black; /* Black text for dark mode */
 }
 
 .card-body {
@@ -271,16 +276,22 @@ body.dark-mode .small-text {
     align-items: center;
 }
 
-/* Custom container for each list item */
+/* Custom container for each list item in light mode */
 .custom-container {
-    color: white; /* White text for contrast */
+    color: white; /* White text for light mode */
+    background-color: #333240; /* Dark background color for light mode */
     padding: 10px 15px; /* Add padding inside the container */
     border-radius: 10px; /* Rounded corners */
     margin-bottom: 10px; /* Spacing between containers */
     display: inline-block; /* Makes the container adjust to content width */
 }
 
-/* Initial state: hidden */
+/* Custom container for each list item in dark mode */
+body.dark-mode .custom-container {
+    color: black; /* Black text for dark mode */
+    background-color: #f0f0f0; /* Light background color for dark mode */
+}
+
 /* Initial state: hidden, only for fade-in list */
 .fade-in-list li {
     opacity: 0;
@@ -293,5 +304,3 @@ body.dark-mode .small-text {
     opacity: 1;
     transform: translateY(0);
 }
-
-
