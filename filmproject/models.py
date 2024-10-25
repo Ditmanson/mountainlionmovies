@@ -67,13 +67,13 @@ class Language(models.Model):
         return self.language
 
 class Person(models.Model):
-    adult = models.BooleanField()
-    gender = models.IntegerField()
+    adult = models.BooleanField(null=True, blank=True)
+    gender = models.IntegerField(null=True, blank=True)
     tmdb_id = models.IntegerField(unique=True)
-    known_for_department = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
-    popularity = models.DecimalField(decimal_places=3, max_digits=10)
-    profile_path = models.CharField(max_length=200)
+    known_for_department = models.CharField(max_length=200, null=True, blank=True)
+    name = models.CharField(max_length=200, null=True, blank=True)
+    popularity = models.DecimalField(decimal_places=3,null=True, blank=True, max_digits=10)
+    profile_path = models.CharField(max_length=200, null=True, blank=True)
     def __str__(self):
         return self.name
     def get_absolute_url(self):
