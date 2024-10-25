@@ -18,12 +18,12 @@
           a variety of factors, including:</h3>
         </div>
         <div class="col-md-6">
-          <ul class="list-unstyled">
-              <li><div style="background-color: #cfb87c" class="custom-container"><strong>Movie Genres</strong> you love</div></li>
-              <li><div style="background-color: #e3bf65" class="custom-container"><strong>Favorite Actors</strong> and directors</div></li>
-              <li><div style="background-color: #f3bc2f" class="custom-container"><strong>User Ratings</strong> from the community</div></li>
-              <li><div style="background-color: #ffb700" class="custom-container"><strong>Your Viewing History</strong> for personalized picks</div></li>
-          </ul>
+            <ul class="list-unstyled">
+                <li><div style="background-color: #cfb87c;" class="custom-container"><strong>Movie Genres</strong> you love</div></li>
+                <li><div style="background-color: #e3bf65;" class="custom-container"><strong>Favorite Actors</strong> and directors</div></li>
+                <li><div style="background-color: #f3bc2f;" class="custom-container"><strong>User Ratings</strong> from the community</div></li>
+                <li><div style="background-color: #ffb700;" class="custom-container"><strong>Your Viewing History</strong> for personalized picks</div></li>
+            </ul>
         </div>
       </div>
 
@@ -44,5 +44,19 @@
 
 
   </div> <!-- end page-margin divider -->
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const listItems = document.querySelectorAll('.list-unstyled li');
+      
+      listItems.forEach((li, index) => {
+          // Set a delay for each list item
+          setTimeout(() => {
+              li.classList.add('fade-in'); // Add the class to trigger the animation
+          }, index * 500); // 0.5 seconds delay for each item
+      });
+  });
+  </script>
+
 
 {% endblock %}

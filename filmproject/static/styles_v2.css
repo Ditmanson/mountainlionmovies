@@ -304,3 +304,15 @@ body.dark-mode .small-text {
     display: inline-block; /* Makes the container adjust to content width */
 }
 
+/* Initial state: hidden */
+li {
+    opacity: 0;
+    transform: translateY(20px); /* Move slightly down */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Fade-in animation */
+li.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
