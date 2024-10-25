@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let shouldPost = document.getElementById('postCheckbox').checked;
+    let shouldPost = false
+    shouldPost = document?.getElementById('postCheckbox')?.checked;
     console.log('Initial shouldPost:', shouldPost);
 
     document.getElementById('fetchButton').addEventListener('click', async () => {
@@ -101,10 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('postCheckbox').addEventListener('change', () => {
-        shouldPost = document.getElementById('postCheckbox').checked;
+    // document.getElementById('postCheckbox')?.addEventListener('change', () => {
+    // });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let shouldPost = document.getElementById('postCheckbox')?.checked ?? false;
+        shouldPost = document?.getElementById('postCheckbox')?.checked;
         console.log('Changed shouldPost:', shouldPost);
+        // console.log('Initial shouldPost:', shouldPost);
     });
+
 
     document.getElementById('pageInput').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
