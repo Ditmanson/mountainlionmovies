@@ -38,13 +38,13 @@
             </div>
         </div>
 
-        <!-- Right Column: Top Rated Movies, Watchlist, and Seen Films Carousel -->
+        <!-- Right Column: Seen Films, then Watchlist -->
         <div class="col-md-9">
-            <!-- Top 10 Rated Movies Section -->
-            <div class="top-rated-section mb-4">
-                <h2>Top 10 Rated Movies</h2>
+            <!-- Seen Films Section (Paginated Cards) -->
+            <div class="seen-films-section mb-4">
+                <h2>Seen Films</h2>
                 <div class="row">
-                    {% for rating in top_ten_films %}
+                    {% for rating in seen_films_page_obj %}
                         <div class="col-md-3 mb-4">
                             <div class="card h-100">
                                 {% if rating.film.poster_path %}
@@ -52,59 +52,81 @@
                                 {% else %}
                                     <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
                                 {% endif %}
-                                <div class="card-body">
+                                <div class="card-body text-center">
                                     <h5 class="card-title">{{ rating.film.title }}</h5>
-                                    <p class="card-text">Rating: {{ rating.user_rating|floatformat:1 }}</p>
+                                    <p class="card-text">User Rating: {{ rating.user_rating }}</p> <!-- Display user rating here -->
                                 </div>
                             </div>
                         </div>
                     {% empty %}
-                        <p>No movies rated yet.</p>
+                        <p>No films seen yet.</p>
                     {% endfor %}
                 </div>
-            </div>
 
-            
+                <!-- Pagination Controls -->
+                <div class="pagination justify-content-center">
+                    <nav aria-label="Seen Films Pagination">
+                        <ul class="pagination">
+                            {% if seen_films_page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ seen_films_page_obj.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
 
-            <!-- Carousel for Remaining Seen Films -->
-            <div class="seen-films-section">
-                <h2>Seen Films</h2>
-                {% if remaining_seen_films %}
-                    <div id="seenFilmsCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner" id="seenFilms">
-                            <!-- Remaining seen films will be dynamically added here via carousel.js -->
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#seenFilmsCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#seenFilmsCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                {% else %}
-                    <p>No additional seen films to display.</p>
-                {% endif %}
+                            {% for num in seen_films_page_obj.paginator.page_range %}
+                                <li class="page-item {% if seen_films_page_obj.number == num %}active{% endif %}">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endfor %}
+
+                            {% if seen_films_page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ seen_films_page_obj.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
             </div>
 
             <!-- Watchlist Section (Carousel) -->
             <div class="watchlist-section mb-4">
                 <h2>Watchlist</h2>
                 {% if watchlist %}
-                    <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner" id="watchlist">
-                            <!-- Watchlist movies will be dynamically added here -->
+                <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner" id="watchlist">
+                        {% for movie in watchlist %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="d-flex justify-content-center">
+                                <div class="card" style="width: 15rem;">
+                                    {% if movie.poster_path %}
+                                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
+                                    {% else %}
+                                    <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
+                                    {% endif %}
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{ movie.title }}</h5>
+                                        <p class="card-text text-truncate">{{ movie.overview }}</p>
+                                        <p class="card-text">Rating: {{ movie.vote_average }}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
+                        {% endfor %}
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
                 {% else %}
                     <p>This viewer has no films in their watchlist.</p>
                 {% endif %}

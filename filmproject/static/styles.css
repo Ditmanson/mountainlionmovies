@@ -80,7 +80,6 @@ body.dark-mode .nav-link.active {
     display: none; 
 }
 
-
 /* Dark mode toggle switch styling */
 .form-check-input {
     width: 60px;
@@ -127,7 +126,6 @@ body.dark-mode .small-text {
     border: 2px solid #ccc;
 }
 
-
 /* Reduce size for mobile screens */
 @media only screen and (max-width: 600px) {
     .profile-picture {
@@ -137,7 +135,6 @@ body.dark-mode .small-text {
         max-height: 80px;
     }
 }
-
 
 /* Notification button matches dropdown */
 .notification-btn {
@@ -170,7 +167,6 @@ body.dark-mode .small-text {
     min-width: 20px; /* Ensure it's circular when there's a single digit */
     min-height: 20px; /* Same as width to maintain the circular shape */
 }
-
 
 /* Floating container for friend requests in the upper-right corner */
 .friend-request-container {
@@ -203,108 +199,99 @@ body.dark-mode .small-text {
 
 /* Ensure the carousels have a maximum width */
 .container {
-    max-width: 800px; /* Adjust the width as per your design */
+    max-width: 1000px; /* Adjust the width to provide more space for carousel previews */
     margin: 0 auto;   /* Center the container */
 }
 
-.carousel-item img {
-    max-height: 500px;  /* Limit image height */
-    width: auto;        /* Keep width proportional */
-    max-width: 100%;    /* Prevent image from overflowing container */
-    margin: 0 auto;     /* Center the image */
-}.profile-picture {
-    width: 120px;
-    height: 120px;
-    max-width: 120px;
-    max-height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-}
-
-
-/* Reduce size for mobile screens */
-@media only screen and (max-width: 600px) {
-    .profile-picture {
-        width: 80px;
-        height: 80px;
-        max-width: 80px;
-        max-height: 80px;
-    }
-}
-
-/* Notification button matches dropdown */
-.notification-btn {
-    border: none;
-    background: none;
-    padding: 0;
-    position: relative;
-}
-
-.notification-btn img {
-    height: 50px; /* Match the size of the dropdown button */
-    object-fit: cover;
-}
-
-/* Notification bubble for pending friend requests */
-.notification-bubble {
-    position: absolute;
-    top: -5px;  /* Adjust as needed */
-    right: -5px;  /* Adjust as needed */
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 1;
+/* General styles for the carousel */
+#watchlistCarousel .carousel-inner {
     display: flex;
-    justify-content: center;
+    flex-wrap: nowrap;
+    overflow: visible; /* Allow items to overflow for preview effect */
+    justify-content: center; /* Center items within the carousel */
+}
+
+#watchlistCarousel .carousel-item {
+    transition: transform 0.5s ease-in-out;
+    flex: 0 0 auto;
+    margin-right: 15px; /* Space between items for preview */
+    width: auto; /* Set consistent width for the items to ensure they are visible */
+    max-width: 300px; /* Limit the width of each item for better alignment */
+}
+
+/* Ensure images maintain their aspect ratio and fit the card dimensions */
+.carousel-item img {
+    width: 100%; /* Set consistent width for carousel images */
+    height: auto; /* Maintain aspect ratio to avoid cutting off */
+    object-fit: contain; /* Ensure that the image fits well within its bounds */
+    margin: 0 auto; /* Center the image */
+}
+
+/* Card styles for light mode */
+.card {
+    margin: 10px; /* Add margin to separate each card visually */
+    border: none; /* Remove card borders for a cleaner look */
+    background-color: #333240; /* Dark background for light mode */
+    color: white; /* White text for light mode */
+}
+
+body.dark-mode .card {
+    background-color: #f0f0f0; /* Light background for dark mode */
+    color: black; /* Black text for dark mode */
+}
+
+.card-body {
+    padding: 10px; /* Adjust padding to make the card content more compact */
+}
+
+.card-title {
+    font-size: 1.1rem; /* Adjust title font size */
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 0.9rem; /* Adjust text font size */
+    color: #565a5c; /* Set a soft color for the description text */
+    overflow: hidden; /* Prevent text overflow */
+    max-height: 60px; /* Constrain height for better alignment with image */
+    text-overflow: ellipsis;
+}
+
+/* Controls styling to ensure visibility */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+}
+
+/* Control the carousel for previews */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Adjust control size */
+}
+
+/* Center carousel controls for better UI */
+.carousel-control-prev,
+.carousel-control-next {
     align-items: center;
-    min-width: 20px; /* Ensure it's circular when there's a single digit */
-    min-height: 20px; /* Same as width to maintain the circular shape */
 }
 
-
-/* Floating container for friend requests in the upper-right corner */
-.friend-request-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    z-index: 1000;
-}
-
-.friend-request-container h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.friend-request-container p {
-    font-size: 14px;
-    margin-bottom: 15px;
-}
-
-.friend-request-container .btn {
-    width: 100px;
-    margin-bottom: 5px;
-}
-
-/* Custom container for each list item */
+/* Custom container for each list item in light mode */
 .custom-container {
-    color: white; /* White text for contrast */
+    color: white; /* White text for light mode */
+    background-color: #333240; /* Dark background color for light mode */
     padding: 10px 15px; /* Add padding inside the container */
     border-radius: 10px; /* Rounded corners */
     margin-bottom: 10px; /* Spacing between containers */
     display: inline-block; /* Makes the container adjust to content width */
 }
 
-/* Initial state: hidden */
+/* Custom container for each list item in dark mode */
+body.dark-mode .custom-container {
+    color: black; /* Black text for dark mode */
+    background-color: #f0f0f0; /* Light background color for dark mode */
+}
+
 /* Initial state: hidden, only for fade-in list */
 .fade-in-list li {
     opacity: 0;
@@ -317,5 +304,3 @@ body.dark-mode .small-text {
     opacity: 1;
     transform: translateY(0);
 }
-
-
