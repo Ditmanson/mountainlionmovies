@@ -1,12 +1,12 @@
 from ..models import  (
     Film, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, 
     LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Seen, 
-    LT_Viewer_Watchlist, FriendRequest
+    LT_Viewer_Watchlist, FriendRequest, Person
 )
 from ..serializers import (
     FilmSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer,
     FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer,
-    LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer
+    LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer, PersonSerializer
 )
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -15,6 +15,12 @@ from rest_framework.decorators import api_view, permission_classes
 
 
 # DJANGO REST FRAMEWORK VIEWS
+
+# Person ViewSet
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = Person.objects.all()
+    serializer_class = PersonSerializer
+
 # Film ViewSet
 class FilmViewSet(viewsets.ModelViewSet):
     queryset = Film.objects.all()
