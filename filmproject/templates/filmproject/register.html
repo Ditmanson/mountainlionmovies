@@ -5,6 +5,19 @@
     <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div>
             <h1 class="mb-4 text-center">Create an Account</h1>
+
+            <!-- Error handling block -->
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                  <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 3px solid #cc0000; font-weight: bold;box-shadow: 0 0 10px rgba(204, 0, 0, 0.5); font-size: larger;">
+                      <ul class="mb-0">
+                        <li>{{ error }}</li>
+                      </ul>
+                  </div>
+                {% endfor %}
+                  {% endfor %}
+            {% endif %}
             
             <form method="post" enctype="multipart/form-data" class="w-100 p-4" style="border-radius: 10px;">
                 {% csrf_token %}
@@ -33,24 +46,24 @@
         </div>
     </div>
 
-
-{% comment %}  
-<div class = "page-margin">
-  <h2>Register</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if form.errors %}
-      <ul>
-        {% for field in form %}
-          {% for error in field.errors %}
-            <li>{{ error }}</li>
+  {% comment %}  
+  <div class = "page-margin">
+    <h2>Register</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if form.errors %}
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
           {% endfor %}
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <button type="submit">Register</button>
-  </form>
-</div>
-{% endcomment %}
+        </ul>
+      {% endif %}
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  {% endcomment %}
+
 {% endblock %}
