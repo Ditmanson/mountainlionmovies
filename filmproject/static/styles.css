@@ -38,6 +38,11 @@ h2 {
     margin-bottom: 20px;
 }
 
+h4 {
+    font-size: 40px;
+    color: #fed160;
+}
+
 /* ------------------------------------ NAVIGATION BAR ------------------------------------ */
 .navbar {
     background-color: transparent; /* Same background color for both modes */
@@ -314,4 +319,20 @@ body.dark-mode .custom-container {
     border-radius: 5px;    /* Optional: Add slight rounding for better appearance */
 }
 
+.movie-poster img:hover {
+    border-color: rgb(52, 255, 52); /* Change border to green on hover */
+}
 
+
+
+/* Cant Decide Button */
+.transparent-button {
+    background-color: transparent; /* Set button background to transparent */
+    border: none; /* Remove border */
+    padding: 0; /* Remove padding */
+
+}
+
+.transparent-button img {
+    display: block; /* Remove any space around the image */
+}
