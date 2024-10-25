@@ -2,14 +2,27 @@ from rest_framework import serializers
 from .models import (
     Film, Viewer, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, 
     LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, 
-    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages
+    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, Person
 )
+# Person Serializer
+class PersonSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    class Meta:
+        model = Person
+        fields = ['id', 'gender', 'tmdb_id', 'known_for_department', 'name', 'popularity', 'profile_path']
+        extra_kwargs = {
+            'id': {'required': False},
+        }
 
 # Film Serializer
 class FilmSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     class Meta:
         model = Film
-        fields = '__all__' 
+        fields = ['id', 'adult', 'backdrop_path', 'belongs_to_collection', 'budget', 'homepage', 'imdb_id', 'original_title', 'overview', 'popularity', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title', 'tmdb_id', 'vote_average', 'vote_count']
+        extra_kwargs = {
+            'id': {'required': False},
+        }
 
 # Viewer Serializer
 class ViewerSerializer(serializers.ModelSerializer):
@@ -43,10 +56,11 @@ class FriendRequestSerializer(serializers.ModelSerializer):
 # LT_Films_Cast Serializer
 class LT_Films_CastSerializer(serializers.ModelSerializer):
     film = FilmSerializer(read_only=True)
+    person = PersonSerializer(read_only=True)
     
     class Meta:
         model = LT_Films_Cast
-        fields = ['id', 'film', 'person', 'character', 'credit_id', 'order']
+        fields = '__all__'
 
 # LT_Films_Companies Serializer
 class LT_Films_CompaniesSerializer(serializers.ModelSerializer):
@@ -70,7 +84,7 @@ class LT_Films_CrewSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LT_Films_Crew
-        fields = ['id', 'film', 'person', 'credit_id', 'department', 'job']
+        fields = '__all__'
 
 # LT_Films_Genres Serializer
 class LT_Films_GenresSerializer(serializers.ModelSerializer):

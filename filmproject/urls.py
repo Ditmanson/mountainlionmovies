@@ -13,6 +13,7 @@ from django.conf.urls.static import static
 # Create a router and register all the viewsets
 router = DefaultRouter()
 router.register(r'films', FilmViewSet)
+router.register(r'people', PersonViewSet)
 router.register(r'viewers', ViewerViewSet)
 router.register(r'watchlist', LT_Viewer_WatchlistViewSet)
 router.register(r'seen_films', LT_Viewer_SeenViewSet)
