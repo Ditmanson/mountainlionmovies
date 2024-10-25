@@ -114,12 +114,12 @@ class Viewer(models.Model):
         return self.friends.filter(id=viewer.id).exists()
 
 class LT_Films_Cast(models.Model):
-    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
-    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
+    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, null=True)
     cast_id = models.IntegerField()
-    character = models.CharField(max_length=200)
-    credit_id = models.CharField(max_length=200)
-    order = models.IntegerField()
+    character = models.CharField(null=True, max_length=200)
+    credit_id = models.CharField(max_length=200, null=True)
+    order = models.IntegerField(null=True)
 
 class LT_Films_Companies(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
@@ -130,11 +130,11 @@ class LT_Films_Countries(models.Model):
     country = models.ForeignKey(Country, on_delete=models.DO_NOTHING)
 
 class LT_Films_Crew(models.Model):
-    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
-    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING)
-    credit_id = models.CharField(max_length=200)
-    department = models.CharField(max_length=200)
-    job = models.CharField(max_length=200)
+    film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
+    person = models.ForeignKey(Person, on_delete=models.DO_NOTHING, null=True)
+    credit_id = models.CharField(max_length=200, null=True)
+    department = models.CharField(max_length=200, null=True)
+    job = models.CharField(max_length=200, null=True)
 
 class LT_Films_Genres(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
