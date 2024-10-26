@@ -2,50 +2,54 @@
 {% extends "filmproject/base_template.html" %}
 
 {% block content %}
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div>
-            <h1 class="mb-4 text-center">Welcome back</h1>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div style="width: 70%;">
 
-            <!-- Error handling block -->
-            {% if form.non_field_errors %}
-                <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 3px solid #cc0000; font-weight: bold; box-shadow: 0 0 20px rgba(204, 0, 0, 0.5); font-size: larger;">
+        <h1 class="mb-4 text-center">Welcome back</h1>
+
+        <!-- Error handling block -->
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 2px solid #cc0000; padding: 10px; box-shadow: 0 0 10px rgba(204, 0, 0, 0.3); font-size: medium; margin-bottom: 15px;">
+                <ul class="mb-0" style="list-style-type: none; padding-left: 0;">
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Field-specific error messages -->
+        {% for field in form %}
+            {% if field.errors %}
+                <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 2px solid #cc0000; padding: 10px; box-shadow: 0 0 10px rgba(204, 0, 0, 0.3); font-size: medium; margin-bottom: 15px;">
                     <ul class="mb-0" style="list-style-type: none; padding-left: 0;">
-                        {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
                         {% endfor %}
                     </ul>
                 </div>
             {% endif %}
+        {% endfor %}
+        
+        <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border: 2px solid black; border-radius: 10px;">
+            {% csrf_token %}
 
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 3px solid #cc0000; font-weight: bold; box-shadow: 0 0 20px rgba(204, 0, 0, 0.5); font-size: larger;">
-                        <ul class="mb-0" style="list-style-type: none; padding-left: 0;">
-                            <li>{{ error }}</li>
-                        </ul>
-                    </div>
-                {% endfor %}
-            {% endfor %}
-            
-            <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border: 2px solid black; border-radius: 10px;">
-                {% csrf_token %}
+            <!-- Username field -->
+            <div class="form-group mb-3">
+                <input type="text" name="username" class="form-control form-control-lg" id="username" placeholder="Enter your username">
+            </div>
 
-                <!-- Username field -->
-                <div class="form-group mb-3">
-                    <input type="text" name="username" class="form-control form-control-lg" id="username" placeholder="Enter your username">
-                </div>
+            <!-- Password field -->
+            <div class="form-group mb-3">
+                <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
+            </div>
 
-                <!-- Password field -->
-                <div class="form-group mb-3">
-                    <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Enter your password">
-                </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Continue</button>
+        </form>
 
-                <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Continue</button>
-            </form>
-
-            <p class="mt-4 text-center">Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
-            <p class="mt-4 text-center">Forgot Password? <a href="{% url 'password_reset' %}">Reset Password</a></p>
-        </div>
+        <p class="mt-4 text-center">Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+        <p class="mt-4 text-center">Forgot Password? <a href="{% url 'password_reset' %}">Reset Password</a></p>
     </div>
+</div>
 {% endblock %}
