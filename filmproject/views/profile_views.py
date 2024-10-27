@@ -156,9 +156,7 @@ def register(request):
         form = ViewerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            print("\nREQUEST POST:", request.POST,"\n")
-            print("\nREQUEST FILES", request.FILES,"\n")
-            print("\nUSER FORM", user,"\n")
+            print("\nFrom is valid. Proceeding to send email.\n")
             user.is_active = False  # Deactivate account until email verification
             user.save()
 
@@ -175,9 +173,12 @@ def register(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
+            print(f"Sending email to: {to_email}")
             send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
 
             return render(request, 'filmproject/registration_confirm.html')
+        else:
+            print("\nForm is invalid:", form.errors)
     else:
         form = ViewerRegistrationForm()
     return render(request, 'filmproject/register.html', {'form': form})
