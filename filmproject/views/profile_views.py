@@ -206,7 +206,8 @@ def register(request):
             })
             to_email = form.cleaned_data.get('email')
             print(f"Sending email to: {to_email}")
-            send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
+            testSend = send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
+            print(f"Email sending result: {testSend}")
 
             # Pass 'uidb64' to the template for resending activation email
             return render(request, 'filmproject/registration_confirm.html', {'uidb64': urlsafe_base64_encode(force_bytes(user.pk))})
