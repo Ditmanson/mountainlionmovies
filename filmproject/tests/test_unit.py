@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from ..models import *
 from django.utils import timezone
 from django.urls import reverse, resolve
+from django.core import mail
 
 
 # 1st test to make sure our testing environment is working
@@ -231,3 +232,22 @@ class FriendRequestTestCase(TestCase):
         friend_request.reject()
         self.assertFalse(self.viewer1.is_friends_with(self.viewer2))
         self.assertEqual(friend_request.status, 'rejected')
+
+class UserRegistrationTest(TestCase):
+    def test_registration(self):
+        # Perform actions that should trigger email sending
+        response = self.client.post("/register/", {
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'password1': 'PasswordTest123#@!',
+            'password2': 'PasswordTest123#@!',
+        })
+
+        # Check if an email was sent
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(mail.outbox), 1)
+        email = mail.outbox[0]
+
+        # Assert the email details
+        self.assertEqual(email.subject, 'Activate your account.')
+        self.assertEqual(email.to, ['testuser@example.com'])
