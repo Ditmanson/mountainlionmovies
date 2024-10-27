@@ -5,6 +5,14 @@ from filmproject.models import User
 from django.core.management import call_command
 from django.contrib.auth.hashers import make_password
 
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import override_settings
+from django.core import mail
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
+from filmproject.tokens import account_activation_token
+
 def test_automated_from_playwright(page: Page):
     # Create a user
     page.goto("http://localhost:8000/")
@@ -113,3 +121,66 @@ def test_automated_from_playwright(page: Page):
 #     # expect(page).to_have_url(re.compile(r"http://localhost:8000/viewers/.*"))
 #     # TODO we need to add class names or something so i can get a generic locator
 #     # expect(page).to_have_text("Scream")
+
+@pytest.mark.django_db
+def test_send_email(client):
+    # Send email
+    mail.send_mail(
+        'Test Email',
+        'This is a test email.',
+        'from@example.com',
+        ['to@example.com'],
+    )
+
+    # Check if email was sent
+    assert len(mail.outbox) == 1
+    assert mail.outbox[0].subject == 'Test Email'
+    assert mail.outbox[0].body == 'This is a test email.'
+    assert mail.outbox[0].from_email == 'from@example.com'
+    assert mail.outbox[0].to == ['to@example.com']
+
+
+@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+def test_user_registration(page: Page):
+    user = "testuser"
+    email = "testuser@example.com"
+    password = "PasswordTest123#@!"
+    hashed_password = make_password(password)
+    page.goto("http://localhost:8000/register/")
+
+    page.fill('input[name="username"]', user)
+    page.fill('input[name="email"]', email)
+    page.fill('input[name="password1"]', password)
+    page.fill('input[name="password2"]', password)
+    page.wait_for_timeout(2000)
+    page.get_by_role("button", name="Register").click()
+    page.wait_for_timeout(4000)
+
+    # Check if any form error messages are displayed
+    form_errors = page.locator(".errorlist").all_text_contents()
+    if form_errors:
+        print("Form validation errors:", form_errors)
+    expect(page).to_have_url(re.compile(r'http://localhost:8000/register/'))
+
+    print(mail.outbox)
+
+
+    # Django Mail
+    assert len(mail.outbox) == 1
+    email = mail.outbox[0]
+    assert email.subject == "Activate your account."
+
+    activation_link = re.search(r'http://localhost:8000/accounts/activate/(.+)/(.+)/', email.body)
+    assert activation_link is not None, "Activation link not found in email."
+
+    # Decode user ID
+    uidb64, token = activation_link.groups()
+
+    user_id = force_str(urlsafe_base64_decode(uidb64))
+    user = User.objects.get(pk=user_id)
+    assert user.is_active is False
+
+    page.goto(f"http://localhost:8000/accounts/activate/{uidb64}/{token}/")
+    expect(page).to_have_url(re.compile(r"http://localhost:8000/accounts/activation_complete/"))
+    user.refresh_from_db()
+    assert user.is_active is True

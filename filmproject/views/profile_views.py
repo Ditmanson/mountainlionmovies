@@ -205,6 +205,7 @@ def register(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
+            print(f"Sending email to: {to_email}")
             send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
 
             # Pass 'uidb64' to the template for resending activation email

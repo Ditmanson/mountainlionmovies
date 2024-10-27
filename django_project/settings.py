@@ -147,3 +147,4 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # For development, use the console backend (prints email to the console)
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
