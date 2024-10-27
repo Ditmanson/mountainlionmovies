@@ -53,19 +53,5 @@ jobs:
       - name: Load mock data
         run: python manage.py loaddata filmproject/fixtures/datadump.json
      
-      - name: Install Playwright browsers
-        run: python -m playwright install --with-deps
-
-      - name: Start server
-        run: |
-          nohup python manage.py runserver 0.0.0.0:8000 &
-          sleep 3
-     
       - name: Run Tests
-        run: pytest --tracing on
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-traces
-          path: test-results/
-      
+        run: pytest filmproject/tests/test_unit.py

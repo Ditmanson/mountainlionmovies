@@ -29,6 +29,7 @@ router.register(r'film_languages', LT_Films_LanguagesViewSet)
 urlpatterns = [
     # Home page
     path('', index, name='index'),
+    path('index', index, name='index'),
 
     # Profile pages
     path('accounts/profile/', ProfileView.as_view(), name='profile'),  # For current user profile
@@ -44,7 +45,7 @@ urlpatterns = [
 
     # Authentication-related URLs
     path('login/', auth_views.LoginView.as_view(template_name='filmproject/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='filmproject/logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='filmproject/index.html'), name='logout'),
     path('register/', register, name='register'),
 
     # Password reset URLs
