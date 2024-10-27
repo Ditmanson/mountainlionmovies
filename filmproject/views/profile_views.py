@@ -33,15 +33,12 @@ class ViewerListView(generic.ListView):
     model = Viewer
 
 
-from django.core.paginator import Paginator
-
-from django.core.paginator import Paginator
-
 class ProfileView(LoginRequiredMixin, DetailView):
     model = Viewer
     template_name = 'filmproject/profile.html'
     context_object_name = 'viewer'
     paginate_by = 12  # 12 movies per page for seen films
+    
 
     def get_object(self, queryset=None):
         """Get the viewer either from the provided viewer_id or the current user."""

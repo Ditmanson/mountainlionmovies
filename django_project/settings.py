@@ -4,6 +4,9 @@ from decouple import config
 
 # TMDB_API_KEY = config('TMDB_API_KEY')
 
+LOGIN_URL = '/login/'
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-na_i!_poqmi%#b$a(2a75!4xx$v4hjjpss5nmty$0rtlrp3h^p'
