@@ -57,6 +57,8 @@
         <p>{% if film.homepage %}<strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>{% endif %}</p>
         <p><a href="{% url 'film_list' %}" class="btn btn-primary">Back to Film List</a></p>
     </div>
+
+    <div id = "streaming_info"></div>
 </div>
 
 {% endblock %}
