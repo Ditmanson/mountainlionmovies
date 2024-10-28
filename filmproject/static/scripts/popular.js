@@ -22,7 +22,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>`;
                 results_div.appendChild(movie_element);
 
-                if (shouldPost) {
+                if (shouldPost && data.results) {
+                    await postData({
+                        id: movie.id,
+                        adult: movie.adult,
+                        backdrop_path: movie.backdrop_path,
+                        belongs_to_collection: movie.belongs_to_collection,
+                        budget: movie.budget || 0,
+                        homepage: movie.homepage || '',
+                        imdb_id: movie.imdb_id || '',
+                        original_title: movie.original_title,
+                        overview: movie.overview,
+                        popularity: movie.popularity,
+                        poster_path: movie.poster_path,
+                        release_date: movie.release_date,
+                        revenue: movie.revenue || 0,
+                        runtime: movie.runtime || 0,
+                        status: movie.status || '',
+                        tagline: movie.tagline || '',
+                        title: movie.title,
+                        tmdb_id: movie.id,
+                        vote_average: movie.vote_average,
+                        vote_count: movie.vote_count
+                    }, 'films');
+
                     console.log('trying to post', shouldPost);
                     const creditResponse = await fetchData(credits_url(movie.id));
                     console.log('creditResponse:', creditResponse);
@@ -50,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         for (const cast of creditResponse.cast) {
+
                             console.log('Posting cast data:', cast);
                             await postData({
                                 id: cast.id,
@@ -71,29 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 order: cast.order,
                             }, 'film_cast');
                         }
-
-                        await postData({
-                            id: movie.id,
-                            adult: movie.adult,
-                            backdrop_path: movie.backdrop_path,
-                            belongs_to_collection: movie.belongs_to_collection,
-                            budget: movie.budget || 0,
-                            homepage: movie.homepage || '',
-                            imdb_id: movie.imdb_id || '',
-                            original_title: movie.original_title,
-                            overview: movie.overview,
-                            popularity: movie.popularity,
-                            poster_path: movie.poster_path,
-                            release_date: movie.release_date,
-                            revenue: movie.revenue || 0,
-                            runtime: movie.runtime || 0,
-                            status: movie.status || '',
-                            tagline: movie.tagline || '',
-                            title: movie.title,
-                            tmdb_id: movie.id,
-                            vote_average: movie.vote_average,
-                            vote_count: movie.vote_count
-                        }, 'films');
                     }
                 }
             }
@@ -105,6 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let shouldPost = false
     shouldPost = document?.getElementById('postCheckbox')?.checked;
     console.log('Initial shouldPost:', shouldPost);
+
+    if (document.getElementById('postCheckbox')) {
+        document.getElementById('postCheckbox').addEventListener('click', async () => {
+            shouldPost = document.getElementById('postCheckbox').checked;
+            console.log('Changed shouldPost:', shouldPost);
+        });
+    }
 
     document.getElementById('fetchButton').addEventListener('click', async () => {
         const pageInput = document.getElementById('pageInput').value;

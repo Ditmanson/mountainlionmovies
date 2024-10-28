@@ -55,12 +55,12 @@ class FriendRequestSerializer(serializers.ModelSerializer):
 
 # LT_Films_Cast Serializer
 class LT_Films_CastSerializer(serializers.ModelSerializer):
-    film = FilmSerializer(read_only=True)
-    person = PersonSerializer(read_only=True)
+    # film = FilmSerializer(read_only=True)
+    # person = PersonSerializer(read_only=True)
     
     class Meta:
         model = LT_Films_Cast
-        fields = '__all__'
+        fields = ['id', 'film', 'person', 'cast_id', 'character', 'credit_id', 'order']
 
 # LT_Films_Companies Serializer
 class LT_Films_CompaniesSerializer(serializers.ModelSerializer):
@@ -80,12 +80,12 @@ class LT_Films_CountriesSerializer(serializers.ModelSerializer):
 
 # LT_Films_Crew Serializer
 class LT_Films_CrewSerializer(serializers.ModelSerializer):
-    film = FilmSerializer(read_only=True)
-    person = PersonSerializer(read_only=True)
+    # film = FilmSerializer(read_only=True)
+    # person = PersonSerializer(read_only=True)
 
     class Meta:
         model = LT_Films_Crew
-        fields = '__all__'
+        fields = ['id', 'film', 'person', 'credit_id', 'department', 'job']
 
 # LT_Films_Genres Serializer
 class LT_Films_GenresSerializer(serializers.ModelSerializer):
