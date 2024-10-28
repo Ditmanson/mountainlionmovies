@@ -66,16 +66,18 @@ class ProfileView(LoginRequiredMixin, DetailView):
     def get_friend_requests(self, viewer):
         """Handles friend request logic."""
         user_viewer = self.request.user.viewer
-        friend_request = None
-        received_friend_request = None
+        is_friend = viewer.friends.filter(id=user_viewer.id).exists()
+        friend_request_sent = False
+        friend_request_received = False
 
         if user_viewer != viewer:
-            friend_request = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer).first()
-            received_friend_request = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').first()
+            friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists()
+            friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists()
 
         return {
-            'friend_request': friend_request,
-            'received_friend_request': received_friend_request,
+            'is_friend': is_friend,
+            'friend_request_sent': friend_request_sent,
+            'friend_request_received': friend_request_received,
             'num_pending_requests': FriendRequest.objects.filter(receiver=user_viewer, status='pending').count()
         }
 
