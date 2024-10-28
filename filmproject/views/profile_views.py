@@ -66,16 +66,18 @@ class ProfileView(LoginRequiredMixin, DetailView):
     def get_friend_requests(self, viewer):
         """Handles friend request logic."""
         user_viewer = self.request.user.viewer
-        friend_request = None
-        received_friend_request = None
+        is_friend = viewer.friends.filter(id=user_viewer.id).exists()
+        friend_request_sent = False
+        friend_request_received = False
 
         if user_viewer != viewer:
-            friend_request = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer).first()
-            received_friend_request = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').first()
+            friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists()
+            friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists()
 
         return {
-            'friend_request': friend_request,
-            'received_friend_request': received_friend_request,
+            'is_friend': is_friend,
+            'friend_request_sent': friend_request_sent,
+            'friend_request_received': friend_request_received,
             'num_pending_requests': FriendRequest.objects.filter(receiver=user_viewer, status='pending').count()
         }
 
@@ -134,17 +136,26 @@ class ProfileView(LoginRequiredMixin, DetailView):
 
 def activate(request, uidb64, token):
     try:
+        # Decode the uidb64 to get the user's primary key
         uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = get_object_or_404(User, pk=uid)
+    except (TypeError, ValueError, OverflowError):
         user = None
+
+    # Validate the token and activate the user if it's valid
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+
+        # Log the user in after successful activation
         login(request, user)
+
+        # Redirect to the index page or a success page
         return redirect('index')
-    else:
-        return render(request, 'filmproject/account_activation_invalid.html')
+
+    # Render the invalid activation template if the token is invalid
+    return render(request, 'filmproject/account_activation_invalid.html',{'uidb64': urlsafe_base64_encode(force_bytes(user.pk))})
+
     
 
 def register(request):
@@ -152,9 +163,6 @@ def register(request):
         form = ViewerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            print("\nREQUEST POST:", request.POST,"\n")
-            print("\nREQUEST FILES", request.FILES,"\n")
-            print("\nUSER FORM", user,"\n")
             user.is_active = False  # Deactivate account until email verification
             user.save()
 
@@ -167,16 +175,51 @@ def register(request):
             message = render_to_string('filmproject/account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'uidb64': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
             send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
 
-            return render(request, 'filmproject/registration_confirm.html')
+            # Pass 'uidb64' to the template for resending activation email
+            return render(request, 'filmproject/registration_confirm.html', {'uidb64': urlsafe_base64_encode(force_bytes(user.pk))})
     else:
         form = ViewerRegistrationForm()
     return render(request, 'filmproject/register.html', {'form': form})
+
+
+def resend_activation_email(request, uidb64):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = get_object_or_404(User, pk=uid)
+        
+        if not user.is_active:
+            # Send activation email
+            current_site = get_current_site(request)
+            mail_subject = 'Activate your account.'
+            message = render_to_string('filmproject/account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uidb64': uidb64,
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = user.email
+            send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])
+
+            # Include uidb64 in the context so the link works properly
+            return render(request, 'filmproject/registration_confirm.html', {'resend_success': True, 'uidb64': uidb64})
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    # Include uidb64 even in the error case to ensure consistency
+    return render(request, 'filmproject/registration_confirm.html', {'resend_success': False, 'uidb64': uidb64})
+
+
+
+
+def render_invalid_activation_page(request):
+    return render(request, 'filmproject/account_activation_invalid.html')
+
 
 
 @login_required

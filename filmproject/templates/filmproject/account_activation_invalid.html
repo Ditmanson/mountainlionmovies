@@ -1,0 +1,11 @@
+{% extends "filmproject/base_template.html" %}
+
+{% block content %}
+<div class="page-margin">
+  <h2>Invalid Activation Link</h2>
+  <p>It seems that the activation link is invalid or has expired. Please request a new activation link.</p>
+  <p>
+    <a href="{% url 'resend_activation' uidb64=uidb64 %}">Resend Activation Email</a>
+  </p>
+</div>
+{% endblock %}

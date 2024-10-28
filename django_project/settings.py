@@ -6,6 +6,8 @@ from decouple import config
 
 LOGIN_URL = '/login/'
 
+PASSWORD_RESET_TIMEOUT = 86400  # Token valid for 1 day (in seconds)
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

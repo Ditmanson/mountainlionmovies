@@ -15,9 +15,18 @@
                 {% endif %}
             </div>
 
-            <!-- Add Friend Button -->
-            {% if user.is_authenticated and user.viewer != viewer and not is_friend %}
-                <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-block mb-3">Add Friend</a>
+            <!-- Friend Request Buttons -->
+            {% if user.is_authenticated and user.viewer != viewer %}
+                {% if is_friend %}
+                    <!-- No button if already friends -->
+                {% elif friend_request_sent %}
+                    <button class="btn btn-secondary btn-block mb-3" disabled>Friend Request Pending</button>
+                {% elif friend_request_received %}
+                    <a href="{% url 'accept_friend_request' viewer.id %}" class="btn btn-success btn-block mb-3">Accept Friend Request</a>
+                    <a href="{% url 'reject_friend_request' viewer.id %}" class="btn btn-danger btn-block mb-3">Reject Friend Request</a>
+                {% else %}
+                    <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-block mb-3">Add Friend</a>
+                {% endif %}
             {% endif %}
 
             <!-- Friends List Section -->

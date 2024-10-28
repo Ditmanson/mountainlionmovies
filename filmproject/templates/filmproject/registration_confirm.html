@@ -1,9 +1,19 @@
-<!-- registration_confirm.html -->
 {% extends "filmproject/base_template.html" %}
 
 {% block content %}
 <div class="page-margin">
   <h2>Registration Successful!</h2>
   <p>Thank you for registering. Please check your email for the activation link to complete your registration.</p>
+  
+  {% if resend_success is not none %}
+    {% if resend_success %}
+      <p class="success-message">A new activation email has been sent. Please check your inbox.</p>
+    {% else %}
+      <p class="error-message">There was an issue resending the activation email. Please try again later.</p>
+    {% endif %}
+  {% endif %}
+  <p>If you did not receive the email, you can <a href="{% url 'resend_activation' uidb64=uidb64 %}">resend the activation email</a>.</p>
+
+  
 </div>
 {% endblock %}
