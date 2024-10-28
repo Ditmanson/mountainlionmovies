@@ -47,6 +47,11 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='filmproject/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='filmproject/index.html'), name='logout'),
     path('register/', register, name='register'),
+    path('resend-activation/<str:uidb64>/', resend_activation_email, name='resend_activation'),
+    # Invalid activation page URL
+    path('activation/invalid/', render_invalid_activation_page, name='invalid_activation'),
+
+
 
     # Password reset URLs
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='filmproject/password_reset.html'), name='password_reset'),
