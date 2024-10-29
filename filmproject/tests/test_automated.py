@@ -15,6 +15,15 @@ from django.utils.encoding import force_str
 from filmproject.tokens import account_activation_token
 from django.test import Client
 
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import override_settings
+from django.core import mail
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
+from filmproject.tokens import account_activation_token
+from django.test import Client
+
 def test_automated_from_playwright(page: Page):
     # Create a user
     page.goto("http://localhost:8000/")
