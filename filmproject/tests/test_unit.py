@@ -235,6 +235,7 @@ class FriendRequestTestCase(TestCase):
 
 class UserRegistrationTest(TestCase):
     def test_registration(self):
+        mail.outbox = []  # Clear any existing emails
         # Perform actions that should trigger email sending
         response = self.client.post("/register/", {
             'username': 'testuser',

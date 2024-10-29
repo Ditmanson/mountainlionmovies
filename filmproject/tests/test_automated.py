@@ -161,7 +161,10 @@ def test_user_registration(live_server, transactional_db):
         page = context.new_page()
 
         # Navigate to the registration page
-        page.goto(f"{live_server.url}/register/")
+        #page.goto(f"{live_server.url}/register/")
+        page.goto(live_server.url)
+        page.get_by_role("link", name="Login").click()
+        page.get_by_role("link", name="Sign Up").click()
 
         # Fill the registration form
         page.fill('input[name="username"]', user)
@@ -172,7 +175,7 @@ def test_user_registration(live_server, transactional_db):
             page.click('input[name="profile_picture"]')
         file_chooser = fc_info.value
         file_chooser.set_files("filmproject/media/profile_pictures/dummyPFP.jpg")
-        page.get_by_role("button", name="Register").click()
+        page.get_by_role("button", name="Continue").click()
 
         # Wait for the page to load and network requests to finish
         page.wait_for_load_state("networkidle")
