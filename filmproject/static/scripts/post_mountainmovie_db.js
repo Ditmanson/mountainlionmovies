@@ -3,12 +3,12 @@ export const getCsrfToken = () => {
     return cookieValue ? cookieValue.split('=')[1] : '';
 };
 
-export const postData = async (movie, apiObject) => {
-    console.log('postData called with:', movie, apiObject);
+export const postData = async (object, apiObject) => {
+    console.log('postData called with:', object, apiObject);
     const apiEndpoint = `${window.location.origin}/api/${apiObject}/`;
 
     // Log the API endpoint and the data being sent
-    console.log(`Posting data to ${apiEndpoint}:`, movie);
+    console.log(`Posting data to ${apiEndpoint}:`, object);
 
     try {
         const response = await fetch(apiEndpoint, {
@@ -17,7 +17,7 @@ export const postData = async (movie, apiObject) => {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': getCsrfToken(),
             },
-            body: JSON.stringify(movie),
+            body: JSON.stringify(object),
         });
 
         if (!response.ok) {
@@ -29,9 +29,9 @@ export const postData = async (movie, apiObject) => {
 
         const result = await response.json();
         // Log success message and result
-        console.log('Movie data posted successfully:', result);
+        console.log(`${object} data posted successfully:`, result);
     } catch (error) {
         // Log any other errors that occur
-        console.error('Error posting movie data:', error);
+        console.error(`Error posting ${objec}t data:`, error);
     }
 };
