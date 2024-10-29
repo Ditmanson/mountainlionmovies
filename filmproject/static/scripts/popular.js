@@ -63,13 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 profile_path: director.profile_path || '',
                             }, 'people');
 
-                            await postData({
-                                film: movie.id,
-                                person: director.id,
-                                credit_id: director.credit_id,
-                                department: director.department,
-                                job: director.job,
-                            }, 'film_crew');
+                            // await postData({
+                            //     film: movie.id,
+                            //     person: director.id,
+                            //     credit_id: director.credit_id,
+                            //     department: director.department,
+                            //     job: director.job,
+                            // }, 'film_crew');
                         }
 
                         for (const cast of creditResponse.cast) {
@@ -86,14 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                 profile_path: cast.profile_path || '',
                             }, 'people');
 
-                            await postData({
-                                film: movie.id,
-                                person: cast.id,
-                                cast_id: cast.cast_id,
-                                character: cast.character,
-                                credit_id: cast.credit_id,
-                                order: cast.order,
-                            }, 'film_cast');
+                            // await postData({
+                            //     film: movie.id,
+                            //     person: cast.id,
+                            //     cast_id: cast.cast_id,
+                            //     character: cast.character,
+                            //     credit_id: cast.credit_id,
+                            //     order: cast.order,
+                            // }, 'film_cast');
                         }
                     }
                 }
