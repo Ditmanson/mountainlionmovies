@@ -1,21 +1,29 @@
 {% extends 'filmproject/base_template.html' %}
+{% load static %}
 {% block content %}
-<h1>
-    Viewer List
-</h1>
-{% if viewer_list %}
-<ul>
-    {% for viewer in viewer_list %}
-    <li>
-        <a href="{{ viewer.get_absolute_url }}">
-            {{ viewer.name }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>
-    There are no viewers registered.
-</p>
-{% endif %}
+<h1>Viewer List</h1>
+<div class="container">
+    {% if viewer_list %}
+    <div class="row">
+        {% for viewer in viewer_list %}
+        <div class="col-md-4 viewer-container" style="margin-bottom: 15px;">
+            <a href="{{ viewer.get_absolute_url }}" class="viewer-card d-flex align-items-center justify-content-center" style="text-decoration: none; background-color: #333; padding: 10px; border-radius: 8px;">
+                <!-- Profile Picture with Fallback -->
+                <div class="profile-picture-container" style="margin-right: 10px;">
+                    {% if viewer.profile_picture %}
+                        <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                    {% else %}
+                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                    {% endif %}
+                </div>
+                <!-- Username -->
+                <h5 class="viewer-name mb-0" style="color: white;">{{ viewer.name }}</h5>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>There are no viewers registered.</p>
+    {% endif %}
+</div>
 {% endblock %}

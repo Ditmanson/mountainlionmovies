@@ -336,3 +336,125 @@ body.dark-mode .custom-container {
 .transparent-button img {
     display: block; /* Remove any space around the image */
 }
+
+/* ------------------------------------ MOVIE GRID ------------------------------------ */
+/* Center the title */
+h1.text-center {
+    margin-top: 20px;
+    font-size: 2.5rem;
+    color: #fff; /* Adjust color based on the page background */
+}
+
+
+/* Film Item Styling */
+.film-item {
+    padding: 15px;
+    background-color: #333; /* Optional: background color for each item */
+    border-radius: 8px;
+    margin-bottom: 20px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid black; /* Add black outline */
+}
+
+/* Film Poster Styling */
+.film-poster {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Film Title Styling */
+.film-title {
+    font-size: 1.25rem;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #f9f9f9;
+}
+
+/* Buttons Styling */
+.add-to-seen,
+.add-to-watchlist {
+    margin: 5px;
+    width: 100%; /* Make buttons full width for consistency */
+}
+
+/* Base styles for buttons */
+.add-to-seen,
+.add-to-watchlist {
+    margin: 5px;
+    width: 100%; /* Make buttons full width for consistency */
+    border: none; /* Remove border */
+    color: #fff; /* White text */
+}
+
+/* Styles for 'Seen' button when selected */
+.add-to-seen.selected {
+    background-color: #cfb87c; /* Selected color */
+}
+
+/* Styles for 'Seen' button when not selected */
+.add-to-seen {
+    background-color: #333240; /* Not selected color */
+}
+
+/* Styles for 'Watchlist' button when selected */
+.add-to-watchlist.selected {
+    background-color: #cfb87c; /* Selected color */
+}
+
+/* Styles for 'Watchlist' button when not selected */
+.add-to-watchlist {
+    background-color: #333240; /* Not selected color */
+}
+
+/* Hover effects for buttons */
+.add-to-seen:hover,
+.add-to-watchlist:hover {
+    background-color: #44455a; /* Brighter color on hover */
+}
+
+/* Add a brighter color on hover for selected state */
+.add-to-seen.selected:hover,
+.add-to-watchlist.selected:hover {
+    background-color: #e2c79d; /* Brighter color on hover */
+}
+
+/* Ensure the hover color for not selected buttons remains the same */
+.add-to-seen:hover:not(.selected),
+.add-to-watchlist:hover:not(.selected) {
+    background-color: #44455a; /* Brighter color on hover for non-selected */
+}
+
+/* Prevent Bootstrap from overriding styles */
+.add-to-seen:focus,
+.add-to-watchlist:focus {
+    outline: none; /* Remove focus outline */
+    box-shadow: none; /* Remove box shadow */
+    background-color: inherit; /* Maintain background color on focus */
+}
+
+/* ------------------------------------ VIEWER LIST ------------------------------------ */
+.viewer-card {
+    display: block;  /* Ensures the anchor takes the full width of the container */
+    padding: 15px;  /* Adds padding */
+    background-color: #333;  /* Set background color to #333 */
+    border-radius: 8px;  /* Rounded corners */
+    text-align: center;  /* Centers the text */
+    text-decoration: none;  /* Removes the underline from the link */
+    transition: background-color 0.3s;  /* Smooth transition on hover */
+}
+
+.viewer-container {
+    margin-bottom: 15px;  /* Adds spacing of 15px between each user */
+}
+
+.viewer-name {
+    color: white;  /* Set text color of the names to white */
+    margin: 0;  /* Removes default margin */
+}
+
+.viewer-card:hover {
+    background-color: #444;  /* Change background on hover for a slight effect */
+}
