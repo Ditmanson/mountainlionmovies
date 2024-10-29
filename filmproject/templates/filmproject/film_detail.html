@@ -1,62 +1,89 @@
 {% extends 'filmproject/base_template.html' %}
 {% load humanize %}
 {% load custom_filters %}
+{% load static %}
+
 {% block content %}
-
-<div style="width: 100%;">
+  <div style="width: 100%;">
     <div style="float: left; width: 30%; text-align: center;">
-        {% if film.poster_path %}
-            <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;">
-        {% endif %}
-        <h2>
-            <strong>{{ film.title }}</strong> ({{ film.release_date|date:"Y" }})
-        </h2>
-        <h5><i>{{ film.tagline }}</i></h5>
-        <p><strong>Runtime:</strong> {{ film.runtime|runtime_format }}</p>
+      {% if film.poster_path %}
+        <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;" />
+      {% endif %}
+      <h2><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h2>
+      <h5><i>{{ film.tagline }}</i></h5>
+      <p>
+        <strong>Runtime:</strong> {{ film.runtime|runtime_format }}
+      </p>
 
-        <!-- Only display buttons if the user is authenticated -->
-        {% if user.is_authenticated %}
+      <!-- Only display buttons if the user is authenticated -->
+      {% if user.is_authenticated %}
         <div style="margin-top: 20px;">
-            {% if is_seen %}
-                <form method="POST" action="{% url 'remove_from_seen' film.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Remove from Seen</button>
-                </form>
-            {% else %}
-                <form method="POST" action="{% url 'mark_as_seen' film.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success">Mark as Seen</button>
-                </form>
-            {% endif %}
+          {% if is_seen %}
+            <form method="POST" action="{% url 'remove_from_seen' film.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Remove from Seen</button>
+            </form>
+          {% else %}
+            <form method="POST" action="{% url 'mark_as_seen' film.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-success">Mark as Seen</button>
+            </form>
+          {% endif %}
 
-            {% if is_in_watchlist %}
-                <form method="POST" action="{% url 'remove_from_watchlist' film.id %}" style="margin-top: 10px;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
-                </form>
-            {% else %}
-                <form method="POST" action="{% url 'add_to_watchlist' film.id %}" style="margin-top: 10px;">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary">Add to Watchlist</button>
-                </form>
-            {% endif %}
+          {% if is_in_watchlist %}
+            <form method="POST" action="{% url 'remove_from_watchlist' film.id %}" style="margin-top: 10px;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
+            </form>
+          {% else %}
+            <form method="POST" action="{% url 'add_to_watchlist' film.id %}" style="margin-top: 10px;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-secondary">Add to Watchlist</button>
+            </form>
+          {% endif %}
         </div>
-        {% endif %}
+      {% endif %}
     </div>
     <div style="float: right; width: 65%;">
-        {% if film.backdrop_path %}
-            <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%;">
+      {% if film.backdrop_path %}
+        <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%;" />
+      {% endif %}
+      <p>
+        <strong>Overview:</strong> {{ film.overview }}
+      </p>
+      <p>
+        <strong>Vote Average:</strong> {{ film.vote_average }}
+      </p>
+      <p>
+        <strong>Vote Count:</strong> {{ film.vote_count }}
+      </p>
+      <p>
+        <strong>Revenue:</strong> $ {{ film.revenue|intcomma }}
+      </p>
+      <p>
+        <strong>Budget:</strong> $ {{ film.budget|intcomma }}
+      </p>
+      <p>
+        <strong>Popularity:</strong> {{ film.popularity|floatformat:1 }}
+      </p>
+      <p>
+        <strong>Adult:</strong> {% if film.adult %}
+          Yes
+        {% else %}
+          No
         {% endif %}
-        <p><strong>Overview:</strong> {{ film.overview }}</p>
-        <p><strong>Vote Average:</strong> {{ film.vote_average }}</p>
-        <p><strong>Vote Count:</strong> {{ film.vote_count }}</p>
-        <p><strong>Revenue:</strong> $ {{ film.revenue|intcomma }}</p>
-        <p><strong>Budget:</strong> $ {{ film.budget|intcomma }}</p>
-        <p><strong>Popularity:</strong> {{ film.popularity|floatformat:1 }}</p>
-        <p><strong>Adult:</strong> {% if film.adult %}Yes{% else %}No{% endif %}</p>
-        <p>{% if film.homepage %}<strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>{% endif %}</p>
-        <p><a href="{% url 'film_list' %}" class="btn btn-primary">Back to Film List</a></p>
+      </p>
+      <p>
+        {% if film.homepage %}
+          <strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>
+        {% endif %}
+      </p>
+      <p>
+        <a href="{% url 'film_list' %}" class="btn btn-primary">Back to Film List</a>
+      </p>
     </div>
-</div>
 
+    <div id="streaming_info">{{ film.id }}</div>
+  </div>
+  <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
 {% endblock %}

@@ -4,6 +4,9 @@ export const credits_url = (movieID) => {
 export const pop_url = (page) => {
   return `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
 };
+export const watch_providers_url = (movieID) => {
+  return `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?language=en-US`;
+};
 export const image_url = 'https://image.tmdb.org/t/p/w500';
 
 const options = {
