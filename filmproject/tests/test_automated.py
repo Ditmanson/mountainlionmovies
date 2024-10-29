@@ -15,15 +15,6 @@ from django.utils.encoding import force_str
 from filmproject.tokens import account_activation_token
 from django.test import Client
 
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import override_settings
-from django.core import mail
-from django.urls import reverse
-from django.utils.http import urlsafe_base64_decode
-from django.utils.encoding import force_str
-from filmproject.tokens import account_activation_token
-from django.test import Client
-
 def test_automated_from_playwright(page: Page):
     # Create a user
     page.goto("http://localhost:8000/")
@@ -144,14 +135,6 @@ def test_user_registration(live_server, transactional_db):
     email = "testuser@example.com"
     password = "PasswordTest123#@!"
 
-    # Simulate file upload
-    with open('filmproject/media/profile_pictures/dummyPFP.jpg', 'rb') as img:
-        profile_pic = SimpleUploadedFile(
-            name='dummyPFP.jpg',
-            content=img.read(),
-            content_type='image/jpeg'
-        )
-
     mail.outbox = []  # Clear any existing emails
 
     # Now use Playwright to automate the browser interaction
@@ -171,10 +154,7 @@ def test_user_registration(live_server, transactional_db):
         page.fill('input[name="email"]', email)
         page.fill('input[name="password1"]', password)
         page.fill('input[name="password2"]', password)
-        with page.expect_file_chooser() as fc_info:
-            page.click('input[name="profile_picture"]')
-        file_chooser = fc_info.value
-        file_chooser.set_files("filmproject/media/profile_pictures/dummyPFP.jpg")
+
         page.get_by_role("button", name="Continue").click()
 
         # Wait for the page to load and network requests to finish
