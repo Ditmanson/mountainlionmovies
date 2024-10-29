@@ -9,6 +9,11 @@ export const watch_providers_url = (movieID) => {
 };
 export const image_url = 'https://image.tmdb.org/t/p/w500';
 
+export const getCsrfToken = () => {
+  const cookieValue = document.cookie.split('; ').find(row => row.startsWith('csrftoken='));
+  return cookieValue ? cookieValue.split('=')[1] : '';
+};
+
 const options = {
   method: 'GET',
   headers: {
