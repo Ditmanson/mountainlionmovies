@@ -156,7 +156,7 @@ def test_user_registration(live_server, transactional_db):
 
     # Now use Playwright to automate the browser interaction
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # Run in non-headless mode for debugging
+        browser = p.chromium.launch()
         context = browser.new_context()
         page = context.new_page()
 
