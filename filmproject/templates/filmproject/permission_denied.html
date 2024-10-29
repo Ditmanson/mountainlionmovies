@@ -1,0 +1,10 @@
+{% extends "filmproject/base_template.html" %}
+{% block content %}
+
+<div class="page-margin">
+  <h2>Permission Denied</h2>
+  <h6>{{ message }}</h6>
+  <br>
+  <a href="{% url 'profile' %}" class="btn btn-primary">Go back to your profile</a>
+</div>
+{% endblock %}

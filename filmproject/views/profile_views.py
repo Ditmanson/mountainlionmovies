@@ -7,13 +7,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.db import IntegrityError
 from django.db.models import F, Sum, Q
+from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
-from ..forms import ViewerRegistrationForm
+from ..forms import ViewerRegistrationForm, ProfileUpdateForm
 from ..models import (Viewer, LT_Viewer_Ratings,
                         FriendRequest, Film)
 from ..tokens import account_activation_token
@@ -128,10 +129,32 @@ class ProfileView(LoginRequiredMixin, DetailView):
         context.update(self.get_friend_requests(viewer))
 
         return context
+    
 
+@login_required
+def update_profile(request, pk):
+    viewer = get_object_or_404(Viewer, id=pk)
 
+    if request.user != viewer.user:
+        return render(request, 'filmproject/permission_denied.html', 
+                      {'message': "You are not allowed to update this profile."})
 
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=viewer)
+        if form.is_valid():
+            user = form.save(commit=False)
+            print("\nREQUEST POST:", request.POST,"\n")
+            print("\nREQUEST FILES", request.FILES,"\n")
+            print("\nUSER FORM", user,"\n")
+            user.save()
 
+            return redirect('profile')
+    else:
+        form = ProfileUpdateForm(instance=viewer)
+
+    return render(request, 'filmproject/profile_update.html',
+                  {'form': form, 'pk':pk})
+    
 
 
 def activate(request, uidb64, token):
@@ -179,7 +202,10 @@ def register(request):
                 'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
-            send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
+
+            print(f"Sending email to: {to_email}")
+            testSend = send_mail(mail_subject, message, 'mountainlionmovies@gmail.com', [to_email])  
+            print(f"Email sending result: {testSend}")
 
             # Pass 'uidb64' to the template for resending activation email
             return render(request, 'filmproject/registration_confirm.html', {'uidb64': urlsafe_base64_encode(force_bytes(user.pk))})

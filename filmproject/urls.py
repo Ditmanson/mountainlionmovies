@@ -34,6 +34,8 @@ urlpatterns = [
     # Profile pages
     path('accounts/profile/', ProfileView.as_view(), name='profile'),  # For current user profile
     path('profile/<int:viewer_id>/', ProfileView.as_view(), name='profile_viewer'),  # For other users' profiles
+    path('update_profile/<int:pk>/', update_profile, name='update_profile'),
+    path('update_profile/<int:pk>/', update_profile, name='update_profile'),
 
     # Film-related URLs
     path('films/', FilmListView.as_view(), name='film_list'),

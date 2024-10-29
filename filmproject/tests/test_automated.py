@@ -1,9 +1,19 @@
 import re
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page, expect, sync_playwright
+from asgiref.sync import sync_to_async
 import pytest
 from filmproject.models import User
 from django.core.management import call_command
 from django.contrib.auth.hashers import make_password
+
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import override_settings
+from django.core import mail
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_str
+from filmproject.tokens import account_activation_token
+from django.test import Client
 
 def test_automated_from_playwright(page: Page):
     # Create a user
@@ -113,3 +123,67 @@ def test_automated_from_playwright(page: Page):
 #     # expect(page).to_have_url(re.compile(r"http://localhost:8000/viewers/.*"))
 #     # TODO we need to add class names or something so i can get a generic locator
 #     # expect(page).to_have_text("Scream")
+
+@override_settings(
+    EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
+    EMAIL_USE_TLS=False,
+    EMAIL_HOST='localhost',
+    EMAIL_PORT=1025,
+)
+def test_user_registration(live_server, transactional_db):
+    user = "testuser"
+    email = "testuser@example.com"
+    password = "PasswordTest123#@!"
+
+    mail.outbox = []  # Clear any existing emails
+
+    # Now use Playwright to automate the browser interaction
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        context = browser.new_context()
+        page = context.new_page()
+
+        # Navigate to the registration page
+        #page.goto(f"{live_server.url}/register/")
+        page.goto(live_server.url)
+        page.get_by_role("link", name="Login").click()
+        page.get_by_role("link", name="Sign Up").click()
+
+        # Fill the registration form
+        page.fill('input[name="username"]', user)
+        page.fill('input[name="email"]', email)
+        page.fill('input[name="password1"]', password)
+        page.fill('input[name="password2"]', password)
+
+        page.get_by_role("button", name="Continue").click()
+
+        # Wait for the page to load and network requests to finish
+        page.wait_for_load_state("networkidle")
+
+        # Ensure the email was sent
+        assert len(mail.outbox) == 1, "No email was sent"
+        activation_email = mail.outbox[0]
+        assert activation_email.subject == "Activate your account."
+
+        # Navigate to the activation link (retrieved from the email)
+        print(f"Email body: {activation_email.body}")
+        server_url = re.escape(live_server.url)
+        activation_link = re.search(rf'{server_url}/activate/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/', activation_email.body)
+        assert activation_link is not None, "Activation link not found in email."
+
+        uidb64, token = activation_link.groups()
+
+        # Simulate activation through the browser
+        page.goto(f"{live_server.url}/activate/{uidb64}/{token}/")
+        page.wait_for_timeout(2000)
+
+        # Close the browser
+        context.close()
+        browser.close()
+
+        # Decode the user ID
+    user_id = force_str(urlsafe_base64_decode(uidb64))
+    user = User.objects.get(pk=user_id)
+    
+    # Assert that the user is now active
+    assert user.is_active is True
