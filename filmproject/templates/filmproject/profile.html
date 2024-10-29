@@ -34,11 +34,6 @@
                 <a href="{% url 'update_profile' viewer.id %}" class="btn btn-primary btn-block mb-3">Update Profile</a>
             {% endif %}
 
-            {% if user.is_authenticated and user.viewer == viewer %}
-                <!-- Update Profile Button -->
-                <a href="{% url 'update_profile' viewer.id %}" class="btn btn-primary btn-block mb-3">Update Profile</a>
-            {% endif %}
-
             <!-- Friends List Section -->
             <div class="friends-section">
                 <h2>Friends</h2>
