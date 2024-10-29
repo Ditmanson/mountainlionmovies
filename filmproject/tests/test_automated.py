@@ -35,12 +35,21 @@ def test_automated_from_playwright(page: Page):
     page.get_by_role("button", name="Fetch Movies").click()
     page.get_by_role("button", name="Menu").click()
     page.get_by_role("link", name="Films").click()
+    
+    page.locator("div:nth-child(2) > form > .btn").first.click()
+    page.locator("div:nth-child(3) > form > .btn").first.click()
+    page.locator("div:nth-child(4) > form > .btn").first.click()
+    page.locator("div:nth-child(4) > form:nth-child(4) > .btn").click()
+    page.locator("div:nth-child(3) > form:nth-child(4) > .btn").click()
+    page.locator("div:nth-child(2) > form:nth-child(4) > .btn").click()
+    '''
     page.locator("div:nth-child(2) > .d-flex > .d-inline-flex > form > .btn").first.click()
     page.locator("div:nth-child(3) > .d-flex > .d-inline-flex > form > .btn").first.click()
     page.locator("div:nth-child(4) > .d-flex > .d-inline-flex > form > .btn").first.click()
     page.locator("div:nth-child(4) > .d-flex > .d-inline-flex > form:nth-child(2) > .btn").click()
     page.locator("div:nth-child(3) > .d-flex > .d-inline-flex > form:nth-child(2) > .btn").click()
     page.locator("div:nth-child(2) > .d-flex > .d-inline-flex > form:nth-child(2) > .btn").click()
+    '''
     page.wait_for_timeout(500)
     page.get_by_role("button", name="Menu").click()
     page.get_by_role("link", name="Rate Movies").click()
