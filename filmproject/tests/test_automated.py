@@ -124,6 +124,21 @@ def test_automated_from_playwright(page: Page):
 #     # TODO we need to add class names or something so i can get a generic locator
 #     # expect(page).to_have_text("Scream")
 
+
+def test_update_profile(page: Page):
+    page.goto("http://localhost:8000/")
+    page.get_by_role("link", name="Login").click()
+    page.get_by_placeholder("Enter your username").click()
+    page.get_by_placeholder("Enter your username").fill("travis")
+    page.get_by_placeholder("Enter your username").press("Tab")
+    page.get_by_placeholder("Enter your password").fill("password1234!@#$")
+    page.get_by_role("button", name="Continue").click()
+    page.get_by_role("link", name="Update Profile").click()
+    page.get_by_label("Profile picture:").click()
+    page.get_by_label("Profile picture:").set_input_files("filmproject/media/profile_pictures/dummyPFP.jpg")
+    page.get_by_role("button", name="Update").click()
+    page.wait_for_timeout(2000)
+
 @override_settings(
     EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend',
     EMAIL_USE_TLS=False,
