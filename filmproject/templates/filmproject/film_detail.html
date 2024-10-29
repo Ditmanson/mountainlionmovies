@@ -69,10 +69,11 @@
       <p>
         <strong>Adult:</strong> {% if film.adult %}
           Yes
-        {% else %}
+          {% else %}
           No
-        {% endif %}
-      </p>
+          {% endif %}
+        </p>
+        <div id="streaming_info">{{ film.id }}</div>
       <p>
         {% if film.homepage %}
           <strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>
@@ -83,7 +84,6 @@
       </p>
     </div>
 
-    <div id="streaming_info">{{ film.id }}</div>
   </div>
   <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
 {% endblock %}
