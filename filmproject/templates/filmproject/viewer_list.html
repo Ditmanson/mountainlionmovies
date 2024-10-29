@@ -6,14 +6,14 @@
     {% if viewer_list %}
     <div class="row">
         {% for viewer in viewer_list %}
-        <div class="col-md-4 viewer-container" style="margin-bottom: 15px;">
+        <div class="col-md-4 viewer-container" style="margin-bottom: 15px;"> <!-- Change px to %-->
             <a href="{{ viewer.get_absolute_url }}" class="viewer-card d-flex align-items-center justify-content-center" style="text-decoration: none; background-color: #333; padding: 10px; border-radius: 8px;">
                 <!-- Profile Picture with Fallback -->
-                <div class="profile-picture-container" style="margin-right: 10px;">
+                <div class="profile-picture-container" style="margin-right: 10px;"> <!-- Change px to %-->
                     {% if viewer.profile_picture %}
-                        <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                        <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"> <!-- Change px to %-->
                     {% else %}
-                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;"><!-- Change px to %-->
                     {% endif %}
                 </div>
                 <!-- Username -->

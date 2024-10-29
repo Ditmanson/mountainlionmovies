@@ -21,7 +21,7 @@
         <!-- Field-specific error messages -->
         {% for field in form %}
             {% if field.errors %}
-                <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 2px solid #cc0000; padding: 10px; box-shadow: 0 0 10px rgba(204, 0, 0, 0.3); font-size: medium; margin-bottom: 15px;">
+                <div class="alert alert-danger" style="background-color: #ff4d4d; color: white; border: 2px solid #cc0000; padding: 10px; box-shadow: 0 0 10px rgba(204, 0, 0, 0.3); font-size: medium; margin-bottom: 15px;"><!-- Change px to %-->
                     <ul class="mb-0" style="list-style-type: none; padding-left: 0;">
                         {% for error in field.errors %}
                             <li><strong>{{ field.label }}:</strong> {{ error }}</li>
@@ -31,7 +31,7 @@
             {% endif %}
         {% endfor %}
         
-        <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border: 2px solid black; border-radius: 10px;">
+        <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border: 2px solid black; border-radius: 10px;"><!-- Change px to %-->
             {% csrf_token %}
 
             <!-- Username field -->

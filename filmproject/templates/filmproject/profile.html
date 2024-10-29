@@ -116,7 +116,7 @@
                         {% for movie in watchlist %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
                             <div class="d-flex justify-content-center">
-                                <div class="card" style="width: 15rem;">
+                                <div class="card" style="width: 15rem;"> <!-- Change px to %-->
                                     {% if movie.poster_path %}
                                     <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
                                     {% else %}

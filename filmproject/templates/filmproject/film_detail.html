@@ -17,7 +17,7 @@
 
       <!-- Only display buttons if the user is authenticated -->
       {% if user.is_authenticated %}
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 20px;"> <!-- Change px to %-->
           {% if is_seen %}
             <form method="POST" action="{% url 'remove_from_seen' film.id %}">
               {% csrf_token %}
