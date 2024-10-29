@@ -15,15 +15,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (data.results.US.free) {
                     console.log('free:', data.results.US.free[0].provider_name);
                     streaming_list.innerHTML = `Free on ${data.results.US.free[0].provider_name}`;
+                } else if (data.results.US.flatrate) {
+                    console.log('flatrate:', data.results.US.flatrate[0].provider_name);
+                    streaming_list.innerHTML = `Stream on ${data.results.US.flatrate[0].provider_name}`;
                 } else if (data.results.US.rent) {
                     console.log('rent:', data.results.US.rent[0].provider_name);
                     streaming_list.innerHTML = `Rent on ${data.results.US.rent[0].provider_name}`;
                 } else if (data.results.US.buy) {
                     console.log('buy:', data.results.US.buy[0].provider_name);
                     streaming_list.innerHTML = `Buy on ${data.results.US.buy[0].provider_name}`;
-                } else if (data.results.US.flatrate) {
-                    console.log('flatrate:', data.results.US.flatrate[0].provider_name);
-                    streaming_list.innerHTML = `Stream on ${data.results.US.flatrate[0].provider_name}`;
                 } else if (data.results.US.ads) {
                     console.log('ads:', data.results.US.ads[0].provider_name);
                     streaming_list.innerHTML = `Watch with ads on ${data.results.US.ads[0].provider_name}`;
