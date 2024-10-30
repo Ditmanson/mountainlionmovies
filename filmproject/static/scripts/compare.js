@@ -7,10 +7,21 @@ import { getData, getCsrfToken, apiEndpoint } from './get_mountain_movie_db.js';
 document.addEventListener('DOMContentLoaded', () => {
     //initialize    
     let movie_ids = [];
-    let movie_button_1 = document.getElementById('movie1id');
-    let movie_button_2 = document.getElementById('movie2id');
+    let movie_button_1 = document.getElementById('movie1button');
     let movieImage1 = movie_button_1.querySelector('img'); // Get the image element for movie 1
+    let movie1_title = document.getElementById('movie1_title');
+    let movie1_release_date = document.getElementById('movie1_release_date');
+    let movie1_overview = document.getElementById('movie1_overview');
+    let movie1id = document.getElementById('movie1id');
+
+
+    let movie_button_2 = document.getElementById('movie2button');
+    let movie2_title = document.getElementById('movie2_title');
     let movieImage2 = movie_button_2.querySelector('img'); // Get the image element for movie 2
+    let movie2_release_date = document.getElementById('movie2_release_date');
+    let movie2_overview = document.getElementById('movie2_overview');
+    let movie2id = document.getElementById('movie2id');
+
     let movies = [];
     //helper functions
     const getRandomIndex = (some_array) => {
@@ -37,17 +48,27 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`random movie  ${movies[randomMovieID]}`);
 
         movie_button_1.addEventListener('click', () => {
+            //post movie goes here
+            currentMovie1 = movie1id.value;
+
             randomMovieID = getRandomIndex(movie_ids);
-            movieImage1.src = `https://image.tmdb.org/t/p/w300/${movie_ids[randomMovieID].poster_path}`;
-            console.log(`random movie id: ${movie_ids[randomMovieID]}`);
-            console.log('movie1id clicked');
+            movieImage1.src = `https://image.tmdb.org/t/p/w300/${movies[randomMovieID].poster_path}`;
+            movie1_title.innerText = movies[randomMovieID].title;
+            movie1_release_date.innerText = movies[randomMovieID].release_date;
+            movie1_overview.innerText = movies[randomMovieID].overview;
+            movie1id.value = movies[randomMovieID].id;
 
         });
 
         movie_button_2.addEventListener('click', () => {
+            //post movie goes here
+
             randomMovieID = getRandomIndex(movie_ids);
-            console.log(`random movie id: ${movie_ids[randomMovieID]}`);
-            console.log('movie2id clicked');
+            movieImage2.src = `https://image.tmdb.org/t/p/w300/${movies[randomMovieID].poster_path}`;
+            movie2_title.innerText = movies[randomMovieID].title;
+            movie2_release_date.innerText = movies[randomMovieID].release_date;
+            movie2_overview.innerText = movies[randomMovieID].overview;
+            movie2id.value = movies[randomMovieID].id;
         });
 
 
