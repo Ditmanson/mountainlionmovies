@@ -8,11 +8,11 @@
     <div class="row justify-content-center align-items-center mb-4">
       <!-- Row for titles -->
       <div class="col-md-5 d-flex justify-content-center">
-        <h4>{{ movie1.title }}</h4>
+        <h4 id="movie1_title">{{ movie1.title }}</h4>
       </div>
       <div class="col-md-2"></div>
       <div class="col-md-5 d-flex justify-content-center">
-        <h4>{{ movie2.title }}</h4>
+        <h4 id="movie2_title">{{ movie2.title }}</h4>
       </div>
     </div>
 
@@ -22,9 +22,9 @@
         {% comment %} <form method="POST" action="{% url 'compare_movies' %}">
           {% endcomment %}
           {% csrf_token %}
-          <input type="hidden" name="selected_movie" value="{{ movie1.id }}" />
+          <input type="hidden" name="selected_movie" id="movie1id" value="{{ movie1.id }}" />
           <!-- Make the image a clickable button -->
-          <button type="submit" id="movie1id" class="image-button" style="border: none; background: none; padding: 0;"><img src="https://image.tmdb.org/t/p/w300/{{ movie1.poster_path }}" alt="Poster for {{ movie1.title }}" class="img-fluid" /></button>
+          <button type="submit" id="movie1button" class="image-button" style="border: none; background: none; padding: 0;"><img src="https://image.tmdb.org/t/p/w300/{{ movie1.poster_path }}" alt="Poster for {{ movie1.title }}" class="img-fluid" /></button>
           {% comment %}
         </form> {% endcomment %}
       </div>
@@ -43,9 +43,9 @@
         {% comment %} <form method="POST" action="{% url 'compare_movies' %}">
           {% endcomment %}
           {% csrf_token %}
-          <input type="hidden" name="selected_movie" value="{{ movie2.id }}" />
+          <input type="hidden" name="selected_movie" id="movie2id" value="{{ movie2.id }}" />
           <!-- Make the image a clickable button -->
-          <button type="submit" id="movie2id" class="image-button" style="border: none; background: none; padding: 0;"><img src="https://image.tmdb.org/t/p/w300/{{ movie2.poster_path }}" alt="Poster for {{ movie2.title }}" class="img-fluid" /></button>
+          <button type="submit" id="movie2button" class="image-button" style="border: none; background: none; padding: 0;"><img src="https://image.tmdb.org/t/p/w300/{{ movie2.poster_path }}" alt="Poster for {{ movie2.title }}" class="img-fluid" /></button>
           {% comment %}
         </form> {% endcomment %}
       </div>
@@ -64,15 +64,15 @@
       <!-- Movie 1 Overview -->
       <div class="col-md-5">
         <h2><strong>Overview</strong></h2>
-        <p>Released in {{ movie1.release_date|date:'Y' }}</p>
-        <p>{{ movie1.overview }}</p>
+        <p id="movie1_release_date">Released in {{ movie1.release_date|date:'Y' }}</p>
+        <p id="movie1_overview">{{ movie1.overview }}</p>
       </div>
 
       <!-- Movie 2 Overview -->
       <div class="col-md-5">
         <h2><strong>Overview</strong></h2>
-        <p>Released in {{ movie2.release_date|date:'Y' }}</p>
-        <p>{{ movie2.overview }}</p>
+        <p id="movie2_release_date">Released in {{ movie2.release_date|date:'Y' }}</p>
+        <p id="movie2_overview">{{ movie2.overview }}</p>
       </div>
     </div>
     <!-- Bottom Margin -->
@@ -84,7 +84,7 @@
   <script type="module" src="{% static 'scripts/compare.js' %}"></script>
 {% endblock %}
 
-<!--                
+<!--                    
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <h4>{{ movie1.title }}</h4>
@@ -124,4 +124,4 @@
                 <button type="submit" class="btn btn-warning">Can't Decide</button>
             </form>
         </div> 
-       -->
+           -->
