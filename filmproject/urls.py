@@ -25,6 +25,7 @@ router.register(r'film_crew', LT_Films_CrewViewSet)
 router.register(r'film_genres', LT_Films_GenresViewSet)
 router.register(r'film_keywords', LT_Films_KeywordsViewSet)
 router.register(r'film_languages', LT_Films_LanguagesViewSet)
+router.register(r'viewer_ratings', LT_Viewer_RatingsViewSet)
 
 urlpatterns = [
     # Home page

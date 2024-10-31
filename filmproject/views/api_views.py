@@ -1,10 +1,10 @@
 from ..models import  (
     Film, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, 
     LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Seen, 
-    LT_Viewer_Watchlist, FriendRequest, Person
+    LT_Viewer_Watchlist, FriendRequest, Person, LT_Viewer_Ratings
 )
 from ..serializers import (
-    FilmSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer,
+    FilmSerializer, LT_Viewer_RatingsSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer,
     FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer,
     LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer, PersonSerializer
 )
@@ -80,6 +80,10 @@ class LT_Films_KeywordsViewSet(viewsets.ModelViewSet):
 class LT_Films_LanguagesViewSet(viewsets.ModelViewSet):
     queryset = LT_Films_Languages.objects.all()
     serializer_class = LT_Films_LanguagesSerializer
+# Viewer Ratings ViewSet
+class LT_Viewer_RatingsViewSet(viewsets.ModelViewSet):
+    queryset = LT_Viewer_Ratings.objects.all()
+    serializer_class = LT_Viewer_RatingsSerializer
 
 # Watchlist view for the current user
 @api_view(['GET'])

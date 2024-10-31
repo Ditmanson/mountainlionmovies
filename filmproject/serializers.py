@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import (
     Film, Viewer, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, 
     LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, 
-    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, Person
+    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, Person, LT_Viewer_Ratings
 )
 # Person Serializer
 class PersonSerializer(serializers.ModelSerializer):
@@ -102,6 +102,11 @@ class LT_Films_KeywordsSerializer(serializers.ModelSerializer):
     class Meta:
         model = LT_Films_Keywords
         fields = ['id', 'film', 'keyword']
+        
+class LT_Viewer_RatingsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LT_Viewer_Ratings
+        fields = ['id', 'film_a', 'film_b', 'date', 'viewer', 'a_points', 'b_points']
 
 # LT_Films_Languages Serializer
 class LT_Films_LanguagesSerializer(serializers.ModelSerializer):
