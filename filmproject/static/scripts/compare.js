@@ -49,15 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         movie_button_1.addEventListener('click', () => {
             //post movie goes here
-            let currentMovie1 = movie1id.value;// use this for the post request
-            let currentMovie2 = movie2id.value;// use this for the post request
-            // postData({
-            //     viewer: 1,
-            //     film_a: currentMovie1.value,
-            //     film_b: currentMovie2.value,
-            //     date: new Date(),
-            //     a_points: 0,
-            // }, 'ratings_api_table');
+            console.log('clicked movie 1');
+            postData({
+                viewer: 1,
+                film_a: movie1id.value,
+                film_b: movie2id.value,
+                date: null,
+                a_points: 1,
+                b_points: 0,
+            }, 'viewer_ratings');
 
 
             randomMovieID = getRandomIndex(movie_ids);
@@ -71,15 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         movie_button_2.addEventListener('click', () => {
             //post movie goes here
-            let currentMovie1 = movie1id.value;// use this for the post request
-            let currentMovie2 = movie2id.value;// use this for the post request
-            // postData({
-            //     viewer: 1,
-            //     film_a: movie1id.value,
-            //     film_b: movie2id.value,
-            //     date: new Date(),
-            //     a_points: 0,
-            // }, 'ratings_api_table');
+            console.log('clicked movie 2');
+            postData({
+                viewer: 1,
+                film_a: movie1id.value,
+                film_b: movie2id.value,
+                date: null,
+                a_points: 0,
+                b_points: 1,
+            }, 'viewer_ratings');
 
             randomMovieID = getRandomIndex(movie_ids);
             movieImage2.src = `https://image.tmdb.org/t/p/w300/${movies[randomMovieID].poster_path}`;

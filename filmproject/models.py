@@ -160,6 +160,7 @@ class LT_Viewer_Ratings(models.Model):
     film_b = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_b", null=True)
     date = models.DateField(default=date.today, null=True)
     a_points = models.DecimalField(decimal_places=1, max_digits=3, default=0, null=True)
+    b_points = models.DecimalField(decimal_places=1, max_digits=3, default=0, null=True)
     class Meta:
         unique_together = ('viewer', 'film_a', 'film_b')
 
