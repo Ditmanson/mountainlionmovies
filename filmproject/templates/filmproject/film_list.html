@@ -8,7 +8,7 @@
         {% for film in page_obj %}
         <div class="col film-item">
             <a href="{{ film.get_absolute_url }}">
-                <img src="{{ film.poster_url }}" alt="{{ film.title }} Poster" class="film-poster">
+                <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" alt="{{ film.title }} Poster" class="film-poster">
             </a>
             <h5 class="film-title">{{ film.title }}</h5>
 
