@@ -203,3 +203,19 @@ class FriendRequest(models.Model):
 
     def __str__(self):
         return f"{self.sender.name} -> {self.receiver.name} ({self.status})"
+    
+class FeedEntry(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Film, on_delete=models.CASCADE)
+    action = models.CharField(max_length=50)  # e.g., "added to watchlist" or "marked as seen"
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class Like(models.Model):
+    feed_entry = models.ForeignKey(FeedEntry, related_name="likes", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Comment(models.Model):
+    feed_entry = models.ForeignKey(FeedEntry, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)

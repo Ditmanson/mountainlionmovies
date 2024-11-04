@@ -3,6 +3,7 @@ from django.urls import path, include
 from .views.film_views import *
 from .views.profile_views import *
 from .views.api_views import *
+from .views.social_media_views import *
 from rest_framework.routers import DefaultRouter
 from django.urls import path
 from django.contrib.auth import views as auth_views
@@ -78,7 +79,14 @@ urlpatterns = [
     path('accept_friend_request/<int:request_id>/', accept_friend_request, name='accept_friend_request'),
     path('reject_friend_request/<int:request_id>/', reject_friend_request, name='reject_friend_request'),
     path('remove_friend/<int:viewer_id>/', remove_friend, name='remove_friend'),
+
+    # Social feed URLs
+    path('feed/', feed_page, name='feed_page'),
+    path('feed_entries/', feed_entries, name='feed_entries'),          # URL to fetch feed entries
+    path('like_entry/<int:entry_id>/', like_entry, name='like_entry'),  # URL to like a feed entry
+    path('comment_entry/<int:entry_id>/', comment_entry, name='comment_entry'),  # URL to add a comment
 ]
+
 
 # API routes (grouped and isolated in the 'api' namespace)
 urlpatterns += [
