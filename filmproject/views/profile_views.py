@@ -343,3 +343,29 @@ class ViewerListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         """Return all viewers to display in the list."""
         return Viewer.objects.all()
+
+
+def search_results(request):
+    q = request.GET
+    search_query = request.GET.get('q')
+    is_movie = request.GET.get('movie_search')
+    is_viewer = request.GET.get('viewer_search')
+    query_type = ""
+    results = []
+
+    if search_query:
+        if is_movie == "on":
+            results = Film.objects.filter(title__icontains=search_query)
+            query_type = "movie"
+        if is_viewer == "on":
+            results = Viewer.objects.filter(name__icontains=search_query)
+            query_type = "viewer"
+
+    print("QUERY:", search_query, "\n")
+    print("RESULTS:", results, "\n")
+    print("Q:", q, "\n")
+    print("IS MOVIE:", is_movie, "\n")
+    print("IS VIEWER:", is_viewer, "\n")
+
+    return render(request, 'filmproject/search_results.html', 
+                  {'results': results, 'query': search_query, 'query_type': query_type})

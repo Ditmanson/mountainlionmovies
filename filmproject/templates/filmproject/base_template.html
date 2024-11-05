@@ -52,12 +52,36 @@
 
         <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
         <div class="d-flex align-items-center ms-auto">
+            <!-- Search Function -->
+            <div class="d-flex align-items-center">
+              <form method="GET" action="{% url 'search_results' %}">
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Search Filter
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <label for="ms">Movies</label>
+                      <input type="checkbox" class="dropdown-item" id="ms" name="movie_search">
+                    </li>
+                    <li>
+                      <label for="vs">Viewers</label>
+                      <input type="checkbox" class="dropdown-item" id="vs" name="viewer_search">
+                    </li>
+                  </ul>
+                </div>
+                <input type="search" name="q" placeholder="Search...">
+                <button type="submit">Search</button>
+              </form>
+            </div>
+
           <!-- Profile icon -->
           <div style="color: black;" class="dropdown me-2">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
                   {% if user.is_authenticated %}
                       <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                       <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
