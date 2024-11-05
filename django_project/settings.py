@@ -29,9 +29,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'filmproject',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'filmproject.apps.FilmprojectConfig',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -147,3 +147,18 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # For development, use the console backend (prints email to the console)
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'filmproject': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}

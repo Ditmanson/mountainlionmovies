@@ -1,0 +1,15 @@
+{% extends 'filmproject/base_template.html' %}
+{% load static %}
+
+{% block content %}
+{% csrf_token %}
+<div class="container">
+    <h1 class="text-center">Social Media Feed</h1>
+    <div id="feed-container" class="feed-container">
+        <!-- Dynamically loaded feed entries will be displayed here -->
+    </div>
+</div>
+
+<!-- External JavaScript file -->
+<script type="module" src="{% static 'scripts/social_feed.js' %}"></script>
+{% endblock %}
