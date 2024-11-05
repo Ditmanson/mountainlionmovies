@@ -7,6 +7,9 @@ export const pop_url = (page) => {
 export const watch_providers_url = (movieID) => {
   return `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?language=en-US`;
 };
+export const search_url = (query) => {
+  return `https://api.themoviedb.org/3/search/movie?query=${query}`;
+};
 export const image_url = 'https://image.tmdb.org/t/p/w500';
 
 const options = {
