@@ -1,0 +1,18 @@
+{% extends "filmproject/base_template.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <h3>You searched for {{ query }}</h3>
+    {% for result in results %}
+        {% if query_type == 'movie' %}
+            <h3>Results: {{ result.title }}</h3>
+        {% endif %}
+
+        {% if query_type == 'viewer' %}
+            <h3>Results: {{ result.name }}</h3>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}
