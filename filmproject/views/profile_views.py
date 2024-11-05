@@ -1,4 +1,3 @@
-
 from django.contrib.auth import login
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
@@ -15,8 +14,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from ..forms import ViewerRegistrationForm, ProfileUpdateForm
-from ..models import (Viewer, LT_Viewer_Ratings,
-                        FriendRequest, Film)
+from ..models import Viewer, LT_Viewer_Ratings, FriendRequest, Film
 from ..tokens import account_activation_token
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -24,35 +22,28 @@ from django.core.paginator import Paginator
 
 class ViewerDetailView(generic.DetailView):
     model = Viewer
-
     def get(self, request, *args, **kwargs):
         viewer = self.get_object()
         return redirect('profile_viewer', viewer_id=viewer.id)
 
-
 class ViewerListView(generic.ListView):
     model = Viewer
-
 
 class ProfileView(LoginRequiredMixin, DetailView):
     model = Viewer
     template_name = 'filmproject/profile.html'
     context_object_name = 'viewer'
     paginate_by = 12  # 12 movies per page for seen films
-    
-
     def get_object(self, queryset=None):
         """Get the viewer either from the provided viewer_id or the current user."""
         user = self.request.user
         viewer_id = self.kwargs.get('viewer_id')
-
         if viewer_id:
             return get_object_or_404(Viewer, id=viewer_id)
         try:
             return user.viewer
         except Viewer.DoesNotExist:
             return self.create_viewer(user)
-
     def create_viewer(self, user):
         """Creates a new viewer if one does not exist for the user."""
         if Viewer.objects.filter(email=user.email).exists():
@@ -63,18 +54,15 @@ class ProfileView(LoginRequiredMixin, DetailView):
             # Handle email conflict error
             self.template_name = 'filmproject/profile_error.html'
             return {'error': 'Email conflict, unable to create viewer.'}
-
     def get_friend_requests(self, viewer):
         """Handles friend request logic."""
         user_viewer = self.request.user.viewer
         is_friend = viewer.friends.filter(id=user_viewer.id).exists()
         friend_request_sent = False
         friend_request_received = False
-
         if user_viewer != viewer:
             friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists()
             friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists()
-
         return {
             'is_friend': is_friend,
             'friend_request_sent': friend_request_sent,
@@ -86,10 +74,6 @@ class ProfileView(LoginRequiredMixin, DetailView):
         """Calculate dynamic ratings for films seen by the viewer."""
         seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
         film_ratings = []
-
-        
-
-
         for film in seen_films:
             a_points_sum = LT_Viewer_Ratings.objects.filter(film_a=film, viewer=viewer).aggregate(
                 total_a_points=Sum('a_points')
@@ -99,12 +83,10 @@ class ProfileView(LoginRequiredMixin, DetailView):
             )['total_b_points'] or 0
             total_count = LT_Viewer_Ratings.objects.filter(Q(film_a=film) | Q(film_b=film), viewer=viewer).count()
             user_rating = (a_points_sum + b_points_sum) / total_count if total_count > 0 else 0
-
             film_ratings.append({
                 'film': film,
                 'user_rating': user_rating
             })
-
         # Sort films by rating in descending order
         film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
         return film_ratings
@@ -113,32 +95,25 @@ class ProfileView(LoginRequiredMixin, DetailView):
         """Provide additional context to the template."""
         context = super().get_context_data(**kwargs)
         viewer = self.object
-
         # Watchlist remains unchanged as a carousel
         watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
         context['watchlist'] = watchlist
-
         # Paginate seen films
         film_ratings = self.get_film_ratings(viewer)
         paginator = Paginator(film_ratings, self.paginate_by)  # Paginate seen films
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['seen_films_page_obj'] = page_obj
-
         # Include friend requests data
         context.update(self.get_friend_requests(viewer))
-
         return context
     
-
 @login_required
 def update_profile(request, pk):
     viewer = get_object_or_404(Viewer, id=pk)
-
     if request.user != viewer.user:
         return render(request, 'filmproject/permission_denied.html', 
                       {'message': "You are not allowed to update this profile."})
-
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=viewer)
         if form.is_valid():
@@ -147,15 +122,11 @@ def update_profile(request, pk):
             print("\nREQUEST FILES", request.FILES,"\n")
             print("\nUSER FORM", user,"\n")
             user.save()
-
             return redirect('profile')
     else:
         form = ProfileUpdateForm(instance=viewer)
-
     return render(request, 'filmproject/profile_update.html',
                   {'form': form, 'pk':pk})
-    
-
 
 def activate(request, uidb64, token):
     try:
@@ -164,22 +135,16 @@ def activate(request, uidb64, token):
         user = get_object_or_404(User, pk=uid)
     except (TypeError, ValueError, OverflowError):
         user = None
-
     # Validate the token and activate the user if it's valid
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-
         # Log the user in after successful activation
         login(request, user)
-
         # Redirect to the index page or a success page
         return redirect('index')
-
     # Render the invalid activation template if the token is invalid
     return render(request, 'filmproject/account_activation_invalid.html',{'uidb64': urlsafe_base64_encode(force_bytes(user.pk))})
-
-    
 
 def register(request):
     if request.method == 'POST':
@@ -188,10 +153,8 @@ def register(request):
             user = form.save(commit=False)
             user.is_active = False  # Deactivate account until email verification
             user.save()
-
             # Create the Viewer object linked to the user
             Viewer.objects.create(user=user, name=user.username, email=user.email, profile_picture=user.profile_picture)
-
             # Send activation email
             current_site = get_current_site(request)
             mail_subject = 'Activate your account.'
@@ -240,13 +203,8 @@ def resend_activation_email(request, uidb64):
     # Include uidb64 even in the error case to ensure consistency
     return render(request, 'filmproject/registration_confirm.html', {'resend_success': False, 'uidb64': uidb64})
 
-
-
-
 def render_invalid_activation_page(request):
     return render(request, 'filmproject/account_activation_invalid.html')
-
-
 
 @login_required
 def send_friend_request(request, viewer_id):
@@ -263,7 +221,6 @@ def send_friend_request(request, viewer_id):
     
     # Redirect to the receiver's profile after sending the friend request
     return redirect('profile_viewer', viewer_id=receiver.id)
-
 
 @login_required
 def accept_friend_request(request, request_id):

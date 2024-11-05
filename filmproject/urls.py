@@ -1,13 +1,12 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path, include
-from .views.film_views import *
-from .views.profile_views import *
-from .views.api_views import *
-from rest_framework.routers import DefaultRouter
-from django.urls import path
-from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views.api_views import *
+from .views.film_views import *
+from .views.profile_views import *
+from .views.rating_views import compare_movies, get_comparison_movies, submit_movie_selection
 
 
 # Create a router and register all the viewsets
@@ -44,6 +43,10 @@ urlpatterns = [
     path('films/<int:pk>/mark_as_seen/', mark_as_seen, name='mark_as_seen'),
     path('films/<int:pk>/remove_from_seen/', remove_from_seen, name='remove_from_seen'),
     path('films/<int:pk>/remove_from_watchlist/', remove_from_watchlist, name='remove_from_watchlist'),
+
+    # Film-rating URLs
+    path('api/get_comparison_movies/', get_comparison_movies, name='get_comparison_movies'),
+    path('api/submit_movie_selection/', submit_movie_selection, name='submit_movie_selection'),
 
     # Authentication-related URLs
     path('login/', auth_views.LoginView.as_view(template_name='filmproject/login.html'), name='login'),
