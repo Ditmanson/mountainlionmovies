@@ -52,19 +52,20 @@
 
         <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
         <div class="d-flex align-items-center ms-auto">
-            <!-- Search Function -->
-            <div class="d-flex align-items-center">
-              <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
-                {% csrf_token %}
-                <input type="search" class="form-control me-2" name="q" placeholder="Search..." aria-label="Search">
-                <select name="filter" class="form-select search-filter w-25">
+          <!-- Search Function -->
+          <div class="d-flex align-items-center">
+            <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
+              <div class="input-group">
+                <select name="filter" class="form-select-sm search-filter bg-warning">
                   <option value="all">All</option>
                   <option value="viewer">Viewer</option>
                   <option value="movie">Movie</option>
                 </select>
+                <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search" required>
                 <button type="submit" class="btn btn-outline-warning me-2">Search</button>
-              </form>
-            </div>
+              </div>
+            </form>
+          </div>
 
           <!-- Profile icon -->
           <div style="color: black;" class="dropdown me-2">
@@ -87,25 +88,10 @@
                   {% endif %}
               </ul>
         <div class="d-flex align-items-center">
-          <div class="d-flex me-2">
-
-            <!-- Search Function -->
-            <div class="d-flex align-items-center">
-              <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
-                <div class="input-group">
-                  <select name="filter" class="form-select-sm search-filter bg-warning">
-                    <option value="all">All</option>
-                    <option value="viewer">Viewer</option>
-                    <option value="movie">Movie</option>
-                  </select>
-                  <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search" required>
-                  <button type="submit" class="btn btn-outline-warning me-2">Search</button>
-                </div>
-              </form>
-            </div>
 
           <!-- Login/Profile and Logout Buttons -->
           <div class="d-flex me-2">
+
             {% if user.is_authenticated %}
               <a href="{% url 'profile' %}" class="btn btn-outline-warning me-2">Profile</a>
               <form method="post" action="{% url 'logout' %}">
