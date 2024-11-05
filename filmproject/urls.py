@@ -85,6 +85,8 @@ urlpatterns = [
     path('feed_entries/', feed_entries, name='feed_entries'),          # URL to fetch feed entries
     path('like_entry/<int:entry_id>/', like_entry, name='like_entry'),  # URL to like a feed entry
     path('comment_entry/<int:entry_id>/', comment_entry, name='comment_entry'),  # URL to add a comment
+
+    path('search_results/', search_results, name='search_results'),
 ]
 
 
