@@ -2,14 +2,14 @@
 {% load static %} <!-- Load static files -->
 {% block content %}
   <div class="container mt-5">
-    <h1>Query for Movies</h1>
+    <h1>Search</h1>
     <div class="mb-3">
-      <label for="searchInput" class="form-label">Enter Search Query:</label>
-      <input type="string" id="searchInput" class="form-control" placeholder="string" />
+      <label for="search_input" class="form-label">Enter Search Query:</label>
+      <input type="string" id="search_input" class="form-control" placeholder="string" />
     </div>
-    <button id="fetchButton" class="btn btn-primary">Fetch Movies</button>
+    <button id="search_button" class="btn btn-primary">Fetch Movies</button>
     <div id="results" class="mt-3"></div>
   </div>
 
-  <script src="../../static/scripts/movie_search.js"></script>
+  <script type="module" src="../../static/scripts/search.js"></script>
 {% endblock %}
