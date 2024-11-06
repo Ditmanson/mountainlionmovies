@@ -93,6 +93,7 @@ urlpatterns = [
     path('comment_entry/<int:entry_id>/', comment_entry, name='comment_entry'),  # URL to add a comment
     path('feed_entry/<int:entry_id>/', feed_entry_detail, name='feed_entry_detail'),  # URL pattern for detail view
 
+    # Navbar Search
     path('search_results/', search_results, name='search_results'),
 ]
 
