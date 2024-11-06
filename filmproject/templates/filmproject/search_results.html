@@ -3,16 +3,33 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h3>You searched for {{ query }}</h3>
-    {% for result in results %}
-        {% if query_type == 'movie' %}
-            <h3>Results: {{ result.title }}</h3>
-        {% endif %}
+    <h1>Search Results for "{{ query }}"</h1><br>
 
-        {% if query_type == 'viewer' %}
-            <h3>Results: {{ result.name }}</h3>
+    {% if filter == 'all' or filter == 'viewer' %}
+        <h3>Viewers:</h3>
+        {% if viewer_results %}
+            {% for viewer in viewer_results %}
+            <a href="{{ viewer.get_absolute_url }}" style="text-decoration: none;">
+                <div style="display: flex; align-items: center;">
+                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
+                    <h5 class="viewer-name mb-0">{{ viewer.name }}</h5>
+                </div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <h5>No viewers found.</h5>
         {% endif %}
-    {% endfor %}
+    {% endif %}
+    {% if filter == 'all' or filter == 'movie' %}
+        <h3>Movies:</h3>
+        {% if movie_results %}
+            {% for movie in movie_results %}
+                <h5>- {{ movie.title }}</h5>
+            {% endfor %}
+        {% else %}
+            <h5>No viewers found.</h5>
+        {% endif %}
+    {% endif %}
 </div>
 
 {% endblock %}
