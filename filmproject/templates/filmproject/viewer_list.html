@@ -1,29 +1,116 @@
-{% extends 'filmproject/base_template.html' %}
+{% extends "filmproject/base_template.html" %}
 {% load static %}
+
 {% block content %}
-<h1>Viewer List</h1>
-<div class="container">
-    {% if viewer_list %}
-    <div class="row">
-        {% for viewer in viewer_list %}
-        <div class="col-md-4 viewer-container" style="margin-bottom: 15px;">
-            <a href="{{ viewer.get_absolute_url }}" class="viewer-card d-flex align-items-center justify-content-center" style="text-decoration: none; background-color: #333; padding: 10px; border-radius: 8px;">
-                <!-- Profile Picture with Fallback -->
-                <div class="profile-picture-container" style="margin-right: 10px;">
-                    {% if viewer.profile_picture %}
-                        <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                    {% else %}
-                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                    {% endif %}
+<div class="row">
+    <!-- Collapsible Friend Requests Sidebar -->
+    <div class="col-md-4 collapse" id="friendRequestsColumn">
+        <h2>Manage Friend Requests</h2>
+
+        <!-- Pending Friend Requests -->
+        {% if received_friend_requests %}
+            <h3>Pending Friend Requests</h3>
+            <div class="container">
+                <div class="row">
+                    {% for request in received_friend_requests %}
+                    <div class="col-12 viewer-container" style="margin-bottom: 15px;">
+                        <div class="viewer-card d-flex align-items-center justify-content-between" style="background-color: #333; padding: 10px; border-radius: 8px;">
+                            <div class="d-flex align-items-center">
+                                <div class="profile-picture-container" style="margin-right: 10px;">
+                                    {% if request.sender.profile_picture %}
+                                        <img src="{{ request.sender.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                    {% else %}
+                                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                    {% endif %}
+                                </div>
+                                <h5 class="viewer-name mb-0" style="color: white;">{{ request.sender.name }}</h5>
+                            </div>
+                            <div>
+                                <a href="{% url 'accept_friend_request' request.id %}" class="btn btn-success btn-sm me-1">Accept</a>
+                                <a href="{% url 'reject_friend_request' request.id %}" class="btn btn-danger btn-sm">Reject</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <!-- Username -->
-                <h5 class="viewer-name mb-0" style="color: white;">{{ viewer.name }}</h5>
-            </a>
-        </div>
-        {% endfor %}
+            </div>
+        {% else %}
+            <p>No pending friend requests.</p>
+        {% endif %}
+
+        <!-- Sent Friend Requests -->
+        {% if sent_friend_requests %}
+            <h3>Sent Friend Requests</h3>
+            <div class="container">
+                <div class="row">
+                    {% for request in sent_friend_requests %}
+                    <div class="col-12 viewer-container" style="margin-bottom: 15px;">
+                        <div class="viewer-card d-flex align-items-center" style="background-color: #333; padding: 10px; border-radius: 8px;">
+                            <div class="profile-picture-container" style="margin-right: 10px;">
+                                {% if request.receiver.profile_picture %}
+                                    <img src="{{ request.receiver.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% endif %}
+                            </div>
+                            <h5 class="viewer-name mb-0" style="color: white;">{{ request.receiver.name }} - Status: {{ request.status }}</h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <p>No sent friend requests.</p>
+        {% endif %}
     </div>
-    {% else %}
-    <p>There are no viewers registered.</p>
-    {% endif %}
+
+    <!-- Viewer List Column with Toggle Button for Friend Requests -->
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1>Movie Lovers You May Know</h1>
+            <!-- Toggle Button -->
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#friendRequestsColumn" aria-expanded="false" aria-controls="friendRequestsColumn">
+                View Your Friend Requests
+            </button>
+        </div>
+        
+        <div class="container">
+            {% if viewer_list %}
+            <div class="row">
+                {% for viewer in viewer_list %}
+                <div class="col-md-4 viewer-container" style="margin-bottom: 15px;">
+                    <div class="viewer-card d-flex align-items-center justify-content-between" style="background-color: #333; padding: 10px; border-radius: 8px;">
+                        <div class="d-flex align-items-center">
+                            <div class="profile-picture-container" style="margin-right: 10px;">
+                                {% if viewer.profile_picture %}
+                                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% endif %}
+                            </div>
+                            <h5 class="viewer-name mb-0" style="color: white;">{{ viewer.name }}</h5>
+                        </div>
+                        <!-- Add Friend Button -->
+                        {% if viewer != request.user.viewer %}
+                            {% if friendship_status|default_if_none:viewer.id.is_friend %}
+                                <!-- No button if already friends -->
+                            {% elif friendship_status|default_if_none:viewer.id.friend_request_sent %}
+                                <button class="btn btn-secondary btn-sm" disabled>Friend Request Pending</button>
+                            {% elif friendship_status|default_if_none:viewer.id.friend_request_received %}
+                                <a href="{% url 'accept_friend_request' viewer.id %}" class="btn btn-success btn-sm">Accept Friend Request</a>
+                                <a href="{% url 'reject_friend_request' viewer.id %}" class="btn btn-danger btn-sm">Reject Friend Request</a>
+                            {% else %}
+                                <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-sm">Add Friend</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No viewers registered.</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

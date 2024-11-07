@@ -1,6 +1,6 @@
 
 from django.contrib.auth import login
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -20,6 +20,8 @@ from ..models import (Viewer, LT_Viewer_Ratings,
 from ..tokens import account_activation_token
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.utils import timezone
+from datetime import timedelta
 
 
 class ViewerDetailView(generic.DetailView):
@@ -29,9 +31,6 @@ class ViewerDetailView(generic.DetailView):
         viewer = self.get_object()
         return redirect('profile_viewer', viewer_id=viewer.id)
 
-
-class ViewerListView(generic.ListView):
-    model = Viewer
 
 
 class ProfileView(LoginRequiredMixin, DetailView):
@@ -312,21 +311,7 @@ def remove_friend(request, viewer_id):
     return redirect('profile', viewer_id=request.user.viewer.id)  # Redirect back to the user's profile
 
 
-@login_required
-def manage_friend_requests(request):
-    """Display the user's friend requests (both sent and received)."""
-    user_viewer = request.user.viewer
-    
-    # Retrieve received and sent friend requests
-    received_friend_requests = FriendRequest.objects.filter(receiver=user_viewer, status='pending')
-    sent_friend_requests = FriendRequest.objects.filter(sender=user_viewer)
 
-    context = {
-        'received_friend_requests': received_friend_requests,
-        'sent_friend_requests': sent_friend_requests,
-    }
-    
-    return render(request, 'filmproject/friend_requests.html', context)
 
 
 def base_context_processor(request):
@@ -337,7 +322,51 @@ def base_context_processor(request):
         num_pending_requests = 0
     return {'num_pending_requests': num_pending_requests}
 
-def viewer_list(request):
-    viewers = Viewer.objects.all()
-    return render(request, 'filmproject/viewer_list.html', {'viewer_list': viewers})
 
+class ViewerListView(LoginRequiredMixin, ListView):
+    model = Viewer
+    template_name = 'filmproject/viewer_list.html'
+    context_object_name = 'viewer_list'
+
+    def get_friend_requests(self, viewer):
+        """Handles friend request logic for a specific viewer."""
+        user_viewer = self.request.user.viewer
+        is_friend = viewer.friends.filter(id=user_viewer.id).exists()
+        
+        # Check for pending friend requests
+        friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists()
+        friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists()
+
+        print(f"Viewer: {viewer.id} | is_friend: {is_friend} | friend_request_sent: {friend_request_sent} | friend_request_received: {friend_request_received}")
+        
+        return {
+            'is_friend': is_friend,
+            'friend_request_sent': friend_request_sent,
+            'friend_request_received': friend_request_received
+        }
+
+    def get_context_data(self, **kwargs):
+        """Add friend request data and pending request count to the context."""
+        context = super().get_context_data(**kwargs)
+        user_viewer = self.request.user.viewer
+
+        # Retrieve received and sent friend requests for the sidebar
+        context['received_friend_requests'] = FriendRequest.objects.filter(receiver=user_viewer, status='pending')
+        context['sent_friend_requests'] = FriendRequest.objects.filter(sender=user_viewer, status='pending')
+        
+        # Add count of pending requests for notification bubble
+        context['num_pending_requests'] = context['received_friend_requests'].count()
+
+        # Friendship statuses for each viewer
+        friendship_status = {
+            viewer.id: self.get_friend_requests(viewer)
+            for viewer in Viewer.objects.exclude(id=user_viewer.id)
+        }
+        context['friendship_status'] = friendship_status
+
+        return context
+
+
+    def get_queryset(self):
+        """Return all viewers to display in the list."""
+        return Viewer.objects.all()
