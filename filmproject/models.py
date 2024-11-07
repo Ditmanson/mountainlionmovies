@@ -189,6 +189,8 @@ class FriendRequest(models.Model):
     ]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
+    accepted_at = models.DateTimeField(auto_now_add=False, null=True)
+    rejected_at = models.DateTimeField(auto_now_add=False, null=True)
 
     def accept(self):
         """Accept the friend request and add to both users' friend lists."""

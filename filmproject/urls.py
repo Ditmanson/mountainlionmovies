@@ -85,7 +85,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', activate, name='activate'),
 
     # Friend request URLs
-    path('accounts/friend_requests/', manage_friend_requests, name='friend_requests'),
+    #path('accounts/friend_requests/', manage_friend_requests, name='friend_requests'),
     path('send_friend_request/<int:viewer_id>/', send_friend_request, name='send_friend_request'),
     path('accept_friend_request/<int:request_id>/', accept_friend_request, name='accept_friend_request'),
     path('reject_friend_request/<int:request_id>/', reject_friend_request, name='reject_friend_request'),
