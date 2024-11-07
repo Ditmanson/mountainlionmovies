@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.core.paginator import Paginator
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
