@@ -33,6 +33,7 @@ class ViewerDetailView(generic.DetailView):
 
 
 
+
 class ProfileView(LoginRequiredMixin, DetailView):
     model = Viewer
     template_name = 'filmproject/profile.html'
