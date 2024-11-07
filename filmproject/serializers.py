@@ -106,7 +106,7 @@ class LT_Films_KeywordsSerializer(serializers.ModelSerializer):
 class LT_Viewer_RatingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = LT_Viewer_Ratings
-        fields = ['id', 'film_a', 'film_b', 'date', 'viewer', 'a_points', 'b_points']
+        fields = ['viewer', 'film_a', 'film_b', 'date', 'a_points', 'b_points']
 
 # LT_Films_Languages Serializer
 class LT_Films_LanguagesSerializer(serializers.ModelSerializer):

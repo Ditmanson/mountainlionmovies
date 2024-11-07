@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let movie1_overview = document.getElementById('movie1_overview');
     let movie1id = document.getElementById('movie1id');
 
-
     let movie_button_2 = document.getElementById('movie2button');
     let movie2_title = document.getElementById('movie2_title');
     let movieImage2 = movie_button_2.querySelector('img'); // Get the image element for movie 2
