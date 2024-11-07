@@ -1,6 +1,8 @@
 
+from django.contrib import messages
 from django.contrib.auth import login
-from django.views.generic import DetailView, ListView
+from django.core.paginator import Paginator
+from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
@@ -15,8 +17,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from ..forms import ViewerRegistrationForm, ProfileUpdateForm
-from ..models import (Viewer, LT_Viewer_Ratings,
-                        FriendRequest, Film)
+from ..models import Film, FriendRequest, Viewer, LT_Viewer_Ratings
 from ..tokens import account_activation_token
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -26,7 +27,6 @@ from datetime import timedelta
 
 class ViewerDetailView(generic.DetailView):
     model = Viewer
-
     def get(self, request, *args, **kwargs):
         viewer = self.get_object()
         return redirect('profile_viewer', viewer_id=viewer.id)
@@ -38,57 +38,42 @@ class ProfileView(LoginRequiredMixin, DetailView):
     template_name = 'filmproject/profile.html'
     context_object_name = 'viewer'
     paginate_by = 12  # 12 movies per page for seen films
-    
-
-    def get_object(self, queryset=None):
-        """Get the viewer either from the provided viewer_id or the current user."""
+    def get_object(self, queryset=None): # Get the viewer either from the provided viewer_id or the current user.
         user = self.request.user
         viewer_id = self.kwargs.get('viewer_id')
-
         if viewer_id:
             return get_object_or_404(Viewer, id=viewer_id)
         try:
             return user.viewer
         except Viewer.DoesNotExist:
             return self.create_viewer(user)
-
     def create_viewer(self, user):
-        """Creates a new viewer if one does not exist for the user."""
-        if Viewer.objects.filter(email=user.email).exists():
+        if Viewer.objects.filter(email=user.email).exists(): #Creates a new viewer if one does not exist for the user.
             return Viewer.objects.get(email=user.email)
         try:
             return Viewer.objects.create(user=user, name=user.username, email=user.email)
-        except IntegrityError:
-            # Handle email conflict error
+        except IntegrityError: # Handle email conflict error
             self.template_name = 'filmproject/profile_error.html'
             return {'error': 'Email conflict, unable to create viewer.'}
-
     def get_friend_requests(self, viewer):
         """Handles friend request logic."""
         user_viewer = self.request.user.viewer
         is_friend = viewer.friends.filter(id=user_viewer.id).exists()
         friend_request_sent = False
         friend_request_received = False
-
         if user_viewer != viewer:
             friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists()
             friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists()
-
         return {
             'is_friend': is_friend,
             'friend_request_sent': friend_request_sent,
             'friend_request_received': friend_request_received,
             'num_pending_requests': FriendRequest.objects.filter(receiver=user_viewer, status='pending').count()
         }
-
     def get_film_ratings(self, viewer):
         """Calculate dynamic ratings for films seen by the viewer."""
         seen_films = Film.objects.filter(lt_viewer_seen__viewer=viewer, lt_viewer_seen__seen_film=True)
         film_ratings = []
-
-        
-
-
         for film in seen_films:
             a_points_sum = LT_Viewer_Ratings.objects.filter(film_a=film, viewer=viewer).aggregate(
                 total_a_points=Sum('a_points')
@@ -98,34 +83,24 @@ class ProfileView(LoginRequiredMixin, DetailView):
             )['total_b_points'] or 0
             total_count = LT_Viewer_Ratings.objects.filter(Q(film_a=film) | Q(film_b=film), viewer=viewer).count()
             user_rating = (a_points_sum + b_points_sum) / total_count if total_count > 0 else 0
-
             film_ratings.append({
                 'film': film,
                 'user_rating': user_rating
             })
-
-        # Sort films by rating in descending order
-        film_ratings.sort(key=lambda x: x['user_rating'], reverse=True)
+        film_ratings.sort(key=lambda x: x['user_rating'], reverse=True) # Sort films by rating in descending order
         return film_ratings
-
     def get_context_data(self, **kwargs):
         """Provide additional context to the template."""
         context = super().get_context_data(**kwargs)
         viewer = self.object
-
-        # Watchlist remains unchanged as a carousel
-        watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True)
+        watchlist = Film.objects.filter(lt_viewer_watchlist__viewer=viewer, lt_viewer_watchlist__watchlist=True) # Watchlist remains unchanged as a carousel
         context['watchlist'] = watchlist
-
-        # Paginate seen films
         film_ratings = self.get_film_ratings(viewer)
         paginator = Paginator(film_ratings, self.paginate_by)  # Paginate seen films
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['seen_films_page_obj'] = page_obj
-
-        # Include friend requests data
-        context.update(self.get_friend_requests(viewer))
+        context.update(self.get_friend_requests(viewer)) # Include friend requests data
 
         return context
     
@@ -133,11 +108,9 @@ class ProfileView(LoginRequiredMixin, DetailView):
 @login_required
 def update_profile(request, pk):
     viewer = get_object_or_404(Viewer, id=pk)
-
     if request.user != viewer.user:
         return render(request, 'filmproject/permission_denied.html', 
                       {'message': "You are not allowed to update this profile."})
-
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, request.FILES, instance=viewer)
         if form.is_valid():
@@ -150,7 +123,6 @@ def update_profile(request, pk):
             return redirect('profile')
     else:
         form = ProfileUpdateForm(instance=viewer)
-
     return render(request, 'filmproject/profile_update.html',
                   {'form': form, 'pk':pk})
     

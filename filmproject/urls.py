@@ -1,5 +1,9 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views.api_views import *
 from .views.film_views import *
 from .views.profile_views import *
 from .views.api_views import *
@@ -9,6 +13,7 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from .views.rating_views import *
 
 
 # Create a router and register all the viewsets
@@ -47,6 +52,11 @@ urlpatterns = [
     path('films/<int:pk>/remove_from_seen/', remove_from_seen, name='remove_from_seen'),
     path('films/<int:pk>/remove_from_watchlist/', remove_from_watchlist, name='remove_from_watchlist'),
 
+    # Ratings-related URLs
+    path('compare_movies/', compare_movies, name='compare_movies'),
+    path('compare_movies/submit_selection/', submit_movie_selection, name='submit_movie_selection'),
+
+
     # Authentication-related URLs
     path('login/', auth_views.LoginView.as_view(template_name='filmproject/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='filmproject/index.html'), name='logout'),
@@ -66,7 +76,7 @@ urlpatterns = [
     # Movie search and popular movies
     path('search_movies/', search_movies, name='search_movies'),
     path('popular_movies/', popular_movies, name='popular_movies'),
-    path('compare_movies/', compare_movies, name='compare_movies'),
+
 
     # Viewer list
     path('viewers/', ViewerListView.as_view(), name='viewers'),
