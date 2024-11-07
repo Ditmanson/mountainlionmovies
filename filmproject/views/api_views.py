@@ -1,18 +1,11 @@
-from ..models import  (
-    Film, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, 
-    LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Seen, 
-    LT_Viewer_Watchlist, FriendRequest, Person
-)
-from ..serializers import (
-    FilmSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer,
-    FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer,
-    LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer, PersonSerializer
-)
-from rest_framework import viewsets
+from datetime import date
+from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-
+from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.viewsets import ModelViewSet
+from ..models import  Film, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, Person, LT_Viewer_Ratings
+from ..serializers import FilmSerializer, LT_Viewer_RatingsSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer, FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer, LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer, PersonSerializer
 
 # DJANGO REST FRAMEWORK VIEWS
 
@@ -80,6 +73,36 @@ class LT_Films_KeywordsViewSet(viewsets.ModelViewSet):
 class LT_Films_LanguagesViewSet(viewsets.ModelViewSet):
     queryset = LT_Films_Languages.objects.all()
     serializer_class = LT_Films_LanguagesSerializer
+
+# Viewer Ratings ViewSet
+class LT_Viewer_RatingsViewSet(ModelViewSet):
+    queryset = LT_Viewer_Ratings.objects.all()
+    serializer_class = LT_Viewer_RatingsSerializer
+    def create(self, request, *args, **kwargs):
+        viewer = request.user.viewer
+        selected_movie = request.data.get('selected_movie')
+        movie1_id = request.data.get('movie1_id')
+        movie2_id = request.data.get('movie2_id')
+        # Set points based on selection
+        if selected_movie == movie1_id:
+            a_points, b_points = 1, 0
+        elif selected_movie == movie2_id:
+            a_points, b_points = 0, 1
+        else:
+            a_points, b_points = 0.5, 0.5
+        # Save the rating comparison
+        rating_data = {
+            'viewer': viewer.id,
+            'film_a': movie1_id,
+            'film_b': movie2_id,
+            'a_points': a_points,
+            'b_points': b_points,
+            'date': date.today()
+        }
+        serializer = self.get_serializer(data=rating_data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # Watchlist view for the current user
 @api_view(['GET'])
