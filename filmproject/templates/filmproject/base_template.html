@@ -77,7 +77,6 @@
             <!-- Search Function -->
             <div class="d-flex align-items-center">
               <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
-                {% csrf_token %}
                 <input type="search" class="form-control me-2" name="q" placeholder="Search..." aria-label="Search">
                 <select name="filter" class="form-select search-filter w-25">
                   <option value="all">All</option>
