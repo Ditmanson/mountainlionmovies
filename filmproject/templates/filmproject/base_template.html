@@ -73,13 +73,15 @@
             <!-- Search Function -->
             <div class="d-flex align-items-center">
               <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
-                <input type="search" class="form-control me-2" name="q" placeholder="Search..." aria-label="Search">
-                <select name="filter" class="form-select search-filter w-25">
-                  <option value="all">All</option>
-                  <option value="viewer">Viewer</option>
-                  <option value="movie">Movie</option>
-                </select>
-                <button type="submit" class="btn btn-outline-warning me-2">Search</button>
+                <div class="input-group">
+                  <select name="filter" class="form-select-sm search-filter bg-secondary-subtle">
+                    <option value="all">All</option>
+                    <option value="viewer">Viewer</option>
+                    <option value="movie">Movie</option>
+                  </select>
+                  <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search" required>
+                  <button type="submit" class="btn btn-outline-warning me-2">Search</button>
+                </div>
               </form>
             </div>
 
