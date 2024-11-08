@@ -3,21 +3,25 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h1>Search Results for "{{ query }}"</h1><br>
+    <h1 class="h1">Search Results for "{{ query }}"</h1><br>
 
     {% if filter == 'all' or filter == 'viewer' %}
         <h3>Viewers:</h3>
         {% if viewer_results %}
             {% for viewer in viewer_results %}
             <a href="{{ viewer.get_absolute_url }}" style="text-decoration: none;">
-                <div style="display: flex; align-items: center;">
-                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px;">
-                    <h5 class="viewer-name mb-0">{{ viewer.name }}</h5>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    {% if viewer.profile_picture %}
+                        <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px">
+                    {% else %}
+                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px">
+                    {% endif %}
+                    <h4 class="h4">{{ viewer.name }}</h4>
                 </div>
             </a>
             {% endfor %}
         {% else %}
-            <h5>No viewers found.</h5>
+            <h4 class="h5">No viewers found.</h4>
         {% endif %}
     {% endif %}
     {% if filter == 'all' or filter == 'movie' %}
@@ -27,7 +31,7 @@
                 <h5>- {{ movie.title }}</h5>
             {% endfor %}
         {% else %}
-            <h5>No viewers found.</h5>
+            <h4 class="h5">No viewers found.</h4>
         {% endif %}
     {% endif %}
 </div>
