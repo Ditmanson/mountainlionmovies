@@ -333,12 +333,12 @@ def search_results(request):
 
     if search_query:
         if search_filter == 'movie':
-            movie_results = Film.objects.filter(title__icontains=search_query)
+            movie_results = Film.objects.filter(title__icontains=search_query).order_by('title')
         elif search_filter == 'viewer':
-            viewer_results = Viewer.objects.filter(name__icontains=search_query)
+            viewer_results = Viewer.objects.filter(name__icontains=search_query).order_by('name')
         else:
-            movie_results = Film.objects.filter(title__icontains=search_query)
-            viewer_results = Viewer.objects.filter(name__icontains=search_query)
+            movie_results = Film.objects.filter(title__icontains=search_query).order_by('title')
+            viewer_results = Viewer.objects.filter(name__icontains=search_query).order_by('name')
 
 
     print("QUERY:", search_query, "\n")
