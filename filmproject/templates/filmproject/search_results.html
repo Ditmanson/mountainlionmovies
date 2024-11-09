@@ -28,7 +28,9 @@
         <h3>Movies:</h3>
         {% if movie_results %}
             {% for movie in movie_results %}
-                <h5>- {{ movie.title }}</h5>
+                <a href="{{ movie.get_absolute_url }}" class="text-decoration-none">
+                    <h4 class="h4">{{ movie.title }}</h4>
+                </a>
             {% endfor %}
         {% else %}
             <h4 class="h5">No viewers found.</h4>
