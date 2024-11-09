@@ -20,6 +20,7 @@ class FilmDetailView(generic.DetailView):
             context['is_seen'] = False
             context['is_in_watchlist'] = False
         context['film'] = film
+        context['mlm_rating'] = film.mlm_rating
         return context
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -27,10 +28,13 @@ class FilmDetailView(generic.DetailView):
         film = self.get_object()
         viewer = request.user.viewer
         action = request.POST.get('action')
+        rating = request.POST.get('rating')
         # Handle the Mark as Seen / Remove from Seen actions
         if action == 'mark_as_seen':
             seen_entry, created = LT_Viewer_Seen.objects.get_or_create(viewer=viewer, film=film)
             seen_entry.seen_film = True
+            if rating:  # Only update if a rating is provided
+                seen_entry.viewer_rating = float(rating)
             seen_entry.save()
         elif action == 'remove_from_seen':
             seen_entry = LT_Viewer_Seen.objects.filter(viewer=viewer, film=film).first()
@@ -56,6 +60,8 @@ class FilmListView(ListView):
     template_name = 'film_list.html'
     context_object_name = 'film_list'
     paginate_by = 20
+    def get_queryset(self):
+        return Film.objects.all().order_by('-mlm_rating') # Sort films by mlm_rating in descending order
     def post(self, request, *args, **kwargs):
         # If the user is not authenticated, they cannot perform post actions like marking as seen or adding to watchlist
         if not request.user.is_authenticated:
@@ -120,16 +126,14 @@ def index(request):
 
 
 @login_required
-def mark_as_seen(request, pk):  # Changed film_id to pk
-    film = get_object_or_404(Film, id=pk)  # Use pk instead of film_id
-    viewer = request.user.viewer  # Assuming Viewer is tied to the logged-in user
+def mark_as_seen(request, pk):
+    film = get_object_or_404(Film, id=pk)
+    viewer = request.user.viewer
     if request.method == 'POST':
-        # Check if this viewer has already marked this film as seen
         seen_entry, created = LT_Viewer_Seen.objects.get_or_create(viewer=viewer, film=film)
-        # Mark it as seen
         seen_entry.seen_film = True
+        seen_entry.update_viewer_rating()
         seen_entry.save()
-        return redirect('film-detail', pk=pk)
     return redirect('film-detail', pk=pk)
 
 
