@@ -49,7 +49,8 @@
         </div>
 
         <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center ms-auto">
+          <!-- Profile icon -->
           <div style="color: black;" class="dropdown me-2">
               <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
@@ -111,9 +112,6 @@
 
       {% endblock %}
     </div>
-
-    <!-- Footer Image -->
-    {% comment %} <img src="{% static 'images/footer.png' %}" class="img-responsive" alt="Footer Image" /> {% endcomment %}
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
