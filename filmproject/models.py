@@ -181,7 +181,7 @@ class LT_Viewer_Seen(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, null=True)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
     seen_film = models.BooleanField(default=False, null=True)
-    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default = 0.5)
+    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default = 0.5, null=True)
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.film.update_mlm_rating() # Update the film's mlm_rating whenever a viewer rating is saved
