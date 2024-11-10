@@ -89,6 +89,9 @@ def submit_movie_selection(request):
             # Confirm that the points were updated correctly
             print("Updated points:", rating.a_points, rating.b_points)
 
+            update_viewer_rating(viewer, movie1)
+            update_viewer_rating(viewer, movie2)
+            
             return JsonResponse({'success': True})
         
         except Exception as e:

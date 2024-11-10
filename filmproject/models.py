@@ -1,6 +1,7 @@
 from datetime import date
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Sum, Count
 from django.urls import reverse
 
 class Collection(models.Model):
@@ -43,10 +44,15 @@ class Film(models.Model):
     tmdb_id = models.IntegerField(unique=True, null=True)
     vote_average = models.DecimalField(decimal_places=3, max_digits=6, null=True, blank=True)
     vote_count = models.IntegerField(null=True)
+    mlm_rating = models.DecimalField(decimal_places=6, max_digits=20, null=True)
     def __str__(self):
         return self.title
     def get_absolute_url(self):
         return reverse('film-detail', args=[str(self.id)])
+    def update_mlm_rating(self):
+        total_viewer_ratings = (LT_Viewer_Seen.objects.filter(film=self, viewer_rating__isnull=False) .aggregate(total=Sum("viewer_rating"))["total"] or 0.5) # Aggregate the sum of viewer_rating from LT_Viewer_Seen for this film
+        self.mlm_rating = total_viewer_ratings # Update the mlm_rating with the total sum of viewer ratings
+        self.save()
 
 class Genre(models.Model):
     tmdb_id = models.IntegerField(unique=True, null=True)
@@ -154,6 +160,13 @@ class LT_Films_Languages(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING)
     language = models.ForeignKey(Language, on_delete=models.DO_NOTHING)
 
+class LT_Viewer_Cosine_Similarity(models.Model):
+    viewer_1 = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, related_name='viewer_1')
+    viewer_2 = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, related_name='viewer_2')
+    cosine_similarity = models.DecimalField(decimal_places=4, max_digits=6, null=True)
+    class Meta:
+        unique_together = ('viewer_1', 'viewer_2')
+
 class LT_Viewer_Ratings(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, null=True)
     film_a = models.ForeignKey(Film, on_delete=models.DO_NOTHING, related_name="film_a", null=True)
@@ -168,9 +181,12 @@ class LT_Viewer_Seen(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, null=True)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
     seen_film = models.BooleanField(default=False, null=True)
-    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, null=True)
+    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default = 0.5, null=True)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.film.update_mlm_rating() # Update the film's mlm_rating whenever a viewer rating is saved
     class Meta:
-        indexes = [models.Index(fields=['viewer', 'film']),]
+        unique_together = ('viewer', 'film')
 
 class LT_Viewer_Watchlist(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING)

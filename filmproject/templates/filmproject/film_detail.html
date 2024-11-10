@@ -49,22 +49,16 @@
         <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%;" />
       {% endif %}
       <p>
+        <strong>Mountain Lion Score:</strong> {{ film.mlm_rating }}
+      </p>
+      <p>
         <strong>Overview:</strong> {{ film.overview }}
-      </p>
-      <p>
-        <strong>Vote Average:</strong> {{ film.vote_average }}
-      </p>
-      <p>
-        <strong>Vote Count:</strong> {{ film.vote_count }}
       </p>
       <p>
         <strong>Revenue:</strong> $ {{ film.revenue|intcomma }}
       </p>
       <p>
         <strong>Budget:</strong> $ {{ film.budget|intcomma }}
-      </p>
-      <p>
-        <strong>Popularity:</strong> {{ film.popularity|floatformat:1 }}
       </p>
       <p>
         <strong>Adult:</strong> {% if film.adult %}
