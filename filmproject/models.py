@@ -49,10 +49,6 @@ class Film(models.Model):
         return self.title
     def get_absolute_url(self):
         return reverse('film-detail', args=[str(self.id)])
-    def update_mlm_rating(self):
-        total_viewer_ratings = (LT_Viewer_Seen.objects.filter(film=self, viewer_rating__isnull=False) .aggregate(total=Sum("viewer_rating"))["total"] or 0.5) # Aggregate the sum of viewer_rating from LT_Viewer_Seen for this film
-        self.mlm_rating = total_viewer_ratings # Update the mlm_rating with the total sum of viewer ratings
-        self.save()
 
 class Genre(models.Model):
     tmdb_id = models.IntegerField(unique=True, null=True)
@@ -89,10 +85,7 @@ class Viewer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     email = models.EmailField()
-    profile_picture = models.ImageField(upload_to='profile_pictures/', 
-                                        blank=True, 
-                                        null=True, 
-                                        default='profile_pictures/default_pfp.jpg')  # Set default image
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True, default='profile_pictures/default_pfp.jpg')  # Set default image
     friends = models.ManyToManyField('self', blank=True)
     def has_seen_film(self, film):
         return LT_Viewer_Seen.objects.filter(viewer=self, film=film, seen_film=True).exists()
@@ -102,21 +95,15 @@ class Viewer(models.Model):
         return self.name
     def get_absolute_url(self):
         return reverse('profile_viewer', args=[str(self.id)])
-    
-    def add_friend(self, viewer):
-        """Add a viewer to the friends list."""
+    def add_friend(self, viewer): # Add a viewer to the friends list
         if not self.is_friends_with(viewer):
             self.friends.add(viewer)
             self.save()
-
-    def remove_friend(self, viewer):
-        """Remove a viewer from the friends list."""
+    def remove_friend(self, viewer): # Remove a viewer from the friends list
         if self.is_friends_with(viewer):
             self.friends.remove(viewer)
             self.save()
-
-    def is_friends_with(self, viewer):
-        """Check if the viewer is friends with another viewer."""
+    def is_friends_with(self, viewer): # Check if the viewer is friends with another viewer
         return self.friends.filter(id=viewer.id).exists()
 
 class LT_Films_Cast(models.Model):
@@ -181,7 +168,7 @@ class LT_Viewer_Seen(models.Model):
     viewer = models.ForeignKey(Viewer, on_delete=models.DO_NOTHING, null=True)
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
     seen_film = models.BooleanField(default=False, null=True)
-    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default = 0.5)
+    viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default = 0.5, null = True)
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.film.update_mlm_rating() # Update the film's mlm_rating whenever a viewer rating is saved

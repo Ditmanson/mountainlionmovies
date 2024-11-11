@@ -1,16 +1,11 @@
-
+import json
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect, render
-from ..models import ( FeedEntry, Like, Comment)
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse
 from django.core.paginator import Paginator
-import json
-
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
+from ..models import ( FeedEntry, Like, Comment)
 
 
 @login_required
