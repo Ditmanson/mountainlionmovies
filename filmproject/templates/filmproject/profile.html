@@ -2,19 +2,36 @@
 {% load static %}
 
 {% block content %}
-<div class="container my-4">
+<div class="container-fluid my-5">
     <div class="row">
         <!-- Left Column: Profile Picture and Friends -->
         <div class="col-md-3">
-            <div class="profile-section mb-4">
-                <h2>{{ viewer.name }}'s Profile</h2>
+            <div class="profile-section mb-4 text-center d-flex flex-column align-items-center">
+                <div class="d-flex align-items-center justify-content-center">
+                    <h2 class="mb-0">{{ viewer.name }}</h2>
+                    {% if user.is_authenticated and user.viewer == viewer %}
+                        <!-- Update Profile Button with Image -->
+                        <a href="{% url 'update_profile' viewer.id %}" class="ms-2">
+                            <img src="{% static 'images/editButton.png' %}" alt="Edit Profile" style="width: 30px; height: 30px;">
+                        </a>
+                    {% endif %}
+                </div>
+                
                 {% if viewer.profile_picture %}
-                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded">
+                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded mt-3" style="width: 300px; height: 300px; object-fit: cover;">
                 {% else %}
-                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded">
+                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded mt-3" style="width: 300px; height: 300px; object-fit: cover;">
                 {% endif %}
             </div>
+        </div>
+        <div class="profile-buttons dark-mode col-md-6 d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+            <a href="{% url 'film_list' %}" class="btn btn-primary mb-3 w-100 d-block">Explore More Movies</a>
+            <a href="{% url 'compare_movies' %}" class="btn btn-primary mb-3 w-100 d-block">Rate Movies</a>
+            <a href="{% url 'viewers' %}" class="btn btn-primary mb-3 w-100 d-block">Find Friends</a>
+        </div>
 
+
+        <div class="col-md-3">
             <!-- Friend Request Buttons -->
             {% if user.is_authenticated and user.viewer != viewer %}
                 {% if is_friend %}
@@ -27,11 +44,6 @@
                 {% else %}
                     <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-block mb-3">Add Friend</a>
                 {% endif %}
-            {% endif %}
-
-            {% if user.is_authenticated and user.viewer == viewer %}
-                <!-- Update Profile Button -->
-                <a href="{% url 'update_profile' viewer.id %}" class="btn btn-primary btn-block mb-3">Update Profile</a>
             {% endif %}
 
             <!-- Friends List Section -->
@@ -51,104 +63,160 @@
                 </ul>
             </div>
         </div>
+    </div>
+</div>
+ 
 
-        <!-- Right Column: Seen Films, then Watchlist -->
-        <div class="col-md-9">
-            <!-- Seen Films Section (Paginated Cards) -->
-            <div class="seen-films-section mb-4">
-                <h2>Seen Films</h2>
-                <div class="row">
-                    {% for rating in seen_films_page_obj %}
-                        <div class="col-md-3 mb-4">
-                            <div class="card h-100">
-                                {% if rating.film.poster_path %}
-                                    <img src="https://image.tmdb.org/t/p/w500{{ rating.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
-                                {% else %}
-                                    <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
-                                {% endif %}
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">{{ rating.film.title }}</h5>
-                                    <p class="card-text">User Rating: {{ rating.user_rating }}</p> <!-- Display user rating here -->
-                                </div>
-                            </div>
-                        </div>
-                    {% empty %}
-                        <p>No films seen yet.</p>
-                    {% endfor %}
-                </div>
-
-                <!-- Pagination Controls -->
-                <div class="pagination justify-content-center">
-                    <nav aria-label="Seen Films Pagination">
-                        <ul class="pagination">
-                            {% if seen_films_page_obj.has_previous %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?page={{ seen_films_page_obj.previous_page_number }}" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-
-                            {% for num in seen_films_page_obj.paginator.page_range %}
-                                <li class="page-item {% if seen_films_page_obj.number == num %}active{% endif %}">
-                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                                </li>
-                            {% endfor %}
-
-                            {% if seen_films_page_obj.has_next %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?page={{ seen_films_page_obj.next_page_number }}" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-            <!-- Watchlist Section (Carousel) -->
-            <div class="watchlist-section mb-4">
-                <h2>Watchlist</h2>
-                {% if watchlist %}
-                <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" id="watchlist">
-                        {% for movie in watchlist %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <div class="d-flex justify-content-center">
-                                <div class="card" style="width: 15rem;">
-                                    {% if movie.poster_path %}
-                                    <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
-                                    {% else %}
-                                    <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
-                                    {% endif %}
-                                    <div class="card-body text-center">
-                                        <h5 class="card-title">{{ movie.title }}</h5>
-                                        <p class="card-text text-truncate">{{ movie.overview }}</p>
-                                        <p class="card-text">Rating: {{ movie.vote_average }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+<div class="seen-films-section mb-4">
+    <h2>{{ viewer.name }}'s Ratings...</h2>
+    {% if seen_films_page_obj %}
+    <div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+        {% for rating in seen_films_page_obj %}
+        <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+            <div class="card h-100">
+                {% if rating.film.poster_path %}
+                <img src="https://image.tmdb.org/t/p/w500{{ rating.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rating.film.title }}" style="height: auto; max-width: 100%;">
                 {% else %}
-                    <p>This viewer has no films in their watchlist.</p>
+                <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rating.film.title }}" style="height: auto; max-width: 100%;">
                 {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ rating.film.title }}</h5>
+                    <p class="card-text">User Rating: {{ rating.user_rating }}</p>
+                </div>
             </div>
         </div>
+        {% empty %}
+            <p>No films seen yet.</p>
+        {% endfor %}
     </div>
+    {% else %}
+        <p>No films seen yet.</p>
+    {% endif %}
+</div>
+
+
+{% comment %} SEEN FILMS SHOW IN A CAROSEL {% endcomment %}
+<div class="watchlist-section mb-4">
+    <h2>Watchlist</h2>
+    {% if watchlist %}
+    <div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+        {% for movie in watchlist %}
+        <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+            <div class="card">
+                {% if movie.poster_path %}
+                <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
+                {% else %}
+                <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
+                {% endif %}
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text text-truncate">{{ movie.overview }}</p>
+                    <p class="card-text">Rating: {{ movie.vote_average }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>This viewer has no films in their watchlist.</p>
+    {% endif %}
 </div>
 
 <!-- External JavaScript file -->
 <script src="{% static 'scripts/carosel.js' %}"></script>
+
 {% endblock %}
+
+{% comment %} COMMENTED OUT CODE: {% endcomment %}
+<!-- 
+<div class="seen-films-section mb-4">
+    <h2>Seen Films</h2>
+    <div class="row">
+        {% for rating in seen_films_page_obj %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    {% if rating.film.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/w500{{ rating.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
+                    {% else %}
+                        <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rating.film.title }}">
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ rating.film.title }}</h5>
+                        <p class="card-text">User Rating: {{ rating.user_rating }}</p> 
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No films seen yet.</p>
+        {% endfor %}
+    </div>
+
+   
+    <div class="pagination justify-content-center">
+        <nav aria-label="Seen Films Pagination">
+            <ul class="pagination">
+                {% if seen_films_page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ seen_films_page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in seen_films_page_obj.paginator.page_range %}
+                    <li class="page-item {% if seen_films_page_obj.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if seen_films_page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ seen_films_page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+           
+<div class="watchlist-section mb-4">
+    <h2>Watchlist</h2>
+    {% if watchlist %}
+    <div id="watchlistCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner" id="watchlist">
+            {% for movie in watchlist %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="d-flex justify-content-center">
+                    <div class="card" style="width: 15rem;">
+                        {% if movie.poster_path %}
+                        <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
+                        {% else %}
+                        <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ movie.title }}" style="height: auto; max-width: 100%;">
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ movie.title }}</h5>
+                            <p class="card-text text-truncate">{{ movie.overview }}</p>
+                            <p class="card-text">Rating: {{ movie.vote_average }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#watchlistCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    {% else %}
+        <p>This viewer has no films in their watchlist.</p>
+    {% endif %}
+</div>
+-->

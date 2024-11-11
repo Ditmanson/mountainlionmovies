@@ -534,3 +534,71 @@ body.dark-mode .feed-item small.text-muted {
     
 }
 
+
+/* Light Mode Styles (Default) */
+.profile-buttons .btn {
+    background-color: transparent;
+    border: 2px solid #cfb87c;
+    color: #cfb87c;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: large;
+}
+
+.profile-buttons .btn:hover {
+    background-color: #cfb87c;
+    color: black;
+}
+
+/* Styling for the friends section container */
+.friends-section {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.friends-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+/* Styling for the friends list items */
+.friends-section .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+.friends-section .list-group-item:hover {
+    background-color: #f1f1f1; /* Subtle hover effect */
+}
+
+/* Friend name link styling */
+.friends-section .list-group-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.friends-section .list-group-item a:hover {
+    color: #0056b3;
+}
+
+/* Remove Friend button styling */
+.friends-section .btn-danger {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.friends-section .btn-danger:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
