@@ -24,7 +24,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+        <div class="profile-buttons dark-mode col-md-6 d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
             <a href="{% url 'film_list' %}" class="btn btn-primary mb-3 w-100 d-block">Explore More Movies</a>
             <a href="{% url 'compare_movies' %}" class="btn btn-primary mb-3 w-100 d-block">Rate Movies</a>
             <a href="{% url 'viewers' %}" class="btn btn-primary mb-3 w-100 d-block">Find Friends</a>
@@ -68,7 +68,7 @@
  
 
 <div class="seen-films-section mb-4">
-    <h2>Seen Films</h2>
+    <h2>{{ viewer.name }}'s Ratings...</h2>
     {% if seen_films_page_obj %}
     <div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
         {% for rating in seen_films_page_obj %}
@@ -124,6 +124,7 @@
 
 <!-- External JavaScript file -->
 <script src="{% static 'scripts/carosel.js' %}"></script>
+
 {% endblock %}
 
 {% comment %} COMMENTED OUT CODE: {% endcomment %}
