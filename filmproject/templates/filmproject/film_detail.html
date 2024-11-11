@@ -13,7 +13,7 @@
 <div class="row">
   <div class="movie-details col-md-8" style="margin-top: 20px;">
     <h1><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h1>
-    <h5 style="text-align: center;" ><i>{{ film.tagline }}</i></h5>
+    <h5 style="text-align: center; color: #ffb700;" ><i>{{ film.tagline }}</i></h5>
     <p style="text-align: center;">
       <strong>Overview:</strong> {{ film.overview }}
     </p>
@@ -75,10 +75,11 @@
     </div>
 
 </div>
+
 {% comment %}  {% endcomment %}
 
   <div style="width: 100%;">
-    <div style="float: left; width: 30%; text-align: center;">
+    <div style="float: left; width: 35%; text-align: center;">
       {% if film.poster_path %}
         <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;" />
       {% endif %}
@@ -87,20 +88,38 @@
       {% if film.backdrop_path %}
         <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%;" />
       {% endif %}
+    </div>
+  </div>
+  <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
+{% endblock %}
 
+<!--Edit -->
 
+{% comment %} 
 
-      
+      <p>
+        <strong>Mountain Lion Score:</strong> {{ film.mlm_rating }}
+      </p>
+      <p>
+        <strong>Overview:</strong> {{ film.overview }}
+      </p>
+      <p>
+        <strong>Revenue:</strong> $ {{ film.revenue|intcomma }}
+      </p>
+      <p>
+        <strong>Budget:</strong> $ {{ film.budget|intcomma }}
+      </p>
+      <p>
+        <strong>Adult:</strong> {% if film.adult %}
+          Yes
+          {% else %}
+          No
+          {% endif %}
+        </p>
         <div id="streaming_info">{{ film.id }}</div>
       <p>
         {% if film.homepage %}
           <strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>
         {% endif %}
       </p>
-    </div>
-
-  </div>
-  <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
-{% endblock %}
-
-<!--Edit -->
+ {% endcomment %}
