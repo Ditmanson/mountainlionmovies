@@ -15,8 +15,8 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light w-100">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-center">
+      <div class="container-fluid d-flex justify-content-center">
         <!-- Left: Dropdown Menu Button with Image -->
         <div style="color: black;" class="dropdown me-2">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;"><img src="{% static 'images/menu.png' %}" alt="Menu" height="50" /></button>
@@ -44,8 +44,10 @@
         </div>
 
         <!-- Center: Website Title -->
-        <div class="mx-auto text-center">
-          <a class="navbar-brand" href="{% url 'index' %}"><img height="90" src="{% static 'images/newMountionLionLogo.png' %}" /></a>
+        <div class="text-center">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img height="90" src="{% static 'images/newMountionLionLogo.png' %}" alt="Mountain Lion Logo" />
+          </a>
         </div>
 
         <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
