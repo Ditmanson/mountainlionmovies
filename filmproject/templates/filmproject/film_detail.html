@@ -4,77 +4,93 @@
 {% load static %}
 
 {% block content %}
-  <div style="margin-top: 20px;">
-
-    <a style="background-color: transparent;" href="{% url 'film_list' %}" class="btn btn-primary">
+  <div class="movie-details col-md-8" style="margin-top: 20px;">
+    <a style="background-color: transparent; color: #cfb87c; border-color: #cfb87c;" href="{% url 'film_list' %}" class="btn btn-primary">
         <img src="{% static 'images/backarrow.png' %}" alt="Back to Film List" style="width: 50px; height: 25px; vertical-align: middle;">
-        
+        Back to Film List
     </a>
-<p>Back to Film List</p>
+  </div>
+<div class="row">
+  <div class="movie-details col-md-8" style="margin-top: 20px;">
     <h1><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h1>
     <h5 style="text-align: center;" ><i>{{ film.tagline }}</i></h5>
-  </div>
-  <div style="width: 100%;">
-    <div style="float: left; width: 30%; text-align: center;">
-      {% if film.poster_path %}
-        <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;" />
-      {% endif %}
-      <p>
-        <strong>Runtime:</strong> {{ film.runtime|runtime_format }}
-      </p>
+    <p style="text-align: center;">
+      <strong>Overview:</strong> {{ film.overview }}
+    </p>
 
-      <!-- Only display buttons if the user is authenticated -->
-      {% if user.is_authenticated %}
-        <div style="margin-top: 20px;">
+    <!-- Only display buttons if the user is authenticated -->
+    {% if user.is_authenticated %}
+      <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-md-6 d-flex justify-content-end">
           {% if is_seen %}
             <form method="POST" action="{% url 'remove_from_seen' film.id %}">
               {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Remove from Seen</button>
+              <button type="submit" class="btn btn-danger">
+                <img src="{% static 'images/seenIcon.png' %}" style="width: 33px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                Remove from Seen
+              </button>
             </form>
           {% else %}
             <form method="POST" action="{% url 'mark_as_seen' film.id %}">
               {% csrf_token %}
-              <button type="submit" class="btn btn-success">Mark as Seen</button>
-            </form>
-          {% endif %}
-
-          {% if is_in_watchlist %}
-            <form method="POST" action="{% url 'remove_from_watchlist' film.id %}" style="margin-top: 10px;">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Remove from Watchlist</button>
-            </form>
-          {% else %}
-            <form method="POST" action="{% url 'add_to_watchlist' film.id %}" style="margin-top: 10px;">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-secondary">Add to Watchlist</button>
+              <button type="submit" class="btn btn-success">
+                <img src="{% static 'images/seenIcon.png' %}" style="width: 33px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                Mark as Seen
+              </button>
             </form>
           {% endif %}
         </div>
+        <div class="col-md-6 d-flex justify-content-start">
+          {% if is_in_watchlist %}
+            <form method="POST" action="{% url 'remove_from_watchlist' film.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">
+                <img src="{% static 'images/heart.png' %}" alt="Heart Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                Remove from Watchlist
+              </button>
+            </form>
+          {% else %}
+            <form method="POST" action="{% url 'add_to_watchlist' film.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-secondary" style="background-color: #ffb700; border: none; color: black;">
+                <img src="{% static 'images/heart.png' %}" alt="Heart Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+                Add to Watchlist
+              </button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    </div>
+
+
+    <div class="film-info-card col-md-4">
+        <p><strong><i class="fas fa-clock"></i> Runtime:</strong> {{ film.runtime|runtime_format }}</p>
+        <p><strong><i class="fas fa-star"></i> Mountain Lion Score:</strong> {{ film.mlm_rating }}</p>
+        <p><strong><i class="fas fa-dollar-sign"></i> Revenue:</strong> ${{ film.revenue|intcomma }}</p>
+        <p><strong><i class="fas fa-coins"></i> Budget:</strong> ${{ film.budget|intcomma }}</p>
+        <p><strong><i class="fas fa-user-secret"></i> Adult:</strong> {% if film.adult %} Yes {% else %} No {% endif %}</p>
+        <div id="streaming_info" class="film-id">{{ film.id }}</div>
+        <p>{% if film.homepage %}<strong><i class="fas fa-home"></i> Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>{% endif %}</p>
+    </div>
+
+</div>
+{% comment %}  {% endcomment %}
+
+  <div style="width: 100%;">
+    <div style="float: left; width: 30%; text-align: center;">
+      {% if film.poster_path %}
+        <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;" />
       {% endif %}
     </div>
     <div style="float: right; width: 65%;">
       {% if film.backdrop_path %}
         <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%;" />
       {% endif %}
-      <p>
-        <strong>Mountain Lion Score:</strong> {{ film.mlm_rating }}
-      </p>
-      <p>
-        <strong>Overview:</strong> {{ film.overview }}
-      </p>
-      <p>
-        <strong>Revenue:</strong> $ {{ film.revenue|intcomma }}
-      </p>
-      <p>
-        <strong>Budget:</strong> $ {{ film.budget|intcomma }}
-      </p>
-      <p>
-        <strong>Adult:</strong> {% if film.adult %}
-          Yes
-          {% else %}
-          No
-          {% endif %}
-        </p>
+
+
+
+      
         <div id="streaming_info">{{ film.id }}</div>
       <p>
         {% if film.homepage %}
