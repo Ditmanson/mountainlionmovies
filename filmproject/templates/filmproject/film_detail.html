@@ -4,13 +4,21 @@
 {% load static %}
 
 {% block content %}
+  <div style="margin-top: 20px;">
+
+    <a style="background-color: transparent;" href="{% url 'film_list' %}" class="btn btn-primary">
+        <img src="{% static 'images/backarrow.png' %}" alt="Back to Film List" style="width: 50px; height: 25px; vertical-align: middle;">
+        
+    </a>
+<p>Back to Film List</p>
+    <h1><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h1>
+    <h5 style="text-align: center;" ><i>{{ film.tagline }}</i></h5>
+  </div>
   <div style="width: 100%;">
     <div style="float: left; width: 30%; text-align: center;">
       {% if film.poster_path %}
         <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;" />
       {% endif %}
-      <h2><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h2>
-      <h5><i>{{ film.tagline }}</i></h5>
       <p>
         <strong>Runtime:</strong> {{ film.runtime|runtime_format }}
       </p>
@@ -72,9 +80,6 @@
         {% if film.homepage %}
           <strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>
         {% endif %}
-      </p>
-      <p>
-        <a href="{% url 'film_list' %}" class="btn btn-primary">Back to Film List</a>
       </p>
     </div>
 
