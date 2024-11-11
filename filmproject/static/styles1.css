@@ -79,6 +79,7 @@ body.dark-mode .nav-link {
 body.dark-mode .nav-link.active {
     color: #000000; /* Current page color in dark mode */
 }
+  
 
 /*remove arrow from dropdown*/
 .dropdown-toggle::after {
