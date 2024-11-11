@@ -2,19 +2,36 @@
 {% load static %}
 
 {% block content %}
-<div class="container my-4">
+<div class="container-fluid my-5">
     <div class="row">
         <!-- Left Column: Profile Picture and Friends -->
         <div class="col-md-3">
-            <div class="profile-section mb-4">
-                <h2>{{ viewer.name }}'s Profile</h2>
+            <div class="profile-section mb-4 text-center d-flex flex-column align-items-center">
+                <div class="d-flex align-items-center justify-content-center">
+                    <h2 class="mb-0">{{ viewer.name }}</h2>
+                    {% if user.is_authenticated and user.viewer == viewer %}
+                        <!-- Update Profile Button with Image -->
+                        <a href="{% url 'update_profile' viewer.id %}" class="ms-2">
+                            <img src="{% static 'images/editButton.png' %}" alt="Edit Profile" style="width: 30px; height: 30px;">
+                        </a>
+                    {% endif %}
+                </div>
+                
                 {% if viewer.profile_picture %}
-                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded">
+                    <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded mt-3" style="width: 300px; height: 300px; object-fit: cover;">
                 {% else %}
-                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded">
+                    <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded mt-3" style="width: 300px; height: 300px; object-fit: cover;">
                 {% endif %}
             </div>
+        </div>
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+            <a href="{% url 'film_list' %}" class="btn btn-primary mb-3 w-100 d-block">Explore More Movies</a>
+            <a href="{% url 'compare_movies' %}" class="btn btn-primary mb-3 w-100 d-block">Rate Movies</a>
+            <a href="{% url 'viewers' %}" class="btn btn-primary mb-3 w-100 d-block">Find Friends</a>
+        </div>
 
+
+        <div class="col-md-3">
             <!-- Friend Request Buttons -->
             {% if user.is_authenticated and user.viewer != viewer %}
                 {% if is_friend %}
@@ -27,11 +44,6 @@
                 {% else %}
                     <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-block mb-3">Add Friend</a>
                 {% endif %}
-            {% endif %}
-
-            {% if user.is_authenticated and user.viewer == viewer %}
-                <!-- Update Profile Button -->
-                <a href="{% url 'update_profile' viewer.id %}" class="btn btn-primary btn-block mb-3">Update Profile</a>
             {% endif %}
 
             <!-- Friends List Section -->
@@ -50,9 +62,6 @@
                     {% endfor %}
                 </ul>
             </div>
-        </div>
-
-        <div class="col-md-9">
         </div>
     </div>
 </div>
