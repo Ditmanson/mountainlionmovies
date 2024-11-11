@@ -2,10 +2,10 @@
 {% extends "filmproject/base_template.html" %}
 
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div style="width: 70%;">
 
-        <h1 class="mb-4 text-center">Welcome back</h1>
+        <h1 style="color: #cfb87c;" class="mb-4 text-center">Welcome back</h1>
 
         <!-- Error handling block -->
         {% if form.non_field_errors %}
@@ -31,7 +31,7 @@
             {% endif %}
         {% endfor %}
         
-        <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border: 2px solid black; border-radius: 10px;">
+        <form method="post" class="w-100 p-4" style="background-color: rgba(255, 255, 255, 0); border-radius: 10px;">
             {% csrf_token %}
 
             <!-- Username field -->
@@ -45,11 +45,11 @@
             </div>
 
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Continue</button>
+            <button type="submit" style="background-color: #cfb87c; border: none;" class="btn btn-primary btn-lg w-100 mt-3">Continue</button>
         </form>
 
-        <p class="mt-4 text-center">Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
-        <p class="mt-4 text-center">Forgot Password? <a href="{% url 'password_reset' %}">Reset Password</a></p>
+        <p class="mt-4 text-center">Don't have an account? <a style="color: #ffb700;" href="{% url 'register' %}">Sign Up</a></p>
+        <p class="mt-4 text-center">Forgot Password? <a style="color: #ffb700;" href="{% url 'password_reset' %}">Reset Password</a></p>
     </div>
 </div>
 {% endblock %}
