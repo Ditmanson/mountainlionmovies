@@ -67,78 +67,25 @@
               </form>
             </div>
 
-          <!-- Login/Profile and Logout Buttons -->
-            {% if user.is_authenticated %}
-              <a href="{% url 'profile' %}" class="btn btn-outline-warning me-2">Profile</a>
-              <form method="post" action="{% url 'logout' %}">
-
-               <!-- Feed Button -->
-              <a href="{% url 'feed_page' %}" class="btn btn-outline-warning me-2">Feed</a> 
-
-                {% csrf_token %}
-                <input type="search" class="form-control me-2" name="q" placeholder="Search..." aria-label="Search">
-                <select name="filter" class="form-select search-filter w-25">
-                  <option value="all">All</option>
-                  <option value="viewer">Viewer</option>
-                  <option value="movie">Movie</option>
-                </select>
-                <button type="submit" class="btn btn-outline-warning me-2">Search</button>
-              </form>
-            </div>
-
           <!-- Profile icon -->
           <div style="color: black;" class="dropdown me-2">
-              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-                  {% if user.is_authenticated %}
-                      <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                      <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
-                      <li>
-                          <form method="post" action="{% url 'logout' %}">
-                              {% csrf_token %}
-                              <button class="btn btn-outline-warning dropdown-item" type="submit">Logout</button>
-                          </form>
-                      </li>
-                  {% else %}
-                      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                  {% endif %}
-              </ul>
-        <div class="d-flex align-items-center">
-          <div class="d-flex me-2">
-
-            <!-- Search Function -->
-            <div class="d-flex align-items-center">
-              <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
-                <div class="input-group">
-                  <select name="filter" class="form-select-sm search-filter bg-warning">
-                    <option value="all">All</option>
-                    <option value="viewer">Viewer</option>
-                    <option value="movie">Movie</option>
-                  </select>
-                  <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search" required>
-                  <button type="submit" class="btn btn-outline-warning me-2">Search</button>
-                </div>
-              </form>
-            </div>
-
-          <!-- Login/Profile and Logout Buttons -->
-          <div class="d-flex me-2">
-            {% if user.is_authenticated %}
-              <a href="{% url 'profile' %}" class="btn btn-outline-warning me-2">Profile</a>
-              <form method="post" action="{% url 'logout' %}">
-
-               <!-- Feed Button -->
-              <a href="{% url 'feed_page' %}" class="btn btn-outline-warning me-2">Feed</a> 
-
-                {% csrf_token %}
-                <button class="btn btn-outline-warning" type="submit">Logout</button>
-              </form>
-            {% else %}
-              <a href="{% url 'login' %}" class="btn btn-outline-warning">Login</a>
-            {% endif %}
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-warning dropdown-item" type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
           </div>
 
           <div class="d-flex align-items-center">
