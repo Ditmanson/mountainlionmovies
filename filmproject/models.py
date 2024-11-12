@@ -182,28 +182,21 @@ class LT_Viewer_Watchlist(models.Model):
 class FriendRequest(models.Model):
     sender = models.ForeignKey(Viewer, related_name='sent_requests', on_delete=models.CASCADE)
     receiver = models.ForeignKey(Viewer, related_name='received_requests', on_delete=models.CASCADE)
-    STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('accepted', 'Accepted'),
-        ('rejected', 'Rejected')
-    ]
+    STATUS_CHOICES = [('pending', 'Pending'), ('accepted', 'Accepted'), ('rejected', 'Rejected')]
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     accepted_at = models.DateTimeField(auto_now_add=False, null=True)
     rejected_at = models.DateTimeField(auto_now_add=False, null=True)
-
     def accept(self):
         """Accept the friend request and add to both users' friend lists."""
         self.status = 'accepted'
         self.sender.add_friend(self.receiver)
         self.receiver.add_friend(self.sender)
         self.save()
-
     def reject(self):
         """Reject the friend request."""
         self.status = 'rejected'
         self.save()
-
     def __str__(self):
         return f"{self.sender.name} -> {self.receiver.name} ({self.status})"
     
