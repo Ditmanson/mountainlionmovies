@@ -18,7 +18,7 @@ def start_scheduler():
     if not scheduler_running:
         try:
             scheduler.add_job(update_film_ratings, trigger=CronTrigger(day="*"), id="update_film_ratings", replace_existing=True)
-            scheduler.add_job(recalculate_user_similarity, trigger=CronTrigger(day="*"), id="recalculate_user_similarity", replace_existing=True)
+            scheduler.add_job(calculate_cosine_similarity, trigger=CronTrigger(day="*"), id="calculate_cosine_similarity", replace_existing=True)
             scheduler.add_job(database_cleanup, trigger=CronTrigger(day_of_week="sun"), id="database_cleanup", replace_existing=True)
             register_events(scheduler)
             scheduler.start()
