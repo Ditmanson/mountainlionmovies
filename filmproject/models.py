@@ -82,7 +82,7 @@ class Person(models.Model):
         return reverse('person-detail', args=[str(self.id)])
 
 class Viewer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=200)
     email = models.EmailField()
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True, default='profile_pictures/default_pfp.jpg')  # Set default image
@@ -169,9 +169,6 @@ class LT_Viewer_Seen(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
     seen_film = models.BooleanField(default=False, null=True)
     viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default = 0.5, null = True)
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.film.update_mlm_rating() # Update the film's mlm_rating whenever a viewer rating is saved
     class Meta:
         unique_together = ('viewer', 'film')
 

@@ -100,7 +100,7 @@
 
 {% comment %} SEEN FILMS SHOW IN A CAROSEL {% endcomment %}
 <div class="watchlist-section mb-4">
-    <h2>Watchlist</h2>
+    <h2>{{ viewer.name }}'s Watchlist</h2>
     {% if watchlist %}
     <div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
         {% for movie in watchlist %}
@@ -113,8 +113,7 @@
                 {% endif %}
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ movie.title }}</h5>
-                    <p class="card-text text-truncate">{{ movie.overview }}</p>
-                    <p class="card-text">Rating: {{ movie.vote_average }}</p>
+                    <p class="card-text">MLM Rating: {{ movie.mlm_rating }}</p>
                 </div>
             </div>
         </div>
