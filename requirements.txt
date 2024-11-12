@@ -2,9 +2,11 @@ APScheduler==3.10.4
 asgiref==3.8.1
 certifi==2024.8.30
 charset-normalizer==3.4.0
+colorama==0.4.6
 coverage==7.6.2
 Django==5.1.2
 django-apscheduler==0.7.0
+django-cleanup==9.0.0
 django-cors-headers==4.5.0
 djangorestframework==3.15.2
 greenlet==3.0.3

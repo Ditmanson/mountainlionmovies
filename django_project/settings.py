@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'filmproject.apps.FilmprojectConfig',  # Custom app
     'rest_framework',
+    'django-cleanup', # Cleaning up files
 ]
 
 # Authentication backends
