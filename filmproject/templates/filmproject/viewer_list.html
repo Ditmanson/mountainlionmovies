@@ -1,5 +1,6 @@
 {% extends "filmproject/base_template.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 <h1 style="margin-bottom: 40px;" >Profiles</h1>
@@ -67,7 +68,7 @@
 
     <!-- Viewer List Column with Toggle Button for Friend Requests -->
     <div class="col-md-8">
-        <h2 style="text-align: center;">Movie Lovers You May Know</h2>
+        <h2 style="text-align: center;">Become Friends with your "Movie Twins"</h2>
         
         <div class="container">
             {% if viewer_list %}
@@ -83,8 +84,14 @@
                                     <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                 {% endif %}
                             </div>
-                            <h5 class="viewer-name mb-0" style="color: black;">{{ viewer.name }}</h5>
+                            <h5 class="viewer-name mb-0" style="color: black;">{{ viewer.name }}
                         </div>
+
+                        <!-- Display Cosine Similarity Score -->
+                        <p style="color: red;">
+                            Similar: {{ similarity_scores|get_similarity:viewer.id }}
+                        </p>
+
                         <!-- Add Friend Button -->
                         {% if viewer != request.user.viewer %}
                             {% if friendship_status|default_if_none:viewer.id.is_friend %}

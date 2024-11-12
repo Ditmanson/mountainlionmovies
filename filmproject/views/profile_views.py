@@ -1,4 +1,5 @@
 from datetime import timedelta
+from decimal import Decimal
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -18,7 +19,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import generic
 from django.views.generic import DetailView, ListView
 from ..forms import ViewerRegistrationForm, ProfileUpdateForm
-from ..models import Film, FriendRequest, Viewer, LT_Viewer_Ratings
+from ..models import Film, FriendRequest, Viewer, LT_Viewer_Ratings, LT_Viewer_Cosine_Similarity
 from ..tokens import account_activation_token
 
 
@@ -299,11 +300,22 @@ class ViewerListView(LoginRequiredMixin, ListView):
         print(f"Viewer: {viewer.id} | is_friend: {is_friend} | friend_request_sent: {friend_request_sent} | friend_request_received: {friend_request_received}")
         return {'is_friend': is_friend, 'friend_request_sent': friend_request_sent, 'friend_request_received': friend_request_received}
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs) # Add friend request data and pending request count to the context.
+        context = super().get_context_data(**kwargs)
         user_viewer = self.request.user.viewer
+        similarity_scores = {}
+        similarities = LT_Viewer_Cosine_Similarity.objects.filter(Q(viewer_1=user_viewer) | Q(viewer_2=user_viewer))
+        for sim in similarities:
+            if sim.viewer_1 == user_viewer:
+                similarity_scores[sim.viewer_2.id] = Decimal(sim.cosine_similarity) # Populate similarity scores dictionary with numeric values
+            else:
+                similarity_scores[sim.viewer_1.id] = Decimal(sim.cosine_similarity) # Populate similarity scores dictionary with numeric values
+        context['similarity_scores'] = similarity_scores # Add similarity scores to context
+        viewer_list = list(Viewer.objects.exclude(id=user_viewer.id))
+        viewer_list.sort(key=lambda viewer: similarity_scores.get(viewer.id, 0), reverse=True) # Sort viewer list based on similarity scores (default to 0 if no score)
+        context['viewer_list'] = viewer_list # Update the context with the sorted viewer list
         context['received_friend_requests'] = FriendRequest.objects.filter(receiver=user_viewer, status='pending') # Retrieve received and sent friend requests for the sidebar
         context['sent_friend_requests'] = FriendRequest.objects.filter(sender=user_viewer, status='pending')
-        context['num_pending_requests'] = context['received_friend_requests'].count() # Add count of pending requests for notification bubble
+        context['num_pending_requests'] = context['received_friend_requests'].count()
         friendship_status = {viewer.id: self.get_friend_requests(viewer) for viewer in Viewer.objects.exclude(id=user_viewer.id)} # Friendship statuses for each viewer
         context['friendship_status'] = friendship_status
         return context
