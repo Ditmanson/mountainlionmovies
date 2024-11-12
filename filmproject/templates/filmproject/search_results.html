@@ -28,9 +28,12 @@
         <h3>Movies:</h3>
         {% if movie_results %}
             {% for movie in movie_results %}
-                <a href="{{ movie.get_absolute_url }}" class="text-decoration-none">
-                    <h4 class="h4">{{ movie.title }}</h4>
-                </a>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <a href="{{ movie.get_absolute_url }}" class="text-decoration-none">
+                        <img src="https://image.tmdb.org/t/p/w1280/{{ movie.poster_path }}" alt="{{ movie.title }} Movie Poster" style="width: 100%;" />
+                        <h4 class="h4">{{ movie.title }}</h4>
+                    </a>
+                </div>
             {% endfor %}
         {% else %}
             <h4 class="h5">No viewers found.</h4>
