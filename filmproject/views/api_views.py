@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.viewsets import ModelViewSet
-from ..models import  Film, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, Person, LT_Viewer_Ratings
-from ..serializers import FilmSerializer, LT_Viewer_RatingsSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer, FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer, LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer, PersonSerializer
+from ..models import  Film, Viewer, LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, Person, LT_Viewer_Ratings, Notification
+from ..serializers import NotificationsSerializer, FilmSerializer, LT_Viewer_RatingsSerializer, ViewerSerializer, LT_Viewer_SeenSerializer, LT_Viewer_WatchlistSerializer, FriendRequestSerializer, LT_Films_CastSerializer, LT_Films_CompaniesSerializer, LT_Films_CountriesSerializer, LT_Films_CrewSerializer, LT_Films_GenresSerializer, LT_Films_KeywordsSerializer, LT_Films_LanguagesSerializer, PersonSerializer
 
 # DJANGO REST FRAMEWORK VIEWS
 
@@ -121,3 +121,22 @@ def user_seen_films(request):
     seen_films = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True)
     serializer = LT_Viewer_SeenSerializer(seen_films, many=True)
     return Response(serializer.data)
+
+
+class NotificationsViewSet(viewsets.ModelViewSet):
+    queryset = Notification.objects.all()
+    serializer_class = NotificationsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+    @action(detail=True, methods=['post'])
+    def mark_as_read(self, request, pk=None):
+        try:
+            notification = self.get_object()
+            notification.is_read = True
+            notification.save()
+            return Response({"status": "notification marked as read"}, status=status.HTTP_200_OK)
+        except Notification.DoesNotExist:
+            return Response({"error": "Notification not found"}, status=status.HTTP_404_NOT_FOUND)

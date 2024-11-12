@@ -8,10 +8,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveIndex(
-            model_name='lt_viewer_seen',
-            name='filmproject_viewer__2f3ddb_idx',
-        ),
+     #   migrations.RemoveIndex(
+      #      model_name='lt_viewer_seen',
+       #     name='filmproject_viewer__2f3ddb_idx',
+        #),
         migrations.AlterField(
             model_name='lt_viewer_seen',
             name='viewer_rating',

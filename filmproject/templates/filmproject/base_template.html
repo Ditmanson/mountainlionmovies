@@ -73,31 +73,31 @@
               </ul>
           </div>
 
-          <!-- Notification Bell and Dark Mode Toggle Switch on the Right -->
           <div class="d-flex align-items-center">
             <!-- Notification Bell with Dropdown -->
             <div class="dropdown me-3 position-relative">
-                <button class="btn dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
-                    <img src="{% static 'images/bell.png' %}" alt="Notifications" height="50" />
+              <button class="btn dropdown-toggle" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;">
+                <img src="{% static 'images/bell.png' %}" alt="Notifications" height="50" />
+                <span id="notificationCount" class="notification-bubble"></span> <!-- Unread notification count -->
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" id="notificationContainer">
+                <li>
+                  <a class="dropdown-item" href="{% url 'viewers' %}">
+                    Friend Requests
                     {% if num_pending_requests > 0 %}
-                        <span class="notification-bubble">{{ num_pending_requests }}</span>
+                      <span class="badge bg-danger">{{ num_pending_requests }}</span>
                     {% endif %}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                    <li>
-                        <a class="dropdown-item" href="{% url 'viewers' %}">
-                            Friend Requests
-                            {% if num_pending_requests > 0 %}
-                                <span class="badge bg-danger">{{ num_pending_requests }}</span>
-                            {% endif %}
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Notifications</a>
-                    </li>
-                </ul>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <!-- Placeholder for notifications -->
+                <li id="notificationsPlaceholder">
+                  <div class="dropdown-item text-center text-muted">Notifications</div>
+                </li>
+              </ul>
             </div>
-        </div>
+          </div>
+          
         
 
             <!-- Dark Mode Toggle Switch -->
@@ -117,5 +117,7 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Notification Center Script-->
+    <script src="{% static 'scripts/notifications.js' %}"></script>
   </body>
 </html>

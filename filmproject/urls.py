@@ -26,6 +26,7 @@ router.register(r'film_genres', LT_Films_GenresViewSet)
 router.register(r'film_keywords', LT_Films_KeywordsViewSet)
 router.register(r'film_languages', LT_Films_LanguagesViewSet)
 router.register(r'viewer_ratings', LT_Viewer_RatingsViewSet)
+router.register(r'notifications', NotificationsViewSet)
 
 urlpatterns = [
     # Home page
@@ -56,6 +57,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='filmproject/index.html'), name='logout'),
     path('register/', register, name='register'),
     path('resend-activation/<str:uidb64>/', resend_activation_email, name='resend_activation'),
+    
     # Invalid activation page URL
     path('activation/invalid/', render_invalid_activation_page, name='invalid_activation'),
 
@@ -79,7 +81,6 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', activate, name='activate'),
 
     # Friend request URLs
-    #path('accounts/friend_requests/', manage_friend_requests, name='friend_requests'),
     path('send_friend_request/<int:viewer_id>/', send_friend_request, name='send_friend_request'),
     path('accept_friend_request/<int:request_id>/', accept_friend_request, name='accept_friend_request'),
     path('reject_friend_request/<int:request_id>/', reject_friend_request, name='reject_friend_request'),
@@ -90,7 +91,9 @@ urlpatterns = [
     path('feed_entries/', feed_entries, name='feed_entries'),          # URL to fetch feed entries
     path('like_entry/<int:entry_id>/', like_entry, name='like_entry'),  # URL to like a feed entry
     path('comment_entry/<int:entry_id>/', comment_entry, name='comment_entry'),  # URL to add a comment
+    path('feed_entry/<int:entry_id>/', feed_entry_detail, name='feed_entry_detail'),  # URL pattern for detail view
 ]
+
 
 
 # API routes (grouped and isolated in the 'api' namespace)

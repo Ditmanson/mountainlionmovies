@@ -279,7 +279,7 @@ def remove_friend(request, viewer_id):
     
     messages.success(request, f'{viewer_to_remove.name} has been removed from your friend list.')
     
-    return redirect('profile', viewer_id=request.user.viewer.id)  # Redirect back to the user's profile
+    return redirect('profile')  # Redirect back to the user's profile
 
 def base_context_processor(request):
     if request.user.is_authenticated:
