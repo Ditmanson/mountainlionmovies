@@ -46,7 +46,7 @@
                 <div class="row">
                     {% for request in sent_friend_requests %}
                     <div class="col-12 viewer-container" style="margin-bottom: 15px;">
-                        <div class="viewer-card d-flex align-items-center" style="background-color: #333; padding: 10px; border-radius: 8px;">
+                        <div class="viewer-card d-flex align-items-center" style="background-color: #A2A4A3; padding: 10px; border-radius: 8px;">
                             <div class="profile-picture-container" style="margin-right: 10px;">
                                 {% if request.receiver.profile_picture %}
                                     <img src="{{ request.receiver.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
@@ -54,7 +54,7 @@
                                     <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                 {% endif %}
                             </div>
-                            <h5 class="viewer-name mb-0" style="color: white;">{{ request.receiver.name }} - Status: {{ request.status }}</h5>
+                            <h5 class="viewer-name mb-0" style="color: black;">{{ request.receiver.name }} - Status: {{ request.status }}</h5>
                         </div>
                     </div>
                     {% endfor %}
@@ -74,7 +74,7 @@
             <div class="row">
                 {% for viewer in viewer_list %}
                 <div class="col-md-4 viewer-container" style="margin-bottom: 15px;">
-                    <div class="viewer-card d-flex align-items-center justify-content-between" style="background-color: #333; padding: 10px; border-radius: 8px;">
+                    <div class="viewer-card d-flex align-items-center justify-content-between" style="background-color: #cfb87c; padding: 10px; border-radius: 8px;">
                         <div class="d-flex align-items-center">
                             <div class="profile-picture-container" style="margin-right: 10px;">
                                 {% if viewer.profile_picture %}
@@ -83,7 +83,7 @@
                                     <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                 {% endif %}
                             </div>
-                            <h5 class="viewer-name mb-0" style="color: white;">{{ viewer.name }}</h5>
+                            <h5 class="viewer-name mb-0" style="color: black;">{{ viewer.name }}</h5>
                         </div>
                         <!-- Add Friend Button -->
                         {% if viewer != request.user.viewer %}
@@ -95,7 +95,9 @@
                                 <a href="{% url 'accept_friend_request' viewer.id %}" class="btn btn-success btn-sm">Accept Friend Request</a>
                                 <a href="{% url 'reject_friend_request' viewer.id %}" class="btn btn-danger btn-sm">Reject Friend Request</a>
                             {% else %}
-                                <a href="{% url 'send_friend_request' viewer.id %}" class="btn btn-primary btn-sm">Add Friend</a>
+                                <a href="{% url 'send_friend_request' viewer.id %}" style="background-color: transparent; border:none;">
+                                    <img src="{% static 'images/addFriendB.png' %}" alt="Add Friend" style="width: 30px; height: auto;" >
+                                </a>
                             {% endif %}
                         {% endif %}
                     </div>
