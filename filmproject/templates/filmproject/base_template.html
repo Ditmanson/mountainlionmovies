@@ -8,42 +8,28 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom Styles -->
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'styles1.css' %}" />
     <link rel="icon" href="{% static 'images/favicon.ico' %}" />
     <!-- Additional Scripts -->
     <script src="{% static 'static.js' %}"></script>
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light w-100">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light w-100 justify-content-center">
+      <div class="container-fluid d-flex justify-content-center">
         <!-- Left: Dropdown Menu Button with Image -->
         <div style="color: black;" class="dropdown me-2">
           <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="border: none; background: none;"><img src="{% static 'images/menu.png' %}" alt="Menu" height="50" /></button>
 
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li>
-              <a class="dropdown-item" href="{% url 'film_list' %}">Films</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'search_movies' %}">Search</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="{% url 'compare_movies' %}">Rate Movies</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="https://app-bsulliv2-5.devedu.io/">Visit Our Friends</a>
-            </li>
+            <li><a class="dropdown-item" href="{% url 'film_list' %}">Films</a></li>
+            <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
+            <li><a class="dropdown-item" href="{% url 'search_movies' %}">Search</a></li>
+            <li><a class="dropdown-item" href="{% url 'popular_movies' %}">Popular</a></li>
+            <li><a class="dropdown-item" href="{% url 'compare_movies' %}">Rate Movies</a></li>
+            <li><a class="dropdown-item" href="https://app-bsulliv2-5.devedu.io/">Visit Our Friends</a></li>
             {% if user.is_authenticated %}
-              <li class="dropdown-item">
-                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
-              </li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
               <li class="dropdown-item">
                 <form method="post" action="{% url 'logout' %}">
                   {% csrf_token %}
@@ -51,38 +37,40 @@
                 </form>
               </li>
             {% else %}
-              <li class="dropdown-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-              </li>
-              <li class="dropdown-item">
-                <a class="nav-link" href="{% url 'register' %}">Register</a>
-              </li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+              <li class="dropdown-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
             {% endif %}
           </ul>
         </div>
 
         <!-- Center: Website Title -->
-        <div class="mx-auto text-center">
-          <a class="navbar-brand" href="{% url 'index' %}"><img height="90" src="{% static 'images/newMountionLionLogo.png' %}" /></a>
+        <div class="text-center">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img height="90" src="{% static 'images/newMountionLionLogo.png' %}" alt="Mountain Lion Logo" />
+          </a>
         </div>
 
         <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
-        <div class="d-flex align-items-center">
-          <!-- Login/Profile and Logout Buttons -->
-          <div class="d-flex me-2">
-            {% if user.is_authenticated %}
-              <a href="{% url 'profile' %}" class="btn btn-outline-warning me-2">Profile</a>
-              <form method="post" action="{% url 'logout' %}">
-
-               <!-- Feed Button -->
-              <a href="{% url 'feed_page' %}" class="btn btn-outline-warning me-2">Feed</a> 
-
-                {% csrf_token %}
-                <button class="btn btn-outline-warning" type="submit">Logout</button>
-              </form>
-            {% else %}
-              <a href="{% url 'login' %}" class="btn btn-outline-warning">Login</a>
-            {% endif %}
+        <div class="d-flex align-items-center ms-auto">
+          <!-- Profile icon -->
+          <div style="color: black;" class="dropdown me-2">
+              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% if user.is_authenticated %}
+                      <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                      <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
+                      <li>
+                          <form method="post" action="{% url 'logout' %}">
+                              {% csrf_token %}
+                              <button class="btn btn-outline-warning dropdown-item" type="submit">Logout</button>
+                          </form>
+                      </li>
+                  {% else %}
+                      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                  {% endif %}
+              </ul>
           </div>
 
           <!-- Notification Bell and Dark Mode Toggle Switch on the Right -->
@@ -126,9 +114,6 @@
 
       {% endblock %}
     </div>
-
-    <!-- Footer Image -->
-    {% comment %} <img src="{% static 'images/footer.png' %}" class="img-responsive" alt="Footer Image" /> {% endcomment %}
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
