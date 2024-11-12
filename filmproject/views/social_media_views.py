@@ -2,7 +2,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-from ..models import ( FeedEntry, Like, Comment)
+from ..models import ( FeedEntry, Like, Comment, Notification)
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
@@ -19,7 +19,17 @@ def like_entry(request, entry_id):
     entry = get_object_or_404(FeedEntry, id=entry_id)
     Like.objects.get_or_create(feed_entry=entry, user=request.user)
     likes_count = entry.likes.count()
+
+    # Create a notification if the entry is liked by someone else
+    if entry.user != request.user:
+        Notification.objects.create(
+            user=entry.user,
+            feed_entry=entry,
+            notification_type='like'
+        )
+
     return JsonResponse({'success': True, 'likes': likes_count})
+
 
 @login_required
 @require_POST
@@ -27,7 +37,17 @@ def comment_entry(request, entry_id):
     entry = get_object_or_404(FeedEntry, id=entry_id)
     data = json.loads(request.body)
     comment = Comment.objects.create(feed_entry=entry, user=request.user, content=data['content'])
+
+    # Create a notification if the entry is commented on by someone else
+    if entry.user != request.user:
+        Notification.objects.create(
+            user=entry.user,
+            feed_entry=entry,
+            notification_type='comment'
+        )
+
     return JsonResponse({'success': True, 'user': comment.user.username, 'content': comment.content})
+
 
 
 def feed_page(request):
@@ -72,3 +92,22 @@ def feed_entries(request):
 
     return JsonResponse(data, safe=False)
 
+
+def feed_entry_detail(request, entry_id):
+    entry = get_object_or_404(FeedEntry, id=entry_id)
+    
+    # Prepare data to render in the template
+    data = {
+        'id': entry.id,
+        'user': entry.user.username,
+        'action': entry.action,
+        'timestamp': entry.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+        'likes': entry.likes.count(),
+        'comments': [{'user': c.user.username, 'content': c.content} for c in entry.comments.all()],
+        'movie': {
+            'title': entry.movie.title,
+            'tmdb_id': entry.movie.tmdb_id,
+            'poster_path': entry.movie.poster_path
+        }
+    }
+    return render(request, 'filmproject/feed_entry_detail.html', {'entry': data})

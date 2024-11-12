@@ -238,3 +238,20 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+
+class Notification(models.Model):
+    TYPE_CHOICES = [
+        ('like', 'Like'),
+        ('comment', 'Comment'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    feed_entry = models.ForeignKey(FeedEntry, on_delete=models.CASCADE)
+    notification_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.notification_type} on {self.feed_entry}"
+

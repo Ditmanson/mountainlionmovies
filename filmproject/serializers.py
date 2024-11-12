@@ -2,8 +2,16 @@ from rest_framework import serializers
 from .models import (
     Film, Viewer, LT_Viewer_Seen, LT_Viewer_Watchlist, FriendRequest, 
     LT_Films_Cast, LT_Films_Companies, LT_Films_Countries, 
-    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, Person, LT_Viewer_Ratings
+    LT_Films_Crew, LT_Films_Genres, LT_Films_Keywords, LT_Films_Languages, Person, LT_Viewer_Ratings,
+    Notification
 )
+# Bulk create films function
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
+
 # Person Serializer
 class PersonSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
@@ -116,10 +124,14 @@ class LT_Films_LanguagesSerializer(serializers.ModelSerializer):
         model = LT_Films_Languages
         fields = ['id', 'film', 'language']
 
-# Bulk create films function
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+# Notification Serializer
+class NotificationsSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required= False)
+    class Meta:
+        model = Notification
+        fields = ['id','user', 'feed_entry', 'notification_type', 'is_read', 'timestamp']
+
+
 
 @api_view(['POST'])
 def bulk_create_films(request):
