@@ -8,6 +8,7 @@ Django==5.1.2
 django-apscheduler==0.7.0
 django-cleanup==9.0.0
 django-cors-headers==4.5.0
+django-unused-media==0.2.2
 djangorestframework==3.15.2
 greenlet==3.0.3
 idna==3.10
