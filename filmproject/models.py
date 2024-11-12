@@ -4,6 +4,10 @@ from django.db import models
 from django.db.models import Sum, Count
 from django.urls import reverse
 
+from PIL import Image
+from io import BytesIO
+from django.core.files import File
+
 class Collection(models.Model):
     tmdb_id = models.IntegerField()
     name = models.CharField(max_length=200)
@@ -105,6 +109,14 @@ class Viewer(models.Model):
             self.save()
     def is_friends_with(self, viewer): # Check if the viewer is friends with another viewer
         return self.friends.filter(id=viewer.id).exists()
+    
+    def save(self, *args, **kwargs):
+        if self.profile_picture == None:
+            super().save(*args, **kwargs)
+        else:
+            new_image = compress_image(self.profile_picture)
+            self.profile_picture = new_image
+            super().save(*args, **kwargs)
 
 class LT_Films_Cast(models.Model):
     film = models.ForeignKey(Film, on_delete=models.DO_NOTHING, null=True)
@@ -239,3 +251,13 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.notification_type} on {self.feed_entry}"
 
+def compress_image(profile_pic):
+    print("PROFILE PIC:", profile_pic, "\n")
+    img = Image.open(profile_pic)
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
+
+    thumb_io = BytesIO()
+    img.save(thumb_io, format='JPEG', optimize=True, quality=20)
+    comp_image = File(thumb_io, name=profile_pic.name)
+    return comp_image
