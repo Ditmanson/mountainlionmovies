@@ -6,12 +6,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('filmproject', '0022_film_mlm_rating'),
     ]
-
-    operations = [
-     #   migrations.RemoveIndex(
-      #      model_name='lt_viewer_seen',
-       #     name='filmproject_viewer__2f3ddb_idx',
-        #),
         migrations.AlterField(
             model_name='lt_viewer_seen',
             name='viewer_rating',
