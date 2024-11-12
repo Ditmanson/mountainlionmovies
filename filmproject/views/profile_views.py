@@ -1,28 +1,26 @@
-
+from datetime import timedelta
+from decimal import Decimal
 from django.contrib import messages
 from django.contrib.auth import login
-from django.core.paginator import Paginator
-from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.db.models import F, Sum, Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
+from django.utils import timezone
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
+from django.views.generic import DetailView, ListView
 from ..forms import ViewerRegistrationForm, ProfileUpdateForm
-from ..models import Film, FriendRequest, Viewer, LT_Viewer_Ratings
+from ..models import Film, FriendRequest, Viewer, LT_Viewer_Ratings, LT_Viewer_Cosine_Similarity
 from ..tokens import account_activation_token
-from django.contrib import messages
-from django.core.paginator import Paginator
-from django.utils import timezone
-from datetime import timedelta
 
 
 class ViewerDetailView(generic.DetailView):
@@ -283,63 +281,43 @@ def remove_friend(request, viewer_id):
     
     return redirect('profile')  # Redirect back to the user's profile
 
-
-
-
-
 def base_context_processor(request):
-
     if request.user.is_authenticated:
         num_pending_requests = FriendRequest.objects.filter(receiver=request.user.viewer, status='pending').count()
     else:
         num_pending_requests = 0
     return {'num_pending_requests': num_pending_requests}
 
-
 class ViewerListView(LoginRequiredMixin, ListView):
     model = Viewer
     template_name = 'filmproject/viewer_list.html'
     context_object_name = 'viewer_list'
-
-    def get_friend_requests(self, viewer):
-        """Handles friend request logic for a specific viewer."""
+    def get_friend_requests(self, viewer): # Handles friend request logic for a specific viewer.
         user_viewer = self.request.user.viewer
         is_friend = viewer.friends.filter(id=user_viewer.id).exists()
-        
-        # Check for pending friend requests
-        friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists()
-        friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists()
-
+        friend_request_sent = FriendRequest.objects.filter(sender=user_viewer, receiver=viewer, status='pending').exists() # Check for pending friend requests sent
+        friend_request_received = FriendRequest.objects.filter(sender=viewer, receiver=user_viewer, status='pending').exists() # Check for pending friend requests received
         print(f"Viewer: {viewer.id} | is_friend: {is_friend} | friend_request_sent: {friend_request_sent} | friend_request_received: {friend_request_received}")
-        
-        return {
-            'is_friend': is_friend,
-            'friend_request_sent': friend_request_sent,
-            'friend_request_received': friend_request_received
-        }
-
+        return {'is_friend': is_friend, 'friend_request_sent': friend_request_sent, 'friend_request_received': friend_request_received}
     def get_context_data(self, **kwargs):
-        """Add friend request data and pending request count to the context."""
         context = super().get_context_data(**kwargs)
         user_viewer = self.request.user.viewer
-
-        # Retrieve received and sent friend requests for the sidebar
-        context['received_friend_requests'] = FriendRequest.objects.filter(receiver=user_viewer, status='pending')
+        similarity_scores = {}
+        similarities = LT_Viewer_Cosine_Similarity.objects.filter(Q(viewer_1=user_viewer) | Q(viewer_2=user_viewer))
+        for sim in similarities:
+            if sim.viewer_1 == user_viewer:
+                similarity_scores[sim.viewer_2.id] = Decimal(sim.cosine_similarity) # Populate similarity scores dictionary with numeric values
+            else:
+                similarity_scores[sim.viewer_1.id] = Decimal(sim.cosine_similarity) # Populate similarity scores dictionary with numeric values
+        context['similarity_scores'] = similarity_scores # Add similarity scores to context
+        viewer_list = list(Viewer.objects.exclude(id=user_viewer.id))
+        viewer_list.sort(key=lambda viewer: similarity_scores.get(viewer.id, 0), reverse=True) # Sort viewer list based on similarity scores (default to 0 if no score)
+        context['viewer_list'] = viewer_list # Update the context with the sorted viewer list
+        context['received_friend_requests'] = FriendRequest.objects.filter(receiver=user_viewer, status='pending') # Retrieve received and sent friend requests for the sidebar
         context['sent_friend_requests'] = FriendRequest.objects.filter(sender=user_viewer, status='pending')
-        
-        # Add count of pending requests for notification bubble
         context['num_pending_requests'] = context['received_friend_requests'].count()
-
-        # Friendship statuses for each viewer
-        friendship_status = {
-            viewer.id: self.get_friend_requests(viewer)
-            for viewer in Viewer.objects.exclude(id=user_viewer.id)
-        }
+        friendship_status = {viewer.id: self.get_friend_requests(viewer) for viewer in Viewer.objects.exclude(id=user_viewer.id)} # Friendship statuses for each viewer
         context['friendship_status'] = friendship_status
-
         return context
-
-
     def get_queryset(self):
-        """Return all viewers to display in the list."""
-        return Viewer.objects.all()
+        return Viewer.objects.all() # Return all viewers to display in the list.

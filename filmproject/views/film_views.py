@@ -186,4 +186,4 @@ def remove_from_watchlist(request, pk):
 
 
 def search_movies(request):
-    return render( request, 'filmproject/search_movies.html')
+    return render( request, 'filmproject/search_movies.html',{'user': request.user.id})

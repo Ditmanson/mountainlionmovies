@@ -2,25 +2,26 @@ import os
 from pathlib import Path
 from decouple import config
 
-# TMDB_API_KEY = config('TMDB_API_KEY')
-
-LOGIN_URL = '/login/'
-
-PASSWORD_RESET_TIMEOUT = 86400  # Token valid for 1 day (in seconds)
-
-
+# Base directory of the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-na_i!_poqmi%#b$a(2a75!4xx$v4hjjpss5nmty$0rtlrp3h^p'
-
-DEBUG = True
+# Security settings
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-na_i!_poqmi%#b$a(2a75!4xx$v4hjjpss5nmty$0rtlrp3h^p')
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = [
     'app-tditmans-5.devedu.io',
     '127.0.0.1',
     'localhost',
-    ]
+]
 
+# Login settings
+LOGIN_URL = '/login/'
+
+# Password reset token timeout in seconds (1 day)
+PASSWORD_RESET_TIMEOUT = 86400
+
+# Installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,20 +30,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
     'corsheaders',
-    'filmproject.apps.FilmprojectConfig',
+    'django_apscheduler',
+    'filmproject.apps.FilmprojectConfig',  # Custom app
+    'rest_framework',
 ]
 
+# Authentication backends
 AUTHENTICATION_BACKENDS = [
-'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
+
+# CSRF and CORS settings
 CSRF_TRUSTED_ORIGINS = [
     'https://app-tditmans-5.devedu.io',
 ]
-
 CORS_ALLOW_ALL_ORIGINS = True
 
+# Middleware configuration
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -52,11 +57,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
+# URL configuration
 ROOT_URLCONF = 'django_project.urls'
 
+# Template settings
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,12 +79,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI application
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# Database configuration
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,66 +91,48 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
+# Static files configuration
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'filmproject/static')]
 
-# Set the static root where all static files will be collected
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
-
-STATICFILES_DIRS = [
-os.path.join(BASE_DIR, 'filmproject/static')
-]
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'filmproject/media')
+# Media files configuration
 MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'filmproject/media')
 
+# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+# Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Replace with your email provider's SMTP server
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('GOOGLE_MAIL_ADDRESS')
-EMAIL_HOST_PASSWORD = config('GOOGLE_MAIL_PASSWORD')
- # Set a default value for local development
+EMAIL_HOST_USER = config('GOOGLE_MAIL_ADDRESS', default='your-email@gmail.com')
+EMAIL_HOST_PASSWORD = config('GOOGLE_MAIL_PASSWORD', default='your-password')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# For development, use the console backend (prints email to the console)
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Scheduler and logging configuration
+DJANGO_CRON_CLASSES = [
+    'filmproject.cron_jobs.DatabaseCleanupCronJob',
+]
+
+# Add flag to prevent duplicate scheduler starts
+SCHEDULER_RUNNING = False  # Flag to prevent multiple scheduler starts
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

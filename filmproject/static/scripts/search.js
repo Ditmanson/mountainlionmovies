@@ -6,10 +6,12 @@ let search_input = document.getElementById('search_input');
 let search_button = document.getElementById('search_button');
 const resultsDiv = document.getElementById('results');
 let search_results = []
+let user = '1'
 
 // Initialize the page with Pop1
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        user = document.getElementById('user').value;
         let pop_movies = await popular_movies();  // Fetch popular movies
         if (Array.isArray(pop_movies)) {
             pop_movies.forEach((movie) => {
@@ -53,6 +55,35 @@ const getMovieCredits = async (movieID) => {
 
 // Function Post to MountainMovie DB
 const postToMountainMovieDB = async (movie) => {
+    const post = await postData({
+        id: movie.id,
+        adult: movie.adult,
+        backdrop_path: movie.backdrop_path,
+        belongs_to_collection: false,
+        budget: movie.budget || 0,
+        homepage: movie.homepage || '',
+        imdb_id: movie.imdb_id || '',
+        original_title: movie.original_title,
+        overview: movie.overview,
+        popularity: movie.popularity,
+        poster_path: movie.poster_path,
+        release_date: movie.release_date,
+        revenue: movie.revenue || 0,
+        runtime: movie.runtime || 0,
+        status: movie.status || '',
+        tagline: movie.tagline || '',
+        title: movie.title,
+        tmdb_id: movie.id,
+        vote_average: movie.vote_average,
+        vote_count: movie.vote_count
+    }, 'films');
+    console.log('Posted to MountainMovie DB:', post);
+};
+
+// Function Post to MountainMovie DB
+const postMovieByID = async (movieID) => {
+    const movie = await fetchData(movie_details_url(movieID));
+    console.log('Fetched movie details:', movie);
     const post = await postData({
         id: movie.id,
         adult: movie.adult,
@@ -129,7 +160,25 @@ const postCreditsToMountainMovieDB = async (movieID) => {
     }
 };
 
-
+// function to post seen_movie
+const postSeenMovie = async (movieID) => {
+    const post = await postData({
+        film: movieID,
+        seen_film: true,
+        viewer: user,
+        viewr_rating: .5
+    }, 'seen_movies');
+    console.log('Posted to MountainMovie DB:', post);
+}
+// function to post to watchlist
+const postToWatchlist = async (movieID) => {
+    const post = await postData({
+        film: movieID,
+        watchlist: true,
+        viewer: user
+    }, 'watchlist');
+    console.log('Posted to MountainMovie DB:', post);
+}
 
 function createMovieElement(movie, container) {
     const movieElement = document.createElement('div');
@@ -144,8 +193,10 @@ function createMovieElement(movie, container) {
             <img src="${poster}" alt="${movie.title} Poster" class="film-poster">
         </button>
         <h5 class="film-title">${movie.title}</h5>
-        <button type="submit" class="btn btn-success btn-sm add-to-seen">Mark as Seen</button>
-        <button type="submit" class="btn btn-secondary btn-sm add-to-watchlist">Add to Watchlist</button>
+        <div class="should-post should-post-true">
+            <button type="submit" class="m-1 seen btn btn-secondary btn-sm havent-seen-it" value="${movie.id}">Mark as Seen</button>
+            <button type="submit" class="m-1 watch-list btn btn-secondary btn-sm remove-from-watchlist" value="${movie.id}">Add to Watchlist</button>
+        </div>
     `;
 
     container.appendChild(movieElement);
@@ -162,7 +213,7 @@ document.getElementById('search_input').addEventListener('keypress', (e) => {
 
 // Handle search button click
 search_button.addEventListener('click', async () => {
-    const search_query = document.getElementById('search_input').value.trim();
+    const search_query = document.getElementById('search_input').value;
 
     // Clear previous search results
     resultsDiv.innerHTML = '';
@@ -189,8 +240,8 @@ search_button.addEventListener('click', async () => {
 // Handle Popular button click
 document.querySelectorAll('.popular_button').forEach(button => {
     button.addEventListener('click', async () => {
-        const popular_page = button.value.trim();  // Get value from the clicked button
-
+        const popular_page = button.value;  // Get value from the clicked button
+        console.log('popular_page:', popular_page);
         // Clear previous search results
         resultsDiv.innerHTML = '';
 
@@ -209,22 +260,17 @@ document.querySelectorAll('.popular_button').forEach(button => {
             } catch (error) {
                 console.error("Error in fetching or processing search results:", error);
             }
-        } else {
-            alert('Please enter a search term.');
         }
     });
 });
 //handle post button click
 document.querySelectorAll('.post_movies').forEach(button => {
     button.addEventListener('click', async () => {
-        const movieID = button.value.trim();  // Get movie ID from the button's data attribute
+        const movieID = button.value;  // Get movie ID from the button's data attribute
         console.log('movieID:', movieID);
 
         try {
-            // Get movie details (assuming `postToMountainMovieDB` and `postCreditsToMountainMovieDB` are working functions)
-            // const movie = await fetchData(pop_url(movieID));  // Fetch the full movie object using the movieID (or adjust this to your needs)
-            // await postToMountainMovieDB(movie);
-            // await postCreditsToMountainMovieDB(movieID);
+           console.log("i want to make a popup here for movie details...");
         } catch (error) {
             console.error("Error in posting movie data:", error);
         }
@@ -232,23 +278,85 @@ document.querySelectorAll('.post_movies').forEach(button => {
 });
 
 resultsDiv.addEventListener('click', async (e) => {
-    // Find the closest parent button element if the image is clicked
-    const button = e.target.closest('.post_movies');
+    // Log the clicked element for debugging
+    console.log('Clicked element:', e.target);
 
-    if (button) {
-        const movieID = button.value.trim();  // Get movie ID from the button's value
-        console.log('movieID:', movieID);
+    // Check if the clicked element is a watchlist button
+    if (e.target.closest('.watch-list')) {
+        const button = e.target.closest('.watch-list');
+        const movieID = button.value;
+        console.log('Watchlist button clicked, movieID:', movieID);
 
-        try {
-            // Fetch movie details using the movie ID
-            const movie_details = await getMovieDetails(movieID);
-            console.log('Fetched movie details:', movie_details);
-            // const cast_crew = await getMovieCredits(movieID);
-            // Post data to MountainMovie DB
-            await postToMountainMovieDB(movie_details);
-            await postCreditsToMountainMovieDB(movieID);
-        } catch (error) {
-            console.error("Error in posting movie data:", error);
+        if (button) {
+            const parentDiv = button.closest('.should-post');
+            console.log('Parent div:', parentDiv);
+            if (parentDiv.classList.contains('should-post-true')) {
+                parentDiv.classList.remove('should-post-true');
+                parentDiv.classList.add('should-post-false');
+                try {
+                    await postMovieByID(movieID);
+                    await postCreditsToMountainMovieDB(movieID)
+                    console.log("posting");
+                }
+                catch (error) {
+                    console.error("Error in posting movie data:", error);
+                }
+            } else {
+                console.log("should not post");
+            }
+            // Toggle the class 'add-to-watchlist' and 'remove-from-watchlist'
+            if (button.classList.contains('remove-from-watchlist')) {
+                button.classList.remove('remove-from-watchlist');
+                button.classList.add('added-to-watchlist');
+                button.style.backgroundColor = 'green';
+                button.innerHTML = "Feature still in development"
+            } else {
+                button.classList.remove('added-to-watchlist');
+                button.classList.add('remove-from-watchlist');
+                button.innerHTML = "You need to wait for sprint 4"
+                button.style.backgroundColor = 'red';
+            }
         }
+        e.stopPropagation();
+    }
+    
+    // Check if the clicked element is a "Seen" button
+    else if (e.target.closest('.seen')) {
+        const button = e.target.closest('.seen');
+        const movieID = button.value;  // Get movie ID from the button's value
+        console.log('Seen button clicked, movieID:', movieID);
+        
+        if (button) {
+            const parentDiv = button.closest('.should-post');
+            console.log('Parent div:', parentDiv);
+            if (parentDiv.classList.contains('should-post-true')) {
+                parentDiv.classList.remove('should-post-true');
+                parentDiv.classList.remove('should-post-false');
+                console.log("posting");
+                try {
+                    await postMovieByID(movieID);
+                    await postCreditsToMountainMovieDB(movieID)
+                    console.log("posting");
+                }
+                catch (error) {
+                    console.error("Error in posting movie data:", error);
+                }
+            } else {
+                console.log("should not post");
+            }
+            // Toggle seen
+            if (button.classList.contains('havent-seen-it')) {
+                button.classList.remove('havent-seen-it');
+                button.classList.add('seen-it');
+                button.style.backgroundColor = 'green';
+                button.innerHTML = "Coming in Sprint 4"
+            } else {
+                button.classList.remove('seen-it');
+                button.classList.add('havent-seen-it');
+                button.innerHTML = "Chill I'll get to it"
+                button.style.backgroundColor = 'red';
+            }
+        }
+        e.stopPropagation();
     }
 });

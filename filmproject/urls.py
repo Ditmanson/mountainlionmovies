@@ -6,14 +6,8 @@ from rest_framework.routers import DefaultRouter
 from .views.api_views import *
 from .views.film_views import *
 from .views.profile_views import *
-from .views.api_views import *
-from .views.social_media_views import *
-from rest_framework.routers import DefaultRouter
-from django.urls import path
-from django.contrib.auth import views as auth_views
-from django.conf import settings
-from django.conf.urls.static import static
 from .views.rating_views import *
+from .views.social_media_views import *
 
 
 # Create a router and register all the viewsets
