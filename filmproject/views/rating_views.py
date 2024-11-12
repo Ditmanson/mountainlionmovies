@@ -108,7 +108,6 @@ def update_viewer_rating(viewer, film):
     total_a_points = film_a_data['total_a_points'] or 0
     count_a = film_a_data['count_a'] or 0
 
-    # Sum (1 - a_points) where the film is in film_b
     film_b_data = LT_Viewer_Ratings.objects.filter(viewer=viewer, film_b=film).aggregate(
         total_b_points=Sum(Case(
             When(a_points=1, then=0),
@@ -127,10 +126,7 @@ def update_viewer_rating(viewer, film):
     total_comparisons = count_a + count_b
 
     # Calculate and update viewer_rating
-    if total_comparisons > 0:
-        viewer_rating = total_points / total_comparisons
-    else:
-        viewer_rating = None  # or set to 0 if you prefer
+    viewer_rating = total_points / total_comparisons if total_comparisons > 0 else 0.5
 
     # Update the LT_Viewer_Seen entry with the new viewer_rating
     LT_Viewer_Seen.objects.filter(viewer=viewer, film=film).update(viewer_rating=viewer_rating)

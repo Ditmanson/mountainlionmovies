@@ -32,13 +32,9 @@
       <!-- Can't Decide Button -->
       <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
           <!-- First Icon: Can't Decide Button -->
-          <form method="POST" action="{% url 'compare_movies' %}">
-              {% csrf_token %}
-              <input type="hidden" name="selected_movie" value="can't_decide">
-              <button type="submit" class="transparent-button" style="background-color: transparent; border: none;">
-                  <img src="{% static 'images/cantDecidebutton.png' %}" style="height: 215px;" alt="Can't Decide">
-              </button>
-          </form>
+          <button id="cant-decide-button" class="transparent-button" style="background-color: transparent; border: none;">
+            <img src="{% static 'images/cantDecidebutton.png' %}" style="height: 215px;" alt="Can't Decide">
+          </button>
           <!-- Second Icon: More Info Button -->
           <button id="more-info-icon" class="btn" style="background-color: transparent; border: none;">
               <img style="height: 125px;" src="{% static 'images/moreinfo.png' %}">
@@ -52,12 +48,6 @@
         </button>
       </div>
     </div>
-
-    {% comment %} <div class="row justify-content-center mb-4">
-      <div class="col-md-2">
-        <button id="cant-decide-button" class="btn btn-warning">Can't Decide</button>
-      </div>
-    </div> {% endcomment %}
 
     <!-- More Info Section -->
     <div id="overview-section" style="display: none;">
