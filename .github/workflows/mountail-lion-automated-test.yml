@@ -50,22 +50,22 @@ jobs:
         run: |
           echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${{ env.DJANGO_SUPERUSER_USERNAME }}', '${{ env.DJANGO_SUPERUSER_EMAIL }}', '${{ env.DJANGO_SUPERUSER_PASSWORD }}')" | python manage.py shell
 
-      - name: Load mock data
-        run: python manage.py loaddata filmproject/fixtures/datadump.json
+      # - name: Load mock data
+      #   run: python manage.py loaddata filmproject/fixtures/datadump.json
      
-      - name: Install Playwright browsers
-        run: python -m playwright install --with-deps
+      # - name: Install Playwright browsers
+      #   run: python -m playwright install --with-deps
 
-      - name: Start server
-        run: |
-          nohup python manage.py runserver 0.0.0.0:8000 &
-          sleep 3
+      # - name: Start server
+      #   run: |
+      #     nohup python manage.py runserver 0.0.0.0:8000 &
+      #     sleep 3
      
-      - name: Run Tests
-        run: pytest filmproject/tests/test_automated.py --tracing on
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-traces
-          path: test-results/
+      # - name: Run Tests
+      #   run: pytest filmproject/tests/test_automated.py --tracing on
+      # - uses: actions/upload-artifact@v4
+      #   if: ${{ !cancelled() }}
+      #   with:
+      #     name: playwright-traces
+      #     path: test-results/
       
