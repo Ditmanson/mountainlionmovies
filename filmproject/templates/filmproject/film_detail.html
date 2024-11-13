@@ -65,7 +65,7 @@
 
 
     <div class="film-info-card col-md-4">
-        <p><strong><i class="fas fa-clock"></i> Runtime:</strong> {{ film.runtime|runtime_format }}</p>
+        <p><strong><i class="fas fa-clock"></i> Runtime:</strong> {{ film.runtime }}</p>
         <p><strong><i class="fas fa-star"></i> Mountain Lion Score:</strong> {{ film.mlm_rating }}</p>
         <p><strong><i class="fas fa-dollar-sign"></i> Revenue:</strong> ${{ film.revenue|intcomma }}</p>
         <p><strong><i class="fas fa-coins"></i> Budget:</strong> ${{ film.budget|intcomma }}</p>

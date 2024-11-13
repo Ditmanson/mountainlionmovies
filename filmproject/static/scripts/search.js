@@ -52,10 +52,12 @@ function createMovieElement(movie, container) {
         : 'https://images.unsplash.com/photo-1660922771242-c598e0808188?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c29ycnl8ZW58MHx8MHx8fDA%3D';
 
     movieElement.innerHTML = `
+        <a href="${window.location.origin}/films/${movie.id}/" class="film-link">
         <button class="post_movies" value="${movie.id}">
             <img src="${poster}" alt="${movie.title} Poster" class="film-poster">
         </button>
         <h5 class="film-title">${movie.title}</h5>
+    </a>
     `;
 
     // Only add the buttons if the user is not 'None'
@@ -188,13 +190,13 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.remove('remove-from-watchlist');
                 button.classList.add('added-to-watchlist');
                 button.style.backgroundColor = 'green';
-                button.innerHTML = "Feature still in development"
+                button.innerHTML = "Added to Watchlist"
                 console.log(user, movieID);
                 postToWatchlist(user, movieID);
             } else {
                 button.classList.remove('added-to-watchlist');
                 button.classList.add('remove-from-watchlist');
-                button.innerHTML = "You need to wait for sprint 4"
+                button.innerHTML = "Removed From Watchlist"
                 button.style.backgroundColor = 'red';
                 let watch_list= await getMMData('watchlist');
                 const remove_watchlist_items = watch_list.filter(item => item.viewer == user && item.film == movieID);
@@ -237,12 +239,12 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.remove('havent-seen-it');
                 button.classList.add('seen-it');
                 button.style.backgroundColor = 'green';
-                button.innerHTML = "Coming in Sprint 4"
+                button.innerHTML = "Added to Seen List"
                 postSeenMovie(user, movieID);
             } else {
                 button.classList.remove('seen-it');
                 button.classList.add('havent-seen-it');
-                button.innerHTML = "Chill I'll get to it"
+                button.innerHTML = "Removed from Seen List"
                 button.style.backgroundColor = 'red';
                 let seen_list= await getMMData('seen_films');
                 const filteredSeenFilms = seen_list.filter(seen => seen.viewer == user && seen.film == movieID);
