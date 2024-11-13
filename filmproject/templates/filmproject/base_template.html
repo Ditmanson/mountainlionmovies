@@ -52,25 +52,57 @@
 
         <!-- Right: Login/Profile Button, Notification Icon, and Dark Mode Toggle Switch -->
         <div class="d-flex align-items-center ms-auto">
+          <!-- Search Function -->
+          <div class="d-flex align-items-center">
+            <form method="GET" action="{% url 'search_results' %}" class="d-flex" role="search">
+              <div class="input-group">
+                <select name="filter" class="form-select-sm search-filter bg-secondary-subtle">
+                  <option value="all">All</option>
+                  <option value="viewer">Viewer</option>
+                  <option value="movie">Movie</option>
+                </select>
+                <input type="search" class="form-control" name="q" placeholder="Search..." aria-label="Search" required>
+                <button type="submit" class="btn btn-outline-warning me-2">Search</button>
+              </div>
+            </form>
+          </div>
+
           <!-- Profile icon -->
           <div style="color: black;" class="dropdown me-2">
-              <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% if user.is_authenticated %}
-                      <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
-                      <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
-                      <li>
-                          <form method="post" action="{% url 'logout' %}">
-                              {% csrf_token %}
-                              <button class="btn btn-outline-warning dropdown-item" type="submit">Logout</button>
-                          </form>
-                      </li>
-                  {% else %}
-                      <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
-                  {% endif %}
-              </ul>
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-warning dropdown-item" type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="{% static 'images/usericon1.png' %}" alt="Menu" height="50"/>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'feed_page' %}">Feed</a></li>
+                    <li>
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-warning dropdown-item" type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
           </div>
 
           <div class="d-flex align-items-center">
@@ -96,7 +128,6 @@
                 </li>
               </ul>
             </div>
-          </div>
           
         
 

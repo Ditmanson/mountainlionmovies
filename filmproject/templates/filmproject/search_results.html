@@ -1,0 +1,44 @@
+{% extends "filmproject/base_template.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="h1">Search Results for "{{ query }}"</h1><br>
+
+    {% if filter == 'all' or filter == 'viewer' %}
+        <h3>Viewers:</h3>
+        {% if viewer_results %}
+            {% for viewer in viewer_results %}
+            <a href="{{ viewer.get_absolute_url }}" style="text-decoration: none;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    {% if viewer.profile_picture %}
+                        <img src="{{ viewer.profile_picture.url }}" alt="Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px">
+                    {% else %}
+                        <img src="{% static 'images/default_pfp.jpg' %}" alt="Default Profile Picture" class="profile-picture img-fluid rounded-circle" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px">
+                    {% endif %}
+                    <h4 class="h4">{{ viewer.name }}</h4>
+                </div>
+            </a>
+            {% endfor %}
+        {% else %}
+            <h4 class="h5">No viewers found.</h4>
+        {% endif %}
+    {% endif %}
+    {% if filter == 'all' or filter == 'movie' %}
+        <h3>Movies:</h3>
+        {% if movie_results %}
+            {% for movie in movie_results %}
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <a href="{{ movie.get_absolute_url }}" class="text-decoration-none">
+                        <img src="https://image.tmdb.org/t/p/w1280/{{ movie.poster_path }}" alt="{{ movie.title }} Movie Poster" style="width: 100%;" />
+                        <h4 class="h4">{{ movie.title }}</h4>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4 class="h5">No viewers found.</h4>
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}
