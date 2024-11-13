@@ -30,3 +30,10 @@ from django.conf import settings
         #     print("Scheduler started successfully from apps.py.")
         # else:
         #     print("Scheduler already running. Skipping start.")
+
+class FilmprojectConfig(AppConfig):
+     default_auto_field = 'django.db.models.BigAutoField'
+     name = 'filmproject'
+
+     def ready(self):
+         import filmproject.signals  # Import signals to register them
