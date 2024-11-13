@@ -51,7 +51,7 @@ jobs:
           echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${{ env.DJANGO_SUPERUSER_USERNAME }}', '${{ env.DJANGO_SUPERUSER_EMAIL }}', '${{ env.DJANGO_SUPERUSER_PASSWORD }}')" | python manage.py shell
 
       - name: Load mock data
-        run: python manage.py loaddata filmproject/fixtures/datadump.json
+        run: python manage.py loaddata filmproject/fixtures/fixture.json
      
       - name: Run Tests
         run: pytest filmproject/tests/test_unit.py

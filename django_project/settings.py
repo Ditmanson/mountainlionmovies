@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'django_apscheduler',
-    'filmproject.apps.FilmprojectConfig',  # Custom app
+    'filmproject',  # Custom app
     'rest_framework',
 ]
 
