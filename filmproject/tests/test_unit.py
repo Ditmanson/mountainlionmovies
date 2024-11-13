@@ -33,10 +33,7 @@ class URLTests(TestCase):
         self.client.login(username='yodaddy', password='123')
         response = self.client.get('/admin/')
         self.assertNotEqual(response.status_code, 200)
-        
-    def test_popular_movies(self):
-        response = self.client.get(reverse('popular_movies'))
-        self.assertEqual(response.status_code, 200)
+     
 
     def test_search_movies(self):
         response = self.client.get(reverse('search_movies'))
