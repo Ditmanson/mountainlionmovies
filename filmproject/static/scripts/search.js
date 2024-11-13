@@ -1,17 +1,35 @@
 // Import only the necessary named exports
-import { search_url, pop_url, image_url, fetchData, movie_details_url, credits_url } from './fetch_tmdb_data.js';
-import { postData, getCsrfToken } from './post_mountainmovie_db.js';
+import { 
+    popular_movies, 
+    searched_movies, 
+    getMovieDetails,
+     image_url, 
+     fetchData, 
+     movie_details_url, 
+     credits_url } from './tmdb_data.js';
+     
+import { 
+    postData,
+    getCsrfToken,
+    postToWatchlist,
+    postMovieToMountainMovieDB,
+    postSeenMovie,
+    postCreditsToMountainMovieDB,
+    getMMData,
+    deleteData,
+ } from './mountainmovie_db.js';
 
 let search_input = document.getElementById('search_input');
 let search_button = document.getElementById('search_button');
 const resultsDiv = document.getElementById('results');
 let search_results = []
-let user = '1'
+let user = '';
 
 // Initialize the page with Pop1
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         user = document.getElementById('user').value;
+        console.log('user:', user);
         let pop_movies = await popular_movies();  // Fetch popular movies
         if (Array.isArray(pop_movies)) {
             pop_movies.forEach((movie) => {
@@ -25,161 +43,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Function to fetch popular movies
-const popular_movies = async (number = '1') => {
-    const data = await fetchData(pop_url(number));
-    console.log('Fetched popular movies:', data.results);
-    return data.results;
-};
-
-// Function to fetch searched movies
-const searched_movies = async (query) => {
-    const data = await fetchData(search_url(query));
-    console.log('Fetched searched movies:', data.results);
-    return data.results;
-};
-
-// Function to get Movie Details
-const getMovieDetails = async (movieID) => {
-    const data = await fetchData(movie_details_url(movieID));
-    console.log('Fetched movie details:', data);
-    return data;
-};
-
-// Function to get cast and crew
-const getMovieCredits = async (movieID) => {
-    const data = await fetchData(credits_url(movieID));
-    console.log('Fetched movie credits:', data);
-    return data;
-};
-
-// Function Post to MountainMovie DB
-const postToMountainMovieDB = async (movie) => {
-    const post = await postData({
-        id: movie.id,
-        adult: movie.adult,
-        backdrop_path: movie.backdrop_path,
-        belongs_to_collection: false,
-        budget: movie.budget || 0,
-        homepage: movie.homepage || '',
-        imdb_id: movie.imdb_id || '',
-        original_title: movie.original_title,
-        overview: movie.overview,
-        popularity: movie.popularity,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
-        revenue: movie.revenue || 0,
-        runtime: movie.runtime || 0,
-        status: movie.status || '',
-        tagline: movie.tagline || '',
-        title: movie.title,
-        tmdb_id: movie.id,
-        vote_average: movie.vote_average,
-        vote_count: movie.vote_count
-    }, 'films');
-    console.log('Posted to MountainMovie DB:', post);
-};
-
-// Function Post to MountainMovie DB
-const postMovieByID = async (movieID) => {
-    const movie = await fetchData(movie_details_url(movieID));
-    console.log('Fetched movie details:', movie);
-    const post = await postData({
-        id: movie.id,
-        adult: movie.adult,
-        backdrop_path: movie.backdrop_path,
-        belongs_to_collection: false,
-        budget: movie.budget || 0,
-        homepage: movie.homepage || '',
-        imdb_id: movie.imdb_id || '',
-        original_title: movie.original_title,
-        overview: movie.overview,
-        popularity: movie.popularity,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
-        revenue: movie.revenue || 0,
-        runtime: movie.runtime || 0,
-        status: movie.status || '',
-        tagline: movie.tagline || '',
-        title: movie.title,
-        tmdb_id: movie.id,
-        vote_average: movie.vote_average,
-        vote_count: movie.vote_count
-    }, 'films');
-    console.log('Posted to MountainMovie DB:', post);
-};
-
-// Function to post cast and crew
-const postCreditsToMountainMovieDB = async (movieID) => {
-    const creditResponse = await fetchData(credits_url(movieID));
-    console.log('Fetched movie credits:', creditResponse);
-    //cast
-    for (const cast of creditResponse.cast) {
-        console.log('Posting cast data:', cast);
-        await postData({
-            id: cast.id,
-            adult: cast.adult || false,
-            gender: cast.gender || 2,
-            tmdb_id: cast.id || 0,
-            known_for_department: 'acting',
-            name: cast.name || '',
-            popularity: cast.popularity || 0,
-            profile_path: cast.profile_path || '',
-        }, 'people');
-
-        await postData({
-            film: movieID,
-            person: cast.id,
-            cast_id: cast.cast_id,
-            character: cast.character,
-            credit_id: cast.credit_id,
-            order: cast.order,
-        }, 'film_cast');
-    }
-    //directors
-    for (const director of creditResponse.crew.filter(crewMember => crewMember.job === 'Director')) {
-        console.log('Posting director data:', director);
-        await postData({
-            id: director.id,
-            adult: director.adult || false,
-            gender: director.gender || 1,
-            tmdb_id: director.id || 0,
-            known_for_department: 'directing',
-            name: director.name || '',
-            popularity: director.popularity || 0,
-            profile_path: director.profile_path || '',
-        }, 'people');
-
-        await postData({
-            film: movieID,
-            person: director.id,
-            credit_id: director.credit_id,
-            department: director.department,
-            job: director.job,
-        }, 'film_crew');
-    }
-};
-
-// function to post seen_movie
-const postSeenMovie = async (movieID) => {
-    const post = await postData({
-        film: movieID,
-        seen_film: true,
-        viewer: user,
-        viewr_rating: .5
-    }, 'seen_movies');
-    console.log('Posted to MountainMovie DB:', post);
-}
-// function to post to watchlist
-const postToWatchlist = async (movieID) => {
-    const post = await postData({
-        film: movieID,
-        watchlist: true,
-        viewer: user
-    }, 'watchlist');
-    console.log('Posted to MountainMovie DB:', post);
-}
-
 function createMovieElement(movie, container) {
     const movieElement = document.createElement('div');
     movieElement.classList.add('col', 'film-item');
@@ -189,15 +52,30 @@ function createMovieElement(movie, container) {
         : 'https://images.unsplash.com/photo-1660922771242-c598e0808188?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c29ycnl8ZW58MHx8MHx8fDA%3D';
 
     movieElement.innerHTML = `
+        <a href="${window.location.origin}/films/${movie.id}/" class="film-link">
         <button class="post_movies" value="${movie.id}">
             <img src="${poster}" alt="${movie.title} Poster" class="film-poster">
         </button>
         <h5 class="film-title">${movie.title}</h5>
-        <div class="should-post should-post-true">
+    </a>
+    `;
+
+    // Only add the buttons if the user is not 'None'
+    if (user !== 'None') {
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.classList.add('should-post', 'should-post-true');
+        buttonsDiv.innerHTML = `
             <button type="submit" class="m-1 seen btn btn-secondary btn-sm havent-seen-it" value="${movie.id}">Mark as Seen</button>
             <button type="submit" class="m-1 watch-list btn btn-secondary btn-sm remove-from-watchlist" value="${movie.id}">Add to Watchlist</button>
-        </div>
-    `;
+        `;
+        movieElement.appendChild(buttonsDiv);
+    } else { //I didn't know what to do without buttons so tmdb rating is displayed
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.innerHTML = `
+        <p>TMDB Rating<br>${movie.vote_average}</p>
+        `;
+        movieElement.appendChild(buttonsDiv);
+    }
 
     container.appendChild(movieElement);
 }
@@ -285,6 +163,7 @@ resultsDiv.addEventListener('click', async (e) => {
     if (e.target.closest('.watch-list')) {
         const button = e.target.closest('.watch-list');
         const movieID = button.value;
+        const user = document.getElementById('user').value;
         console.log('Watchlist button clicked, movieID:', movieID);
 
         if (button) {
@@ -294,8 +173,10 @@ resultsDiv.addEventListener('click', async (e) => {
                 parentDiv.classList.remove('should-post-true');
                 parentDiv.classList.add('should-post-false');
                 try {
-                    await postMovieByID(movieID);
-                    await postCreditsToMountainMovieDB(movieID)
+                    const film = await getMovieDetails(movieID);
+                    const creditData = await fetchData(credits_url(movieID));
+                    await postMovieToMountainMovieDB(film);
+                    await postCreditsToMountainMovieDB(creditData);
                     console.log("posting");
                 }
                 catch (error) {
@@ -309,12 +190,19 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.remove('remove-from-watchlist');
                 button.classList.add('added-to-watchlist');
                 button.style.backgroundColor = 'green';
-                button.innerHTML = "Feature still in development"
+                button.innerHTML = "Added to Watchlist"
+                console.log(user, movieID);
+                postToWatchlist(user, movieID);
             } else {
                 button.classList.remove('added-to-watchlist');
                 button.classList.add('remove-from-watchlist');
-                button.innerHTML = "You need to wait for sprint 4"
+                button.innerHTML = "Removed From Watchlist"
                 button.style.backgroundColor = 'red';
+                let watch_list= await getMMData('watchlist');
+                const remove_watchlist_items = watch_list.filter(item => item.viewer == user && item.film == movieID);
+                for (const item of remove_watchlist_items) {
+                    deleteData(item.id, 'watchlist');
+                }
             }
         }
         e.stopPropagation();
@@ -334,8 +222,10 @@ resultsDiv.addEventListener('click', async (e) => {
                 parentDiv.classList.remove('should-post-false');
                 console.log("posting");
                 try {
-                    await postMovieByID(movieID);
-                    await postCreditsToMountainMovieDB(movieID)
+                    const film = await getMovieDetails(movieID);
+                    const creditsData= await fetchData(credits_url(movieID));
+                    await postMovieToMountainMovieDB(film);
+                    await postCreditsToMountainMovieDB(creditsData);
                     console.log("posting");
                 }
                 catch (error) {
@@ -349,12 +239,18 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.remove('havent-seen-it');
                 button.classList.add('seen-it');
                 button.style.backgroundColor = 'green';
-                button.innerHTML = "Coming in Sprint 4"
+                button.innerHTML = "Added to Seen List"
+                postSeenMovie(user, movieID);
             } else {
                 button.classList.remove('seen-it');
                 button.classList.add('havent-seen-it');
-                button.innerHTML = "Chill I'll get to it"
+                button.innerHTML = "Removed from Seen List"
                 button.style.backgroundColor = 'red';
+                let seen_list= await getMMData('seen_films');
+                const filteredSeenFilms = seen_list.filter(seen => seen.viewer == user && seen.film == movieID);
+                for (const item of filteredSeenFilms) {
+                    deleteData(item.id, 'seen_films');
+                }
             }
         }
         e.stopPropagation();

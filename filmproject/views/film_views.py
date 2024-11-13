@@ -157,11 +157,6 @@ def mark_as_seen(request, pk):
     return redirect('film-detail', pk=pk)
 
 
-def popular_movies(request):
-    return render( request, 'filmproject/popular_movies.html')
-
-
-
 @login_required
 def remove_from_seen(request, pk):
     film = get_object_or_404(Film, id=pk)
@@ -184,6 +179,5 @@ def remove_from_watchlist(request, pk):
         return redirect('film-detail', pk=pk)
     return redirect('film-detail', pk=pk)
 
-
 def search_movies(request):
-    return render( request, 'filmproject/search_movies.html',{'user': request.user.id})
+    return render( request, 'filmproject/search_movies.html')

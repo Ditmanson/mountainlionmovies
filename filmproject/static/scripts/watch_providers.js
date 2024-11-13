@@ -1,6 +1,6 @@
-import './fetch_tmdb_data.js';
-import './post_mountainmovie_db.js';
-import { watch_providers_url, fetchData } from './fetch_tmdb_data.js';
+import './tmdb_data.js';
+import './mountainmovie_db.js';
+import { watch_providers_url, fetchData } from './tmdb_data.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     let streaming_list = document.getElementById('streaming_info');
