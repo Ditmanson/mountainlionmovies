@@ -1,11 +1,12 @@
 {% extends 'filmproject/base_template.html' %}
-{% load static %} <!-- Load static files -->
+ <!-- Load static files -->
 {% block content %}
   <div class="container mt-5">
     <div id="top"></div>
     <h1>Search</h1>
     <div class="mb-3">
-      <input style="display: none;" id="user" value="${{ user }}" type="text" />
+      {% comment %} <h1>{{user.id}}</h1> {% endcomment %}
+      <input style="display: none;" id="user" value="{{ user.id }}" type="text" />
       <label for="search_input" class="form-label">Enter Search Query:</label>
       <input type="string" id="search_input" class="form-control" placeholder="string" />
     </div>
@@ -31,11 +32,6 @@
           <button value="5" class="page-link popular_button" href="#">5</button>
         </li>
       </ul>
-      {% comment %} <button value="1" class="popular_button btn btn-primary m-1">Pop1</button>
-      <button value="2" class="popular_button btn btn-primary m-1">Pop2</button>
-      <button value="3" class="popular_button btn btn-primary m-1">Pop3</button>
-      <button value="4" class="popular_button btn btn-primary m-1">Pop4</button>
-      <button value="5" class="popular_button btn btn-primary m-1">Pop5</button> {% endcomment %}
     </div>
   </div>
   <div class="container text-center">

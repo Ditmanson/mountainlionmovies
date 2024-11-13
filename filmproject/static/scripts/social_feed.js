@@ -1,4 +1,4 @@
-import { fetchData } from './fetch_tmdb_data.js';
+import { fetchData } from './tmdb_data.js';
 // static/scripts/social_feed.js
 
 

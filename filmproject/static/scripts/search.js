@@ -1,6 +1,21 @@
 // Import only the necessary named exports
-import { search_url, pop_url, image_url, fetchData, movie_details_url, credits_url } from './fetch_tmdb_data.js';
-import { postData, getCsrfToken } from './post_mountainmovie_db.js';
+import { 
+    popular_movies, 
+    searched_movies, 
+    getMovieDetails,
+     image_url, 
+     fetchData, 
+     movie_details_url, 
+     credits_url } from './tmdb_data.js';
+     
+import { 
+    postData,
+    getCsrfToken,
+    postToWatchlist,
+    postMovieToMountainMovieDB,
+    postSeenMovie,
+    postCreditsToMountainMovieDB
+ } from './mountainmovie_db.js';
 
 let search_input = document.getElementById('search_input');
 let search_button = document.getElementById('search_button');
@@ -12,6 +27,7 @@ let user = '1'
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         user = document.getElementById('user').value;
+        console.log('user:', user);
         let pop_movies = await popular_movies();  // Fetch popular movies
         if (Array.isArray(pop_movies)) {
             pop_movies.forEach((movie) => {
@@ -24,161 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Error in fetching or processing movies:", error);
     }
 });
-
-// Function to fetch popular movies
-const popular_movies = async (number = '1') => {
-    const data = await fetchData(pop_url(number));
-    console.log('Fetched popular movies:', data.results);
-    return data.results;
-};
-
-// Function to fetch searched movies
-const searched_movies = async (query) => {
-    const data = await fetchData(search_url(query));
-    console.log('Fetched searched movies:', data.results);
-    return data.results;
-};
-
-// Function to get Movie Details
-const getMovieDetails = async (movieID) => {
-    const data = await fetchData(movie_details_url(movieID));
-    console.log('Fetched movie details:', data);
-    return data;
-};
-
-// Function to get cast and crew
-const getMovieCredits = async (movieID) => {
-    const data = await fetchData(credits_url(movieID));
-    console.log('Fetched movie credits:', data);
-    return data;
-};
-
-// Function Post to MountainMovie DB
-const postToMountainMovieDB = async (movie) => {
-    const post = await postData({
-        id: movie.id,
-        adult: movie.adult,
-        backdrop_path: movie.backdrop_path,
-        belongs_to_collection: false,
-        budget: movie.budget || 0,
-        homepage: movie.homepage || '',
-        imdb_id: movie.imdb_id || '',
-        original_title: movie.original_title,
-        overview: movie.overview,
-        popularity: movie.popularity,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
-        revenue: movie.revenue || 0,
-        runtime: movie.runtime || 0,
-        status: movie.status || '',
-        tagline: movie.tagline || '',
-        title: movie.title,
-        tmdb_id: movie.id,
-        vote_average: movie.vote_average,
-        vote_count: movie.vote_count
-    }, 'films');
-    console.log('Posted to MountainMovie DB:', post);
-};
-
-// Function Post to MountainMovie DB
-const postMovieByID = async (movieID) => {
-    const movie = await fetchData(movie_details_url(movieID));
-    console.log('Fetched movie details:', movie);
-    const post = await postData({
-        id: movie.id,
-        adult: movie.adult,
-        backdrop_path: movie.backdrop_path,
-        belongs_to_collection: false,
-        budget: movie.budget || 0,
-        homepage: movie.homepage || '',
-        imdb_id: movie.imdb_id || '',
-        original_title: movie.original_title,
-        overview: movie.overview,
-        popularity: movie.popularity,
-        poster_path: movie.poster_path,
-        release_date: movie.release_date,
-        revenue: movie.revenue || 0,
-        runtime: movie.runtime || 0,
-        status: movie.status || '',
-        tagline: movie.tagline || '',
-        title: movie.title,
-        tmdb_id: movie.id,
-        vote_average: movie.vote_average,
-        vote_count: movie.vote_count
-    }, 'films');
-    console.log('Posted to MountainMovie DB:', post);
-};
-
-// Function to post cast and crew
-const postCreditsToMountainMovieDB = async (movieID) => {
-    const creditResponse = await fetchData(credits_url(movieID));
-    console.log('Fetched movie credits:', creditResponse);
-    //cast
-    for (const cast of creditResponse.cast) {
-        console.log('Posting cast data:', cast);
-        await postData({
-            id: cast.id,
-            adult: cast.adult || false,
-            gender: cast.gender || 2,
-            tmdb_id: cast.id || 0,
-            known_for_department: 'acting',
-            name: cast.name || '',
-            popularity: cast.popularity || 0,
-            profile_path: cast.profile_path || '',
-        }, 'people');
-
-        await postData({
-            film: movieID,
-            person: cast.id,
-            cast_id: cast.cast_id,
-            character: cast.character,
-            credit_id: cast.credit_id,
-            order: cast.order,
-        }, 'film_cast');
-    }
-    //directors
-    for (const director of creditResponse.crew.filter(crewMember => crewMember.job === 'Director')) {
-        console.log('Posting director data:', director);
-        await postData({
-            id: director.id,
-            adult: director.adult || false,
-            gender: director.gender || 1,
-            tmdb_id: director.id || 0,
-            known_for_department: 'directing',
-            name: director.name || '',
-            popularity: director.popularity || 0,
-            profile_path: director.profile_path || '',
-        }, 'people');
-
-        await postData({
-            film: movieID,
-            person: director.id,
-            credit_id: director.credit_id,
-            department: director.department,
-            job: director.job,
-        }, 'film_crew');
-    }
-};
-
-// function to post seen_movie
-const postSeenMovie = async (movieID) => {
-    const post = await postData({
-        film: movieID,
-        seen_film: true,
-        viewer: user,
-        viewr_rating: .5
-    }, 'seen_movies');
-    console.log('Posted to MountainMovie DB:', post);
-}
-// function to post to watchlist
-const postToWatchlist = async (movieID) => {
-    const post = await postData({
-        film: movieID,
-        watchlist: true,
-        viewer: user
-    }, 'watchlist');
-    console.log('Posted to MountainMovie DB:', post);
-}
 
 function createMovieElement(movie, container) {
     const movieElement = document.createElement('div');
@@ -285,6 +146,7 @@ resultsDiv.addEventListener('click', async (e) => {
     if (e.target.closest('.watch-list')) {
         const button = e.target.closest('.watch-list');
         const movieID = button.value;
+        const user = document.getElementById('user').value;
         console.log('Watchlist button clicked, movieID:', movieID);
 
         if (button) {
@@ -294,8 +156,10 @@ resultsDiv.addEventListener('click', async (e) => {
                 parentDiv.classList.remove('should-post-true');
                 parentDiv.classList.add('should-post-false');
                 try {
-                    await postMovieByID(movieID);
-                    await postCreditsToMountainMovieDB(movieID)
+                    const film = await getMovieDetails(movieID);
+                    const creditData = await fetchData(credits_url(movieID));
+                    await postMovieToMountainMovieDB(film);
+                    await postCreditsToMountainMovieDB(creditData);
                     console.log("posting");
                 }
                 catch (error) {
@@ -310,6 +174,8 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.add('added-to-watchlist');
                 button.style.backgroundColor = 'green';
                 button.innerHTML = "Feature still in development"
+                console.log(user, movieID);
+                postToWatchlist(user, movieID);
             } else {
                 button.classList.remove('added-to-watchlist');
                 button.classList.add('remove-from-watchlist');
@@ -334,8 +200,10 @@ resultsDiv.addEventListener('click', async (e) => {
                 parentDiv.classList.remove('should-post-false');
                 console.log("posting");
                 try {
-                    await postMovieByID(movieID);
-                    await postCreditsToMountainMovieDB(movieID)
+                    const film = await getMovieDetails(movieID);
+                    const creditsData= await fetchData(credits_url(movieID));
+                    await postMovieToMountainMovieDB(film);
+                    await postCreditsToMountainMovieDB(creditsData);
                     console.log("posting");
                 }
                 catch (error) {
@@ -350,6 +218,7 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.add('seen-it');
                 button.style.backgroundColor = 'green';
                 button.innerHTML = "Coming in Sprint 4"
+                postSeenMovie(user, movieID);
             } else {
                 button.classList.remove('seen-it');
                 button.classList.add('havent-seen-it');

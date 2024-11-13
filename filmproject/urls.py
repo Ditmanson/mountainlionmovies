@@ -71,7 +71,7 @@ urlpatterns = [
 
     # Movie search and popular movies
     path('search_movies/', search_movies, name='search_movies'),
-    path('popular_movies/', popular_movies, name='popular_movies'),
+    # path('popular_movies/', popular_movies, name='popular_movies'),
 
 
     # Viewer list
