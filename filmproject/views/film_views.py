@@ -179,6 +179,5 @@ def remove_from_watchlist(request, pk):
         return redirect('film-detail', pk=pk)
     return redirect('film-detail', pk=pk)
 
-@login_required
 def search_movies(request):
     return render( request, 'filmproject/search_movies.html')

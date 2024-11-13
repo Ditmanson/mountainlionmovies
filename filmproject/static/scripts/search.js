@@ -14,14 +14,16 @@ import {
     postToWatchlist,
     postMovieToMountainMovieDB,
     postSeenMovie,
-    postCreditsToMountainMovieDB
+    postCreditsToMountainMovieDB,
+    getMMData,
+    deleteData,
  } from './mountainmovie_db.js';
 
 let search_input = document.getElementById('search_input');
 let search_button = document.getElementById('search_button');
 const resultsDiv = document.getElementById('results');
 let search_results = []
-let user = '1'
+let user = '';
 
 // Initialize the page with Pop1
 document.addEventListener('DOMContentLoaded', async () => {
@@ -54,11 +56,24 @@ function createMovieElement(movie, container) {
             <img src="${poster}" alt="${movie.title} Poster" class="film-poster">
         </button>
         <h5 class="film-title">${movie.title}</h5>
-        <div class="should-post should-post-true">
+    `;
+
+    // Only add the buttons if the user is not 'None'
+    if (user !== 'None') {
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.classList.add('should-post', 'should-post-true');
+        buttonsDiv.innerHTML = `
             <button type="submit" class="m-1 seen btn btn-secondary btn-sm havent-seen-it" value="${movie.id}">Mark as Seen</button>
             <button type="submit" class="m-1 watch-list btn btn-secondary btn-sm remove-from-watchlist" value="${movie.id}">Add to Watchlist</button>
-        </div>
-    `;
+        `;
+        movieElement.appendChild(buttonsDiv);
+    } else { //I didn't know what to do without buttons so tmdb rating is displayed
+    const buttonsDiv = document.createElement('div');
+    buttonsDiv.innerHTML = `
+        <p>TMDB Rating<br>${movie.vote_average}</p>
+        `;
+        movieElement.appendChild(buttonsDiv);
+    }
 
     container.appendChild(movieElement);
 }
@@ -181,6 +196,11 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.add('remove-from-watchlist');
                 button.innerHTML = "You need to wait for sprint 4"
                 button.style.backgroundColor = 'red';
+                let watch_list= await getMMData('watchlist');
+                const remove_watchlist_items = watch_list.filter(item => item.viewer == user && item.film == movieID);
+                for (const item of remove_watchlist_items) {
+                    deleteData(item.id, 'watchlist');
+                }
             }
         }
         e.stopPropagation();
@@ -224,6 +244,11 @@ resultsDiv.addEventListener('click', async (e) => {
                 button.classList.add('havent-seen-it');
                 button.innerHTML = "Chill I'll get to it"
                 button.style.backgroundColor = 'red';
+                let seen_list= await getMMData('seen_films');
+                const filteredSeenFilms = seen_list.filter(seen => seen.viewer == user && seen.film == movieID);
+                for (const item of filteredSeenFilms) {
+                    deleteData(item.id, 'seen_films');
+                }
             }
         }
         e.stopPropagation();

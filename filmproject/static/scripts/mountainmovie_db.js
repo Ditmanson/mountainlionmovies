@@ -3,29 +3,95 @@ export const getCsrfToken = () => {
     return cookieValue ? cookieValue.split('=')[1] : '';
 };
 
-const options = (requestType, object) => ({
-    method: requestType,
+export const apiEndpoint = (object) => {
+    return `${window.location.origin}/api/${object}/`;
+};
+
+
+const getOptions = {
+    method: 'GET',
     headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCsrfToken(),
-    },
-    body: requestType !== 'GET' ? JSON.stringify(object) : null, 
-});
+        accept: 'application/json',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken(),
+        }
+    }
+};
 
+export const deleteData = async (id, apiObject) => {
+    console.log(`deleteData called for ${id} in ${apiObject}`);
+    const apiEndpoint = `${window.location.origin}/api/${apiObject}/${id}/`;  // Assuming the id is part of the URL
 
-export const postData = async (object, apiObject) => {
-    console.log('postData called with:', object, apiObject);
-    const apiEndpoint = `${window.location.origin}/api/${apiObject}/`;
-    // Log the API endpoint and the data being sent
-    console.log(`Posting data to ${apiEndpoint}:`, object);
+    // Log the API endpoint for the DELETE request
+    console.log(`Deleting data from ${apiEndpoint}:`, { id });
+
     try {
-        const response = await fetch(apiEndpoint, options('POST', object));  
+        const response = await fetch(apiEndpoint, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken(),
+            },
+        });
+
         if (!response.ok) {
             const errorData = await response.json();
             // Log the error response if the request fails
             console.error(`Error response from ${apiEndpoint}:`, errorData);
             throw new Error(`Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
         }
+
+        // Log success message if the data was successfully deleted
+        console.log(`Data with ID ${id} successfully deleted.`);
+    } catch (error) {
+        // Log any other errors that occur
+        console.error(`Error deleting data with ID ${id}:`, error);
+    }
+};
+
+
+
+export const getMMData = async (table) => {
+    try {
+        console.log(`Fetching data from: ${table}`);
+        const url = apiEndpoint(table);
+        const response = await window.fetch(url, getOptions);  
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        return data;
+    } catch (err) {
+        console.error('Error fetching data:', err);
+    }
+}
+
+export const postData = async (object, apiObject) => {
+    console.log('postData called with:', object, apiObject);
+    const apiEndpoint = `${window.location.origin}/api/${apiObject}/`;
+
+    // Log the API endpoint and the data being sent
+    console.log(`Posting data to ${apiEndpoint}:`, object);
+
+    try {
+        const response = await fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrfToken(),
+            },
+            body: JSON.stringify(object),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            // Log the error response if the request fails
+            console.error(`Error response from ${apiEndpoint}:`, errorData);
+            throw new Error(`Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
+        }
+
         const result = await response.json();
         // Log success message and result
         console.log(`${object} data posted successfully:`, result);
@@ -114,23 +180,28 @@ export const postCreditsToMountainMovieDB = async (creditResponse) => {
 
 // function to post seen_movie
 export const postSeenMovie = async (user, movieID) => {
-    const post = await postData({
+    const customID = Number(`${user}${movieID}`);
+    await postData({
+        id: customID,
         film: movieID,
         seen_film: true,
         viewer: user,
         viewr_rating: .5
-    }, 'seen_movies');
-    console.log('Posted to MountainMovie DB:', post);
+    }, 'seen_films');
+    console.log('Posted to MountainMovie DB:');
 }
 
 // function to post to watchlist
 export const postToWatchlist = async (user, movieID) => {
-    const post = await postData({
+    const customID = Number(`${user}${movieID}`);
+
+    await postData({
+        id: customID,
         film: movieID,
         watchlist: true,
         viewer: user
     }, 'watchlist');
-    console.log('Posted to MountainMovie DB:', post);
+    console.log('Posted to MountainMovie DB:');
 }
 
 // export const getSeenMoviesByViewer = async (user) => {
