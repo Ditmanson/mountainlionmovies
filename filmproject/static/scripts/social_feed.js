@@ -1,6 +1,7 @@
 import { fetchData } from './tmdb_data.js';
 // static/scripts/social_feed.js
 
+console.log("Script loaded successfully.");
 
 const options = {
     method: 'GET',
@@ -8,10 +9,12 @@ const options = {
       accept: 'application/json',
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYWEzNmRhMWI5ZmU4ZTEzMmQxZWNhM2MwZDcwYTI4YyIsIm5iZiI6MTcyODY2NjUyMi4xNDkxNjMsInN1YiI6IjY3MDU5ODE3ZjRiOTE5ZjgzOTc3OGI3ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._nORPBk_Vz0YNM_Rav4nMW5_x2d92IbmXaXjNy_ObEc'
     }
-  };
+};
+console.log("Options set:", options);
 
-  // Debounce function to limit the rate at which fetchFeed is called
+// Debounce function to limit the rate at which fetchFeed is called
 function debounce(func, delay) {
+    console.log("Initializing debounce function with delay:", delay);
     let timeout;
     return function(...args) {
         clearTimeout(timeout);
@@ -20,24 +23,34 @@ function debounce(func, delay) {
 }
 
 let currentPage = 1; // Track the current page of posts
+console.log("Initial page set to:", currentPage);
 
 // Modify fetchFeed to accept a page parameter
 async function fetchFeed(page = 1) {
+    console.log(`Fetching feed for page ${page}...`);
     try {
         const response = await fetch(`/feed_entries/?page=${page}`);
         const feedEntries = await response.json();
+        console.log("Fetched feed entries:", feedEntries);
 
         const feedContainer = document.getElementById('feed-container');
+        if (!feedContainer) {
+            console.error("Feed container not found in the DOM.");
+            return;
+        }
 
         // Only clear previous entries if it's the first page
         if (page === 1) {
+            console.log("Clearing previous entries for initial load.");
             feedContainer.innerHTML = ''; // Clear previous entries on initial load
         }
 
         // Process each entry
         for (const entry of feedEntries) {
+            console.log("Processing entry:", entry);
             const tmdbUrl = `https://api.themoviedb.org/3/movie/${entry.movie.tmdb_id}`;
             const tmdbData = await fetchData(tmdbUrl, options);
+            console.log("Fetched TMDb data:", tmdbData);
 
             // Render feed item with TMDb details
             const feedItem = document.createElement('div');
@@ -64,10 +77,12 @@ async function fetchFeed(page = 1) {
               </div>
             `;
             feedContainer.appendChild(feedItem);
+            console.log("Feed item added to container.");
         }
 
         // Increment currentPage for the next batch
         currentPage += 1;
+        console.log("Page incremented to:", currentPage);
     } catch (error) {
         console.error("Error fetching feed:", error);
     }
@@ -76,6 +91,10 @@ async function fetchFeed(page = 1) {
 // Check if the user has scrolled to the bottom of the feed container
 function checkScrollAndLoadMore() {
     const feedContainer = document.getElementById('feed-container');
+    if (!feedContainer) {
+        console.error("Feed container not found in the DOM.");
+        return;
+    }
     const feedContainerBottom = feedContainer.getBoundingClientRect().bottom;
     const windowBottom = window.innerHeight;
 
@@ -88,11 +107,12 @@ function checkScrollAndLoadMore() {
 
 // Attach the scroll event listener to window with a debounce function
 window.addEventListener('scroll', debounce(checkScrollAndLoadMore, 300));
-
+console.log("Scroll event listener attached.");
 
 
 // Function to get CSRF token from the cookie
 function getCookie(name) {
+    console.log("Getting CSRF token from cookies...");
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
@@ -104,11 +124,14 @@ function getCookie(name) {
             }
         }
     }
+    console.log("CSRF token retrieved:", cookieValue);
     return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
+
 // Function to handle "Like" functionality
 window.likeEntry = function (entryId) {
+    console.log(`Liking entry ${entryId}...`);
     fetch(`/like_entry/${entryId}/`, {
         method: 'POST',
         headers: {
@@ -120,6 +143,7 @@ window.likeEntry = function (entryId) {
     .then(data => {
         if (data.success) {
             document.getElementById(`like-count-${entryId}`).innerText = `${data.likes} Likes`;
+            console.log(`Entry ${entryId} liked successfully. Updated like count: ${data.likes}`);
         }
     })
     .catch(error => console.error("Error liking entry:", error));
@@ -127,6 +151,7 @@ window.likeEntry = function (entryId) {
 
 // Function to handle "Comment" functionality
 window.commentEntry = function (entryId, input) {
+    console.log(`Commenting on entry ${entryId} with content:`, input.value);
     fetch(`/comment_entry/${entryId}/`, {
         method: 'POST',
         headers: {
@@ -143,6 +168,7 @@ window.commentEntry = function (entryId, input) {
             newComment.innerHTML = `<strong>${data.user}:</strong> ${data.content}`;
             commentsDiv.appendChild(newComment);
             input.value = '';  // Clear the input box
+            console.log(`Comment added to entry ${entryId}:`, data.content);
         }
     })
     .catch(error => console.error("Error commenting on entry:", error));
@@ -150,8 +176,10 @@ window.commentEntry = function (entryId, input) {
 
 // Initial load of the first page
 fetchFeed(currentPage);
+console.log("Initial feed fetch called.");
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed.");
     const feedContainer = document.getElementById('feed-container');
 
     // If feedContainer is null, log an error
@@ -162,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Debounced function to fetch feed only when user scrolls to the top
     const debouncedFetchFeed = debounce(() => {
-        console.log("Scroll event detected"); // Check if this logs on scroll
+        console.log("Scroll event detected in feed container.");
 
         if (feedContainer.scrollTop === 0) {
             console.log("User scrolled to the top. Refreshing feed...");
@@ -172,11 +200,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Attach the scroll event listener to the feed container
     feedContainer.addEventListener('scroll', debouncedFetchFeed);
+    console.log("Scroll event listener attached to feed container.");
 });
-
-feedContainer.addEventListener('scroll', debouncedFetchFeed);
-
-// Attach the debounced scroll event listener to the feed container
-const feedContainer = document.getElementById('feed-container');
-
-
