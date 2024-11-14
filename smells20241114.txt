@@ -1,0 +1,785 @@
+./django_project/settings.py:9:80: E501 line too long (111 > 79 characters)
+./django_project/settings.py:95:80: E501 line too long (89 > 79 characters)
+./django_project/settings.py:97:80: E501 line too long (80 > 79 characters)
+./django_project/settings.py:98:80: E501 line too long (81 > 79 characters)
+./django_project/settings.py:150:2: W292 no newline at end of file
+./filmproject/admin.py:2:80: E501 line too long (348 > 79 characters)
+./filmproject/apps.py:2:1: F401 'django.conf.settings' imported but unused
+./filmproject/apps.py:15:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:16:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:17:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:18:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:19:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:20:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:20:80: E501 line too long (81 > 79 characters)
+./filmproject/apps.py:21:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:21:80: E501 line too long (81 > 79 characters)
+./filmproject/apps.py:22:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:23:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:24:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:26:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:27:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:28:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:28:80: E501 line too long (85 > 79 characters)
+./filmproject/apps.py:29:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:30:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:31:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:32:9: E116 unexpected indentation (comment)
+./filmproject/apps.py:34:1: E302 expected 2 blank lines, found 1
+./filmproject/apps.py:35:6: E111 indentation is not a multiple of 4
+./filmproject/apps.py:35:6: E117 over-indented
+./filmproject/apps.py:36:6: E111 indentation is not a multiple of 4
+./filmproject/apps.py:38:6: E111 indentation is not a multiple of 4
+./filmproject/apps.py:39:10: F401 'filmproject.signals' imported but unused
+./filmproject/apps.py:39:10: E111 indentation is not a multiple of 4
+./filmproject/apps.py:39:71: W292 no newline at end of file
+./filmproject/ar.py:4:80: E501 line too long (96 > 79 characters)
+./filmproject/ar.py:8:1: E303 too many blank lines (3)
+./filmproject/ar.py:9:1: E302 expected 2 blank lines, found 3
+./filmproject/ar.py:14:1: E302 expected 2 blank lines, found 1
+./filmproject/ar.py:17:80: E501 line too long (89 > 79 characters)
+./filmproject/ar.py:19:80: E501 line too long (87 > 79 characters)
+./filmproject/ar.py:21:1: W293 blank line contains whitespace
+./filmproject/ar.py:25:1: W293 blank line contains whitespace
+./filmproject/ar.py:30:1: W293 blank line contains whitespace
+./filmproject/ar.py:35:1: W293 blank line contains whitespace
+./filmproject/ar.py:44:1: E302 expected 2 blank lines, found 0
+./filmproject/ar.py:47:18: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:47:20: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:48:26: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:48:28: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:48:80: E501 line too long (94 > 79 characters)
+./filmproject/ar.py:49:34: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:49:36: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:50:19: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:50:21: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:51:21: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:51:23: E251 unexpected spaces around keyword / parameter equals
+./filmproject/ar.py:54:80: E501 line too long (193 > 79 characters)
+./filmproject/ar.py:56:80: E501 line too long (90 > 79 characters)
+./filmproject/ar.py:69:80: E501 line too long (111 > 79 characters)
+./filmproject/ar.py:75:80: E501 line too long (212 > 79 characters)
+./filmproject/ar.py:77:80: E501 line too long (109 > 79 characters)
+./filmproject/ar.py:115:1: E302 expected 2 blank lines, found 1
+./filmproject/ar.py:127:1: E302 expected 2 blank lines, found 1
+./filmproject/ar.py:139:1: E302 expected 2 blank lines, found 1
+./filmproject/ar.py:145:5: E301 expected 1 blank line, found 0
+./filmproject/ar.py:149:1: W293 blank line contains whitespace
+./filmproject/ar.py:150:1: E302 expected 2 blank lines, found 1
+./filmproject/ar.py:169:80: E501 line too long (97 > 79 characters)
+./filmproject/ar.py:171:1: W293 blank line contains whitespace
+./filmproject/ar.py:172:1: E302 expected 2 blank lines, found 1
+./filmproject/ar.py:184:80: E501 line too long (97 > 79 characters)
+./filmproject/ar.py:185:80: E501 line too long (108 > 79 characters)
+./filmproject/ar.py:194:5: E301 expected 1 blank line, found 0
+./filmproject/ar.py:197:63: W292 no newline at end of file
+./filmproject/cron_jobs.py:4:1: F401 'datetime.timedelta' imported but unused
+./filmproject/cron_jobs.py:6:1: F401 'django.db.models.Q' imported but unused
+./filmproject/cron_jobs.py:7:1: F401 'django.utils.timezone' imported but unused
+./filmproject/cron_jobs.py:8:80: E501 line too long (107 > 79 characters)
+./filmproject/cron_jobs.py:16:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:20:80: E501 line too long (129 > 79 characters)
+./filmproject/cron_jobs.py:21:80: E501 line too long (145 > 79 characters)
+./filmproject/cron_jobs.py:22:80: E501 line too long (133 > 79 characters)
+./filmproject/cron_jobs.py:32:80: E501 line too long (80 > 79 characters)
+./filmproject/cron_jobs.py:33:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:36:80: E501 line too long (174 > 79 characters)
+./filmproject/cron_jobs.py:36:122: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:37:80: E501 line too long (87 > 79 characters)
+./filmproject/cron_jobs.py:39:80: E501 line too long (83 > 79 characters)
+./filmproject/cron_jobs.py:41:70: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:41:80: E501 line too long (108 > 79 characters)
+./filmproject/cron_jobs.py:43:35: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:46:75: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:46:80: E501 line too long (139 > 79 characters)
+./filmproject/cron_jobs.py:48:80: E501 line too long (105 > 79 characters)
+./filmproject/cron_jobs.py:49:80: E501 line too long (101 > 79 characters)
+./filmproject/cron_jobs.py:50:35: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:50:80: E501 line too long (83 > 79 characters)
+./filmproject/cron_jobs.py:51:80: E501 line too long (103 > 79 characters)
+./filmproject/cron_jobs.py:52:80: E501 line too long (96 > 79 characters)
+./filmproject/cron_jobs.py:56:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:66:80: E501 line too long (124 > 79 characters)
+./filmproject/cron_jobs.py:67:80: E501 line too long (124 > 79 characters)
+./filmproject/cron_jobs.py:77:39: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:77:80: E501 line too long (80 > 79 characters)
+./filmproject/cron_jobs.py:92:80: E501 line too long (218 > 79 characters)
+./filmproject/cron_jobs.py:92:163: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:93:80: E501 line too long (118 > 79 characters)
+./filmproject/cron_jobs.py:96:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:99:80: E501 line too long (140 > 79 characters)
+./filmproject/cron_jobs.py:99:97: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:101:80: E501 line too long (179 > 79 characters)
+./filmproject/cron_jobs.py:101:150: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:104:80: E501 line too long (179 > 79 characters)
+./filmproject/cron_jobs.py:104:150: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:107:59: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:107:80: E501 line too long (105 > 79 characters)
+./filmproject/cron_jobs.py:109:80: E501 line too long (92 > 79 characters)
+./filmproject/cron_jobs.py:110:80: E501 line too long (164 > 79 characters)
+./filmproject/cron_jobs.py:110:104: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:111:80: E501 line too long (104 > 79 characters)
+./filmproject/cron_jobs.py:114:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:115:35: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:115:80: E501 line too long (133 > 79 characters)
+./filmproject/cron_jobs.py:117:80: E501 line too long (228 > 79 characters)
+./filmproject/cron_jobs.py:117:171: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:118:47: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:118:80: E501 line too long (88 > 79 characters)
+./filmproject/cron_jobs.py:123:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:125:36: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:125:80: E501 line too long (125 > 79 characters)
+./filmproject/cron_jobs.py:126:36: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:126:80: E501 line too long (113 > 79 characters)
+./filmproject/cron_jobs.py:127:28: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:130:1: E302 expected 2 blank lines, found 1
+./filmproject/cron_jobs.py:133:1: E305 expected 2 blank lines after class or function definition, found 1
+./filmproject/cron_jobs.py:134:80: E501 line too long (133 > 79 characters)
+./filmproject/cron_jobs.py:134:122: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:135:80: E501 line too long (149 > 79 characters)
+./filmproject/cron_jobs.py:135:138: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:136:80: E501 line too long (147 > 79 characters)
+./filmproject/cron_jobs.py:136:126: E261 at least two spaces before inline comment
+./filmproject/cron_jobs.py:137:31: E261 at least two spaces before inline comment
+./filmproject/forms.py:6:1: E302 expected 2 blank lines, found 1
+./filmproject/forms.py:12:80: E501 line too long (83 > 79 characters)
+./filmproject/forms.py:21:80: E501 line too long (120 > 79 characters)
+./filmproject/management/commands/generate_db_diagram.py:9:39: W292 no newline at end of file
+./filmproject/management/commands/update_mlm_ratings.py:4:1: E302 expected 2 blank lines, found 1
+./filmproject/management/commands/update_mlm_ratings.py:6:5: E301 expected 1 blank line, found 0
+./filmproject/management/commands/update_mlm_ratings.py:10:71: W292 no newline at end of file
+./filmproject/migrations/0001_initial.py:21:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:24:80: E501 line too long (89 > 79 characters)
+./filmproject/migrations/0001_initial.py:25:80: E501 line too long (91 > 79 characters)
+./filmproject/migrations/0001_initial.py:31:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:39:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:47:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:49:80: E501 line too long (91 > 79 characters)
+./filmproject/migrations/0001_initial.py:52:80: E501 line too long (86 > 79 characters)
+./filmproject/migrations/0001_initial.py:53:80: E501 line too long (84 > 79 characters)
+./filmproject/migrations/0001_initial.py:55:80: E501 line too long (87 > 79 characters)
+./filmproject/migrations/0001_initial.py:56:80: E501 line too long (85 > 79 characters)
+./filmproject/migrations/0001_initial.py:57:80: E501 line too long (89 > 79 characters)
+./filmproject/migrations/0001_initial.py:61:80: E501 line too long (84 > 79 characters)
+./filmproject/migrations/0001_initial.py:62:80: E501 line too long (85 > 79 characters)
+./filmproject/migrations/0001_initial.py:65:80: E501 line too long (109 > 79 characters)
+./filmproject/migrations/0001_initial.py:67:80: E501 line too long (96 > 79 characters)
+./filmproject/migrations/0001_initial.py:73:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:81:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:89:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:90:80: E501 line too long (81 > 79 characters)
+./filmproject/migrations/0001_initial.py:97:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:101:80: E501 line too long (98 > 79 characters)
+./filmproject/migrations/0001_initial.py:102:80: E501 line too long (82 > 79 characters)
+./filmproject/migrations/0001_initial.py:103:80: E501 line too long (108 > 79 characters)
+./filmproject/migrations/0001_initial.py:104:80: E501 line too long (90 > 79 characters)
+./filmproject/migrations/0001_initial.py:110:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:113:80: E501 line too long (118 > 79 characters)
+./filmproject/migrations/0001_initial.py:114:80: E501 line too long (113 > 79 characters)
+./filmproject/migrations/0001_initial.py:120:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:123:80: E501 line too long (118 > 79 characters)
+./filmproject/migrations/0001_initial.py:124:80: E501 line too long (148 > 79 characters)
+./filmproject/migrations/0001_initial.py:130:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:131:80: E501 line too long (145 > 79 characters)
+./filmproject/migrations/0001_initial.py:132:80: E501 line too long (118 > 79 characters)
+./filmproject/migrations/0001_initial.py:138:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:139:80: E501 line too long (121 > 79 characters)
+./filmproject/migrations/0001_initial.py:140:80: E501 line too long (115 > 79 characters)
+./filmproject/migrations/0001_initial.py:146:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:147:80: E501 line too long (121 > 79 characters)
+./filmproject/migrations/0001_initial.py:148:80: E501 line too long (115 > 79 characters)
+./filmproject/migrations/0001_initial.py:154:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:155:80: E501 line too long (115 > 79 characters)
+./filmproject/migrations/0001_initial.py:156:80: E501 line too long (123 > 79 characters)
+./filmproject/migrations/0001_initial.py:162:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:163:80: E501 line too long (123 > 79 characters)
+./filmproject/migrations/0001_initial.py:166:80: E501 line too long (123 > 79 characters)
+./filmproject/migrations/0001_initial.py:167:80: E501 line too long (148 > 79 characters)
+./filmproject/migrations/0001_initial.py:173:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:177:80: E501 line too long (126 > 79 characters)
+./filmproject/migrations/0001_initial.py:178:80: E501 line too long (130 > 79 characters)
+./filmproject/migrations/0001_initial.py:184:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:189:80: E501 line too long (126 > 79 characters)
+./filmproject/migrations/0001_initial.py:190:80: E501 line too long (130 > 79 characters)
+./filmproject/migrations/0001_initial.py:196:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:199:80: E501 line too long (153 > 79 characters)
+./filmproject/migrations/0001_initial.py:200:80: E501 line too long (89 > 79 characters)
+./filmproject/migrations/0001_initial.py:201:80: E501 line too long (124 > 79 characters)
+./filmproject/migrations/0001_initial.py:207:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:208:80: E501 line too long (165 > 79 characters)
+./filmproject/migrations/0001_initial.py:212:80: E501 line too long (152 > 79 characters)
+./filmproject/migrations/0001_initial.py:213:80: E501 line too long (146 > 79 characters)
+./filmproject/migrations/0001_initial.py:219:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:220:80: E501 line too long (115 > 79 characters)
+./filmproject/migrations/0001_initial.py:221:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:230:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:231:80: E501 line too long (115 > 79 characters)
+./filmproject/migrations/0001_initial.py:232:80: E501 line too long (121 > 79 characters)
+./filmproject/migrations/0001_initial.py:241:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:243:80: E501 line too long (115 > 79 characters)
+./filmproject/migrations/0001_initial.py:244:80: E501 line too long (119 > 79 characters)
+./filmproject/migrations/0001_initial.py:247:80: E501 line too long (108 > 79 characters)
+./filmproject/migrations/0001_initial.py:253:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:255:80: E501 line too long (111 > 79 characters)
+./filmproject/migrations/0001_initial.py:256:80: E501 line too long (126 > 79 characters)
+./filmproject/migrations/0001_initial.py:257:80: E501 line too long (130 > 79 characters)
+./filmproject/migrations/0001_initial.py:266:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:267:80: E501 line too long (83 > 79 characters)
+./filmproject/migrations/0001_initial.py:268:80: E501 line too long (104 > 79 characters)
+./filmproject/migrations/0001_initial.py:269:80: E501 line too long (104 > 79 characters)
+./filmproject/migrations/0001_initial.py:270:80: E501 line too long (151 > 79 characters)
+./filmproject/migrations/0001_initial.py:271:80: E501 line too long (151 > 79 characters)
+./filmproject/migrations/0001_initial.py:272:80: E501 line too long (130 > 79 characters)
+./filmproject/migrations/0001_initial.py:281:80: E501 line too long (117 > 79 characters)
+./filmproject/migrations/0001_initial.py:282:80: E501 line too long (102 > 79 characters)
+./filmproject/migrations/0001_initial.py:283:80: E501 line too long (146 > 79 characters)
+./filmproject/migrations/0001_initial.py:284:80: E501 line too long (146 > 79 characters)
+./filmproject/models.py:4:1: F401 'django.db.models.Sum' imported but unused
+./filmproject/models.py:4:1: F401 'django.db.models.Count' imported but unused
+./filmproject/models.py:7:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:12:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:15:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:18:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:21:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:24:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:27:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:45:80: E501 line too long (93 > 79 characters)
+./filmproject/models.py:47:80: E501 line too long (80 > 79 characters)
+./filmproject/models.py:48:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:50:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:53:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:56:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:58:1: W293 blank line contains whitespace
+./filmproject/models.py:59:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:62:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:65:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:68:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:71:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:75:80: E501 line too long (82 > 79 characters)
+./filmproject/models.py:77:54: E231 missing whitespace after ','
+./filmproject/models.py:77:80: E501 line too long (91 > 79 characters)
+./filmproject/models.py:79:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:81:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:84:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:88:80: E501 line too long (158 > 79 characters)
+./filmproject/models.py:90:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:91:80: E501 line too long (93 > 79 characters)
+./filmproject/models.py:92:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:93:80: E501 line too long (98 > 79 characters)
+./filmproject/models.py:93:99: W291 trailing whitespace
+./filmproject/models.py:94:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:96:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:98:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:98:34: E261 at least two spaces before inline comment
+./filmproject/models.py:102:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:102:37: E261 at least two spaces before inline comment
+./filmproject/models.py:106:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:106:39: E261 at least two spaces before inline comment
+./filmproject/models.py:106:80: E501 line too long (91 > 79 characters)
+./filmproject/models.py:109:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:117:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:121:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:125:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:132:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:135:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:138:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:141:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:143:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:146:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:150:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:151:80: E501 line too long (94 > 79 characters)
+./filmproject/models.py:152:80: E501 line too long (94 > 79 characters)
+./filmproject/models.py:153:80: E501 line too long (86 > 79 characters)
+./filmproject/models.py:154:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:157:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:159:80: E501 line too long (99 > 79 characters)
+./filmproject/models.py:160:80: E501 line too long (99 > 79 characters)
+./filmproject/models.py:162:80: E501 line too long (88 > 79 characters)
+./filmproject/models.py:163:80: E501 line too long (88 > 79 characters)
+./filmproject/models.py:164:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:167:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:171:80: E501 line too long (99 > 79 characters)
+./filmproject/models.py:171:80: E251 unexpected spaces around keyword / parameter equals
+./filmproject/models.py:171:82: E251 unexpected spaces around keyword / parameter equals
+./filmproject/models.py:171:92: E251 unexpected spaces around keyword / parameter equals
+./filmproject/models.py:171:94: E251 unexpected spaces around keyword / parameter equals
+./filmproject/models.py:172:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:175:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:179:5: E301 expected 1 blank line, found 0
+./filmproject/models.py:182:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:183:80: E501 line too long (94 > 79 characters)
+./filmproject/models.py:184:80: E501 line too long (100 > 79 characters)
+./filmproject/models.py:190:80: E501 line too long (87 > 79 characters)
+./filmproject/models.py:209:1: W293 blank line contains whitespace
+./filmproject/models.py:210:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:213:80: E501 line too long (94 > 79 characters)
+./filmproject/models.py:216:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:217:80: E501 line too long (93 > 79 characters)
+./filmproject/models.py:220:1: E302 expected 2 blank lines, found 1
+./filmproject/models.py:221:80: E501 line too long (96 > 79 characters)
+./filmproject/models.py:232:1: W293 blank line contains whitespace
+./filmproject/models.py:233:80: E501 line too long (90 > 79 characters)
+./filmproject/models.py:240:80: E501 line too long (86 > 79 characters)
+./filmproject/models.py:241:1: W391 blank line at end of file
+./filmproject/serializers.py:3:70: W291 trailing whitespace
+./filmproject/serializers.py:4:59: W291 trailing whitespace
+./filmproject/serializers.py:5:80: E501 line too long (101 > 79 characters)
+./filmproject/serializers.py:15:1: E303 too many blank lines (3)
+./filmproject/serializers.py:16:1: E302 expected 2 blank lines, found 3
+./filmproject/serializers.py:18:5: E301 expected 1 blank line, found 0
+./filmproject/serializers.py:20:80: E501 line too long (106 > 79 characters)
+./filmproject/serializers.py:26:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:28:5: E301 expected 1 blank line, found 0
+./filmproject/serializers.py:30:80: E501 line too long (275 > 79 characters)
+./filmproject/serializers.py:36:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:41:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:49:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:58:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:67:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:70:1: W293 blank line contains whitespace
+./filmproject/serializers.py:73:80: E501 line too long (87 > 79 characters)
+./filmproject/serializers.py:76:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:78:1: W293 blank line contains whitespace
+./filmproject/serializers.py:84:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:86:1: W293 blank line contains whitespace
+./filmproject/serializers.py:92:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:101:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:103:1: W293 blank line contains whitespace
+./filmproject/serializers.py:109:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:111:1: W293 blank line contains whitespace
+./filmproject/serializers.py:115:1: W293 blank line contains whitespace
+./filmproject/serializers.py:116:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:122:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:130:1: E302 expected 2 blank lines, found 1
+./filmproject/serializers.py:131:44: E251 unexpected spaces around keyword / parameter equals
+./filmproject/serializers.py:132:5: E301 expected 1 blank line, found 0
+./filmproject/serializers.py:134:23: E231 missing whitespace after ','
+./filmproject/serializers.py:134:80: E501 line too long (89 > 79 characters)
+./filmproject/serializers.py:138:1: E303 too many blank lines (3)
+./filmproject/serializers.py:144:80: E501 line too long (98 > 79 characters)
+./filmproject/serializers.py:146:80: E501 line too long (95 > 79 characters)
+./filmproject/services.py:4:1: F401 'filmproject.models.Viewer' imported but unused
+./filmproject/services.py:4:80: E501 line too long (82 > 79 characters)
+./filmproject/services.py:6:1: E302 expected 2 blank lines, found 1
+./filmproject/services.py:9:80: E501 line too long (80 > 79 characters)
+./filmproject/services.py:12:1: W293 blank line contains whitespace
+./filmproject/services.py:16:80: E501 line too long (82 > 79 characters)
+./filmproject/services.py:18:1: W293 blank line contains whitespace
+./filmproject/services.py:34:80: W292 no newline at end of file
+./filmproject/signals.py:1:1: F401 'django.contrib.auth.models.User' imported but unused
+./filmproject/signals.py:2:1: F401 'django.db.models.signals.post_delete' imported but unused
+./filmproject/signals.py:4:1: F401 '.models.Film' imported but unused
+./filmproject/signals.py:10:1: E302 expected 2 blank lines, found 1
+./filmproject/signals.py:12:7: E271 multiple spaces after keyword
+./filmproject/signals.py:18:80: E501 line too long (84 > 79 characters)
+./filmproject/signals.py:20:1: E302 expected 2 blank lines, found 1
+./filmproject/signals.py:22:7: E271 multiple spaces after keyword
+./filmproject/signals.py:28:80: E501 line too long (88 > 79 characters)
+./filmproject/signals.py:30:80: E501 line too long (110 > 79 characters)
+./filmproject/signals.py:31:80: E501 line too long (144 > 79 characters)
+./filmproject/signals.py:35:80: E501 line too long (101 > 79 characters)
+./filmproject/signals.py:36:80: E501 line too long (149 > 79 characters)
+./filmproject/signals.py:38:80: E501 line too long (87 > 79 characters)
+./filmproject/signals.py:38:88: W292 no newline at end of file
+./filmproject/templatetags/custom_filters.py:5:1: E302 expected 2 blank lines, found 1
+./filmproject/templatetags/custom_filters.py:7:80: E501 line too long (87 > 79 characters)
+./filmproject/templatetags/custom_filters.py:8:80: E501 line too long (91 > 79 characters)
+./filmproject/templatetags/custom_filters.py:10:1: E302 expected 2 blank lines, found 1
+./filmproject/templatetags/custom_filters.py:33:21: W292 no newline at end of file
+./filmproject/tests/test_automated.py:2:1: F401 'playwright.sync_api.expect' imported but unused
+./filmproject/tests/test_automated.py:3:1: F401 'asgiref.sync.sync_to_async' imported but unused
+./filmproject/tests/test_automated.py:4:1: F401 'pytest' imported but unused
+./filmproject/tests/test_automated.py:6:1: F401 'django.core.management.call_command' imported but unused
+./filmproject/tests/test_automated.py:7:1: F401 'django.contrib.auth.hashers.make_password' imported but unused
+./filmproject/tests/test_automated.py:9:1: F401 'django.core.files.uploadedfile.SimpleUploadedFile' imported but unused
+./filmproject/tests/test_automated.py:12:1: F401 'django.urls.reverse' imported but unused
+./filmproject/tests/test_automated.py:15:1: F401 'filmproject.tokens.account_activation_token' imported but unused
+./filmproject/tests/test_automated.py:16:1: F401 'django.test.Client' imported but unused
+./filmproject/tests/test_automated.py:18:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_automated.py:34:1: W293 blank line contains whitespace
+./filmproject/tests/test_automated.py:48:1: W293 blank line contains whitespace
+./filmproject/tests/test_automated.py:51:1: E303 too many blank lines (3)
+./filmproject/tests/test_automated.py:61:80: E501 line too long (108 > 79 characters)
+./filmproject/tests/test_automated.py:65:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_automated.py:85:9: E265 block comment should start with '# '
+./filmproject/tests/test_automated.py:109:80: E501 line too long (122 > 79 characters)
+./filmproject/tests/test_automated.py:110:80: E501 line too long (81 > 79 characters)
+./filmproject/tests/test_automated.py:125:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:3:1: F403 'from ..models import *' used; unable to detect undefined names
+./filmproject/tests/test_unit.py:4:1: F401 'django.utils.timezone' imported but unused
+./filmproject/tests/test_unit.py:5:1: F401 'django.urls.resolve' imported but unused
+./filmproject/tests/test_unit.py:15:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:18:80: E501 line too long (89 > 79 characters)
+./filmproject/tests/test_unit.py:20:80: E501 line too long (87 > 79 characters)
+./filmproject/tests/test_unit.py:22:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:26:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:31:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:36:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:38:5: E303 too many blank lines (2)
+./filmproject/tests/test_unit.py:42:1: E302 expected 2 blank lines, found 0
+./filmproject/tests/test_unit.py:44:16: F405 'Film' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:45:18: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:45:20: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:46:26: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:46:28: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:46:80: E501 line too long (94 > 79 characters)
+./filmproject/tests/test_unit.py:47:34: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:47:36: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:48:19: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:48:21: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:49:21: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:49:23: E251 unexpected spaces around keyword / parameter equals
+./filmproject/tests/test_unit.py:52:80: E501 line too long (193 > 79 characters)
+./filmproject/tests/test_unit.py:54:80: E501 line too long (90 > 79 characters)
+./filmproject/tests/test_unit.py:67:80: E501 line too long (111 > 79 characters)
+./filmproject/tests/test_unit.py:73:80: E501 line too long (212 > 79 characters)
+./filmproject/tests/test_unit.py:75:80: E501 line too long (109 > 79 characters)
+./filmproject/tests/test_unit.py:90:22: F405 'Genre' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:103:24: F405 'Keyword' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:113:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:115:24: F405 'Country' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:125:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:127:24: F405 'Company' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:137:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:139:25: F405 'Language' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:143:5: E301 expected 1 blank line, found 0
+./filmproject/tests/test_unit.py:147:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:148:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:150:23: F405 'Person' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:167:80: E501 line too long (97 > 79 characters)
+./filmproject/tests/test_unit.py:169:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:170:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:172:27: F405 'Collection' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:182:80: E501 line too long (97 > 79 characters)
+./filmproject/tests/test_unit.py:183:80: E501 line too long (108 > 79 characters)
+./filmproject/tests/test_unit.py:188:1: E303 too many blank lines (3)
+./filmproject/tests/test_unit.py:195:23: F405 'Viewer' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:200:1: W293 blank line contains whitespace
+./filmproject/tests/test_unit.py:209:1: E303 too many blank lines (4)
+./filmproject/tests/test_unit.py:211:80: E501 line too long (84 > 79 characters)
+./filmproject/tests/test_unit.py:212:24: F405 'Viewer' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:214:80: E501 line too long (84 > 79 characters)
+./filmproject/tests/test_unit.py:215:24: F405 'Viewer' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:218:26: F405 'FriendRequest' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:218:80: E501 line too long (97 > 79 characters)
+./filmproject/tests/test_unit.py:222:26: F405 'FriendRequest' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:222:80: E501 line too long (97 > 79 characters)
+./filmproject/tests/test_unit.py:228:26: F405 'FriendRequest' may be undefined, or defined from star imports: ..models
+./filmproject/tests/test_unit.py:228:80: E501 line too long (97 > 79 characters)
+./filmproject/tests/test_unit.py:233:1: E302 expected 2 blank lines, found 1
+./filmproject/tests/test_unit.py:251:61: W292 no newline at end of file
+./filmproject/tokens.py:4:1: E302 expected 2 blank lines, found 1
+./filmproject/tokens.py:7:80: E501 line too long (93 > 79 characters)
+./filmproject/tokens.py:10:1: E305 expected 2 blank lines after class or function definition, found 1
+./filmproject/urls.py:6:1: F403 'from .views.api_views import *' used; unable to detect undefined names
+./filmproject/urls.py:7:1: F403 'from .views.film_views import *' used; unable to detect undefined names
+./filmproject/urls.py:8:1: F403 'from .views.profile_views import *' used; unable to detect undefined names
+./filmproject/urls.py:9:1: F403 'from .views.rating_views import *' used; unable to detect undefined names
+./filmproject/urls.py:10:1: F403 'from .views.social_media_views import *' used; unable to detect undefined names
+./filmproject/urls.py:15:27: F405 'FilmViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:16:28: F405 'PersonViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:17:29: F405 'ViewerViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:18:31: F405 'LT_Viewer_WatchlistViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:19:32: F405 'LT_Viewer_SeenViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:20:37: F405 'FriendRequestViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:21:31: F405 'LT_Films_CastViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:22:36: F405 'LT_Films_CompaniesViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:23:36: F405 'LT_Films_CountriesViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:24:31: F405 'LT_Films_CrewViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:25:33: F405 'LT_Films_GenresViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:26:35: F405 'LT_Films_KeywordsViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:27:36: F405 'LT_Films_LanguagesViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:28:36: F405 'LT_Viewer_RatingsViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:29:35: F405 'NotificationsViewSet' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:33:14: F405 'index' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:34:19: F405 'index' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:37:31: F405 'ProfileView' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:37:80: E501 line too long (97 > 79 characters)
+./filmproject/urls.py:38:38: F405 'ProfileView' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:38:80: E501 line too long (112 > 79 characters)
+./filmproject/urls.py:39:38: F405 'update_profile' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:40:38: F405 'update_profile' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:43:20: F405 'FilmListView' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:44:29: F405 'FilmDetailView' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:45:46: F405 'add_to_watchlist' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:45:80: E501 line too long (88 > 79 characters)
+./filmproject/urls.py:46:42: F405 'mark_as_seen' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:47:46: F405 'remove_from_seen' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:47:80: E501 line too long (88 > 79 characters)
+./filmproject/urls.py:48:51: F405 'remove_from_watchlist' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:48:80: E501 line too long (103 > 79 characters)
+./filmproject/urls.py:51:29: F405 'compare_movies' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:52:46: F405 'submit_movie_selection' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:52:80: E501 line too long (100 > 79 characters)
+./filmproject/urls.py:56:80: E501 line too long (103 > 79 characters)
+./filmproject/urls.py:57:80: E501 line too long (106 > 79 characters)
+./filmproject/urls.py:58:23: F405 'register' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:59:45: F405 'resend_activation_email' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:59:80: E501 line too long (95 > 79 characters)
+./filmproject/urls.py:60:1: W293 blank line contains whitespace
+./filmproject/urls.py:62:33: F405 'render_invalid_activation_page' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:62:80: E501 line too long (91 > 79 characters)
+./filmproject/urls.py:67:80: E501 line too long (138 > 79 characters)
+./filmproject/urls.py:68:80: E501 line too long (169 > 79 characters)
+./filmproject/urls.py:69:80: E501 line too long (157 > 79 characters)
+./filmproject/urls.py:70:80: E501 line too long (160 > 79 characters)
+./filmproject/urls.py:73:28: F405 'search_movies' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:78:22: F405 'ViewerListView' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:81:40: F405 'activate' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:84:50: F405 'send_friend_request' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:84:80: E501 line too long (98 > 79 characters)
+./filmproject/urls.py:85:53: F405 'accept_friend_request' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:85:80: E501 line too long (105 > 79 characters)
+./filmproject/urls.py:86:53: F405 'reject_friend_request' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:86:80: E501 line too long (105 > 79 characters)
+./filmproject/urls.py:87:44: F405 'remove_friend' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:87:80: E501 line too long (80 > 79 characters)
+./filmproject/urls.py:90:19: F405 'feed_page' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:91:27: F405 'feed_entries' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:91:80: E501 line too long (98 > 79 characters)
+./filmproject/urls.py:92:40: F405 'like_entry' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:92:80: E501 line too long (98 > 79 characters)
+./filmproject/urls.py:93:43: F405 'comment_entry' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:93:80: E501 line too long (103 > 79 characters)
+./filmproject/urls.py:94:40: F405 'feed_entry_detail' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:94:80: E501 line too long (115 > 79 characters)
+./filmproject/urls.py:97:29: F405 'search_results' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:102:1: E303 too many blank lines (3)
+./filmproject/urls.py:107:33: F405 'user_watchlist' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:108:34: F405 'user_seen_films' may be undefined, or defined from star imports: .views.api_views, .views.film_views, .views.profile_views, .views.rating_views, .views.social_media_views
+./filmproject/urls.py:112:80: E501 line too long (80 > 79 characters)
+./filmproject/views/api_views.py:7:21: E271 multiple spaces after keyword
+./filmproject/views/api_views.py:7:80: E501 line too long (253 > 79 characters)
+./filmproject/views/api_views.py:8:80: E501 line too long (408 > 79 characters)
+./filmproject/views/api_views.py:13:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:18:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:23:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:28:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:33:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:38:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:43:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:48:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:53:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:58:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:63:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:68:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:73:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:78:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:81:5: E301 expected 1 blank line, found 0
+./filmproject/views/api_views.py:108:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:112:80: E501 line too long (81 > 79 characters)
+./filmproject/views/api_views.py:117:1: E302 expected 2 blank lines, found 1
+./filmproject/views/api_views.py:140:80: E501 line too long (97 > 79 characters)
+./filmproject/views/api_views.py:142:80: E501 line too long (98 > 79 characters)
+./filmproject/views/film_views.py:6:21: E271 multiple spaces after keyword
+./filmproject/views/film_views.py:12:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:16:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:25:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:29:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:33:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:38:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:42:80: E501 line too long (100 > 79 characters)
+./filmproject/views/film_views.py:47:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:49:80: E501 line too long (95 > 79 characters)
+./filmproject/views/film_views.py:50:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:53:80: E501 line too long (110 > 79 characters)
+./filmproject/views/film_views.py:56:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:58:80: E501 line too long (100 > 79 characters)
+./filmproject/views/film_views.py:59:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:61:80: E501 line too long (80 > 79 characters)
+./filmproject/views/film_views.py:63:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:69:1: E303 too many blank lines (3)
+./filmproject/views/film_views.py:74:5: E301 expected 1 blank line, found 0
+./filmproject/views/film_views.py:75:58: E261 at least two spaces before inline comment
+./filmproject/views/film_views.py:75:80: E501 line too long (104 > 79 characters)
+./filmproject/views/film_views.py:76:5: E301 expected 1 blank line, found 0
+./filmproject/views/film_views.py:77:80: E501 line too long (120 > 79 characters)
+./filmproject/views/film_views.py:82:80: E501 line too long (86 > 79 characters)
+./filmproject/views/film_views.py:87:80: E501 line too long (96 > 79 characters)
+./filmproject/views/film_views.py:91:80: E501 line too long (88 > 79 characters)
+./filmproject/views/film_views.py:97:80: E501 line too long (106 > 79 characters)
+./filmproject/views/film_views.py:101:80: E501 line too long (98 > 79 characters)
+./filmproject/views/film_views.py:107:5: E301 expected 1 blank line, found 0
+./filmproject/views/film_views.py:111:80: E501 line too long (107 > 79 characters)
+./filmproject/views/film_views.py:112:80: E501 line too long (122 > 79 characters)
+./filmproject/views/film_views.py:119:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:124:80: E501 line too long (81 > 79 characters)
+./filmproject/views/film_views.py:127:80: E501 line too long (102 > 79 characters)
+./filmproject/views/film_views.py:136:19: E201 whitespace after '('
+./filmproject/views/film_views.py:146:80: E501 line too long (92 > 79 characters)
+./filmproject/views/film_views.py:147:1: W293 blank line contains whitespace
+./filmproject/views/film_views.py:151:80: E501 line too long (80 > 79 characters)
+./filmproject/views/film_views.py:152:80: E501 line too long (84 > 79 characters)
+./filmproject/views/film_views.py:165:80: E501 line too long (80 > 79 characters)
+./filmproject/views/film_views.py:171:1: E302 expected 2 blank lines, found 1
+./filmproject/views/film_views.py:176:80: E501 line too long (90 > 79 characters)
+./filmproject/views/film_views.py:182:1: E302 expected 2 blank lines, found 1
+./filmproject/views/film_views.py:183:19: E201 whitespace after '('
+./filmproject/views/film_views.py:183:62: W292 no newline at end of file
+./filmproject/views/profile_views.py:1:1: F401 'datetime.timedelta' imported but unused
+./filmproject/views/profile_views.py:13:1: F401 'django.http.HttpResponseForbidden' imported but unused
+./filmproject/views/profile_views.py:16:1: F401 'django.utils.timezone' imported but unused
+./filmproject/views/profile_views.py:22:80: E501 line too long (96 > 79 characters)
+./filmproject/views/profile_views.py:28:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:35:1: E303 too many blank lines (4)
+./filmproject/views/profile_views.py:40:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:40:41: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:40:80: E501 line too long (113 > 79 characters)
+./filmproject/views/profile_views.py:49:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:50:61: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:50:62: E262 inline comment should start with '# '
+./filmproject/views/profile_views.py:50:80: E501 line too long (118 > 79 characters)
+./filmproject/views/profile_views.py:53:80: E501 line too long (89 > 79 characters)
+./filmproject/views/profile_views.py:54:31: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:57:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:64:80: E501 line too long (126 > 79 characters)
+./filmproject/views/profile_views.py:65:80: E501 line too long (130 > 79 characters)
+./filmproject/views/profile_views.py:70:80: E501 line too long (112 > 79 characters)
+./filmproject/views/profile_views.py:72:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:74:80: E501 line too long (103 > 79 characters)
+./filmproject/views/profile_views.py:77:80: E501 line too long (98 > 79 characters)
+./filmproject/views/profile_views.py:80:80: E501 line too long (98 > 79 characters)
+./filmproject/views/profile_views.py:83:80: E501 line too long (114 > 79 characters)
+./filmproject/views/profile_views.py:84:80: E501 line too long (95 > 79 characters)
+./filmproject/views/profile_views.py:89:72: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:89:80: E501 line too long (114 > 79 characters)
+./filmproject/views/profile_views.py:91:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:95:80: E501 line too long (156 > 79 characters)
+./filmproject/views/profile_views.py:95:113: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:98:80: E501 line too long (84 > 79 characters)
+./filmproject/views/profile_views.py:102:57: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:102:80: E501 line too long (87 > 79 characters)
+./filmproject/views/profile_views.py:105:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:111:69: W291 trailing whitespace
+./filmproject/views/profile_views.py:112:80: E501 line too long (81 > 79 characters)
+./filmproject/views/profile_views.py:117:50: E231 missing whitespace after ','
+./filmproject/views/profile_views.py:118:51: E231 missing whitespace after ','
+./filmproject/views/profile_views.py:119:38: E231 missing whitespace after ','
+./filmproject/views/profile_views.py:126:38: E231 missing whitespace after ':'
+./filmproject/views/profile_views.py:127:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:130:1: E303 too many blank lines (3)
+./filmproject/views/profile_views.py:150:73: E231 missing whitespace after ','
+./filmproject/views/profile_views.py:150:80: E501 line too long (129 > 79 characters)
+./filmproject/views/profile_views.py:152:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:154:1: E303 too many blank lines (3)
+./filmproject/views/profile_views.py:159:80: E501 line too long (81 > 79 characters)
+./filmproject/views/profile_views.py:163:80: E501 line too long (120 > 79 characters)
+./filmproject/views/profile_views.py:168:80: E501 line too long (85 > 79 characters)
+./filmproject/views/profile_views.py:177:80: E501 line too long (99 > 79 characters)
+./filmproject/views/profile_views.py:177:100: W291 trailing whitespace
+./filmproject/views/profile_views.py:181:80: E501 line too long (132 > 79 characters)
+./filmproject/views/profile_views.py:191:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:196:80: E501 line too long (85 > 79 characters)
+./filmproject/views/profile_views.py:203:80: E501 line too long (88 > 79 characters)
+./filmproject/views/profile_views.py:206:80: E501 line too long (119 > 79 characters)
+./filmproject/views/profile_views.py:211:80: E501 line too long (112 > 79 characters)
+./filmproject/views/profile_views.py:216:1: E303 too many blank lines (4)
+./filmproject/views/profile_views.py:221:1: E303 too many blank lines (3)
+./filmproject/views/profile_views.py:225:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:227:80: E501 line too long (110 > 79 characters)
+./filmproject/views/profile_views.py:231:80: E501 line too long (83 > 79 characters)
+./filmproject/views/profile_views.py:233:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:241:80: E501 line too long (98 > 79 characters)
+./filmproject/views/profile_views.py:242:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:245:80: E501 line too long (92 > 79 characters)
+./filmproject/views/profile_views.py:246:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:249:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:251:80: E501 line too long (106 > 79 characters)
+./filmproject/views/profile_views.py:255:1: E303 too many blank lines (3)
+./filmproject/views/profile_views.py:258:80: E501 line too long (98 > 79 characters)
+./filmproject/views/profile_views.py:259:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:263:80: E501 line too long (96 > 79 characters)
+./filmproject/views/profile_views.py:265:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:275:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:279:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:280:80: E501 line too long (97 > 79 characters)
+./filmproject/views/profile_views.py:281:1: W293 blank line contains whitespace
+./filmproject/views/profile_views.py:284:1: E302 expected 2 blank lines, found 1
+./filmproject/views/profile_views.py:286:80: E501 line too long (115 > 79 characters)
+./filmproject/views/profile_views.py:291:1: E302 expected 2 blank lines, found 1
+./filmproject/views/profile_views.py:295:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:295:43: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:295:80: E501 line too long (96 > 79 characters)
+./filmproject/views/profile_views.py:298:80: E501 line too long (163 > 79 characters)
+./filmproject/views/profile_views.py:298:123: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:299:80: E501 line too long (171 > 79 characters)
+./filmproject/views/profile_views.py:299:127: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:300:80: E501 line too long (160 > 79 characters)
+./filmproject/views/profile_views.py:301:80: E501 line too long (135 > 79 characters)
+./filmproject/views/profile_views.py:302:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:306:80: E501 line too long (116 > 79 characters)
+./filmproject/views/profile_views.py:309:80: E501 line too long (143 > 79 characters)
+./filmproject/views/profile_views.py:309:84: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:311:80: E501 line too long (143 > 79 characters)
+./filmproject/views/profile_views.py:311:84: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:312:57: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:312:80: E501 line too long (91 > 79 characters)
+./filmproject/views/profile_views.py:314:80: E501 line too long (167 > 79 characters)
+./filmproject/views/profile_views.py:314:95: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:315:45: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:315:80: E501 line too long (93 > 79 characters)
+./filmproject/views/profile_views.py:316:80: E501 line too long (175 > 79 characters)
+./filmproject/views/profile_views.py:316:115: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:317:80: E501 line too long (108 > 79 characters)
+./filmproject/views/profile_views.py:318:80: E501 line too long (85 > 79 characters)
+./filmproject/views/profile_views.py:319:80: E501 line too long (167 > 79 characters)
+./filmproject/views/profile_views.py:319:130: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:322:5: E301 expected 1 blank line, found 0
+./filmproject/views/profile_views.py:323:36: E261 at least two spaces before inline comment
+./filmproject/views/profile_views.py:323:80: E501 line too long (80 > 79 characters)
+./filmproject/views/profile_views.py:336:80: E501 line too long (96 > 79 characters)
+./filmproject/views/profile_views.py:338:80: E501 line too long (97 > 79 characters)
+./filmproject/views/profile_views.py:340:80: E501 line too long (96 > 79 characters)
+./filmproject/views/profile_views.py:341:80: E501 line too long (97 > 79 characters)
+./filmproject/views/profile_views.py:344:5: E303 too many blank lines (2)
+./filmproject/views/profile_views.py:349:62: W291 trailing whitespace
+./filmproject/views/profile_views.py:350:80: E501 line too long (133 > 79 characters)
+./filmproject/views/profile_views.py:350:134: W292 no newline at end of file
+./filmproject/views/rating_views.py:1:12: E401 multiple imports on one line
+./filmproject/views/rating_views.py:7:1: F401 'django.shortcuts.redirect' imported but unused
+./filmproject/views/rating_views.py:8:1: F401 'django.urls.reverse_lazy' imported but unused
+./filmproject/views/rating_views.py:9:1: F401 '..models.Viewer' imported but unused
+./filmproject/views/rating_views.py:9:21: E271 multiple spaces after keyword
+./filmproject/views/rating_views.py:15:80: E501 line too long (109 > 79 characters)
+./filmproject/views/rating_views.py:16:1: W293 blank line contains whitespace
+./filmproject/views/rating_views.py:18:80: E501 line too long (146 > 79 characters)
+./filmproject/views/rating_views.py:19:1: W293 blank line contains whitespace
+./filmproject/views/rating_views.py:20:80: E501 line too long (84 > 79 characters)
+./filmproject/views/rating_views.py:30:80: E501 line too long (87 > 79 characters)
+./filmproject/views/rating_views.py:36:80: E501 line too long (87 > 79 characters)
+./filmproject/views/rating_views.py:40:1: W293 blank line contains whitespace
+./filmproject/views/rating_views.py:41:80: E501 line too long (99 > 79 characters)
+./filmproject/views/rating_views.py:47:80: E501 line too long (83 > 79 characters)
+./filmproject/views/rating_views.py:55:1: W293 blank line contains whitespace
+./filmproject/views/rating_views.py:61:80: E501 line too long (83 > 79 characters)
+./filmproject/views/rating_views.py:81:13: E303 too many blank lines (2)
+./filmproject/views/rating_views.py:86:80: E501 line too long (91 > 79 characters)
+./filmproject/views/rating_views.py:94:1: W293 blank line contains whitespace
+./filmproject/views/rating_views.py:96:1: W293 blank line contains whitespace
+./filmproject/views/rating_views.py:99:80: E501 line too long (84 > 79 characters)
+./filmproject/views/rating_views.py:104:80: E501 line too long (89 > 79 characters)
+./filmproject/views/rating_views.py:111:80: E501 line too long (89 > 79 characters)
+./filmproject/views/rating_views.py:129:80: E501 line too long (86 > 79 characters)
+./filmproject/views/rating_views.py:132:80: E501 line too long (95 > 79 characters)
+./filmproject/views/rating_views.py:132:96: W292 no newline at end of file
+./filmproject/views/social_media_views.py:3:1: F401 'django.contrib.auth.models.User' imported but unused
+./filmproject/views/social_media_views.py:5:23: E201 whitespace after '('
+./filmproject/views/social_media_views.py:6:1: F811 redefinition of unused 'login_required' from line 2
+./filmproject/views/social_media_views.py:7:1: F811 redefinition of unused 'get_object_or_404' from line 4
+./filmproject/views/social_media_views.py:7:1: F811 redefinition of unused 'redirect' from line 4
+./filmproject/views/social_media_views.py:7:1: F811 redefinition of unused 'render' from line 4
+./filmproject/views/social_media_views.py:7:1: F401 'django.shortcuts.redirect' imported but unused
+./filmproject/views/social_media_views.py:8:1: F811 redefinition of unused 'login_required' from line 6
+./filmproject/views/social_media_views.py:16:1: E303 too many blank lines (4)
+./filmproject/views/social_media_views.py:39:80: E501 line too long (98 > 79 characters)
+./filmproject/views/social_media_views.py:49:80: E501 line too long (101 > 79 characters)
+./filmproject/views/social_media_views.py:53:1: E303 too many blank lines (3)
+./filmproject/views/social_media_views.py:54:80: E501 line too long (90 > 79 characters)
+./filmproject/views/social_media_views.py:63:80: E501 line too long (101 > 79 characters)
+./filmproject/views/social_media_views.py:64:80: E501 line too long (93 > 79 characters)
+./filmproject/views/social_media_views.py:66:80: E501 line too long (86 > 79 characters)
+./filmproject/views/social_media_views.py:70:80: E501 line too long (98 > 79 characters)
+./filmproject/views/social_media_views.py:85:80: E501 line too long (100 > 79 characters)
+./filmproject/views/social_media_views.py:98:1: W293 blank line contains whitespace
+./filmproject/views/social_media_views.py:106:80: E501 line too long (100 > 79 characters)
+./filmproject/views/social_media_views.py:113:80: E501 line too long (81 > 79 characters)
