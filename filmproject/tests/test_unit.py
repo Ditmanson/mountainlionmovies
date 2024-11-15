@@ -44,7 +44,7 @@ class URLTests(TestCase):
         self.assertNotEqual(response.status_code, 200)
 
     def test_search_movies(self):
-        response = self.client.get("/search/")
+        response = self.client.get("/search_movies/")
         self.assertEqual(response.status_code, 200)
 
 
