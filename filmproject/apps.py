@@ -1,16 +1,22 @@
 from django.apps import AppConfig
-from django.conf import settings
+from django.conf import settings  # Retained for possible future use
 
-# class FilmprojectConfig(AppConfig):
-#     default_auto_field = 'django.db.models.BigAutoField'
-#     name = 'filmproject'
+# Class definition for the app configuration
 
-#     def ready(self):
-#         import filmproject.signals  # Import signals to register them
-#         from filmproject.cron_jobs import start_scheduler
-#         from django.db import connections
-#         from django.db.migrations.executor import MigrationExecutor
-#         from django.core.exceptions import ImproperlyConfigured
+
+class FilmprojectConfig(AppConfig):
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "filmproject"
+
+    def ready(self):
+        # Import signals to register them
+        pass
+
+        # Uncomment the following block if scheduler initialization is needed
+        # from filmproject.cron_jobs import start_scheduler
+        # from django.db import connections
+        # from django.db.migrations.executor import MigrationExecutor
+        # from django.core.exceptions import ImproperlyConfigured
 
         # Check if there are pending migrations
         # connection = connections['default']
@@ -30,10 +36,3 @@ from django.conf import settings
         #     print("Scheduler started successfully from apps.py.")
         # else:
         #     print("Scheduler already running. Skipping start.")
-
-class FilmprojectConfig(AppConfig):
-     default_auto_field = 'django.db.models.BigAutoField'
-     name = 'filmproject'
-
-     def ready(self):
-         import filmproject.signals  # Import signals to register them
