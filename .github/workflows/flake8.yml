@@ -1,0 +1,39 @@
+name: Mountail-lion-movies-CI-Automated-Test
+
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: 
+          - 3.12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+    
+
+      - name: Flake 8
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          flake8 . --exclude=venv,migrations --count > flake8_report.txt 
+    
+       
+      
+      - name: Upload Flake8 output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: flake8-report
+          path: flake8_report.txt
