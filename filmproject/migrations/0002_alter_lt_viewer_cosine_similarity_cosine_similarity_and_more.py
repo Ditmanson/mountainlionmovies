@@ -7,27 +7,40 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('filmproject', '0001_initial'),
+        ("filmproject", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='lt_viewer_cosine_similarity',
-            name='cosine_similarity',
-            field=models.DecimalField(decimal_places=4, max_digits=5, null=True),
+            model_name="lt_viewer_cosine_similarity",
+            name="cosine_similarity",
+            field=models.DecimalField(
+                decimal_places=4, max_digits=5, null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='lt_viewer_cosine_similarity',
-            name='viewer_1',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='viewer_1', to='filmproject.viewer'),
+            model_name="lt_viewer_cosine_similarity",
+            name="viewer_1",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="viewer_1",
+                to="filmproject.viewer",
+            ),
         ),
         migrations.AlterField(
-            model_name='lt_viewer_cosine_similarity',
-            name='viewer_2',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='viewer_2', to='filmproject.viewer'),
+            model_name="lt_viewer_cosine_similarity",
+            name="viewer_2",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="viewer_2",
+                to="filmproject.viewer",
+            ),
         ),
         migrations.AddIndex(
-            model_name='lt_viewer_cosine_similarity',
-            index=models.Index(fields=['viewer_1', 'viewer_2'], name='filmproject_viewer__b16745_idx'),
+            model_name="lt_viewer_cosine_similarity",
+            index=models.Index(
+                fields=["viewer_1", "viewer_2"],
+                name="filmproject_viewer__b16745_idx",
+            ),
         ),
     ]
