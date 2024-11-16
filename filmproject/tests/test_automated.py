@@ -7,7 +7,7 @@ from django.utils.encoding import force_str
 from filmproject.models import User
 
 
-def test_automated_from_playwright(page: Page):
+def test_automated_from_playwright(page: Page): # pragma: no mutate
     # Create a user
     page.goto("http://localhost:8000/")
     page.get_by_role("link", name="Login").click()
@@ -32,7 +32,7 @@ def test_automated_from_playwright(page: Page):
     page.get_by_role("list").get_by_role("link", name="Profile").click()
 
 
-def test_update_profile(page: Page):
+def test_update_profile(page: Page): # pragma: no mutate
     page.goto("http://localhost:8000/")
     page.get_by_role("link", name="Login").click()
     page.get_by_placeholder("Enter your username").fill("travis")
@@ -52,7 +52,7 @@ def test_update_profile(page: Page):
     EMAIL_HOST="localhost",
     EMAIL_PORT=1025,
 )
-def test_user_registration(live_server, transactional_db):
+def test_user_registration(live_server, transactional_db):# pragma: no mutate
     user = "testuser"
     email = "testuser@example.com"
     password = "PasswordTest123#@!"
