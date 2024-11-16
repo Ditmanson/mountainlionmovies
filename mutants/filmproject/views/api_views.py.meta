@@ -1,0 +1,38 @@
+{
+    "exit_code_by_key": {
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_1": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_2": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_3": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_4": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_5": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_6": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_7": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_8": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_9": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_10": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_11": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_12": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_13": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_14": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_15": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_16": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_17": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_18": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_19": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_20": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_21": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_22": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_23": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_24": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_25": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_26": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_27": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_28": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_29": null,
+        "filmproject.views.api_views.x\u01c1LT_Viewer_RatingsViewSet\u01c1create__mutmut_30": null
+    },
+    "hash_by_function_name": {
+        "create": "482c916e86a3efc3ffb1d7d6277126ee",
+        "get_queryset": "f8641d189367ffe58b9e56bcd19e1a13"
+    }
+}

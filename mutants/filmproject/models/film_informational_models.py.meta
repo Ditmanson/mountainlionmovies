@@ -1,0 +1,12 @@
+{
+    "exit_code_by_key": {
+        "filmproject.models.film_informational_models.x\u01c1Film\u01c1get_absolute_url__mutmut_1": null,
+        "filmproject.models.film_informational_models.x\u01c1Film\u01c1get_absolute_url__mutmut_2": null,
+        "filmproject.models.film_informational_models.x\u01c1Person\u01c1get_absolute_url__mutmut_1": null,
+        "filmproject.models.film_informational_models.x\u01c1Person\u01c1get_absolute_url__mutmut_2": null
+    },
+    "hash_by_function_name": {
+        "__str__": "9092545dec8b67b07a369ecdb50da8af",
+        "get_absolute_url": "0071697b9030e2644df1a252d65f52d9"
+    }
+}

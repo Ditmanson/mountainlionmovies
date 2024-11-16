@@ -1,0 +1,38 @@
+{
+    "exit_code_by_key": {
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1has_seen_film__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1has_seen_film__mutmut_2": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1has_seen_film__mutmut_3": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1has_seen_film__mutmut_4": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1has_seen_film__mutmut_5": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1has_seen_film__mutmut_6": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1is_in_watchlist__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1is_in_watchlist__mutmut_2": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1is_in_watchlist__mutmut_3": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1is_in_watchlist__mutmut_4": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1is_in_watchlist__mutmut_5": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1is_in_watchlist__mutmut_6": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1get_absolute_url__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1get_absolute_url__mutmut_2": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1add_friend__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1add_friend__mutmut_2": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1add_friend__mutmut_3": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1remove_friend__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1Viewer\u01c1remove_friend__mutmut_2": null,
+        "filmproject.models.social_models.x\u01c1FriendRequest\u01c1accept__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1FriendRequest\u01c1accept__mutmut_2": null,
+        "filmproject.models.social_models.x\u01c1FriendRequest\u01c1reject__mutmut_1": null,
+        "filmproject.models.social_models.x\u01c1FriendRequest\u01c1reject__mutmut_2": null
+    },
+    "hash_by_function_name": {
+        "has_seen_film": "a31183ca7147d7e6a1e833e330ffef3c",
+        "is_in_watchlist": "d18b4c9e380e7e285742dbcd84511b4b",
+        "__str__": "30f6f798b42c47fb39f61bf7d5ed9bb4",
+        "get_absolute_url": "e0500bfe2bdaa5c781533f18af6b404b",
+        "add_friend": "55122e8798bb9b1821125373bd1aad3d",
+        "remove_friend": "8f500d24744f58a63def3fcde5f2c6a5",
+        "is_friends_with": "401eb64728d0549ec5d3d8b9355e00e0",
+        "accept": "9da5bd5a8998febdb5aeac396f48df9f",
+        "reject": "6013dd988b36b2fb2f82613ab6237be7"
+    }
+}

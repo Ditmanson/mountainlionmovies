@@ -1,0 +1,10 @@
+{
+    "exit_code_by_key": {
+        "filmproject.tokens.x\u01c1AccountActivationTokenGenerator\u01c1_make_hash_value__mutmut_1": null,
+        "filmproject.tokens.x\u01c1AccountActivationTokenGenerator\u01c1_make_hash_value__mutmut_2": null,
+        "filmproject.tokens.x\u01c1AccountActivationTokenGenerator\u01c1_make_hash_value__mutmut_3": null
+    },
+    "hash_by_function_name": {
+        "_make_hash_value": "71b2522b0b66c61defff00790932bbc8"
+    }
+}
