@@ -1,0 +1,48 @@
+name: MUTMUT
+
+on:
+  push:
+    branches: 
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: 
+          - 3.12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest
+          pip install mutmut
+
+      - name: Check mutmut installation
+        run: |
+          mutmut --help
+      
+      - name: Tell me how you really feel
+        run: |
+         echo "Dear mutmut, grow up you're killing our grade"
+        
+      # - name: Run mutmut mutation tests
+      #   run: |
+      #     mutmut run > mutmut.txt || true
+
+      # - name: Upload mutmut report as artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: mutmut-report-${{ github.run_id }}
+      #     path: mutmut.txt

@@ -1,4 +1,4 @@
-name: Mountail-lion-movies-CI
+name: UNIT TEST
 
 on:
   push:

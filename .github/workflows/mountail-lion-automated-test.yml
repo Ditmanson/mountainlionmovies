@@ -1,4 +1,4 @@
-name: Mountail-lion-movies-CI-Automated-Test
+name: Automated Test
 
 on:
   push:
