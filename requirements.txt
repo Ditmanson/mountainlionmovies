@@ -10,7 +10,6 @@ django-apscheduler==0.7.0
 django-cors-headers==4.5.0
 djangorestframework==3.15.2
 flake8==6.1.0
-flake8-django==1.4
 greenlet==3.0.3
 idna==3.10
 iniconfig==2.0.0
