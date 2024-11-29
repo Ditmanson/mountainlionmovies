@@ -1,0 +1,16 @@
+{% extends "filmproject/base_template.html" %}
+{%load static%}
+{% block title %}Chat{% endblock %}
+
+{% block content %}
+<h2>Chat</h2>
+<div id="chat-log" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;">
+    <!-- Messages will appear here -->
+</div>
+<input id="chat-message-input" type="text" size="100" placeholder="Type your message here">
+<input id="chat-message-submit" type="button" value="Send">
+<script>
+    const conversationId = "{{ conversation.id }}";
+</script>
+<script src="{% static 'scripts/instant_messenger_one_conversation.js' %}"></script>
+{% endblock %}

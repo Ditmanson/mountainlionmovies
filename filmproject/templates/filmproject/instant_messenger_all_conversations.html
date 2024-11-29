@@ -1,0 +1,16 @@
+{% extends "filmproject/base_template.html" %}
+
+{% block title %}Chat Conversations{% endblock %}
+
+{% block content %}
+<h2>Your Conversations</h2>
+<ul>
+    {% for conversation in conversations %}
+    <li>
+        <a href="{% url 'chat_one_conversation' conversation.id %}">
+            Conversation with {{ conversation.other_participant }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

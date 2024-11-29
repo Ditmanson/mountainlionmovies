@@ -58,6 +58,11 @@ from .views.social_media_views import (
     comment_entry,
     feed_entry_detail,
 )
+from .views.instant_messenger_views import(
+    one_conversation,
+    all_conversations,
+    start_conversation
+)
 
 # Create a router and register all the viewsets
 router = DefaultRouter()
@@ -238,7 +243,23 @@ urlpatterns = [
     ),
     # Navbar Search
     path("search_results/", search_results, name="search_results"),
+    # Chat Features
+    path(
+        'chat/', 
+        all_conversations, 
+        name='chat_all_conversations'
+    ),
+    path(
+        'chat/<int:conversation_id>/',
+        one_conversation, 
+        name='chat_one_conversation'
+    ),
+     path('chat/start/<int:friend_id>/', 
+          start_conversation,
+          name='start_conversation'
+    ),
 ]
+
 
 # API routes (grouped and isolated in the 'api' namespace)
 urlpatterns += [
@@ -259,4 +280,7 @@ urlpatterns += [
 if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
+    urlpatterns += static(
+        settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0]
     )

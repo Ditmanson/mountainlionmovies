@@ -6,3 +6,4 @@ from .linking_tables import (
     LT_Viewer_Cosine_Similarity, LT_Viewer_Ratings, LT_Viewer_Seen, LT_Viewer_Watchlist
 )
 from .social_models import Viewer, FriendRequest, FeedEntry, Like, Comment, Notification, User
+from .instant_messaging_models import *
