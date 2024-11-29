@@ -17,6 +17,8 @@ from .models import (
     Person,
     LT_Viewer_Ratings,
     Notification,
+    Conversation,
+    Message
 )
 
 # Person Serializer
@@ -208,3 +210,18 @@ def bulk_create_films(request):
         {"error": "Expected a list of films."},
         status=status.HTTP_400_BAD_REQUEST,
     )
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    sender = serializers.StringRelatedField()  # Display username instead of ID
+
+    class Meta:
+        model = Message
+        fields = ['id', 'conversation', 'sender', 'content', 'timestamp']
+
+class ConversationSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Conversation
+        fields = ['id', 'participants', 'messages', 'created_at']

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django_apscheduler",
     "filmproject",  # Custom app
     "rest_framework",
+    "channels",
 ]
 
 # Authentication backends
@@ -59,6 +60,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+ASGI_APPLICATION = 'django_project.asgi.application'
+
 
 # URL configuration
 ROOT_URLCONF = "django_project.urls"
@@ -137,6 +141,14 @@ DJANGO_CRON_CLASSES = ["filmproject.cron_jobs.DatabaseCleanupCronJob"]
 
 # Add flag to prevent duplicate scheduler starts
 SCHEDULER_RUNNING = False  # Prevents multiple scheduler starts
+
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
 
 LOGGING = {
     "version": 1,

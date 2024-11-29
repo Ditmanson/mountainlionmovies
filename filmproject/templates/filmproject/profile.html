@@ -53,11 +53,15 @@
                     {% for friend in viewer.friends.all %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <a href="{% url 'profile_viewer' friend.id %}">{{ friend.name }}</a>
+                            <!-- Start Conversation Button -->
                             {% if user.viewer == viewer %}
+                            <div>
+                                <a href="{% url 'start_conversation' friend.id %}" class="btn btn-sm btn-outline-primary">Start Conversation</a>
                                 <a href="{% url 'remove_friend' friend.id %}" class="remove-friend-icon">
                                     <img src="{% static 'images/removeFriend.png' %}" alt="Remove Friend" style="width: 20px; height: 20px;">
                                 </a>
-                            {% endif %}
+                            </div>
+                        {% endif %}
                         </li>
                     {% empty %}
                         <li class="list-group-item">No friends yet.</li>
