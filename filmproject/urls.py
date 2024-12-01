@@ -64,9 +64,10 @@ from .views.social_media_views import (
 )
 
 from .views.staff_views import (
-    manual_update_film_ratings,
     manual_calculate_cosine_similarity,
     manual_database_cleanup,
+    manual_recalculate_recommendations,
+    manual_update_film_ratings,
     staff_dashboard,
 )
 
@@ -152,6 +153,7 @@ urlpatterns = [
     path('super/update-film-ratings/', manual_update_film_ratings, name='manual_update_film_ratings'),
     path('super/calculate-cosine-similarity/', manual_calculate_cosine_similarity, name='manual_calculate_cosine_similarity'),
     path('super/database-cleanup/', manual_database_cleanup, name='manual_database_cleanup'),
+    path('super/recalculate-recommendations/', manual_recalculate_recommendations, name='manual_recalculate_recommendations'),
 
     # Viewer list
     path("viewers/", ViewerListView.as_view(), name="viewers"),

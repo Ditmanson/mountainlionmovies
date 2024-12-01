@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
-from ..models import Film, LT_Viewer_Seen, LT_Viewer_Watchlist, Viewer
+from ..models import Film, LT_Viewer_Recommendations, LT_Viewer_Seen, LT_Viewer_Watchlist, Viewer
 
 
 class FilmDetailView(generic.DetailView):
@@ -142,7 +142,12 @@ def add_to_watchlist(request, pk):
 
 
 def index(request):
-    return render(request, "filmproject/index.html")
+    recommendations = []
+    if request.user.is_authenticated:
+        recommendations = LT_Viewer_Recommendations.objects.filter(
+            viewer=request.user.viewer
+        ).order_by('-recommendation_score')
+    return render(request, "filmproject/index.html", {"recommendations": recommendations})
 
 
 @login_required
