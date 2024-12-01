@@ -1,5 +1,7 @@
 {% extends 'filmproject/base_template.html' %}
 {% block content %}
+{% load custom_filters %}
+
 <h1>Film List</h1>
 
 {% if page_obj %}
@@ -11,7 +13,7 @@
                 <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" alt="{{ film.title }} Poster" class="film-poster">
             </a>
             <h5 class="film-title">{{ film.title }}</h5>
-            <p class="mlm-rating"><strong>Mountain Lion Score:</strong> {{ film.mlm_rating }}</p>
+            <p class="mlm-rating"><strong>Mountain Lion Score:</strong> {{ film.mlm_rating|as_percentage:1 }}</p>
 
             <!-- Seen List Buttons -->
             {% if film in seen_films %}

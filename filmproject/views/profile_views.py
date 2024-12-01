@@ -326,8 +326,7 @@ def accept_friend_request(request, request_id):
         friend_request.accept()  # Custom method to handle acceptance
         messages.success(
             request,
-            f"You are now friends with {
-                friend_request.sender.name}.",
+            f"You are now friends with {friend_request.sender.name}."
         )
 
         # Redirect to the sender's profile after accepting the friend request
@@ -350,9 +349,7 @@ def reject_friend_request(request, request_id):
         friend_request.reject()  # Custom method to handle rejection
         messages.success(
             request,
-            f"Friend request from {
-                friend_request.sender.name} rejected.",
-        )
+            f"Friend request from {friend_request.sender.name} rejected.")
         return redirect("profile", viewer_id=friend_request.sender.id)
 
     messages.error(request, "Invalid request.")
@@ -371,10 +368,7 @@ def remove_friend(request, viewer_id):
 
     messages.success(
         request,
-        f"{
-            viewer_to_remove.name} has been removed from your friend list.",
-    )
-
+        f"{viewer_to_remove.name} has been removed from your friend list.")
     return redirect("profile")  # Redirect back to the user's profile
 
 
@@ -410,9 +404,7 @@ class ViewerListView(LoginRequiredMixin, ListView):
             status="pending",
         ).exists()
         print(
-            f"Viewer: {
-                viewer.id} | is_friend: {is_friend} | friend_request_sent: {friend_request_sent} | friend_request_received: {friend_request_received}"
-        )
+            f"Viewer: {viewer.id} | is_friend: {is_friend} | friend_request_sent: {friend_request_sent} | friend_request_received: {friend_request_received}")
         return {
             "is_friend": is_friend,
             "friend_request_sent": friend_request_sent,
