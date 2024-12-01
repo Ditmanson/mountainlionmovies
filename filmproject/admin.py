@@ -20,6 +20,7 @@ from .models import (
     LT_Films_Languages,
     LT_Viewer_Cosine_Similarity,
     LT_Viewer_Ratings,
+    LT_Viewer_Recommendations,
     LT_Viewer_Seen,
     LT_Viewer_Watchlist,
     FriendRequest,
@@ -47,6 +48,7 @@ admin.site.register(LT_Films_Keywords)
 admin.site.register(LT_Films_Languages)
 admin.site.register(LT_Viewer_Cosine_Similarity)
 admin.site.register(LT_Viewer_Ratings)
+admin.site.register(LT_Viewer_Recommendations)
 admin.site.register(LT_Viewer_Seen)
 admin.site.register(LT_Viewer_Watchlist)
 admin.site.register(FriendRequest)

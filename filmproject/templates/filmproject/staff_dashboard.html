@@ -27,6 +27,11 @@
     <button type="submit" class="btn btn-primary">Recalculate Cosine Similarity</button>
 </form>
 
+<form method="POST" action="{% url 'manual_recalculate_recommendations' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Recalculate Movie Recommendations</button>
+</form>
+
 <form method="POST" action="{% url 'manual_database_cleanup' %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-primary">Database Cleanup</button>

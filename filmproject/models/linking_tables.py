@@ -62,6 +62,12 @@ class LT_Viewer_Ratings(models.Model):
     class Meta:
         unique_together = ("viewer", "film_a", "film_b")
 
+class LT_Viewer_Recommendations(models.Model):
+    viewer = models.ForeignKey("filmproject.Viewer", on_delete=models.DO_NOTHING, null=True)
+    film = models.ForeignKey("filmproject.Film", on_delete=models.DO_NOTHING, related_name="recommended_film", null=True)
+    recommendation_score = models.DecimalField(decimal_places=1, max_digits=3, null=True)
+    class Meta:
+        unique_together = ("viewer", "film")
 
 class LT_Viewer_Seen(models.Model):
     viewer = models.ForeignKey("filmproject.Viewer", on_delete=models.DO_NOTHING, null=True)

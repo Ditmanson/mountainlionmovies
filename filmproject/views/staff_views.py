@@ -1,11 +1,10 @@
 import numpy as np
-from ..models import Film, LT_Viewer_Cosine_Similarity, LT_Viewer_Ratings, LT_Viewer_Seen, Viewer
+from ..models import Film, LT_Viewer_Cosine_Similarity, LT_Viewer_Ratings, LT_Viewer_Recommendations, LT_Viewer_Seen, Viewer
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.db.models import Count, Sum
+from django.db.models import Count, Q, Sum
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
-
 
 def calculate_mlm_ratings():
     total_viewers = Viewer.objects.count()
@@ -95,6 +94,45 @@ def manual_database_cleanup(request):
             messages.error(request, f"Error during database cleanup: {e}")
     return redirect('staff_dashboard')
 
+@staff_member_required
+def manual_recalculate_recommendations(request):
+    from ..models import LT_Viewer_Cosine_Similarity, LT_Viewer_Recommendations, LT_Viewer_Seen, Film
+    if request.method == "POST":
+        try:
+            # Clear existing recommendations
+            LT_Viewer_Recommendations.objects.all().delete()
+            # Logic for generating recommendations
+            viewers = Viewer.objects.all()
+            for viewer in viewers:
+                seen_movies = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True).values_list("film", flat=True)
+                similar_viewers = LT_Viewer_Cosine_Similarity.objects.filter(
+                    Q(viewer_1=viewer) | Q(viewer_2=viewer)
+                ).exclude(cosine_similarity__isnull=True).order_by('-cosine_similarity')
+                film_scores = {}
+                for sim in similar_viewers:
+                    # Identify the other viewer in the similarity record
+                    other_viewer = sim.viewer_2 if sim.viewer_1 == viewer else sim.viewer_1
+                    # Get movies seen by the similar user but not yet seen by the current user
+                    other_seen_movies = LT_Viewer_Seen.objects.filter(
+                        viewer=other_viewer, seen_film=True
+                    ).exclude(film__in=seen_movies)
+                    for movie_entry in other_seen_movies:
+                        film = movie_entry.film
+                        viewer_rating = movie_entry.viewer_rating or 0.5  # Default to neutral rating if not available
+                        # Add weighted score: (Cosine Similarity) × (Viewer Rating)
+                        film_scores[film] = film_scores.get(film, 0) + float(sim.cosine_similarity) * float(viewer_rating)
+                # Save top recommendations for the viewer
+                for film, score in sorted(film_scores.items(), key=lambda x: -x[1])[:10]:
+                    LT_Viewer_Recommendations.objects.create(
+                        viewer=viewer, 
+                        film=film, 
+                        recommendation_score=round(score, 1)
+                    )
+            messages.success(request, "Movie recommendations have been recalculated successfully.")
+        except Exception as e:
+            messages.error(request, f"Error recalculating recommendations: {e}")
+        return redirect('staff_dashboard')
+    
 @staff_member_required
 def staff_dashboard(request):
     return render(request, 'filmproject/staff_dashboard.html')
