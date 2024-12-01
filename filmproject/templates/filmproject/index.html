@@ -28,6 +28,34 @@
 
       </div>
 
+  {% comment %} IF LOGGED IN... {% endcomment %}
+
+  <h2>Recommended Movies For You!</h2>
+  {% if recommendations %}
+  <div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+    <div class="carousel-inner">
+      {% for rec in recommendations %}
+      <div class="d-inline-block {% if forloop.first %}active{% endif %}" style="width: 15rem; margin: 0 10px;">
+        <div class="card h-100">
+          {% if rec.film.poster_path %}
+          <img src="https://image.tmdb.org/t/p/w500{{ rec.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rec.film.title }}" style="height: auto; max-width: 100%;">
+          {% else %}
+              <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rec.film.title }}" style="height: auto; max-width: 100%;">
+              {% endif %}
+              <div class="card-body text-center">
+                  <h5 class="card-title">{{ rec.film.title }}</h5>
+                  <p class="card-text">Recommended: {{ rec.recommendation_score }}</p>
+              </div>
+          </div>
+      </div>
+      {% empty %}
+          <p>No personalized recommendations available at the moment. Watch or rate more movies to improve your recommendations!</p>
+      {% endfor %}
+  </div>
+  {% else %}
+      <p>No personalized recommendations available at the moment. Watch or rate more movies to improve your recommendations!.</p>
+  {% endif %}
+</div>
 
   <h2 style="margin-top: 50px;">Popular Movies</h2>
   <p>display carosel of popular movies</p>
@@ -38,9 +66,7 @@
   <h2>New</h2>
   <p>display carosel of popular movies</p>
 
-  {% comment %} IF LOGGED IN... {% endcomment %}
-  <h2>Movies For You!</h2>
-  <p>display carosel of user movies recommendations</p>
+
 
 
 
