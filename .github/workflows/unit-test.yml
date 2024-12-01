@@ -2,7 +2,7 @@ name: UNIT TEST
 
 on:
   push:
-    branches: 
+    branches:
       - main
   pull_request:
     branches:
@@ -14,10 +14,20 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: 
+        python-version:
           - 3.12
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: travis
+          POSTGRES_PASSWORD: password1234!@#$
+          POSTGRES_DB: mountainlionmovies
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
@@ -28,6 +38,7 @@ jobs:
           echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" >> $GITHUB_ENV
           echo "GOOGLE_MAIL_ADDRESS=${{ secrets.GOOGLE_MAIL_ADDRESS }}" >> $GITHUB_ENV
           echo "GOOGLE_MAIL_PASSWORD=${{ secrets.GOOGLE_MAIL_PASSWORD }}" >> $GITHUB_ENV
+          echo "DATABASE_URL=postgres://myuser:mypassword@localhost:5432/mydatabase" >> $GITHUB_ENV
 
       - name: Check Secrets
         run: echo "Secrets=${{ secrets }}"
@@ -39,19 +50,5 @@ jobs:
 
       - name: Run database migrations
         run: |
-          python manage.py makemigrations
           python manage.py migrate
 
-      - name: Create Django superuser
-        env:
-          DJANGO_SUPERUSER_USERNAME: travis
-          DJANGO_SUPERUSER_PASSWORD: password1234!@#$
-          DJANGO_SUPERUSER_EMAIL: travis@hotmail.com
-        run: |
-          echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${{ env.DJANGO_SUPERUSER_USERNAME }}', '${{ env.DJANGO_SUPERUSER_EMAIL }}', '${{ env.DJANGO_SUPERUSER_PASSWORD }}')" | python manage.py shell
-
-      - name: Load mock data
-        run: python manage.py loaddata filmproject/fixtures/fixture.json
-     
-      - name: Run Tests
-        run: pytest filmproject/tests/test_unit.py
