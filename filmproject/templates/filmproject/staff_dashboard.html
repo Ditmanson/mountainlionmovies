@@ -1,0 +1,34 @@
+{% extends 'filmproject/base_template.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Staff Dashboard</h1>
+<p>Welcome to the staff dashboard! Use the buttons below to perform actions:</p>
+
+<!-- Display messages -->
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Buttons for actions -->
+<form method="POST" action="{% url 'manual_update_film_ratings' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Update Film Ratings</button>
+</form>
+
+<form method="POST" action="{% url 'manual_calculate_cosine_similarity' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Recalculate Cosine Similarity</button>
+</form>
+
+<form method="POST" action="{% url 'manual_database_cleanup' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Database Cleanup</button>
+</form>
+{% endblock %}

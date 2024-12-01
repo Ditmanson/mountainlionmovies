@@ -34,3 +34,14 @@ def runtime_format(value):
             return f"{minutes} minutes"
     except (ValueError, TypeError):
         return value
+
+@register.filter
+def as_percentage(value, decimal_places=1):
+    """
+    Converts a decimal value (0 to 1) to a percentage with the specified decimal places.
+    """
+    try:
+        percentage = float(value) * 100
+        return f"{percentage:.{decimal_places}f}%"
+    except (TypeError, ValueError):
+        return "N/A"

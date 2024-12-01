@@ -26,7 +26,9 @@
             <li><a class="dropdown-item" href="{% url 'viewers' %}">Viewers</a></li>
             <li><a class="dropdown-item" href="{% url 'search_movies' %}">Browse</a></li>
             <li><a class="dropdown-item" href="{% url 'compare_movies' %}">Rate Movies</a></li>
-            {% comment %} <li><a class="dropdown-item" href="https://app-bsulliv2-5.devedu.io/">Visit Our Friends</a></li> {% endcomment %}
+            {% if user.is_staff %}
+            <li><a class="dropdown-item" href="{% url 'staff_dashboard' %}">Staff Dashboard</a></li>
+            {% endif %}
             {% if user.is_authenticated %}
               <li class="dropdown-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
               <li class="dropdown-item">
