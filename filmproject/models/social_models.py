@@ -9,7 +9,7 @@ from django.urls import reverse
 
 
 class Viewer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, related_name='viewer')
     name = models.CharField(max_length=200)
     email = models.EmailField()
     profile_picture = models.ImageField(
@@ -20,36 +20,36 @@ class Viewer(models.Model):
     )
     friends = models.ManyToManyField("self", blank=True)
 
+    def add_friend(self, viewer):
+        if not self.is_friends_with(viewer):
+            self.friends.add(viewer)
+            self.save()
+
     def has_seen_film(self, film):
         # Use string reference for LT_Viewer_Seen
         return self._meta.model._default_manager.filter(
             viewer=self, film=film, seen_film=True
         ).exists()
-
+    
+    def is_friends_with(self, viewer):
+        return self.friends.filter(id=viewer.id).exists()
+    
     def is_in_watchlist(self, film):
         # Use string reference for LT_Viewer_Watchlist
         return self._meta.model._default_manager.filter(
             viewer=self, film=film, watchlist=True
         ).exists()
 
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("profile_viewer", args=[str(self.id)])
-
-    def add_friend(self, viewer):
-        if not self.is_friends_with(viewer):
-            self.friends.add(viewer)
-            self.save()
-
     def remove_friend(self, viewer):
         if self.is_friends_with(viewer):
             self.friends.remove(viewer)
             self.save()
 
-    def is_friends_with(self, viewer):
-        return self.friends.filter(id=viewer.id).exists()
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("profile_viewer", args=[str(self.id)])
 
 
 class FriendRequest(models.Model):
