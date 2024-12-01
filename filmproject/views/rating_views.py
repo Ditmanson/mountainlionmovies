@@ -3,7 +3,7 @@ import random
 from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.db import models
-from django.db.models import Case, Count, Sum, When
+from django.db.models import Case, Count, F, Q, Sum, When
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from ..models import Film, LT_Viewer_Ratings, LT_Viewer_Seen
@@ -12,22 +12,44 @@ from ..models import Film, LT_Viewer_Ratings, LT_Viewer_Seen
 @login_required
 def compare_movies(request):
     viewer = request.user.viewer
-    seen_movies = LT_Viewer_Seen.objects.filter(
-        viewer=viewer, seen_film=True
-    ).values_list("film", flat=True)
-
+    seen_movies = LT_Viewer_Seen.objects.filter(viewer=viewer, seen_film=True).values_list("film", flat=True)
     if seen_movies.count() < 2:
-        return render(
-            request,
-            "filmproject/compare_movies.html",
-            {
-                "message": "You need to mark at least two movies as seen to start comparing."
-            },
+        return render(request, "filmproject/compare_movies.html", {"message": "You need to mark at least two movies as seen to start comparing."})
+    least_rated_movie = (
+        Film.objects.filter(id__in=seen_movies)
+        .annotate(
+            total_count=Count(
+                'film_a__id',  # Count occurrences as film_a
+                filter=Q(film_a__viewer=viewer)
+            )
+            + Count(
+                'film_b__id',  # Count occurrences as film_b
+                filter=Q(film_b__viewer=viewer)
+            )
         )
-
-    movie1, movie2 = random.sample(
-        list(Film.objects.filter(id__in=seen_movies)), 2
+        .order_by('total_count')  # Sort by total count
+        .first()
     )
+    if least_rated_movie:
+        movie1 = least_rated_movie
+    else:
+        movie1 = random.choice(Film.objects.filter(id__in=seen_movies))
+    
+    compared_movies = set(
+        LT_Viewer_Ratings.objects.filter(
+            Q(film_a=movie1) | Q(film_b=movie1),
+            viewer=viewer
+        ).values_list('film_a', 'film_b').distinct()
+    )
+    compared_movies = {movie for pair in compared_movies for movie in pair}
+
+    movie2_candidates = Film.objects.filter(id__in=seen_movies).exclude(id__in=compared_movies)
+    if movie2_candidates.exists():
+        movie2 = random.choice(movie2_candidates)
+    else:
+        # Fallback to a random movie if all have been compared
+        movie2 = Film.objects.get(id=random.choice([id for id in seen_movies if id != movie1.id]))
+
     if movie1.id > movie2.id:
         movie1, movie2 = movie2, movie1
 
@@ -49,12 +71,7 @@ def compare_movies(request):
                 },
             }
         )
-
-    return render(
-        request,
-        "filmproject/compare_movies.html",
-        {"movie1": movie1, "movie2": movie2},
-    )
+    return render(request, "filmproject/compare_movies.html", {"movie1": movie1, "movie2": movie2})
 
 
 def submit_movie_selection(request):
