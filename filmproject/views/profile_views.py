@@ -205,14 +205,7 @@ def register(request):
             )
             user.save()
 
-            # Create the Viewer object linked to the user
-            Viewer.objects.create(
-                user=user,
-                name=user.username,
-                email=user.email,
-                profile_picture=user.profile_picture,
-            )
-
+         
             # Send activation email
             current_site = get_current_site(request)
             mail_subject = "Activate your account."
