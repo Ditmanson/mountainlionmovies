@@ -10,6 +10,7 @@ class FilmprojectConfig(AppConfig):
 
     def ready(self):
         # Import signals to register them
+        import filmproject.signals
         pass
 
         # Uncomment the following block if scheduler initialization is needed
