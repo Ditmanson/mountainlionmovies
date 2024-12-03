@@ -12,10 +12,6 @@ def create_seen_feed_entry(sender, instance, created, **kwargs):
         FeedEntry.objects.create(user=instance.viewer.user, movie=instance.film, action="marked as seen")
         logger.info(f"Feed entry created for marking film as seen: {instance.film}")
 
-@receiver(post_save, sender=User)
-def create_viewer(sender, instance, created, **kwargs):
-    if created:
-        Viewer.objects.create(user=instance)
 
 @receiver(post_save, sender=LT_Viewer_Watchlist)
 def create_watchlist_feed_entry(sender, instance, created, **kwargs):
