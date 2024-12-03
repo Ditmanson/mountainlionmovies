@@ -200,18 +200,8 @@ def register(request):
         form = ViewerRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = (
-                False  # Deactivate account until email verification
-            )
+            user.is_active = False  # Deactivate account until email verification
             user.save()
-
-            # Create the Viewer object linked to the user
-            Viewer.objects.create(
-                user=user,
-                name=user.username,
-                email=user.email,
-                profile_picture=user.profile_picture,
-            )
 
             # Send activation email
             current_site = get_current_site(request)
@@ -236,7 +226,6 @@ def register(request):
             )
             print(f"Email sending result: {testSend}")
 
-            # Pass 'uidb64' to the template for resending activation email
             return render(
                 request,
                 "filmproject/registration_confirm.html",

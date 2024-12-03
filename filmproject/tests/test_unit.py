@@ -12,6 +12,8 @@ from filmproject.models import (
     Viewer,
     FriendRequest,
 )
+from django.db.models.signals import post_save
+from filmproject.signals import manage_viewer
 
 
 class SimpleTest(TestCase):
@@ -161,7 +163,25 @@ class CollectionModelTest(TestCase):
         self.assertEqual(str(self.collection), "Test Collection")
 
 
+from django.test import TestCase
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from filmproject.models import Viewer, FriendRequest
+from filmproject.signals import manage_viewer
+
 class ViewerModelTest(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Disconnect the signal to prevent automatic Viewer creation
+        post_save.disconnect(manage_viewer, sender=User)
+
+    @classmethod
+    def tearDownClass(cls):
+        # Reconnect the signal after tests are done
+        post_save.connect(manage_viewer, sender=User)
+        super().tearDownClass()
+
     def setUp(self):
         self.user = User.objects.create_user(
             username="testuser",
@@ -179,6 +199,18 @@ class ViewerModelTest(TestCase):
 
 
 class FriendRequestTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Disconnect the signal to prevent automatic Viewer creation
+        post_save.disconnect(manage_viewer, sender=User)
+
+    @classmethod
+    def tearDownClass(cls):
+        # Reconnect the signal after tests are done
+        post_save.connect(manage_viewer, sender=User)
+        super().tearDownClass()
+
     def setUp(self):
         self.user1 = User.objects.create_user(
             username="user1", password="password"
@@ -202,3 +234,4 @@ class FriendRequestTestCase(TestCase):
         friend_request.status = "accepted"
         friend_request.save()
         self.assertEqual(friend_request.status, "accepted")
+
