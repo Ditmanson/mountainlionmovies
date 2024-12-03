@@ -11,6 +11,7 @@ django-cors-headers==4.5.0
 djangorestframework==3.15.2
 flake8==6.1.0
 greenlet==3.0.3
+gunicorn==23.0.0
 idna==3.10
 iniconfig==2.0.0
 joblib==1.4.2
@@ -30,6 +31,7 @@ pillow==11.0.0
 platformdirs==4.3.6
 playwright==1.47.0
 pluggy==1.5.0
+psycopg2-binary==2.9.10
 pycodestyle==2.11.1
 pyee==12.0.0
 pyflakes==3.1.0
