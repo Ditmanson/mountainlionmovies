@@ -70,17 +70,34 @@ class LT_Viewer_Recommendations(models.Model):
         unique_together = ("viewer", "film")
 
 class LT_Viewer_Seen(models.Model):
-    viewer = models.ForeignKey("filmproject.Viewer", on_delete=models.DO_NOTHING, null=True)
-    film = models.ForeignKey("filmproject.Film", on_delete=models.DO_NOTHING, null=True)
+    viewer = models.ForeignKey(
+        "filmproject.Viewer",
+        on_delete=models.DO_NOTHING,
+        null=True,
+        related_name="lt_viewer_seen"
+    )
+    film = models.ForeignKey(
+        "filmproject.Film",
+        on_delete=models.DO_NOTHING,
+        null=True
+    )
     seen_film = models.BooleanField(default=False, null=True)
     viewer_rating = models.DecimalField(decimal_places=8, max_digits=9, default=0.5, null=True)
+
     class Meta:
         unique_together = ("viewer", "film")
+
 
 
 class LT_Viewer_Watchlist(models.Model):
-    viewer = models.ForeignKey("filmproject.Viewer", on_delete=models.DO_NOTHING)
+    viewer = models.ForeignKey(
+        "filmproject.Viewer",
+        on_delete=models.DO_NOTHING,
+        related_name="lt_viewer_watchlist"
+    )
     film = models.ForeignKey("filmproject.Film", on_delete=models.DO_NOTHING)
     watchlist = models.BooleanField(default=False)
+
     class Meta:
         unique_together = ("viewer", "film")
+
