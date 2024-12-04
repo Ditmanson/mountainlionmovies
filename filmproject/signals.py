@@ -16,7 +16,11 @@ def create_seen_feed_entry(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def manage_viewer(sender, instance, created, **kwargs):
     if created:
-        Viewer.objects.get_or_create(user=instance)
+        viewer, _ = Viewer.objects.get_or_create(user=instance)
+        viewer.name = instance.username
+        viewer.email = instance.email
+        viewer.profile_picture =  instance.profile_picture
+        viewer.save()
 
 
 @receiver(post_save, sender=LT_Viewer_Watchlist)
