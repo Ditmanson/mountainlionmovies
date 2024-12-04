@@ -19,7 +19,6 @@ def manage_viewer(sender, instance, created, **kwargs):
         viewer, _ = Viewer.objects.get_or_create(user=instance)
         viewer.name = instance.username
         viewer.email = instance.email
-        viewer.profile_picture =  instance.profile_picture
         viewer.save()
 
 
