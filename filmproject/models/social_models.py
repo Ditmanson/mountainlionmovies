@@ -26,19 +26,17 @@ class Viewer(models.Model):
             self.save()
 
     def has_seen_film(self, film):
-        # Use string reference for LT_Viewer_Seen
-        return self._meta.model._default_manager.filter(
-            viewer=self, film=film, seen_film=True
-        ).exists()
+    # Use the related name for LT_Viewer_Seen (string reference)
+        return self.lt_viewer_seen.filter(film=film, seen_film=True).exists()
+
     
     def is_friends_with(self, viewer):
         return self.friends.filter(id=viewer.id).exists()
     
     def is_in_watchlist(self, film):
-        # Use string reference for LT_Viewer_Watchlist
-        return self._meta.model._default_manager.filter(
-            viewer=self, film=film, watchlist=True
-        ).exists()
+    # Use the related name for LT_Viewer_Watchlist (string reference)
+        return self.lt_viewer_watchlist.filter(film=film, watchlist=True).exists()
+
 
     def remove_friend(self, viewer):
         if self.is_friends_with(viewer):

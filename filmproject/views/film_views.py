@@ -6,17 +6,27 @@ from django.views.generic import ListView
 from ..models import Film, LT_Viewer_Recommendations, LT_Viewer_Seen, LT_Viewer_Watchlist, Viewer
 
 
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+
 class FilmDetailView(generic.DetailView):
     model = Film
     template_name = "filmproject/film_detail.html"
 
+    def get_viewer(self):
+        """Helper to get or create the Viewer object."""
+        if self.request.user.is_authenticated:
+            viewer, _ = Viewer.objects.get_or_create(user=self.request.user)
+            return viewer
+        return None
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         film = self.get_object()
+        viewer = self.get_viewer()
 
-        # Ensure Viewer object exists
-        if self.request.user.is_authenticated:
-            viewer, _ = Viewer.objects.get_or_create(user=self.request.user)
+        if viewer:
             context["is_seen"] = viewer.has_seen_film(film)
             context["is_in_watchlist"] = viewer.is_in_watchlist(film)
         else:
@@ -32,7 +42,7 @@ class FilmDetailView(generic.DetailView):
             return redirect(f"{reverse_lazy('login')}?next={request.path}")
 
         film = self.get_object()
-        viewer, _ = Viewer.objects.get_or_create(user=request.user)
+        viewer = self.get_viewer()
         action = request.POST.get("action")
         rating = request.POST.get("rating")
 
@@ -45,11 +55,13 @@ class FilmDetailView(generic.DetailView):
                 if rating:
                     seen_entry.viewer_rating = float(rating)
                 seen_entry.save()
+                messages.success(request, "Film marked as seen!")
 
             elif action == "remove_from_seen":
                 LT_Viewer_Seen.objects.filter(viewer=viewer, film=film).update(
                     seen_film=False
                 )
+                messages.success(request, "Film removed from seen list.")
 
             elif action == "add_to_watchlist":
                 watchlist_entry, _ = LT_Viewer_Watchlist.objects.get_or_create(
@@ -57,16 +69,20 @@ class FilmDetailView(generic.DetailView):
                 )
                 watchlist_entry.watchlist = True
                 watchlist_entry.save()
+                messages.success(request, "Film added to watchlist!")
 
             elif action == "remove_from_watchlist":
                 LT_Viewer_Watchlist.objects.filter(
                     viewer=viewer, film=film
                 ).update(watchlist=False)
+                messages.success(request, "Film removed from watchlist.")
 
         except ValueError:
+            messages.error(request, "Invalid input for rating.")
             return redirect("film-detail", pk=film.id)
 
         return redirect("film-detail", pk=film.id)
+
 
 
 class FilmListView(ListView):
