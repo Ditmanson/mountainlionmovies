@@ -78,18 +78,19 @@
 
 {% comment %}  {% endcomment %}
 
-  <div style="width: 100%;">
-    <div style="float: left; width: 35%; text-align: center;">
+  <div style="width: 100%; display: flex; align-items: center;">
+    <div style="width: 27.5%; text-align: center;">
       {% if film.poster_path %}
-        <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%;" />
+        <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%; height: 500px; object-fit: cover;" />
       {% endif %}
     </div>
-    <div style="float: right; width: 65%;">
+    <div style="width: 72.5%; text-align: center;">
       {% if film.backdrop_path %}
-        <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%;" />
+        <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%; height: 500px; object-fit: cover;" />
       {% endif %}
     </div>
   </div>
+
   <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
 {% endblock %}
 
