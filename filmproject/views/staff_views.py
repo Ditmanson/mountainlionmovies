@@ -143,36 +143,3 @@ def update_film_ratings():
     calculate_cosine_similarity()
     calculate_mlm_ratings()
     print("Film ratings update completed.")
-
-
-
-# # Initialize the scheduler
-# scheduler = BackgroundScheduler()
-# scheduler.add_jobstore(DjangoJobStore(), "default")
-# scheduler_running = False
-
-# def start_scheduler():
-#     global scheduler_running
-#     if not scheduler_running:
-#         try:
-#             scheduler.add_job(update_film_ratings, trigger=CronTrigger(day="*"), id="update_film_ratings", replace_existing=True)
-#             scheduler.add_job(calculate_cosine_similarity, trigger=CronTrigger(day="*"), id="calculate_cosine_similarity", replace_existing=True)
-#             scheduler.add_job(database_cleanup, trigger=CronTrigger(day_of_week="sun"), id="database_cleanup", replace_existing=True)
-#             register_events(scheduler)
-#             scheduler.start()
-#             scheduler_running = True
-#             print("Scheduler started successfully.")
-#         except Exception as e:
-#             print(f"Scheduler failed to start: {e}")
-#     else:
-#         print("Scheduler is already running.")
-
-# try:
-#     scheduler.add_job(update_film_ratings, trigger=CronTrigger(day="*"), id="update_film_ratings", replace_existing=True,)
-#     scheduler.add_job(calculate_cosine_similarity, trigger=CronTrigger(day="*"), id="calculate_cosine_similarity", replace_existing=True)
-#     scheduler.add_job(database_cleanup, trigger=CronTrigger(day_of_week="sun"), id="database_cleanup", replace_existing=True)
-#     register_events(scheduler)
-#     scheduler.start()
-#     print("Scheduler started successfully.")
-# except Exception as e:
-#     print(f"Scheduler failed to start: {e}")

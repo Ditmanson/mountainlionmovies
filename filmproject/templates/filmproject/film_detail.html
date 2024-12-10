@@ -92,34 +92,3 @@
   </div>
   <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
 {% endblock %}
-
-<!--Edit -->
-
-{% comment %} 
-
-      <p>
-        <strong>Mountain Lion Score:</strong> {{ film.mlm_rating }}
-      </p>
-      <p>
-        <strong>Overview:</strong> {{ film.overview }}
-      </p>
-      <p>
-        <strong>Revenue:</strong> $ {{ film.revenue|intcomma }}
-      </p>
-      <p>
-        <strong>Budget:</strong> $ {{ film.budget|intcomma }}
-      </p>
-      <p>
-        <strong>Adult:</strong> {% if film.adult %}
-          Yes
-          {% else %}
-          No
-          {% endif %}
-        </p>
-        <div id="streaming_info">{{ film.id }}</div>
-      <p>
-        {% if film.homepage %}
-          <strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>
-        {% endif %}
-      </p>
- {% endcomment %}

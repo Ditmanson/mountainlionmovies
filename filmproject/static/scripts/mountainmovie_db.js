@@ -203,7 +203,3 @@ export const postToWatchlist = async (user, movieID) => {
     }, 'watchlist');
     console.log('Posted to MountainMovie DB:');
 }
-
-// export const getSeenMoviesByViewer = async (user) => {
-//     const data = await fetchData(`http://
-//     localhost:8000/api/seen_movies/`);
