@@ -324,7 +324,6 @@
       <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ film.title }}">
       {% endif %}
       <div class="card-body text-center">
-        <h5 class="card-title">{{ film.title }}</h5>
         <p class="card-text">Your Rating: {{ film.viewer_rating|as_percentage:1 }}</p>
                 <!-- Buttons -->
                 {% if user.is_authenticated %}

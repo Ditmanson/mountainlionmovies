@@ -503,8 +503,6 @@ def film_list_api(request):
     film_data = [{"id": film.id, "title": film.title, "poster_path": film.poster_path, "mlm_rating": float(film.mlm_rating)} for film in page_obj]
     return JsonResponse({"films": film_data, "has_next": page_obj.has_next()})
 
-
-
 # @login_required
 # @require_POST
 # def like_entry(request, entry_id):
@@ -589,8 +587,8 @@ def manual_recalculate_recommendations(request):
                         film = movie_entry.film
                         viewer_rating = movie_entry.viewer_rating or 0.5
                         film_scores[film] = film_scores.get(film, 0) + float(sim.cosine_similarity) * float(viewer_rating)
-                for film, score in sorted(film_scores.items(), key=lambda x: -x[1])[:10]:
-                    LT_Viewer_Recommendations.objects.create(viewer=viewer, film=film, recommendation_score=round(score, 1))
+                for film, score in sorted(film_scores.items(), key=lambda x: -x[1]):
+                    LT_Viewer_Recommendations.objects.create(viewer=viewer, film=film, recommendation_score = score)
             messages.success(request, "Movie recommendations have been recalculated successfully.")
         except Exception as e:
             messages.error(request, f"Error recalculating recommendations: {e}")

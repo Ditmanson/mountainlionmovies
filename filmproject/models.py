@@ -151,7 +151,7 @@ class LT_Films_Languages(models.Model):
 class LT_Viewer_Cosine_Similarity(models.Model):
     viewer_1 = models.ForeignKey("Viewer", on_delete=models.PROTECT, related_name="viewer_1")
     viewer_2 = models.ForeignKey("Viewer", on_delete=models.PROTECT, related_name="viewer_2")
-    cosine_similarity = models.DecimalField(max_digits=3, decimal_places=1, null=True)
+    cosine_similarity = models.DecimalField(decimal_places=8, max_digits=9, null=True)
     class Meta:
         unique_together = ("viewer_1", "viewer_2")
 
@@ -168,7 +168,7 @@ class LT_Viewer_Ratings(models.Model):
 class LT_Viewer_Recommendations(models.Model):
     viewer = models.ForeignKey("Viewer", on_delete=models.DO_NOTHING, null=True)
     film = models.ForeignKey("Film", on_delete=models.DO_NOTHING, related_name="recommended_film", null=True)
-    recommendation_score = models.DecimalField(decimal_places=1, max_digits=3, null=True)
+    recommendation_score = models.DecimalField(decimal_places=8, max_digits=9, null=True)
     class Meta:
         unique_together = ("viewer", "film")
 
