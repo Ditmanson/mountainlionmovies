@@ -1,89 +1,370 @@
 {% extends 'filmproject/base_template.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block content %}
-
-  <div class="text-center">
-      <img style="width: 20%; margin-top: 30px;" src="{% static 'images/mountain_lion.png' %}" class="img-fluid">
-  </div>
-  {% comment %} <h1>Mountain Lion Movies</h1> {% endcomment %}
-  <h2 style="text-align: center; margin-top: 30px;" >Find movies and shows based on any story you love!</h2>
-  <div class="page-margin">
-    <h3 style="text-align: center; margin-top: 30px;">At Mountain Lion Movies, we understand the challenge of finding the perfect 
-          movie to match your mood or personal tastes. Our platform is designed with simplicity 
-          and ease in mind, helping you discover movies that align with your unique preferences.</h3>
-      
-      <div style="margin-top: 50px;" class="row justify-content-center">
-        <div class="col-md-6">
-          <h3 style="color: #ffb700; margin-top: 40px;">Powered by a <strong>cutting-edge recommendation engine</strong>, Mountain Lion Movies takes into account 
-          a variety of factors, including:</h3>
-        </div>
-        <div class="col-md-6">
-            <ul class="list-unstyled fade-in-list">
-                <li><div style="background-color: #cfb87c;" class="custom-container"><strong>Movie Genres</strong> you love</div></li>
-                <li><div style="background-color: #e3bf65;" class="custom-container"><strong>Favorite Actors</strong> and directors</div></li>
-                <li><div style="background-color: #f3bc2f;" class="custom-container"><strong>User Ratings</strong> from the community</div></li>
-                <li><div style="background-color: #ffb700;" class="custom-container"><strong>Your Viewing History</strong> for personalized picks</div></li>
-            </ul>
-        </div>
-
-      </div>
-
-  {% comment %} IF LOGGED IN... {% endcomment %}
-
-  <h2>Recommended Movies For You!</h2>
-  {% if recommendations %}
-  <div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
-    <div class="carousel-inner">
-      {% for rec in recommendations %}
-      <div class="d-inline-block {% if forloop.first %}active{% endif %}" style="width: 15rem; margin: 0 10px;">
-        <div class="card h-100">
-          {% if rec.film.poster_path %}
-          <img src="https://image.tmdb.org/t/p/w500{{ rec.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rec.film.title }}" style="height: auto; max-width: 100%;">
-          {% else %}
-              <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rec.film.title }}" style="height: auto; max-width: 100%;">
-              {% endif %}
-              <div class="card-body text-center">
-                  <h5 class="card-title">{{ rec.film.title }}</h5>
-                  <p class="card-text">Recommended: {{ rec.recommendation_score }}</p>
-              </div>
-          </div>
-      </div>
-      {% empty %}
-          <p>No personalized recommendations available at the moment. Watch or rate more movies to improve your recommendations!</p>
-      {% endfor %}
-  </div>
-  {% else %}
-      <p>No personalized recommendations available at the moment. Watch or rate more movies to improve your recommendations!.</p>
-  {% endif %}
-</div>
-
-  <h2 style="margin-top: 50px;">Popular Movies</h2>
-  <p>display carosel of popular movies</p>
-
-  <h2>Discover</h2>
-  <p>display carosel of popular movies</p>
-
-  <h2>New</h2>
-  <p>display carosel of popular movies</p>
-
-
-
-
-
-  </div> <!-- end page-margin divider -->
-
-  <script>
-document.addEventListener('DOMContentLoaded', function () {
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
     const listItems = document.querySelectorAll('.fade-in-list li');
-    
     listItems.forEach((li, index) => {
-        setTimeout(() => {
-            li.classList.add('fade-in');
-        }, index * 500); // 0.5 seconds delay for each item
+      setTimeout(() => {
+        li.classList.add('fade-in');
+      }, index * 500);
     });
-});
+  });
+</script>
 
-  </script>
+<!-- Recommended Movies -->
+<br>
+<h2>Recommended Movies For You!</h2>
+{% if recommendations %}
+<div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+  {% for rec in recommendations %}
+  <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+    <div class="card h-100">
+      {% if rec.film.poster_path %}
+      <a href="{{ rec.film.get_absolute_url }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ rec.film.poster_path }}" class="card-img-top img-fluid" alt="{{ rec.film.title }}">
+      </a>
+      {% else %}
+      <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ rec.film.title }}">
+      {% endif %}
+      <div class="card-body text-center">
+        <p class="card-text">Recommended: {{ rec.recommendation_score|as_percentage:1 }}</p>
+        <!-- Buttons -->
+        {% if user.is_authenticated %}
+        {% if rec.film in seen_films %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ rec.film.id }}">
+          <input type="hidden" name="action" value="remove_from_seen">
+          <button type="submit" class="btn btn-danger btn-sm">Remove from Seen</button>
+        </form>
+        {% else %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ rec.film.id }}">
+          <input type="hidden" name="action" value="mark_as_seen">
+          <button type="submit" class="btn btn-success btn-sm">Mark as Seen</button>
+        </form>
+        {% endif %}
+        {% if rec.film in watchlist %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ rec.film.id }}">
+          <input type="hidden" name="action" value="remove_from_watchlist">
+          <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+        </form>
+        {% else %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ rec.film.id }}">
+          <input type="hidden" name="action" value="add_to_watchlist">
+          <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+        </form>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No personalized recommendations available at the moment. Watch or rate more movies to improve your recommendations!</p>
+{% endif %}
 
+<!-- Watchlist -->
+<br>
+<h2>Movies on Your Watchlist</h2>
+{% if watchlist %}
+<div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+  {% for film in watchlist %}
+  <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+    <div class="card h-100">
+      {% if film.poster_path %}
+      <a href="{{ film.get_absolute_url }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      </a>
+      {% else %}
+      <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      {% endif %}
+      <div class="card-body text-center">
+        <p class="card-text">Mountain Lion Score: {{ film.mlm_rating|as_percentage:1 }}</p>
+        <!-- Buttons -->
+        {% if user.is_authenticated %}
+        {% if film in seen_films %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ film.id }}">
+          <input type="hidden" name="action" value="remove_from_seen">
+          <button type="submit" class="btn btn-danger btn-sm">Remove from Seen</button>
+        </form>
+        {% else %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ film.id }}">
+          <input type="hidden" name="action" value="mark_as_seen">
+          <button type="submit" class="btn btn-success btn-sm">Mark as Seen</button>
+        </form>
+        {% endif %}
+        {% if film in watchlist %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ film.id }}">
+          <input type="hidden" name="action" value="remove_from_watchlist">
+          <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+        </form>
+        {% else %}
+        <form method="POST" action="">
+          {% csrf_token %}
+          <input type="hidden" name="film_id" value="{{ film.id }}">
+          <input type="hidden" name="action" value="add_to_watchlist">
+          <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+        </form>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>Log in or create an account to add movies to your watchlist.</p>
+{% endif %}
+
+<!-- New Releases -->
+<br>
+<h2>New Releases</h2>
+{% if new_releases %}
+<div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+  {% for film in new_releases %}
+  <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+    <div class="card h-100">
+      {% if film.poster_path %}
+      <a href="{{ film.get_absolute_url }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      </a>
+      {% else %}
+      <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      {% endif %}
+      <div class="card-body text-center">
+        <p class="card-text">Release Date: {{ film.release_date }}</p>
+                <!-- Buttons -->
+                {% if user.is_authenticated %}
+                {% if film in seen_films %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_seen">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Seen</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="mark_as_seen">
+                  <button type="submit" class="btn btn-success btn-sm">Mark as Seen</button>
+                </form>
+                {% endif %}
+                {% if film in watchlist %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_watchlist">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="add_to_watchlist">
+                  <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+                </form>
+                {% endif %}
+                {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No new releases available at the moment.</p>
+{% endif %}
+
+<!-- Coming Soon -->
+<br>
+<h2>Coming Soon</h2>
+{% if coming_soon %}
+<div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+  {% for film in coming_soon %}
+  <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+    <div class="card h-100">
+      {% if film.poster_path %}
+      <a href="{{ film.get_absolute_url }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      </a>
+      {% else %}
+      <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      {% endif %}
+      <div class="card-body text-center">
+        <p class="card-text">Release Date: {{ film.release_date }}</p>
+                <!-- Buttons -->
+                {% if user.is_authenticated %}
+                {% if film in seen_films %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_seen">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Seen</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="mark_as_seen">
+                  <button type="submit" class="btn btn-success btn-sm">Mark as Seen</button>
+                </form>
+                {% endif %}
+                {% if film in watchlist %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_watchlist">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="add_to_watchlist">
+                  <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+                </form>
+                {% endif %}
+                {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No upcoming movies available at the moment.</p>
+{% endif %}
+
+<!-- Popular Movies -->
+<br>
+<h2>Top Movies on Mountain Lion Movies</h2>
+{% if popular_movies %}
+<div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+  {% for film in popular_movies %}
+  <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+    <div class="card h-100">
+      {% if film.poster_path %}
+      <a href="{{ film.get_absolute_url }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      </a>
+      {% else %}
+      <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      {% endif %}
+      <div class="card-body text-center">
+        <p class="card-text">Mountain Lion Score: {{ film.mlm_rating|as_percentage:1 }}</p>
+                <!-- Buttons -->
+                {% if user.is_authenticated %}
+                {% if film in seen_films %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_seen">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Seen</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="mark_as_seen">
+                  <button type="submit" class="btn btn-success btn-sm">Mark as Seen</button>
+                </form>
+                {% endif %}
+                {% if film in watchlist %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_watchlist">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="add_to_watchlist">
+                  <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+                </form>
+                {% endif %}
+                {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No popular movies available at the moment.</p>
+{% endif %}
+
+<!-- Seen Movies -->
+<br>
+<h2>Your Top-Rated Movies</h2>
+{% if seen_films %}
+<div class="scroll-container" style="overflow-x: auto; white-space: nowrap;">
+  {% for film in seen_films %}
+  <div class="d-inline-block" style="width: 15rem; margin: 0 10px;">
+    <div class="card h-100">
+      {% if film.poster_path %}
+      <a href="{{ film.get_absolute_url }}">
+        <img src="https://image.tmdb.org/t/p/w500{{ film.poster_path }}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      </a>
+      {% else %}
+      <img src="{% static 'images/default_movie_poster.jpg' %}" class="card-img-top img-fluid" alt="{{ film.title }}">
+      {% endif %}
+      <div class="card-body text-center">
+        <p class="card-text">Your Rating: {{ film.viewer_rating|as_percentage:1 }}</p>
+                <!-- Buttons -->
+                {% if user.is_authenticated %}
+                {% if film in seen_films %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_seen">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Seen</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="mark_as_seen">
+                  <button type="submit" class="btn btn-success btn-sm">Mark as Seen</button>
+                </form>
+                {% endif %}
+                {% if film in watchlist %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="remove_from_watchlist">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove from Watchlist</button>
+                </form>
+                {% else %}
+                <form method="POST" action="">
+                  {% csrf_token %}
+                  <input type="hidden" name="film_id" value="{{ film.id }}">
+                  <input type="hidden" name="action" value="add_to_watchlist">
+                  <button type="submit" class="btn btn-secondary btn-sm">Add to Watchlist</button>
+                </form>
+                {% endif %}
+                {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>No films in your seen list. Start watching and rating movies!</p>
+{% endif %}
 
 {% endblock %}

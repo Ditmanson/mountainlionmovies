@@ -1,39 +1,134 @@
 {% extends 'filmproject/base_template.html' %}
 {% load static %}
-
 {% block content %}
-<h1>Staff Dashboard</h1>
-<p>Welcome to the staff dashboard! Use the buttons below to perform actions:</p>
-
-<!-- Display messages -->
-{% if messages %}
-<div>
-    {% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
-        {{ message }}
+<script>
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function () {
+            const button = form.querySelector('button[type="submit"]');
+            button.disabled = true;
+            button.innerHTML = 'Processing... <span class="spinner-border spinner-border-sm"></span>';
+        });
+    });
+</script>
+<script type="module" src="../../static/scripts/search.js">
+</script>
+<div class="container my-5">
+    <h1>
+        Staff Dashboard
+    </h1>
+    <p>
+        Welcome to the staff dashboard! Use the buttons below to perform actions:
+    </p>
+    <!-- Display messages -->
+    {% if messages %}
+    <div class="mt-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            </button>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+    {% endif %}
+    <!-- Actions Section -->
+    <div class="section mt-4">
+        <h2>
+            Ratings & Recommendations
+        </h2>
+        <form method="POST" action="{% url 'manual_update_film_ratings' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" aria-label="Update Film Ratings">
+                Update Film Ratings
+            </button>
+        </form>
+        <form method="POST" action="{% url 'manual_calculate_cosine_similarity' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" aria-label="Recalculate Cosine Similarity">
+                Recalculate Cosine Similarity
+            </button>
+        </form>
+        <form method="POST" action="{% url 'manual_recalculate_recommendations' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" aria-label="Recalculate Movie Recommendations">
+                Recalculate Movie Recommendations
+            </button>
+        </form>
+    </div>
+    <div class="section mt-4">
+        <h2>
+            Maintenance
+        </h2>
+        <form method="POST" action="{% url 'manual_database_cleanup' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" aria-label="Database Cleanup">
+                Database Cleanup
+            </button>
+        </form>
+    </div>
 </div>
-{% endif %}
-
-<!-- Buttons for actions -->
-<form method="POST" action="{% url 'manual_update_film_ratings' %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Update Film Ratings</button>
-</form>
-
-<form method="POST" action="{% url 'manual_calculate_cosine_similarity' %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Recalculate Cosine Similarity</button>
-</form>
-
-<form method="POST" action="{% url 'manual_recalculate_recommendations' %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Recalculate Movie Recommendations</button>
-</form>
-
-<form method="POST" action="{% url 'manual_database_cleanup' %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Database Cleanup</button>
-</form>
+<!-- Original "Browse Movies" Functions -->
+<div class="container mt-5">
+    <div id="top">
+    </div>
+    <h2>
+        Add Movies to the dB
+    </h2>
+    <div class="mb-3">
+        <h1>
+            {{ user.name }}
+            <input style="display: none;" id="user" value="{{ user.id }}" type="text" />
+        </h1>
+        <label for="search_input" class="form-label">
+            Enter Search Query:
+        </label>
+        <input type="string" id="search_input" class="form-control" placeholder="" />
+    </div>
+    <div class="d-flex">
+        <button id="search_button" class="btn btn-primary m-1">
+            Search
+        </button>
+        <ul class="pagination m-1">
+            <li class="page-item">
+                <a class="page-link disabled" href="#">
+                    Popular Movies
+                </a>
+            </li>
+            <li class="page-item popular_button">
+                <button value="1" class="page-link popular_button" href="#">
+                    1
+                </button>
+            </li>
+            <li class="page-item popular_button">
+                <button value="2" class="page-link popular_button" href="#">
+                    2
+                </button>
+            </li>
+            <li class="page-item popular_button">
+                <button value="3" class="page-link popular_button" href="#">
+                    3
+                </button>
+            </li>
+            <li class="page-item popular_button">
+                <button value="4" class="page-link popular_button" href="#">
+                    4
+                </button>
+            </li>
+            <li class="page-item">
+                <button value="5" class="page-link popular_button" href="#">
+                    5
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="container text-center">
+    <div class="row row-cols-4" id="results">
+    </div>
+</div>
+<button id="back-to-top" class="btn btn-outline-warning" style="position: fixed; bottom: 20px; right: 45%;">
+    <a style="color: black;" href="#top">
+        Go to Top
+    </a>
+</button>
 {% endblock %}

@@ -68,9 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
         initializeBootstrapCarousel(carouselId);
     };
 
-    /**
-     * Manually initialize or reset Bootstrap carousel
-     */
     const initializeBootstrapCarousel = (carouselId) => {
         console.log(`Initializing/reinitializing Bootstrap carousel with ID: ${carouselId}`);
         const carouselElement = document.getElementById(carouselId);
@@ -81,9 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 carouselInstance.dispose();  // Reset if already initialized
             }
             new bootstrap.Carousel(carouselElement, {
-                interval: false,  // Disable auto-cycling to give the user control
+                interval: false,
                 ride: false,
-                wrap: true  // Allow continuous cycling through the items
+                wrap: true,
             });
             console.log(`Bootstrap carousel reinitialized for ID: ${carouselId}`);
         } else {
