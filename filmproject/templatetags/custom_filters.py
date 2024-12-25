@@ -1,14 +1,14 @@
 from django import template
 
-register = template.Library()
 
+register = template.Library()
 
 @register.filter
 def get_similarity(similarity_scores, viewer_id):
     score = similarity_scores.get(viewer_id, 0)  # Default to 0 if missing
     return f"{score * 100:.1f}%"  # Convert to percentage and format
 
-
+@register.filter
 def runtime_format(value):
     try:
         hours = value // 60
@@ -37,9 +37,6 @@ def runtime_format(value):
 
 @register.filter
 def as_percentage(value, decimal_places=1):
-    """
-    Converts a decimal value (0 to 1) to a percentage with the specified decimal places.
-    """
     try:
         percentage = float(value) * 100
         return f"{percentage:.{decimal_places}f}%"

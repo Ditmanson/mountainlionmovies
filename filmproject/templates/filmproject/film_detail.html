@@ -1,126 +1,87 @@
 {% extends 'filmproject/base_template.html' %}
 {% load humanize %}
-{% load custom_filters %}
 {% load static %}
-
+{% load custom_filters %}
 {% block content %}
-  <div class="movie-details col-md-8" style="margin-top: 20px;">
-    <a style="background-color: transparent; color: #cfb87c; border-color: #cfb87c;" href="{% url 'film_list' %}" class="btn btn-primary">
-        <img src="{% static 'images/backarrow.png' %}" alt="Back to Film List" style="width: 50px; height: 25px; vertical-align: middle;">
-        Back to Film List
-    </a>
-  </div>
-<div class="row">
-  <div class="movie-details col-md-8" style="margin-top: 20px;">
-    <h1><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h1>
-    <h5 style="text-align: center; color: #ffb700;" ><i>{{ film.tagline }}</i></h5>
-    <p style="text-align: center;">
-      <strong>Overview:</strong> {{ film.overview }}
-    </p>
+<div class="movie-details" style="margin-top: 20px;">
 
-    <!-- Only display buttons if the user is authenticated -->
-    {% if user.is_authenticated %}
+</div>
+
+<div class="row" style="margin-top: 20px;">
+  <!-- Left Column: Poster and Details -->
+  <div class="col-md-4">
+    <div class="film-info-card text-center" style="border: 1px solid #ddd; padding: 10px; border-radius: 0px;">
+      {% if film.poster_path %}
+      <img src="https://image.tmdb.org/t/p/w500/{{ film.poster_path }}" alt="{{ film.title }} Poster" style="max-width: 100%; border-radius: 5px; margin-bottom: 15px;">
+      {% endif %}
+      <p><strong><i class="fas fa-clock"></i> Runtime:</strong> {{ film.runtime|runtime_format }}</p>
+      <p><strong><i class="fas fa-star"></i> Mountain Lion Score:</strong> {{ film.mlm_rating|as_percentage:1 }}</p>
+      <p><strong><i class="fas fa-calendar-alt"></i> Release Date:</strong> {{ film.release_date }}</p>
+      <div id="streaming_info" class="film-id">{{ film.id }}</div>
+    </div>
+  </div>
+
+
+  <!-- Right Column: Backdrop and Movie Details -->
+  <div class="col-md-8">
+    <div class="film-details-container" style="border: 1px solid #ddd; padding: 15px; border-radius: 5px; transform: scale(0.8); transform-origin: top left;">
+      {% if film.backdrop_path %}
+      <div style="margin-bottom: 20px;">
+        <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" alt="{{ film.title }} Backdrop" style="width: 100%; height: auto; object-fit: contain; border-radius: 5px;">
+      </div>
+      {% endif %}
+      
+      <h1><strong>{{ film.title }}</strong> ({{ film.release_date|date:'Y' }})</h1>
+      <h5 style="text-align: center; color: #ffb700;"><i>{{ film.tagline }}</i></h5>
+      <p style="text-align: center;">
+        <strong>Overview:</strong> {{ film.overview }}
+      </p>
+
+      {% if user.is_authenticated %}
       <div class="row justify-content-center" style="margin-top: 20px;">
         <div class="col-md-6 d-flex justify-content-end">
           {% if is_seen %}
-            <form method="POST" action="{% url 'remove_from_seen' film.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">
-                <img src="{% static 'images/seenIcon.png' %}" style="width: 33px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                Remove from Seen
-              </button>
-            </form>
+          <form method="POST" action="{% url 'remove_from_seen' film.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+              <img src="{% static 'images/seenIcon.png' %}" style="width: 33px; height: 20px; vertical-align: middle; margin-right: 5px;">
+              Remove from Seen
+            </button>
+          </form>
           {% else %}
-            <form method="POST" action="{% url 'mark_as_seen' film.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-success">
-                <img src="{% static 'images/seenIcon.png' %}" style="width: 33px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                Mark as Seen
-              </button>
-            </form>
+          <form method="POST" action="{% url 'mark_as_seen' film.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+              <img src="{% static 'images/seenIcon.png' %}" style="width: 33px; height: 20px; vertical-align: middle; margin-right: 5px;">
+              Mark as Seen
+            </button>
+          </form>
           {% endif %}
         </div>
         <div class="col-md-6 d-flex justify-content-start">
           {% if is_in_watchlist %}
-            <form method="POST" action="{% url 'remove_from_watchlist' film.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">
-                <img src="{% static 'images/heart.png' %}" alt="Heart Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                Remove from Watchlist
-              </button>
-            </form>
+          <form method="POST" action="{% url 'remove_from_watchlist' film.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+              <img src="{% static 'images/heart.png' %}" alt="Heart Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+              Remove from Watchlist
+            </button>
+          </form>
           {% else %}
-            <form method="POST" action="{% url 'add_to_watchlist' film.id %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-secondary" style="background-color: #ffb700; border: none; color: black;">
-                <img src="{% static 'images/heart.png' %}" alt="Heart Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
-                Add to Watchlist
-              </button>
-            </form>
+          <form method="POST" action="{% url 'add_to_watchlist' film.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary" style="background-color: #ffb700; border: none; color: black;">
+              <img src="{% static 'images/heart.png' %}" alt="Heart Icon" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
+              Add to Watchlist
+            </button>
+          </form>
           {% endif %}
         </div>
       </div>
-    {% endif %}
-    </div>
-
-
-    <div class="film-info-card col-md-4">
-        <p><strong><i class="fas fa-clock"></i> Runtime:</strong> {{ film.runtime }}</p>
-        <p><strong><i class="fas fa-star"></i> Mountain Lion Score:</strong> {{ film.mlm_rating }}</p>
-        <p><strong><i class="fas fa-dollar-sign"></i> Revenue:</strong> ${{ film.revenue|intcomma }}</p>
-        <p><strong><i class="fas fa-coins"></i> Budget:</strong> ${{ film.budget|intcomma }}</p>
-        <p><strong><i class="fas fa-user-secret"></i> Adult:</strong> {% if film.adult %} Yes {% else %} No {% endif %}</p>
-        <div id="streaming_info" class="film-id">{{ film.id }}</div>
-        <p>{% if film.homepage %}<strong><i class="fas fa-home"></i> Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>{% endif %}</p>
-    </div>
-
-</div>
-
-{% comment %}  {% endcomment %}
-
-  <div style="width: 100%; display: flex; align-items: center;">
-    <div style="width: 27.5%; text-align: center;">
-      {% if film.poster_path %}
-        <img src="https://image.tmdb.org/t/p/w1280/{{ film.poster_path }}" style="width: 100%; height: 500px; object-fit: cover;" />
-      {% endif %}
-    </div>
-    <div style="width: 72.5%; text-align: center;">
-      {% if film.backdrop_path %}
-        <img src="https://image.tmdb.org/t/p/w1280/{{ film.backdrop_path }}" style="width: 100%; height: 500px; object-fit: cover;" />
       {% endif %}
     </div>
   </div>
+</div>
 
-  <script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
+<script type="module" src="{% static 'scripts/watch_providers.js' %}"></script>
 {% endblock %}
-
-<!--Edit -->
-
-{% comment %} 
-
-      <p>
-        <strong>Mountain Lion Score:</strong> {{ film.mlm_rating }}
-      </p>
-      <p>
-        <strong>Overview:</strong> {{ film.overview }}
-      </p>
-      <p>
-        <strong>Revenue:</strong> $ {{ film.revenue|intcomma }}
-      </p>
-      <p>
-        <strong>Budget:</strong> $ {{ film.budget|intcomma }}
-      </p>
-      <p>
-        <strong>Adult:</strong> {% if film.adult %}
-          Yes
-          {% else %}
-          No
-          {% endif %}
-        </p>
-        <div id="streaming_info">{{ film.id }}</div>
-      <p>
-        {% if film.homepage %}
-          <strong>Homepage:</strong> <a href="{{ film.homepage }}" target="_blank">{{ film.homepage }}</a>
-        {% endif %}
-      </p>
- {% endcomment %}

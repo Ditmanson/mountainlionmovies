@@ -1,18 +1,11 @@
 from django.apps import AppConfig
-from django.conf import settings  # Retained for possible future use
-
-# Class definition for the app configuration
 
 
 class FilmprojectConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "filmproject"
-
     def ready(self):
-        # Import signals to register them
-        import filmproject.signals
         pass
-
         # Uncomment the following block if scheduler initialization is needed
         # from filmproject.cron_jobs import start_scheduler
         # from django.db import connections
